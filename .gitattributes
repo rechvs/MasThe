@@ -1,0 +1,3 @@
+# treat .RData and .Rda files as binary
+*.RData binary
+*.Rda binary

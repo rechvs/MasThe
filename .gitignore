@@ -1,0 +1,8 @@
+# .pdf files
+*.pdf
+
+# .jpg files
+*.jpg
+
+# .png files
+*.png
