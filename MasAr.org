@@ -1,0 +1,6 @@
+* TODO [1/2]
+** done read Sterba (1987)
+   - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
+     haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
+** CURRENT scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
+   journal can be found at the BBF-Mag, signature: “II, 76”

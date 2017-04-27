@@ -1,0 +1,176 @@
+% Encoding: UTF-8
+
+@InProceedings{Woerdehoff2014,
+  author    = {René Wördehoff and Matthias Schmidt and Ralf-Volker Nagel and Hermann Spellmann},
+  title     = {Prognose der maximalen Bestandesgrundfläche mit Hilfe von Quantilsregressionen und Entwicklung eines grundflächengesteuerten Nutzungskonzeptes für die Baumarten Buche und Fichte in Nordwestdeutschland},
+  booktitle = {Deutscher Verband Forstlicher Forschungsanstalten Sektion Ertragskunde Tagungsband 2014},
+  year      = {2014},
+  pages     = {88-92},
+  file      = {:Articles/Woerdehoff_et_al_2014.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.04.20},
+}
+
+@Proceedings{Kohnle2014,
+  title     = {Deutscher Verband Forstlicher Forschungsanstalten Sektion Ertragskunde Tagungsband 2014},
+  year      = {2014},
+  editor    = {Ulrich Kohnle and Joachim Klädtke},
+  file      = {:Books/Kohnle_Klaedtke_2014.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.04.21},
+}
+
+@Thesis{Woerdehoff2016,
+  author      = {René Wördehoff},
+  title       = {Kohlenstoffspeicherung als Teilziel der strategischen Waldbauplanung erläutert an Reinbeständen verschiedener Baumarten in Niedersachsen},
+  type        = {phdthesis},
+  institution = {Fakultät für Forstwissenschaften und Waldökologie der Georg-August-Universität Göttingen},
+  year        = {2016},
+  file        = {:Books/Woerdehoff_2016.pdf:PDF;:Books/Woerdehoff_2016_References.pdf:PDF},
+  owner       = {renke},
+  timestamp   = {2017.04.21},
+}
+
+@Article{Assmann1956,
+  author       = {E. Aßmann},
+  title        = {Natürlicher Bestockungsgrad und Zuwachs},
+  journaltitle = {Forstwissenschaftliches Centralblatt},
+  year         = {1956},
+  pages        = {257-265},
+  doi          = {10.1007/BF01787732},
+  abstract     = {- p. 259: author suggests to replace traditional “Ertragstafel-Bestockungs-Grade” with “mittlere Grundflächen-Haltung” relative to “örtlich maximal mögliche Grundflächen-Haltung”},
+  file         = {:Articles/Aszmann_1956.pdf:PDF},
+  owner        = {renke},
+  timestamp    = {2017.04.21},
+}
+
+@InProceedings{Shaw2006,
+  author    = {John D. Shaw},
+  title     = {Reineke’s Stand Density Index: Where are we and where do we go from here?},
+  booktitle = {Society of American Foresters 2005 National Convention},
+  year      = {2006},
+  url       = {http://www.fs.fed.us/rm/pubs_other/rmrs_2006_shaw_j006.pdf},
+  abstract  = {- found via https://de.wikipedia.org/wiki/Stand_Density_Index},
+  file      = {:Articles/Shaw_2006.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.04.21},
+}
+
+@Article{Spellmann1999,
+  author       = {H. Spellmann and J. Nagel and T. Böckmann},
+  title        = {Summarische Nutzungsplanung auf der Basis von Betriebsinventurdaten},
+  journaltitle = {Allgemeine Forst- und Jagdzeitung},
+  year         = {1999},
+  file         = {:Articles/Spellmann_et_al_1999.pdf:PDF},
+  owner        = {renke},
+  timestamp    = {2017.04.21},
+}
+
+@Article{Sterba1987,
+  author       = {H. Sterba},
+  title        = {Estimating Potential Density from Thinning Experiments and Inventory Data},
+  journaltitle = {Forest Science},
+  year         = {1987},
+  abstract     = {- p. 1022: “site index” can be understood as a measure of potential height growth
+
+- p. 1022: apart from the site index, several yield tables have introduced a second dimension for indexing sites;
+this second dimension is called “production class” by Bradley et al. (1966), “yield level“ by Assmann & Franz (1963) and by Bergel (1985), “increment level” by Lembcke et al. (1975);
+“this second dimension of site quality is an expression of that part of the variation of potential density of sites that is independent of the site index”
+
+- p. 1023: based on the “Competition Density Rule” found by Kira et al. (1953), Tadaki (1963), Ando (1968) and Ando et al. (1968) found the following interdependence:
+v = 1 / (AN + B) eq. (1)
+v: mean volume
+A = a_0 h^(a_1)
+h: stand height
+N: stem number per ha
+B = b_0 h^(b_1)
+
+- p. 1023: according to Goulding (1972), equation (1) fitted better for mean diameter than for volume of Douglas fir (eq. (2)):
+d = 1 / (AN + B) eq. (2)
+d: mean diameter
+A = a_0 h^(a_1) eq. (3)
+h: stand height
+N: stem number per ha
+B = b_0 h^(b_1) eq. (4);
+substituting eq. (3) and (4) into eq. (2), one obtains:
+d = 1 / (a_0 h^(a_1) N + b_0 h^(b_1)) eq. (5) [cp. Wördehoff et al. (2014), (Gl. 1)]
+
+- p. 1023: equation (2) can be used to calculate basal area per hectare:
+G = Pi N (d^2) / 4 = Pi N / 4 / (AN + B)^2 [cp. Assmann (1961), p. 209]
+G: basal area per hectare
+
+- p. 1023: the number of stems at maximum basal area per hectare can be obtained by setting the first derivate dG / dN of the abovementioned equation to zero:
+dG / dN = Pi (AN - B) / 4 (AN + B)^3 = 0
+=> N_Gmax = B / A
+N_Gmax: number of stems at maximum basal area per hectare
+
+- p. 1023: combining the abovementioned equation and eq. (2) one can obtain the mean diameter at maximum basal area:
+d_Gmax = 1 / (2 B)
+d_Gmax: mean diameter at maximum basal area
+
+- p. 1023: [substituting N_Gmax and d_Gmax into the equation for G, one obtains:
+G_max = Pi N_Gmax d_Gmax / 4 = Pi / (16 a_0 b_0 h^(a_1 + b_1)) (cp. Wördehoff et al. (2014), (Gl. 3))]
+
+- p. 1024: substituting A and B with the help of eq. (3) and (4) one obtains the asymptotic values of N_Gmax and d_Gmax as a function of a constant dominant height:
+N_Gmax = b_0 / a_0 h^(b_1 - a_1) eq. (6)
+d_Gmax = h^(-b_1) / 2 b_0 eq. (7)
+N_Gmax: number of stems at maximum basal area
+d_Gmax: mean diameter at maximum basal area
+h: dominant height
+
+- p. 1024: the “maximum basal area, established only by natural mortality, was called “natural basal area” by Assmann (1955) and found to be a good indicator to find the “yield level,” i.e., the second index besides the site index in his yield tables for Norway spruce (Assman and Franz (1963)”
+
+- p. 1024: solving eq. (7) for h [i.e. “expressing height as a function of mean diameter at maximum density”], one obtains:
+h = (2 b_0 d_Gmax)^(-1 / b_1);
+substituting this equation into eq. (6), one obtains:
+N_Gmax = b_0 / a_0 (2 b_0 d_Gmax)^(a_1 / b_1 -1) eq. (9) [cp. Wördehoff et al. (2014), (Gl. 2)]},
+  file         = {:Articles/Sterba_1987.pdf:PDF},
+  owner        = {renke},
+  timestamp    = {2017.04.21},
+}
+
+@Book{Assmann1961,
+  author    = {Ernst Assmann},
+  title     = {Waldertragskunde},
+  year      = {1961},
+  location  = {München and Bonn and Wien},
+  abstract  = {- p. 209: definition of basal area (Grundfläche) of a single tree
+g = d^2 Pi / 4
+g: basal area
+d: tree diameter at 1.3 m height
+
+- p. 209: definition of basal area (Grundfläche) per hectare
+G = g_1 + g_2 + ... + g_n
+G: basal area per hectare
+g_i: basal area of tree i
+n: number of trees per hectare
+
+- p. 209: definition of mean basal area (mittlere Grundfläche)
+g_m = G / N
+g_m: mean basal area
+G: basal area per hectare
+N: number of trees per hectare
+
+- p. 209: definition of mean diameter
+d_m = (Pi / 4 * g_m)^(1/2)
+d_m: mean diameter
+g_m: mean basal area
+
+- p. 209: other ways to calculate basal area (Grundfläche) per hectare
+G = N * g_m = N * d_m^2 Pi / 4
+G: basal area per hectare
+N: number of trees per hectare
+g_m: mean basal area
+d_m: mean diameter
+
+- p. 224: definition of maximum basal area (maximale Grundfläche) (which is a momentary value for a given age): the site specific highest possible basal area of living trees per hectare;
+it can be determined in stands which have not been subjected to human induced thinning
+
+- p. 224: definition of optimum basal area upkeep (optimale Grundflächenhaltung): the basal area upkeep [which is a mean value for a given observation period] which guarantees the highest possible increment for a given observation period
+
+- p. 224: definition of critical basal area upkeep (kritische Grundflächenhaltung): the basal area upkeep [which is a mean value for a given observation period] which guarantees at least 95 % of the highest possible increment for a given observation period},
+  owner     = {renke},
+  timestamp = {2017.04.26},
+}
+
+@Comment{jabref-meta: databaseType:biblatex;}
