@@ -1,7 +1,7 @@
 ## Preamble
 rm(list = ls())
-setwd("~/laptop02_MasAr")
-load("R/Data/gmax.RData")
+setwd(dir = "~/laptop02_MasAr")
+load(file = "R/Data/gmax.RData")
 
 ## Transform columns to factor if appropriate
 bart$edvid <- as.factor(bart$edvid)
