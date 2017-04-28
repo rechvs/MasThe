@@ -67,5 +67,3 @@ graphics.off()
 system2(command = "mupdf",
         args = "-r 64 Graphics/gha_h100.pdf",
         wait = FALSE)
-
-       
