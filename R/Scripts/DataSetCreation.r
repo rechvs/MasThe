@@ -61,3 +61,17 @@ bart$rel.ksha <- bart$ksha / bart$sum.ksha
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_1.3.RData". ##
+##############################
+## Based on version 1.2.
+## In this version, "bart" contains an additional 23. column "rel.nhaa" = "nhaa" / "nha".
+kBaseFileVersion <- "1.2"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.3"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "rel.nhaa".
+bart$rel.nhaa <- bart$nhaa / bart$nha
