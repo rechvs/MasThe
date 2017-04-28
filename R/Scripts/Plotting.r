@@ -1,7 +1,7 @@
 ## Preamble
 rm(list = ls())
-setwd("~/laptop02_MasAr/R")
-load("Data/gmax.RData")
+setwd("~/laptop02_MasAr")
+load("R/Data/gmax.RData")
 
 ## Transform columns to factor if appropriate
 bart$edvid <- as.factor(bart$edvid)
@@ -32,7 +32,8 @@ plot(x = NA,
      xlim = range(bart$h100, na.rm = TRUE),
      ylim = range(bart$gha, na.rm = TRUE),
      xaxs = "r",
-     yaxs = "r")
+     yaxs = "r",
+     main = "spruce only")
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col and pch
