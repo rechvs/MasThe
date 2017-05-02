@@ -75,3 +75,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "rel.nhaa".
 bart$rel.nhaa <- bart$nhaa / bart$nha
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
