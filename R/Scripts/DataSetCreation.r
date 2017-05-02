@@ -79,3 +79,24 @@ bart$rel.nhaa <- bart$nhaa / bart$nha
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_1.4.RData". ##
+##############################
+## Based on version 1.3.
+## In this version, the following columns of "bart" are transformed into factors:
+## - edvid (1.)
+## - art (3.)
+kBaseFileVersion <- "1.3"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.4"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Transform columns.
+bart$edvid <- as.factor(bart$edvid)
+bart$art <- as.factor(bart$art)
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
