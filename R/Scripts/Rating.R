@@ -34,6 +34,7 @@ kHeightDiff <- kHeightAge2 - kHeightAge1
 age.in.question <- 54
 height.in.question <- kHeightAge1 + (kHeightAge2 - kHeightAge1) / kAgeDiff * (age.in.question - kAge1)
 height.in.question
+## Copy mean height from all EKLs for moderate thinning of spruce from Schober (1975).
 EKL.I = data.frame(age = seq(from = 20, to = 120, by = 5),
                    mean.height = c(7.1, 9.2, 11.5, 14.1, 16.6, 19.0, 21.2, 23.1, 24.7, 26.1, 27.4, 28.6, 29.7, 30.7, 31.6, 32.5, 33.3, 34.1, 24.8, 35.4, 35.9))
 EKL.II = data.frame(age = seq(from = 20,                              to = 120,                              by = 5),
