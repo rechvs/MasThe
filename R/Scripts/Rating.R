@@ -13,27 +13,6 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 
 ## "Manually" rate parcel "05451102" based on Schober (1975).
 ## bart[bart$edvid == "05451102",c(1,2,3,4,8,18)]
-## MODERATE THINNING, EKL I ##
-## Calculate mean height at age 39.
-kAge1 <- 35
-kAge2 <- 40
-kAgeDiff <- kAge2 - kAge1
-kHeightAge1 <- 14.1
-kHeightAge2 <- 16.6
-kHeightDiff <- kHeightAge2 - kHeightAge1
-age.in.question <- 39
-height.in.question <- kHeightAge1 + (kHeightAge2 - kHeightAge1) / kAgeDiff * (age.in.question - kAge1)
-height.in.question
-## Calculate mean height at age 54.
-kAge1 <- 50
-kAge2 <- 55
-kAgeDiff <- kAge2 - kAge1
-kHeightAge1 <- 21.2
-kHeightAge2 <- 23.1
-kHeightDiff <- kHeightAge2 - kHeightAge1
-age.in.question <- 54
-height.in.question <- kHeightAge1 + (kHeightAge2 - kHeightAge1) / kAgeDiff * (age.in.question - kAge1)
-height.in.question
 ## Copy mean height from all EKLs for moderate thinning of spruce from Schober (1975).
 EKL.I = data.frame(age = seq(from = 20, to = 120, by = 5),
                    mean.height = c(7.1, 9.2, 11.5, 14.1, 16.6, 19.0, 21.2, 23.1, 24.7, 26.1, 27.4, 28.6, 29.7, 30.7, 31.6, 32.5, 33.3, 34.1, 34.8, 35.4, 35.9))
@@ -86,4 +65,52 @@ for (EKL.current.name in names(yield.table.spruce.schober.1975$moderate.thinning
                                                  to = age[length(x = age)]),
                                        mean.height = mean.height.complete)
     yield.table.spruce.schober.1975$moderate.thinning[[paste0(EKL.current.name, ".complete")]] <-  EKL.current.complete
+}
+## Copy mean height from all EKLs for heavy thinning of spruce from Schober (1975).
+EKL.I = data.frame(age = seq(from = 20, to = 120, by = 5),
+                   mean.height = c(8.5, 10.5, 12.1, 14.8, 17.4, 19.8, 22.1, 24.0, 25.7, 27.1, 28.4, 29.6, 30.7, 31.7, 32.6, 33.5, 34.3, 35.0, 35.7, 36.4, 36.9))
+EKL.II = data.frame(age = seq(from = 20, to = 120, by = 5),
+                    mean.height = c(5.4, 7.3, 9.3, 11.4, 13.7, 15.8, 17.9, 19.8, 21.5, 23.0, 24.3, 25.5, 26.6, 27.6, 28.6, 29.5, 30.3, 31.1, 31.8, 32.5, 33.2))
+EKL.III = data.frame(age = seq(from = 20, to = 120, by = 5),
+                     mean.height = c(3.9, 5.6, 6.8, 8.4, 10.0, 12.1, 13.9, 15.5, 17.0, 18.4, 19.7, 20.9, 22.0, 23.0, 24.0, 24.9, 25.8, 26.7, 27.5, 28.3, 29.0))
+yield.table.spruce.schober.1975 <- c(yield.table.spruce.schober.1975,
+                                     list(heavy.thinning = list(EKL.I = EKL.I,
+                                                                EKL.II = EKL.II,
+                                                                EKL.III = EKL.III)))
+## Calculate mean heights not listed in Schober (1975) for all EKLs for heavy thinning of spruce.
+for (EKL.current.name in names(yield.table.spruce.schober.1975$heavy.thinning)) {
+    EKL.current <- get(x = EKL.current.name)
+    age <- EKL.current$age 
+    mean.height <- EKL.current$mean.height
+    diff.age <- diff(x = age)
+    diff.mean.height <- diff(x = mean.height)
+    diff.mean.height.per.year <- diff.mean.height / diff.age
+    mean.height.complete <- list(NA)
+    for (element in 1:length(diff.age)) {
+        mean.height.complete[element] <- list(c(mean.height[element],
+                                                rep(x = NA,
+                                                    times = diff.age[element] - 1)))
+    }
+    mean.height.complete <- unlist(x = mean.height.complete)
+    mean.height.na.elements <- which(x = is.na(x = mean.height.complete))
+    element2 <- 0
+    for (element in 1:length(mean.height.complete)) {
+        if (element %% 5 == 1) {
+            element2 <- element2 + 1
+        }
+        base.mean.height <- mean.height[element2]
+        increment.yearly <- diff.mean.height.per.year[element2]
+        if (element %% 5 != 0) {
+            mult.fact <- ((element %% 5) - 1)
+        } else {
+            mult.fact <- 4
+        }
+        increment.mean.height <- mult.fact * increment.yearly
+        mean.height.complete[element] <- base.mean.height + increment.mean.height
+    }
+    mean.height.complete[length(x = mean.height.complete) + 1] <- mean.height[length(x = mean.height)]
+    EKL.current.complete <- data.frame(age = seq(from = age[1],
+                                                 to = age[length(x = age)]),
+                                       mean.height = mean.height.complete)
+    yield.table.spruce.schober.1975$heavy.thinning[[paste0(EKL.current.name, ".complete")]] <-  EKL.current.complete
 }
