@@ -85,7 +85,5 @@ for (EKL.current.name in names(yield.table.spruce.schober.1975$moderate.thinning
     EKL.current.complete <- data.frame(age = seq(from = age[1],
                                                  to = age[length(x = age)]),
                                        mean.height = mean.height.complete)
-    assign(x = paste0(EKL.current.name,
-                      ".complete"),
-           value = EKL.current.complete)
+    yield.table.spruce.schober.1975$moderate.thinning[[paste0(EKL.current.name, ".complete")]] <-  EKL.current.complete
 }
