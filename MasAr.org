@@ -1,6 +1,17 @@
-* TODO [1/2]
+* TODO [4/5]
 ** done read Sterba (1987)
    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
-** CURRENT scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
+** done scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
+   - State "done"       from "CURRENT"    [2017-05-02 Di 10:38]
+     see “Sterba_1975.pdf“ and „Sterba_1981.pdf“ [[file:Literature/Articles/][here]]
    journal can be found at the BBF-Mag, signature: “II, 76”
+** done interpolate mean heights not listed in Schober (1975) for moderate and heavy thinning
+   - State "done"       from "CURRENT"    [2017-05-04 Do 14:58]
+     see [[file:R/Scripts/Rating.R::##%20Calculate%20mean%20heights%20not%20listed%20in%20Schober%20(1975)%20for%20all%20EKLs%20for%20moderate%20thinning%20of%20spruce.][here for moderate thinning]] and [[file:R/Scripts/Rating.R::##%20Calculate%20mean%20heights%20not%20listed%20in%20Schober%20(1975)%20for%20all%20EKLs%20for%20heavy%20thinning%20of%20spruce.][here for heavy thinning]]
+** done look for references mentioned in “help("mgcv.package")” at the SUB
+   - State "done"       from "CURRENT"    [2017-05-04 Do 15:44]
+     found all articles;
+     book is available in library (see [[file:Literature/gbv-download.txt::73][here]]), but not lendable;
+     see search results [[file:Literature/gbv-download.txt][here]] for books related to “generalized additive models”
+** CURRENT continue reading Wood (2001), p. 22

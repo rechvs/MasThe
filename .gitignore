@@ -6,3 +6,6 @@
 
 # .png files
 *.png
+
+# File “Literature/Exported_Items.bib”
+Literature/Exported_Items.bib
