@@ -2,7 +2,6 @@
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
-
 ############################
 ## Rate selected parcels. ##
 ############################
@@ -10,9 +9,6 @@ kDataDir <- "Data/"
 kBaseFileVersion <- "1.4"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-
-## "Manually" rate parcel "05451102" based on Schober (1975).
-## bart[bart$edvid == "05451102",c(1,2,3,4,8,18)]
 ## Copy mean height from all EKLs for moderate thinning of spruce from Schober (1975).
 EKL.I = data.frame(age = seq(from = 20, to = 120, by = 5),
                    mean.height = c(7.1, 9.2, 11.5, 14.1, 16.6, 19.0, 21.2, 23.1, 24.7, 26.1, 27.4, 28.6, 29.7, 30.7, 31.6, 32.5, 33.3, 34.1, 34.8, 35.4, 35.9))
@@ -114,3 +110,36 @@ for (EKL.current.name in names(yield.table.spruce.schober.1975$heavy.thinning)) 
                                        mean.height = mean.height.complete)
     yield.table.spruce.schober.1975$heavy.thinning[[paste0(EKL.current.name, ".complete")]] <-  EKL.current.complete
 }
+## "Manually" rate parcel "05451102" based on Schober (1975). ##
+## Create data frame for comparing measured mean heights and yield table mean heights.
+compdf <- bart[bart$edvid == "05451102" & bart$alt <= 100 & bart$alt >= 40, c(1,2,3,4,8,18)]
+## Extract the completed yield tables from "yield.table.spruce.schober.1975" for moderate thinning ("mt") and heavy thinning ("ht").
+EKL.I.complete.mt <- yield.table.spruce.schober.1975$moderate.thinning$EKL.I.complete
+EKL.II.complete.mt <- yield.table.spruce.schober.1975$moderate.thinning$EKL.II.complete
+EKL.III.complete.mt <- yield.table.spruce.schober.1975$moderate.thinning$EKL.III.complete
+EKL.IV.complete.mt <- yield.table.spruce.schober.1975$moderate.thinning$EKL.IV.complete
+EKL.V.complete.mt <- yield.table.spruce.schober.1975$moderate.thinning$EKL.V.complete
+EKL.I.complete.ht <- yield.table.spruce.schober.1975$heavy.thinning$EKL.I.complete
+EKL.II.complete.ht <- yield.table.spruce.schober.1975$heavy.thinning$EKL.II.complete
+EKL.III.complete.ht <- yield.table.spruce.schober.1975$heavy.thinning$EKL.III.complete
+## Append columns containing the yield table mean heights to comparison data frame.
+compdf <- data.frame(compdf, I.mt.h100 = EKL.I.complete.mt$mean.height[EKL.I.complete.mt$age %in% compdf$alt])
+compdf <- data.frame(compdf, II.mt.h100 = EKL.II.complete.mt$mean.height[EKL.II.complete.mt$age %in% compdf$alt])
+compdf <- data.frame(compdf, III.mt.h100 = EKL.III.complete.mt$mean.height[EKL.III.complete.mt$age %in% compdf$alt])
+compdf <- data.frame(compdf, IV.mt.h100 = EKL.IV.complete.mt$mean.height[EKL.IV.complete.mt$age %in% compdf$alt])
+compdf <- data.frame(compdf, V.mt.h100 = EKL.V.complete.mt$mean.height[EKL.V.complete.mt$age %in% compdf$alt])
+compdf <- data.frame(compdf, I.ht.h100 = EKL.I.complete.ht$mean.height[EKL.I.complete.ht$age %in% compdf$alt])
+compdf <- data.frame(compdf, II.ht.h100 = EKL.II.complete.ht$mean.height[EKL.II.complete.ht$age %in% compdf$alt])
+compdf <- data.frame(compdf, III.ht.h100 = EKL.III.complete.ht$mean.height[EKL.III.complete.ht$age %in% compdf$alt])
+## Manually rate parcel based on mean height for moderate thinning.
+## compdf[,c(1:10)]
+compdf <- data.frame(compdf,
+                     manual.ekl.mt = c("I,x", "I,x", "II,x", "II,x", "I,x", "II,x", "II,x", "II,x", "II,x", "I,x", "I,x"))
+## Manually rate parcel based on mean height for heavy thinning.
+## compdf[,c(1:5,11:13)]
+compdf <- data.frame(compdf,
+                     manual.ekl.ht = c("II", "II,x", "II,x", "II,x", "I,x", "II,x", "II,x", "II,x", "II,x", "II,x", "II,x"))
+## Rate parcel "05451102" based on the function by Nagel 1999. ##
+## Original function (see email by Matthias Schmidt from 2017-04-27 12:06):
+## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
+compdf$SI_h100 <- (compdf$h100+49.87200-7.33090*log(compdf$alt)-0.77338*((log(compdf$alt))^2.0))/(0.52684+0.10542*log(compdf$alt))
