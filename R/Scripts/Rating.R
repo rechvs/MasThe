@@ -139,7 +139,7 @@ compdf <- data.frame(compdf,
 ## compdf[,c(1:5,11:13)]
 compdf <- data.frame(compdf,
                      manual.ekl.ht = c("II", "II,x", "II,x", "II,x", "I,x", "II,x", "II,x", "II,x", "II,x", "II,x", "II,x"))
-## Rate parcel "05451102" based on the function by Nagel 1999. ##
+## Rate all parcels in "bart" based on the function by Nagel 1999. ##
 ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06):
 ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
-compdf$SI_h100 <- (compdf$h100+49.87200-7.33090*log(compdf$alt)-0.77338*((log(compdf$alt))^2.0))/(0.52684+0.10542*log(compdf$alt))
+bart$SI_h100 <- (bart$h100+49.87200-7.33090*log(bart$alt)-0.77338*((log(bart$alt))^2.0))/(0.52684+0.10542*log(bart$alt))
