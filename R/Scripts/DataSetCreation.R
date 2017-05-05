@@ -100,3 +100,21 @@ bart$art <- as.factor(bart$art)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_1.5.RData". ##
+##############################
+## Based on version 1.4.
+## In this version, "bart" contains an additional 24. column "SI_h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
+kBaseFileVersion <- "1.4"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.5"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "SI_h100".
+bart$SI_h100 <- (bart$h100+49.87200-7.33090*log(bart$alt)-0.77338*((log(bart$alt))^2.0))/(0.52684+0.10542*log(bart$alt))
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
