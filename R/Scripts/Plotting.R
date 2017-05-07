@@ -3,11 +3,11 @@
 ###############
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
+kDataDir <- "Data/"
 ## Load base file.
 kBaseFileVersion <- "1.5"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-load(file = "R/Data/gmax.RData")
 
 ## Tree species according to Wördehoff (2016).
 ## 110 = Eiche
