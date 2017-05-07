@@ -16,3 +16,6 @@ Literature/Exported_Items.bib
 *.log
 *.out
 *.run.xml
+
+# .el files.
+*.el
