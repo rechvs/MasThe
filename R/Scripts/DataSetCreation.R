@@ -20,15 +20,15 @@ save(list = kgmaxObjects,
 ## Create "gmax_1.1.RData". ##
 ##############################
 ## Based on version 1.0.
-## In this version, "bart" contains an additional 21. column "ksha.sum" holding the sum of "ksha" for each combination of "edvid" and "auf".
+## In this version, "bart" contains an additional 21. column "ksha.sum.edvid.auf" holding the sum of "ksha" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.0"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.1"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.sum" and store in data frame "ksha.sums".
-ksha.sums <- aggregate(x = list(ksha.sum = bart$ksha),
+## Calculate "ksha.sum.edvid.auf" and store in data frame "ksha.sums".
+ksha.sums <- aggregate(x = list(ksha.sum.edvid.auf = bart$ksha),
                        by = list(edvid = bart$edvid,
                                  auf = bart$auf),
                        FUN = sum)
@@ -48,7 +48,7 @@ save(list = kgmaxObjects,
 ## Create "gmax_1.2.RData". ##
 ##############################
 ## Based on version 1.1.
-## In this version, "bart" contains an additional 22. column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum" for each combination of "edvid" and "auf".
+## In this version, "bart" contains an additional 22. column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum.edvid.auf" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.1"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.2"
@@ -56,7 +56,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ksha.rel".
-bart$ksha.rel <- bart$ksha / bart$ksha.sum
+bart$ksha.rel <- bart$ksha / bart$ksha.sum.edvid.auf
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
