@@ -142,4 +142,4 @@ compdf <- data.frame(compdf,
 ## Rate all parcels in "bart" based on the function by Nagel 1999. ##
 ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06):
 ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
-bart$SI_h100 <- (bart$h100+49.87200-7.33090*log(bart$alt)-0.77338*((log(bart$alt))^2.0))/(0.52684+0.10542*log(bart$alt))
+bart$SI.h100 <- (bart$h100 + 49.87200 - 7.33090 * log(x = bart$alt) - 0.77338 * ((log(x = bart$alt))^2.0)) / (0.52684 + 0.10542 * log(x = bart$alt))

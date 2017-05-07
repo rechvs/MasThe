@@ -113,7 +113,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "SI_h100".
-bart$SI_h100 <- (bart$h100+49.87200-7.33090*log(bart$alt)-0.77338*((log(bart$alt))^2.0))/(0.52684+0.10542*log(bart$alt))
+bart$SI.h100 <- (bart$h100 + 49.87200 - 7.33090 * log(x = bart$alt) - 0.77338 * ((log(x = bart$alt))^2.0))/(0.52684 + 0.10542 * log(x = bart$alt))
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
