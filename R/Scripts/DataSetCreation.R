@@ -139,3 +139,52 @@ bart$h100.EKL.I <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart$alt)) - 49.
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_1.7.RData". ##
+##############################
+## Based on version 1.6.
+## In this version, "bart" contains an additional 26. column "gha.diff" which holds the difference in "gha" between the current and the previous measurement, calculated separately for each combination of "edvid" and "art".
+kBaseFileVersion <- "1.6"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.7"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "gha.diff".
+for (parcel in levels(bart$edvid)) {
+    for (species in levels(bart$art)) {
+        gha.cur.par <- bart$gha[bart$edvid == parcel & bart$art == species]
+        bart$gha.diff[bart$edvid == parcel & bart$art == species] <- c(diff(x = c(0, gha.cur.par)))  ## "gha" of year 0 is taken as 0
+    }
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+
+##############################
+## Create "gmax_1.8.RData". ##
+##############################
+## Based on version 1.7.
+## In this version, "bart" contains an additional 27. column "gha.rel.cha" which holds the relative change of "gha" between the previous and the current measurement relative to previous measurement, calculated separately for each combination of "edvid" and "art".
+kBaseFileVersion <- "1.7"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.8"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "gha.rel.cha".
+for (parcel in levels(bart$edvid)) {
+    for (species in levels(bart$art)) {
+        gha.cur.par <- bart$gha[bart$edvid == parcel & bart$art == species]
+        gha.cur.par <- gha.cur.par[1:length(gha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
+        gha.diff <- bart$gha.diff[bart$edvid == parcel & bart$art == species]
+        gha.diff <- gha.diff[2:length(gha.diff)]  ## Remove first element since it is not necessary for the calculation.
+        bart$gha.rel.cha[bart$edvid == parcel & bart$art == species] <- c(NA, gha.diff / gha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+    }
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
