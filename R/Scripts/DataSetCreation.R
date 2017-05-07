@@ -105,7 +105,7 @@ save(list = kgmaxObjects,
 ## Create "gmax_1.5.RData". ##
 ##############################
 ## Based on version 1.4.
-## In this version, "bart" contains an additional 24. column "SI_h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
+## In this version, "bart" contains an additional 24. column "SI.h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
 kBaseFileVersion <- "1.4"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.5"
@@ -113,6 +113,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "SI_h100".
+## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
 bart$SI.h100 <- (bart$h100 + 49.87200 - 7.33090 * log(x = bart$alt) - 0.77338 * ((log(x = bart$alt))^2.0))/(0.52684 + 0.10542 * log(x = bart$alt))
 ## Save results.
 save(list = kgmaxObjects,
