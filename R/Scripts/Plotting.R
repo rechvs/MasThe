@@ -181,15 +181,6 @@ for (ts in levels(bart$edvid)) {
            lwd = kPlotSettingsDataFrame$lwd[kCntr])
     kCntr <- kCntr+1
 }
-## Add lines to plot
-## for (ts in levels(bart$edvid)) {
-    ## lines(x = bart$alt[bart$edvid == ts & bart$art == 511],
-          ## y = bart$gha[bart$edvid == ts & bart$art == 511],
-          ## col = kPlotSettingsDataFrame$col[kCntr],
-          ## lty = kPlotSettingsDataFrame$lty[kCntr],
-          ## lwd = kPlotSettingsDataFrame$lwd[kCntr])
-    ## kCntr <- kCntr+1
-## }
 ## Add legend.
 legend(x = "topright",
        legend = paste("edvid: ", levels(bart$edvid)),
@@ -202,5 +193,5 @@ legend(x = "topright",
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
-args = "-r 64 Graphics/gha_alt.pdf",
-wait = FALSE)
+        args = "-r 64 Graphics/gha_alt.pdf",
+        wait = FALSE)
