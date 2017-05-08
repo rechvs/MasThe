@@ -227,16 +227,19 @@ system2(command = "mupdf",
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
-pdf(file = "Graphics/gmax_alt_invalid_excluded.pdf",
+pdf(file = "Graphics/gmax_alt.pdf",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
     pointsize = 19,
     family = "Times")
+## Set plot margins.
+par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lines.
+## par(mar = c(5, 5, 2, 1))  ## As small as possible using whole lines.
 ## Create empty plot.
 plot(x = NA,
      y = NA,
      xlab = "alt [a]",
-     ylab = expression("gha"[max]*"[m"^2*"]"),
+     ylab = expression("gha"[max]*"[m"^2*"ha"^-1*"]"),
      xlim = c(range(bart.clean$alt, na.rm = TRUE)[1],range(bart.clean$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
      ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
