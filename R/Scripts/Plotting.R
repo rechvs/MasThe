@@ -159,9 +159,9 @@ system2(command = "mupdf",
         args = "-r 64 Graphics/ekl_alt.pdf",
         wait = FALSE)
 
-##############################################################################################################
-## Plot bart$gha against bart$alt, separately for each bart$edvid while excluding invalid data (see below). ##
-##############################################################################################################
+#######################################################################################
+## Plot bart.clean$gha against bart.clean$alt, separately for each bart.clean$edvid. ##
+#######################################################################################
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
