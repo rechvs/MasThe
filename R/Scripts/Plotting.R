@@ -302,3 +302,75 @@ graphics.off()
 system2(command = "mupdf",
         args = "-r 64 Graphics/gmax_alt.pdf",
         wait = FALSE)
+
+#######################################################################################
+## Plot bart.clean$SI.h100 against bart.clean$alt, separately for each bart.clean$edvid. ##
+#######################################################################################
+graphics.off()
+## Start graphics device driver for producing PDF graphics.
+kPdfWidth <- 30
+pdf(file = "Graphics/SI.h100_alt.pdf",
+    width = kPdfWidth,
+    height = kPdfWidth*0.625,
+    pointsize = 19,
+    family = "Times")
+## Set plot margins.
+par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lines.
+## par(mar = c(5, 5, 2, 1))  ## As small as possible using whole lines.
+## Create empty plot.
+plot(x = NA,
+     y = NA,
+     xlab = "alt [a]",
+     ylab = "SI.h100 [m]",
+     xlim = c(range(bart.clean$alt, na.rm = TRUE)[1],range(bart.clean$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
+     ylim = range(bart.clean$SI.h100, na.rm = TRUE),
+     xaxs = "r",
+     yaxs = "r",
+     ## main = "spruce only")
+     main = expression(bold("art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")))
+grid(col = "black",
+     lwd = 2)
+## Create data frame containing combinations of col and pch.
+kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
+kPchVec <- c(21:25)
+kLtyVec <- 1
+kLwdVec <- 2
+kPlotSettingsDataFrame <- data.frame()
+for (col in kColVec) {
+    kPlotSettingsDataFrame <- rbind(kPlotSettingsDataFrame,
+                              cbind(col = col,
+                                    pch = kPchVec,
+                                    lty = kLtyVec,
+                                    lwd = kLwdVec),
+                              stringsAsFactors = FALSE)
+}
+kPlotSettingsDataFrame$pch <- as.numeric(kPlotSettingsDataFrame$pch)
+kPlotSettingsDataFrame$lty <- as.numeric(kPlotSettingsDataFrame$lty)
+kPlotSettingsDataFrame$lwd <- as.numeric(kPlotSettingsDataFrame$lwd)
+kCntr <- 1
+## Add points to empty plot.
+for (ts in levels(bart.clean$edvid)) {
+    points(x = bart.clean$alt[bart.clean$edvid == ts],
+           y = bart.clean$SI.h100[bart.clean$edvid == ts],
+           type = "b",
+           col = kPlotSettingsDataFrame$col[kCntr],
+           bg = kPlotSettingsDataFrame$col[kCntr],
+           pch = kPlotSettingsDataFrame$pch[kCntr],
+           lty = kPlotSettingsDataFrame$lty[kCntr],
+           lwd = kPlotSettingsDataFrame$lwd[kCntr])
+    kCntr <- kCntr+1
+}
+## Add legend.
+legend(x = "topright",
+       legend = paste("edvid: ", levels(bart.clean$edvid)),
+       bg = "slategray1",
+       col = kPlotSettingsDataFrame$col,
+       pt.bg = kPlotSettingsDataFrame$col,
+       pch = kPlotSettingsDataFrame$pch,
+       lty = kPlotSettingsDataFrame$lty,
+       lwd = kPlotSettingsDataFrame$lwd)
+graphics.off()
+## Open .pdf file via mupdf.
+system2(command = "mupdf",
+        args = "-r 64 Graphics/SI.h100_alt.pdf",
+        wait = FALSE)
