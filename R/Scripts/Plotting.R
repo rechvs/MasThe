@@ -16,27 +16,27 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 
-##########################################################################################
-## Plot bart$gha against bart$h100 for bart$art == 511, separately for each bart$edvid. ##
-##########################################################################################
+############################################################################################################
+## Plot bart.clean$gha against bart.clean$h100 for bart$art == 511, separately for each bart.clean$edvid. ##
+############################################################################################################
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
 pdf(file = "Graphics/gha_h100.pdf",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
-    pointsize = 18,
+    pointsize = 19,
     family = "Times")
 ## Create empty plot.
 plot(x = NA,
      y = NA,
      xlab = "h100 [m]",
-     ylab = "gha [m²]",
-     xlim = range(bart$h100, na.rm = TRUE),
-     ylim = range(bart$gha, na.rm = TRUE),
+     ylab = expression("gha [m"^2*"]"),
+     xlim = c(range(bart.clean$h100, na.rm = TRUE)[1],range(bart.clean$h100, na.rm = TRUE)[2]+5),
+     ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
      yaxs = "r",
-     main = "spruce only")
+     main = expression(bold("art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")))
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col and pch.
@@ -51,17 +51,17 @@ for (col in kColVec) {
 kPchColDataFrame$pch <- as.numeric(kPchColDataFrame$pch)
 kCntr <- 1
 ## Add points to empty plot.
-for (ts in levels(bart$edvid)) {
-    points(x = bart$h100[bart$edvid == ts & bart$art == 511],
-           y = bart$gha[bart$edvid == ts & bart$art == 511],
+for (ts in levels(bart.clean$edvid)) {
+    points(x = bart.clean$h100[bart.clean$edvid == ts],
+           y = bart.clean$gha[bart.clean$edvid == ts],
            col = kPchColDataFrame$col[kCntr],
            bg = kPchColDataFrame$col[kCntr],
            pch = kPchColDataFrame$pch[kCntr])
     kCntr <- kCntr+1
 }
 ## Add legend.
-legend(x = "topleft",
-       legend = paste("edvid: ", levels(bart$edvid)),
+legend(x = "topright",
+       legend = paste("edvid: ", levels(bart.clean$edvid)),
        bg = "slategray1",
        col = kPchColDataFrame$col,
        pt.bg = kPchColDataFrame$col,
