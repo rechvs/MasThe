@@ -40,7 +40,7 @@ plot(x = NA,
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col and pch.
-kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow","magenta")
+kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
 kPchVec <- c(21:25)
 kPchColDataFrame <- data.frame()
 for (col in kColVec) {
@@ -96,7 +96,7 @@ plot(x = NA,
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col and pch.
-kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow","magenta")
+kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
 kPchVec <- c(21:25)
 kPchColDataFrame <- data.frame()
 for (col in kColVec) {
@@ -152,7 +152,7 @@ plot(x = NA,
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col, pch, lty, and lwd.
-kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow","magenta")
+kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
 kPchVec <- c(21:25)
 kLtyVec <- 1
 kLwdVec <- 2
@@ -251,7 +251,7 @@ plot(x = NA,
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col, pch, lty, and lwd.
-kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow","magenta")
+kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
 kPchVec <- c(21:25)
 kLtyVec <- 1
 kLwdVec <- 2
