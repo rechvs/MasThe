@@ -165,7 +165,7 @@ system2(command = "mupdf",
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
-pdf(file = "Graphics/gha_alt",
+pdf(file = "Graphics/gha_alt.pdf",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
     pointsize = 19,
@@ -227,7 +227,7 @@ legend(x = "topright",
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
-        args = "-r 64 Graphics/gha_alt",
+        args = "-r 64 Graphics/gha_alt.pdf",
         wait = FALSE)
 
 ###################################################################################################################
