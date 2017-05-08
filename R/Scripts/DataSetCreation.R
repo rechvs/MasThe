@@ -188,3 +188,50 @@ for (parcel in levels(bart$edvid)) {
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_1.9.RData". ##
+##############################
+## Based on version 1.8.
+## In this version, an additional data frame "bart.clean" is created which is a subset of "bart", excluding all invalid data (see below for details).
+kBaseFileVersion <- "1.8"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "1.9"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Exclude all lines in which "bart$art != 511".
+bart.clean <- droplevels(x = bart[bart$art == 511, ])
+## Exclude all lines in which "bart.clean$ksha.rel < 0.7".
+bart.clean <- bart.clean[bart.clean$ksha.rel >= 0.7, ]
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean$gha.rel.cha <= 0".
+names.vec <- NULL
+for (parcel in levels(bart.clean$edvid)) {
+    name.cur <- paste0("obj.", as.character(parcel))
+    names.vec <- c(names.vec, name.cur)
+    parcel.subset <- bart.clean[bart.clean$edvid == parcel, ]
+    auf.vec <- parcel.subset$auf[parcel.subset$gha.rel.cha < 0]
+    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
+        auf.mark <- min(auf.vec, na.rm = TRUE)
+        parcel.subset <- parcel.subset[parcel.subset$auf < auf.mark, ]
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    }
+}
+## Create new data frame from objects created by "for" loop above.
+bart.clean <- data.frame(NULL)
+for (name.cur in names.vec) {
+    bart.clean <- rbind(bart.clean,
+                          eval(expr = as.name(x = name.cur)))
+}
+## Drop unused levels.
+bart.clean <- droplevels(x = bart.clean)
+## Add "bart.clean" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bart.clean", kgmaxObjects)
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
