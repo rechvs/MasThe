@@ -291,5 +291,5 @@ legend(x = "topright",
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
-        args = "-r 64 Graphics/gmax_alt_invalid_excluded.pdf",
+        args = "-r 64 Graphics/gmax_alt.pdf",
         wait = FALSE)
