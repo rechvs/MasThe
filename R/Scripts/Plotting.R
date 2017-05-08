@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## Load base file.
-kBaseFileVersion <- "1.8"
+kBaseFileVersion <- "1.9"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 
@@ -199,37 +199,6 @@ system2(command = "mupdf",
 ##############################################################################################################
 ## Plot bart$gha against bart$alt, separately for each bart$edvid while excluding invalid data (see below). ##
 ##############################################################################################################
-## Create new data frame "bart.clean" from "bart" by excluding invalid data. ##
-###############################################################################
-## Exclude all lines in which "bart$art != 511".
-bart.clean <- droplevels(x = bart[bart$art == 511, ])
-## Exclude all lines in which "bart.clean$ksha.rel < 0.7".
-bart.clean <- bart.clean[bart.clean$ksha.rel >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean$gha.rel.cha <= 0".
-names.vec <- NULL
-for (parcel in levels(bart.clean$edvid)) {
-    name.cur <- paste0("obj.", as.character(parcel))
-    names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean[bart.clean$edvid == parcel, ]
-    auf.vec <- parcel.subset$auf[parcel.subset$gha.rel.cha < 0]
-    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
-        auf.mark <- min(auf.vec, na.rm = TRUE)
-        parcel.subset <- parcel.subset[parcel.subset$auf < auf.mark, ]
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    }
-}
-## Create new data frame from objects created by "for" loop above.
-bart.clean <- data.frame(NULL)
-for (name.cur in names.vec) {
-    bart.clean <- rbind(bart.clean,
-                          eval(expr = as.name(x = name.cur)))
-}
-bart.clean <- droplevels(x = bart.clean)
-rm(list = names.vec)  ## Perform a bit of clean up.
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
@@ -298,37 +267,6 @@ system2(command = "mupdf",
 ###################################################################################################################
 ## Plot max(bart$gha) against bart$alt, separately for each bart$edvid while excluding invalid data (see below). ##
 ###################################################################################################################
-## Create new data frame "bart.clean" from "bart" by excluding invalid data. ##
-###############################################################################
-## Exclude all lines in which "bart$art != 511".
-bart.clean <- droplevels(x = bart[bart$art == 511, ])
-## Exclude all lines in which "bart.clean$ksha.rel < 0.7".
-bart.clean <- bart.clean[bart.clean$ksha.rel >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean$gha.rel.cha <= 0".
-names.vec <- NULL
-for (parcel in levels(bart.clean$edvid)) {
-    name.cur <- paste0("obj.", as.character(parcel))
-    names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean[bart.clean$edvid == parcel, ]
-    auf.vec <- parcel.subset$auf[parcel.subset$gha.rel.cha < 0]
-    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
-        auf.mark <- min(auf.vec, na.rm = TRUE)
-        parcel.subset <- parcel.subset[parcel.subset$auf < auf.mark, ]
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    }
-}
-## Create new data frame from objects created by "for" loop above.
-bart.clean <- data.frame(NULL)
-for (name.cur in names.vec) {
-    bart.clean <- rbind(bart.clean,
-                          eval(expr = as.name(x = name.cur)))
-}
-bart.clean <- droplevels(x = bart.clean)
-rm(list = names.vec)  ## Perform a bit of clean up.
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
