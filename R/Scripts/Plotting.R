@@ -16,9 +16,9 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 
-############################################################################################################
-## Plot bart.clean$gha against bart.clean$h100 for bart$art == 511, separately for each bart.clean$edvid. ##
-############################################################################################################
+########################################################################################
+## Plot bart.clean$gha against bart.clean$h100, separately for each bart.clean$edvid. ##
+########################################################################################
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
