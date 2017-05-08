@@ -27,11 +27,14 @@ pdf(file = "Graphics/gha_h100.pdf",
     height = kPdfWidth*0.625,
     pointsize = 19,
     family = "Times")
+## Set plot margins.
+par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lines.
+## par(mar = c(5, 5, 2, 1))  ## As small as possible using whole lines.
 ## Create empty plot.
 plot(x = NA,
      y = NA,
      xlab = "h100 [m]",
-     ylab = expression("gha [m"^2*"]"),
+     ylab = expression("gha [m"^2*" ha"^-1*"]"),
      xlim = c(range(bart.clean$h100, na.rm = TRUE)[1],range(bart.clean$h100, na.rm = TRUE)[2]+5),
      ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
