@@ -247,7 +247,7 @@ plot(x = NA,
      ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
      yaxs = "r",
-     main = "spruce only, invalid data excluded")
+     main = "art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col, pch, lty, and lwd.
