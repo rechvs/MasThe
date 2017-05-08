@@ -235,3 +235,21 @@ kgmaxObjects <- c("bart.clean", kgmaxObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_2.0.RData". ##
+##############################
+## Based on version 1.9.
+## In this version, "bart.clean" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
+kBaseFileVersion <- "1.9"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.0"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "h100.diff.EKL.I".
+bart.clean$h100.diff.EKL.I <- bart.clean$h100.EKL.I - bart.clean$h100
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
