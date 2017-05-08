@@ -111,30 +111,42 @@ grid(col = "black",
 ## Create data frame containing combinations of col and pch.
 kColVec <- c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta")
 kPchVec <- c(21:25)
-kPchColDataFrame <- data.frame()
+kLtyVec <- 1
+kLwdVec <- 2
+kPlotSettingsDataFrame <- data.frame()
 for (col in kColVec) {
-    kPchColDataFrame <- rbind(kPchColDataFrame,
-                              cbind(col = col,pch = kPchVec),
+    kPlotSettingsDataFrame <- rbind(kPlotSettingsDataFrame,
+                              cbind(col = col,
+                                    pch = kPchVec,
+                                    lty = kLtyVec,
+                                    lwd = kLwdVec),
                               stringsAsFactors = FALSE)
 }
-kPchColDataFrame$pch <- as.numeric(kPchColDataFrame$pch)
+kPlotSettingsDataFrame$pch <- as.numeric(kPlotSettingsDataFrame$pch)
+kPlotSettingsDataFrame$lty <- as.numeric(kPlotSettingsDataFrame$lty)
+kPlotSettingsDataFrame$lwd <- as.numeric(kPlotSettingsDataFrame$lwd)
 kCntr <- 1
 ## Add points to empty plot.
 for (ts in levels(bart.clean$edvid)) {
     points(x = bart.clean$alt[bart.clean$edvid == ts],
            y = bart.clean$ekl[bart.clean$edvid == ts],
-           col = kPchColDataFrame$col[kCntr],
-           bg = kPchColDataFrame$col[kCntr],
-           pch = kPchColDataFrame$pch[kCntr])
+           type = "b",
+           col = kPlotSettingsDataFrame$col[kCntr],
+           bg = kPlotSettingsDataFrame$col[kCntr],
+           pch = kPlotSettingsDataFrame$pch[kCntr],
+           lty = kPlotSettingsDataFrame$lty[kCntr],
+           lwd = kPlotSettingsDataFrame$lwd[kCntr])
     kCntr <- kCntr+1
 }
 ## Add legend.
 legend(x = "topright",
        legend = paste("edvid: ", levels(bart.clean$edvid)),
        bg = "slategray1",
-       col = kPchColDataFrame$col,
-       pt.bg = kPchColDataFrame$col,
-       pch = kPchColDataFrame$pch,)
+       col = kPlotSettingsDataFrame$col,
+       pt.bg = kPlotSettingsDataFrame$col,
+       pch = kPlotSettingsDataFrame$pch,
+       lty = kPlotSettingsDataFrame$lty,
+       lwd = kPlotSettingsDataFrame$lwd)
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
