@@ -236,18 +236,18 @@ kPdfWidth <- 30
 pdf(file = "Graphics/gha_alt_invalid_excluded.pdf",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
-    pointsize = 18,
+    pointsize = 19,
     family = "Times")
 ## Create empty plot.
 plot(x = NA,
      y = NA,
      xlab = "alt [a]",
-     ylab = "gha [m²]",
+     ylab = expression("gha [m"^2*"]"),
      xlim = c(range(bart.clean$alt, na.rm = TRUE)[1],range(bart.clean$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
      ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
      yaxs = "r",
-     main = "art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")
+     main = expression(bold("art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")))
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col, pch, lty, and lwd.
