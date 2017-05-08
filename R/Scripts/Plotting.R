@@ -49,14 +49,19 @@ for (col in kColVec) {
                               stringsAsFactors = FALSE)
 }
 kPchColDataFrame$pch <- as.numeric(kPchColDataFrame$pch)
+kPlotSettingsDataFrame$lty <- as.numeric(kPlotSettingsDataFrame$lty)
+kPlotSettingsDataFrame$lwd <- as.numeric(kPlotSettingsDataFrame$lwd)
 kCntr <- 1
-## Add points to empty plot.
+## Add points and lines to empty plot.
 for (ts in levels(bart.clean$edvid)) {
     points(x = bart.clean$h100[bart.clean$edvid == ts],
            y = bart.clean$gha[bart.clean$edvid == ts],
+           type = "b",
            col = kPchColDataFrame$col[kCntr],
            bg = kPchColDataFrame$col[kCntr],
-           pch = kPchColDataFrame$pch[kCntr])
+           pch = kPchColDataFrame$pch[kCntr],
+           lty = kPlotSettingsDataFrame$lty[kCntr],
+           lwd = kPlotSettingsDataFrame$lwd[kCntr])
     kCntr <- kCntr+1
 }
 ## Add legend.
@@ -65,7 +70,9 @@ legend(x = "topright",
        bg = "slategray1",
        col = kPchColDataFrame$col,
        pt.bg = kPchColDataFrame$col,
-       pch = kPchColDataFrame$pch,)
+       pch = kPchColDataFrame$pch,
+       lty = kPlotSettingsDataFrame$lty,
+       lwd = kPlotSettingsDataFrame$lwd)
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
