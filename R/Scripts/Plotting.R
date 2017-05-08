@@ -165,11 +165,14 @@ system2(command = "mupdf",
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
-pdf(file = "Graphics/gha_alt_invalid_excluded.pdf",
+pdf(file = "Graphics/gha_alt",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
     pointsize = 19,
     family = "Times")
+## Set plot margins.
+par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lines.
+## par(mar = c(5, 5, 2, 1))  ## As small as possible using whole lines.
 ## Create empty plot.
 plot(x = NA,
      y = NA,
@@ -224,7 +227,7 @@ legend(x = "topright",
 graphics.off()
 ## Open .pdf file via mupdf.
 system2(command = "mupdf",
-        args = "-r 64 Graphics/gha_alt_invalid_excluded.pdf",
+        args = "-r 64 Graphics/gha_alt",
         wait = FALSE)
 
 ###################################################################################################################
