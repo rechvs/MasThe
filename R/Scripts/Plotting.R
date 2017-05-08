@@ -98,6 +98,9 @@ pdf(file = "Graphics/ekl_alt.pdf",
     height = kPdfWidth*0.625,
     pointsize = 19,
     family = "Times")
+## Set plot margins.
+par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lines.
+## par(mar = c(5, 5, 2, 1))  ## As small as possible using whole lines.
 ## Create empty plot.
 plot(x = NA,
      y = NA,
