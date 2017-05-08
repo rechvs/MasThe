@@ -239,7 +239,7 @@ par(mar = c(4.1, 4.2, 1.5, 0.1))  ## As small as possible using fractions of lin
 plot(x = NA,
      y = NA,
      xlab = "alt [a]",
-     ylab = expression("gha"[max]*"[m"^2*"ha"^-1*"]"),
+     ylab = expression("gha"[max]*"[m"^2*" ha"^-1*"]"),
      xlim = c(range(bart.clean$alt, na.rm = TRUE)[1],range(bart.clean$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
      ylim = range(bart.clean$gha, na.rm = TRUE),
      xaxs = "r",
