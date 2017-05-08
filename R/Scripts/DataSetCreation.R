@@ -133,7 +133,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
 ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-SI.h100.EKL.I <- 33.3  ##  This value should be h100 at age 100 (i.e., SI.h100) for EKL I., moderate thinning.
+ SI.h100.EKL.I <- 35.1  ##  This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
 bart$h100.EKL.I <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart$alt)) - 49.872 + 7.3309 * log(x = bart$alt) + 0.77338 * (log(x = bart$alt))^2
 ## Save results.
 save(list = kgmaxObjects,
