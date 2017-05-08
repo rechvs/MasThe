@@ -72,27 +72,28 @@ system2(command = "mupdf",
         args = "-r 64 Graphics/gha_h100.pdf",
         wait = FALSE)
 
-#########################################################################################
-## Plot bart$ekl against bart$alt for bart$art == 511, separately for each bart$edvid. ##
-#########################################################################################
+#######################################################################################
+## Plot bart.clean$ekl against bart.clean$alt, separately for each bart.clean$edvid. ##
+#######################################################################################
 graphics.off()
 ## Start graphics device driver for producing PDF graphics.
 kPdfWidth <- 30
 pdf(file = "Graphics/ekl_alt.pdf",
     width = kPdfWidth,
     height = kPdfWidth*0.625,
-    pointsize = 18,
+    pointsize = 19,
     family = "Times")
 ## Create empty plot.
 plot(x = NA,
      y = NA,
      xlab = "alt [a]",
      ylab = "ekl",
-     xlim = c(range(bart$alt, na.rm = TRUE)[1],range(bart$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
-     ylim = range(bart$ekl, na.rm = TRUE),
+     xlim = c(range(bart.clean$alt, na.rm = TRUE)[1],range(bart.clean$alt, na.rm = TRUE)[2]+20),  ## accounts for extra space for placing the legend.
+     ylim = range(bart.clean$ekl, na.rm = TRUE),
      xaxs = "r",
      yaxs = "r",
-     main = "spruce only")
+     ## main = "spruce only")
+     main = expression(bold("art == 511, ksha.rel >= 0.7, gha.rel.cha >= 0")))
 grid(col = "black",
      lwd = 2)
 ## Create data frame containing combinations of col and pch.
@@ -107,9 +108,9 @@ for (col in kColVec) {
 kPchColDataFrame$pch <- as.numeric(kPchColDataFrame$pch)
 kCntr <- 1
 ## Add points to empty plot.
-for (ts in levels(bart$edvid)) {
-    points(x = bart$alt[bart$edvid == ts & bart$art == 511],
-           y = bart$ekl[bart$edvid == ts & bart$art == 511],
+for (ts in levels(bart.clean$edvid)) {
+    points(x = bart.clean$alt[bart.clean$edvid == ts],
+           y = bart.clean$ekl[bart.clean$edvid == ts],
            col = kPchColDataFrame$col[kCntr],
            bg = kPchColDataFrame$col[kCntr],
            pch = kPchColDataFrame$pch[kCntr])
@@ -117,7 +118,7 @@ for (ts in levels(bart$edvid)) {
 }
 ## Add legend.
 legend(x = "topright",
-       legend = paste("edvid: ", levels(bart$edvid)),
+       legend = paste("edvid: ", levels(bart.clean$edvid)),
        bg = "slategray1",
        col = kPchColDataFrame$col,
        pt.bg = kPchColDataFrame$col,
