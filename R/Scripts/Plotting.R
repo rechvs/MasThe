@@ -25,6 +25,7 @@ kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
 kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
 kPointsType <- "b"
 kXAxs <- "r"
 kYAxs <- "r"
@@ -41,7 +42,6 @@ kPointsLinesSettings <- data.frame("col" = kColVec,
                                    "lty" = kLtyVec,
                                    "lwd" = kLwdVec,
                                    stringsAsFactors = FALSE)
-## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
 ## Create list containing the information necessary to create the respective plot, namely:
 ## - source of the x values
 ## - source of the y values
