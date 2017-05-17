@@ -72,7 +72,10 @@
   journaltitle = {Forest Science},
   year         = {1987},
   volume       = {33},
-  abstract     = {- p. 1022: “site index” can be understood as a measure of potential height growth
+  pages        = {1022-1034},
+  abstract     = {- Note: for an explanation of equations see handwritten notes
+
+- p. 1022: “site index” can be understood as a measure of potential height growth
 
 - p. 1022: apart from the site index, several yield tables have introduced a second dimension for indexing sites;
 this second dimension is called “production class” by Bradley et al. (1966), “yield level“ by Assmann & Franz (1963) and by Bergel (1985), “increment level” by Lembcke et al. (1975);
@@ -119,12 +122,21 @@ N_Gmax: number of stems at maximum basal area
 d_Gmax: mean diameter at maximum basal area
 h: dominant height
 
+- p. 1024: according to eq. (6) and as long as a_1 > b_1, in an unmanaged stand N_Gmax has to be reduced by self-thinning with increasing h in order to maintain Gmax
+
+
 - p. 1024: the “maximum basal area, established only by natural mortality, was called “natural basal area” by Assmann (1955) and found to be a good indicator to find the “yield level,” i.e., the second index besides the site index in his yield tables for Norway spruce (Assman and Franz (1963)”
 
-- p. 1024: solving eq. (7) for h [i.e. “expressing height as a function of mean diameter at maximum density”], one obtains:
+- p. 1024: solving eq. (7) for h [i.e., “expressing height as a function of mean diameter at maximum density”], one obtains:
 h = (2 b_0 d_Gmax)^(-1 / b_1);
 substituting this equation into eq. (6), one obtains:
-N_Gmax = b_0 / a_0 (2 b_0 d_Gmax)^(a_1 / b_1 -1) eq. (9) [cp. Wördehoff et al. (2014), (Gl. 2)]},
+N_Gmax = b_0 / a_0 (2 b_0 d_Gmax)^(a_1 / b_1 -1) eq. (9) [cp. Wördehoff et al. (2014), (Gl. 2)]
+
+- p. 1025: in order to apply eq. (14) to a stand one would first need to estimate the function coefficients a_0, a_1, b_0, and b_1 of eq. (5) or of eq. (13) [not sure why Sterba does not mention coefficient b_1 in his listing of coefficients of eq. (13), since it is contained in coefficient E and as such part of the equation]
+
+- p. 1025: [Sterba seems to consider age and dominant height as equivalent]
+
+- p. 1028: [procedure to determine whether it is justified to use one estimate of E for all experiments instead of using an individual estimate of E for each experiment]},
   file         = {:Articles/Sterba_1987.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.04.21},
@@ -181,6 +193,17 @@ it can be determined in stands which have not been subjected to human induced th
   year         = {1975},
   volume       = {92},
   pages        = {46-62},
+  abstract     = {- Note: for an explanation of equations see handwritten notes
+
+- p. 46: [definition of “Ertragsniveau”, taken from Assmann (1961), “Waldertragskunde”, p. 161: “die Gesamtwuchsleistung, welche bei einer bestimmten Mittelhöhe (oder Oberhöhe) erreicht wird, [charakterisiert] das Ertragsniveau eines Standortes in bezug auf die Bestandeshöhe” [Note: the term “Gesamtwuchsleistung” here means the total volume of wood at a given Oberhöhe of the stand in question]
+
+- p. 48: [definition of “Standfläche”, taken from Assmann (1961), “Waldertragskunde”, p. 99: “Die Standfläche eines Baumes wird gebildet von seiner horizontalen Kronenprojektion (= Kronenschirmfläche) zuzüglich des Anteils an der nichtüberschirmten Bestandesfläche.”
+
+- p. 48: [definition of “allometrisch”, taken from Duden Fremdwörterbuch, p. 51: “unterschiedliche Wachstumsgeschwindigkeit zeigend im Verhältnis zur Körpergröße od. zu anderen Organen (von Gliedmaßen, Organen od. Geweben”]
+
+- p. 51, table 1: [for an explanation of the coefficients see p. 54]
+
+- p. 57 f.: in the present study, the information contained in the variable “Oberhöhe” was enough to determine the Ertragsniveau for a given site type},
   file         = {:Articles/Sterba_1975OCR.pdf:PDF;:Articles/Sterba_1975.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.05.02},
@@ -192,19 +215,30 @@ it can be determined in stands which have not been subjected to human induced th
   journaltitle = {Centralblatt für das gesamte Forstwesen},
   year         = {1981},
   volume       = {98},
-  eid          = {101-116},
+  pages        = {101-116},
+  abstract     = {- Note: for an explanation of equations see handwritten notes
+
+- p. 102: definitions of stand density index (SDI):
+A. actual stem number divided by maximum stem number at the same mean diameter
+B. stem number which the current stand would have if its mean diameter was 10 inches or 25 cm
+
+- p. 102, Zusammenstellung 1: [mathematical explanation of the SDI]
+
+- p. 102 f.: compared to Bestockungsgrad, the SDI has the advantage of being independent of both tree species, tree age and Bonität
+
+- p. 103: correct interpretation of the SDI requires knowledge of the maximum SDI, which in turn depends on tree species and stand type
+
+- p. 105, eq. (4): coefficients A' and B' are constant for all stands with the same top height (Oberhöhe)
+
+- p. 104-106: The steps covered in Zusammenstellung 2 allow calculation of the coefficients of Reineke’s SDI using estimates of the coefficients of the Competition-Density-Rule. [I’m not sure whether this is true, cp. Notes, p. 5 f. Also, I would be hesitant to speak of “calculation” if it is based on a mere estimate.] This in turn allows one to validate Reineke’s exponent of “-1.605”, while also allowing the comparison of tree species and sites in terms of maximum SDI, i.e., Ertragsniveau.
+
+- p. 106 f.: The coefficients of eq. (15) (a_0, a_1, b_0, and b_1) can be estimated through nonlinear regression by applying eq. (15) to parcels of the same stand type, but with different age and stand density. [What does “stand type” mean in this context?]
+Using eq. (13) and (14), one is then able to calculate coefficients A and B of eq. (12) [which is based on eq. (1)].
+
+- p. 109 f.: the specifications given by Assman & Franz (1965) follow Reineke’s assumption of a linear relationship between ln(N/ha) and ln(dg), which also follows a parallel translation if yield power (Bonität) increases},
   file         = {:Articles/Sterba_1981OCR.pdf:PDF;:Articles/Sterba_1981.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.05.02},
-}
-
-@Book{Schober1975,
-  author    = {Reinhard Schober},
-  title     = {Ertragstafeln wichtiger Baumarten},
-  year      = {1975},
-  file      = {:Scans/Schober_1975_FichteOCR.pdf:PDF;:Scans/Schober_1975_Fichte.pdf:PDF},
-  owner     = {renke},
-  timestamp = {2017.05.02},
 }
 
 @Article{Wood2011,
@@ -322,6 +356,27 @@ it can be determined in stands which have not been subjected to human induced th
   file         = {:Articles/Wood_2001.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.05.04},
+}
+
+@Book{Schober1995,
+  author    = {Reinhard Schober},
+  title     = {Ertragstafeln wichtiger Baumarten},
+  year      = {1995},
+  file      = {:Scans/Schober_1995_Spruce_unsepOCR.pdf:PDF;:Scans/Schober_1995_Spruce_unsep.pdf:PDF;:Scans/Schober_1995_SpruceOCR.pdf:PDF;:Scans/Schober_1995_Spruce.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.05.02},
+}
+
+@Article{Reineke1933,
+  author       = {L. H. Reineke},
+  title        = {Perfecting a stand-density index for even-aged forests},
+  journaltitle = {Journal of Agricultural Research},
+  year         = {1933},
+  volume       = {46},
+  pages        = {627-638},
+  file         = {:Articles/Reineke_1933.pdf:PDF},
+  owner        = {renke},
+  timestamp    = {2017.05.17},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}
