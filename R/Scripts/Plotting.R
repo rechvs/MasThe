@@ -75,11 +75,13 @@ for (cur.list in names(x = kPlottingInformation)) {
     y.lim.high <- range(y.values, na.rm = TRUE)[2]
     y.lim <- c(y.lim.low, y.lim.high)
     ## Create file name.
-    file.name <- paste0("Graphics/",
-                        x.source,
-                        "_",
-                        y.source,
-                        ".pdf")
+    file.name <- gsub(pattern = "[$]",
+                      replacement = ".",
+                      x = paste0("Graphics/",
+                                 x.source,
+                                 "_",
+                                 y.source,
+                                 ".pdf"))
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidth,
