@@ -42,6 +42,8 @@ kPointsLinesSettings <- data.frame("col" = kColVec,
                                    "lty" = kLtyVec,
                                    "lwd" = kLwdVec,
                                    stringsAsFactors = FALSE)
+kLegendX <- "topright"
+kLegendBg <- "slategray1"
 ## Create list containing the information necessary to create the respective plot, namely:
 ## - source of the x values
 ## - source of the y values
@@ -116,9 +118,9 @@ for (cur.list in names(x = kPlottingInformation)) {
         kCntr <- kCntr+1
     }
     ## Add legend.
-    legend(x = "topright",
+    legend(x = kLegendX,
            legend = paste("edvid: ", levels(bart.clean$edvid)),
-           bg = "slategray1",
+           bg = kLegendBg,
            col = kPointsLinesSettings$col,
            pt.bg = kPointsLinesSettings$col,
            pch = kPointsLinesSettings$pch,
