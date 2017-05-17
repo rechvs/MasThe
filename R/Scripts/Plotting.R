@@ -25,10 +25,22 @@ kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
 kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+kPointsType <- "b"
 kXAxs <- "r"
 kYAxs <- "r"
 kGridCol <- "black"
 kGridLwd <- 2
+kPchVec <- c(21:25)
+kColVec <- c(vapply(X = c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta"),
+                    FUN.VALUE = vector(mode = "character", length = length(x = kPchVec)),
+                    FUN = function(col) { rep(x = col, times = length(kPchVec)) }))
+kLtyVec <- 1
+kLwdVec <- 2
+kPointsLinesSettings <- data.frame("col" = kColVec,
+                                   "pch" = kPchVec,
+                                   "lty" = kLtyVec,
+                                   "lwd" = kLwdVec,
+                                   stringsAsFactors = FALSE)
 ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
 ## Create list containing the information necessary to create the respective plot, namely:
 ## - source of the x values
@@ -36,11 +48,10 @@ kGridLwd <- 2
 ## - x axis label
 ## - y axis label
 ## - main plot title
-kPlottingInformation <- list("plot1" = list("bart.clean$h100", "bart.clea$gha", "h100 [m]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
-                           "plot2" = list("bart.clean$alt", "bart.clean$ekl", "alt [a]", "ekl", "data = bart.clean"),
-                           "plot3" = list("bart.clean$alt", "bart.clean$gha", "alt [a]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
-                           "plot4" = list("bart.clean$alt", "bart.clean$SI.h100", "alt [a]", "SI.h100 [m]", "data = bart.clean"))
-
+kPlottingInformation <- list("plot1" = list("bart.clean$h100", "bart.clean$gha", "h100 [m]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
+                             "plot2" = list("bart.clean$alt", "bart.clean$ekl", "alt [a]", "ekl", "data = bart.clean"),
+                             "plot3" = list("bart.clean$alt", "bart.clean$gha", "alt [a]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
+                             "plot4" = list("bart.clean$alt", "bart.clean$SI.h100", "alt [a]", "SI.h100 [m]", "data = bart.clean"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 open.pdf <- TRUE
@@ -58,7 +69,7 @@ for (cur.list in names(x = kPlottingInformation)) {
     y.values <- eval(expr = parse(text = y.source))
     ## Calculate numerical values necessary for creating the plot.
     x.lim.low <- range(x.values, na.rm = TRUE)[1]
-    x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.2  ## accounts for extra space for placing the legend.
+    x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
     x.lim <- c(x.lim.low, x.lim.high)
     y.lim.low <- range(y.values, na.rm = TRUE)[1]
     y.lim.high <- range(y.values, na.rm = TRUE)[2]
@@ -87,26 +98,45 @@ for (cur.list in names(x = kPlottingInformation)) {
          xaxs = kXAxs,
          yaxs = kYAxs,
          main = main.)
-    grid(col = kGridCol
+    grid(col = kGridCol,
          lwd = kGridLwd)
-    
-    ## Create data frame containing combinations of col and pch.
-    kPchVec <- c(21:25)
-    kColVec <- c(vapply(X = c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta"),
-                        FUN.VALUE = vector(mode = "character", length = length(x = kPchVec)),
-                        FUN = function(col) { rep(x = col, times = length(kPchVec)) }))
-    kLtyVec <- 1
-    kLwdVec <- 2
+    ## Add points to empty plot.
+    kCntr <- 1
+    for (ts in levels(bart.clean$edvid)) {
+        points(x = x.values[bart.clean$edvid == ts],
+               y = y.values[bart.clean$edvid == ts],
+               type = kPointsType,
+               col = kPointsLinesSettings$col[kCntr],
+               bg = kPointsLinesSettings$col[kCntr],
+               pch = kPointsLinesSettings$pch[kCntr],
+               lty = kPointsLinesSettings$lty[kCntr],
+               lwd = kPointsLinesSettings$lwd[kCntr])
+        kCntr <- kCntr+1
+    }
+    ## Add legend.
+    legend(x = "topright",
+           legend = paste("edvid: ", levels(bart.clean$edvid)),
+           bg = "slategray1",
+           col = kPointsLinesSettings$col,
+           pt.bg = kPointsLinesSettings$col,
+           pch = kPointsLinesSettings$pch,
+           lty = kPointsLinesSettings$lty,
+           lwd = kPointsLinesSettings$lwd)
+    graphics.off()
+    ## Open .pdf file via mupdf.
+    if (open.pdf) {
+        system2(command = "mupdf",
+                args = paste0("-r 64 ",
+                              file.name),
+                wait = FALSE)
+    }
     ## print(x = file.name)  ## TESTING
+    print(x = paste0("-r 64 ", file.name))  ## TESTING
     ## print(x = x.source)  ## TESTING
     ## print(x = x.values)  ## TESTING
-    ## }  ## TESTING
-    kPlotSettingsDataFrame <- data.frame()
-    kPlotSettingsDataFrame <- data.frame("col" = kColVec,
-                                         "pch" = kPchVec,
-                                         "lty" = kLtyVec,
-                                         "lwd" = kLwdVec,
-                                         stringsAsFactors = FALSE)
+    graphics.off()  ## TESTING
+}  ## TESTING
+
 }
 
 ## Start graphics device driver for producing PDF graphics.
