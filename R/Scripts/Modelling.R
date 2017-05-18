@@ -18,14 +18,15 @@ library("mgcv")
 
 ## Evaluate models.
 gam_gha_h100 <- gam(data = bart.clean,
-                    formula = gha ~ s(h100))
+                    formula = gha ~ s(h100, k = 5))
 gam_gha_h100.EKL.I<- gam(data = bart.clean,
-                         formula = gha ~ s(h100.EKL.I))
+                         formula = gha ~ s(h100.EKL.I, k = 5))
 gam_gha_SI.h100 <- gam(data = bart.clean,
-                       formula = gha ~ s(SI.h100))
+                       formula = gha ~ s(SI.h100, k = 26))
 
 ## BEGIN TESTING ##
 graphics.off()
+dev.new()
 plot.gam(x = gam_gha_h100,
          pages = 1,
          seWithMean = TRUE,
