@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load base file.
 kBaseFileVersion <- "2.2"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 
 ## Tree species according to Wördehoff (2016).
@@ -90,7 +90,12 @@ kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$ksha",
                                                "main." = "data = bart.clean",
                                                "x.label" = "h100 [m]",
-                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")))
+                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
+                             "h100_h100.diff.EKL.I" = list("x.source" = "bart.clean$h100",
+                                               "y.source" = "bart.clean$h100.diff.EKL.I",
+                                               "main." = "data = bart.clean",
+                                               "x.label" = "h100 [m]",
+                                               "y.label" = "h100.diff.EKL.I [m]"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 ## open.pdf <- TRUE
