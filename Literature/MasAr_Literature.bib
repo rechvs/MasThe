@@ -318,22 +318,21 @@ Using eq. (13) and (14), one is then able to calculate coefficients A and B of e
 }
 
 @Article{Wood2013a,
-  author        = {Wood, S. N.},
-  title         = {On p-values for smooth components of an extended generalized additive model},
-  journaltitle  = {Biometrika},
-  date          = {2013-03-01},
-  volume        = {100},
-  number        = {1},
-  pages         = {221--228},
-  issn          = {0006-3444, 1464-3510},
-  doi           = {10.1093/biomet/ass048},
-  url           = {https://academic.oup.com/biomet/article-lookup/doi/10.1093/biomet/ass048},
-  urldate       = {2017-05-04},
-  __markedentry = {[renke:]},
-  file          = {:Articles/Wood_2013a.pdf:PDF},
-  langid        = {english},
-  owner         = {renke},
-  timestamp     = {2017.05.04},
+  author       = {Wood, S. N.},
+  title        = {On p-values for smooth components of an extended generalized additive model},
+  journaltitle = {Biometrika},
+  date         = {2013-03-01},
+  volume       = {100},
+  number       = {1},
+  pages        = {221--228},
+  issn         = {0006-3444, 1464-3510},
+  doi          = {10.1093/biomet/ass048},
+  url          = {https://academic.oup.com/biomet/article-lookup/doi/10.1093/biomet/ass048},
+  urldate      = {2017-05-04},
+  file         = {:Articles/Wood_2013a.pdf:PDF},
+  langid       = {english},
+  owner        = {renke},
+  timestamp    = {2017.05.04},
 }
 
 @Thesis{Belitz2007,
@@ -355,6 +354,20 @@ Using eq. (13) and (14), one is then able to calculate coefficients A and B of e
   volume       = {1},
   issue        = {2},
   pages        = {20-25},
+  abstract     = {Note: for an explanation of equations see handwritten notes
+
+- p. 22: eq. (9.4) is the GCV [generalized cross validation] score for the model and its efficient minimization is the key to the approach used in mgcv
+
+- p. 22: the term “i.i.d.” used in the model description stands for “independent and identically distributed”
+
+- p. 22: [high values (e.g., 20) of argument “k” in the call “gam(Y ~ s(X, k = …))” mean that the relationship between the dependent variable “Y” and the independent variable “X” are expected to be fairly complicated]
+
+- p. 23: When deciding whether or not to drop a certain term, the following 3 questions need to be answered:
+1. “Is the estimated degrees of freedom for the term close to 1?”
+2. “Does the plotted confidence band for the term include zero everywhere?”
+3. “Does the GCV score drop when the term is dropped?”
+If all questions can be answered with “yes” then the term should be dropped.
+If the e.d.f. [estimated degrees of freedom] is close to 1 but the answer to 2. is “no” then the term may as well be replaced with a parametric linear term.},
   file         = {:Articles/Wood_2001.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.05.04},
@@ -400,6 +413,37 @@ Using eq. (13) and (14), one is then able to calculate coefficients A and B of e
   file         = {:Articles/Reineke_1933.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.05.17},
+}
+
+@Book{Field2012,
+  author        = {Field, Andy P. and Miles, Jeremy and Field, Zoë},
+  title         = {Discovering statistics using R},
+  date          = {2012},
+  note          = {{OCLC}: ocn760970657},
+  publisher     = {Sage},
+  location      = {London ; Thousand Oaks, Calif},
+  isbn          = {978-1-4462-0046-9 978-1-4462-0045-2},
+  pagetotal     = {957},
+  __markedentry = {[renke:]},
+  abstract      = {- p. 38, Jane Superbrain 2.2: “In statistical terms the degrees of freedom relate to the number of observations that are free to vary” when trying to calculate the standard deviation of the population to which the observations belong to.
+Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. We thus assume the population mean to be 10 and keep this value constant. If we were to take another set of 4 observations from the population, only 3 of these observations would be free to vary in order to not violate our assumption of the population mean to be 10 (e.g., if in our 2. sample x_1 = 7, x_2 = 15, and x_3 = 8 then x_4 would need to be 10 in order to keep the assumption of mean(x) = 10). “This fact explains why when we use a sample to estimate the standard deviation of a population, we have to divide the sums of squares by N-1 rather than N alone.”
+
+- definition of “mean”: Notes, p. 1
+
+- definition of “z-score”: Notes, p. 1
+
+- definition of “total error“ or “sum of deviances”: Notes, p. 1
+
+- definition of “variance”: Notes, p. 2
+
+- definition of “sum of squared errors”: Notes, p. 2
+
+- definition of “standard deviation”: Notes, p. 2
+
+- explanation of the “central limit theorem” and definition of the “standard error of the mean”: Notes, p. 3},
+  keywords      = {Computer programs, R (Computer program language), Social sciences, Statistical methods Computer programs, Statistics},
+  owner         = {renke},
+  timestamp     = {2017.05.18},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}
