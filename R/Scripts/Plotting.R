@@ -51,55 +51,46 @@ kLegendBg <- "slategray1"
 ## - "main.": main plot title
 ## - "x.label": x axis label
 ## - "y.label": y axis label
-## - "log.": setting of "plot(log = …)" (see ?plot.default)
 kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$gha",
                                                "main." = "data = bart.clean",
                                                "x.label" = "h100 [m]",
-                                               "y.label" = expression("gha [m"^2*"ha"^-1*"]"),
-                                               "log." = ""),
+                                               "y.label" = expression("gha [m"^2*"ha"^-1*"]")),
                              "alt_ekl" = list("x.source" = "bart.clean$alt",
                                               "y.source" = "bart.clean$ekl",
                                               "main." = "data = bart.clean",
                                               "x.label" = "alt [a]",
-                                              "y.label" = "ekl",
-                                              "log." = ""),
+                                              "y.label" = "ekl"),
                              "alt_gha" = list("x.source" = "bart.clean$alt",
                                               "y.source" = "bart.clean$gha",
                                               "main." = "data = bart.clean",
                                               "x.label" = "alt [a]",
-                                              "y.label" = expression("gha [m"^2*"ha"^-1*"]"),
-                                              "log." = ""),
+                                              "y.label" = expression("gha [m"^2*"ha"^-1*"]")),
                              "alt_SI.h100" = list("x.source" = "bart.clean$alt",
                                                   "y.source" = "bart.clean$SI.h100",
                                                   "main." = "data = bart.clean",
                                                   "x.label" = "alt [a]",
-                                                  "y.label" = "SI.h100 [m]",
-                                                  "log." = ""),
+                                                  "y.label" = "SI.h100 [m]"),
                              "ln.dg_ln.nha" = list("x.source" = "bart.clean$ln.dg",
                                                    "y.source" = "bart.clean$ln.nha",
                                                    "main." = "data = bart.clean",
                                                    "x.label" = "ln.dg",
-                                                   "y.label" = "ln.nha",
-                                                   "log." = ""),
+                                                   "y.label" = "ln.nha"),
                              "log.dg_log.nha" = list("x.source" = "bart.clean$log.dg",
                                                      "y.source" = "bart.clean$log.nha",
                                                      "main." = "data = bart.clean",
                                                      "x.label" = "log.dg",
-                                                     "y.label" = "log.nha",
-                                                     "log." = ""),
+                                                     "y.label" = "log.nha"),
                              "alt_ksha" = list("x.source" = "bart.clean$alt",
                                                "y.source" = "bart.clean$ksha",
                                                "main." = "data = bart.clean",
                                                "x.label" = "alt [a]",
-                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]"),
-                                               "log." = ""),
+                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
                              "h100_ksha" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$ksha",
                                                "main." = "data = bart.clean",
                                                "x.label" = "h100 [m]",
-                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]"),
-                                               "log." = ""))
+                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 ## open.pdf <- TRUE
@@ -147,8 +138,7 @@ for (cur.list in names(x = kPlottingInformation)) {
          ylim = y.lim,
          xaxs = kXAxs,
          yaxs = kYAxs,
-         main = main.,
-         log = log.)
+         main = main.)
     grid(col = kGridCol,
          lwd = kGridLwd)
     ## Add points to empty plot.
