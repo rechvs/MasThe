@@ -1,4 +1,4 @@
-* TODO [4/5]
+* TODO [10/12]
 ** done read Sterba (1987)
    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
@@ -15,3 +15,18 @@
      book is available in library (see [[file:Literature/gbv-download.txt::73][here]]), but not lendable;
      see search results [[file:Literature/gbv-download.txt][here]] for books related to “generalized additive models”
 ** CURRENT continue reading Wood (2001), p. 22
+** done rewrite lines [[file:R/Scripts/DataSetCreation.R::116][here]] and [[file:R/Scripts/Rating.R::145][here]] in accordance with Google’s R Style Guide
+   - State "done"       from "CURRENT"    [2017-05-07 So 14:47]
+** done correct value of “SI.h100.EKL.I” [[file:R/Scripts/DataSetCreation.R::SI.h100.EKL.I%20<-%2033.3%20##%20This%20value%20should%20be%20h100%20at%20age%20100%20(i.e.,%20SI.h100)%20for%20EKL%20I.,%20moderate%20thinning.][here]];
+   - State "done"       from "CURRENT"    [2017-05-08 Mo 13:39]
+   requires Schober (1995)
+** done change column names in [[file:R/Scripts/DataSetCreation.R::1][DataSetCreation.R]];
+   - State "done"       from "CURRENT"    [2017-05-08 Mo 09:51]
+   e.g., from “rel.ksha” to “ksha.rel”
+** done read Sterba (1975)
+   - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
+** done read Sterba (1981)
+   - State "done"       from "CURRENT"    [2017-05-17 Mi 12:52]
+** done read Reineke (1933): “Perfecting a Stand Density Index for Even Aged Forests”, Journal of Agricultural Research 46, 627-638
+   - State "done"       from "CURRENT"    [2017-05-17 Mi 14:48]
+** CURRENT pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
