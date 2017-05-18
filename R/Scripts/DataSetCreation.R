@@ -253,3 +253,43 @@ bart.clean$h100.diff.EKL.I <- bart.clean$h100.EKL.I - bart.clean$h100
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+
+##############################
+## Create "gmax_2.1.RData". ##
+##############################
+## Based on version 2.0.
+## In this version, "bart.clean" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
+kBaseFileVersion <- "2.0"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.1"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "ln.nha".
+bart.clean$ln.nha <- log(x = bart.clean$nha, base = exp(x = 1))
+## Calculate "ln.dg".
+bart.clean$ln.dg <- log(x = bart.clean$dg, base = exp(x = 1))
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+
+##############################
+## Create "gmax_2.2.RData". ##
+##############################
+## Based on version 2.1.
+## In this version, "bart.clean" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
+kBaseFileVersion <- "2.1"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.2"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "log.nha".
+bart.clean$log.nha <- log10(x = bart.clean$nha)
+## Calculate "log.dg".
+bart.clean$log.dg <- log10(x = bart.clean$dg)
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
