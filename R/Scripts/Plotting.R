@@ -86,13 +86,7 @@ kPlottingInformation <- list("plot1" = list("x.source" = "bart.clean$h100",
                                             "main." = "data = bart.clean",
                                             "x.label" = "log.dg",
                                             "y.label" = "log.nha",
-                                            "log." = ""),
-                             "plot7" = list("x.source" = "bart.clean$dg",
-                                            "y.source" = "bart.clean$nha",
-                                            "main." = "data = bart.clean",
-                                            "x.label" = "dg [cm]",
-                                            "y.label" = expression("nha [ha"^-1*"]"),
-                                            "log." = "xy"))
+                                            "log." = ""))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 open.pdf <- TRUE
