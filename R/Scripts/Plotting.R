@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## Load base file.
-kBaseFileVersion <- "1.9"
+kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 
@@ -44,16 +44,55 @@ kPointsLinesSettings <- data.frame("col" = kColVec,
                                    stringsAsFactors = FALSE)
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-## Create list containing the information necessary to create the respective plot, namely:
-## - source of the x values
-## - source of the y values
-## - x axis label
-## - y axis label
-## - main plot title
-kPlottingInformation <- list("plot1" = list("bart.clean$h100", "bart.clean$gha", "h100 [m]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
-                             "plot2" = list("bart.clean$alt", "bart.clean$ekl", "alt [a]", "ekl", "data = bart.clean"),
-                             "plot3" = list("bart.clean$alt", "bart.clean$gha", "alt [a]", expression("gha [m"^2*"ha"^-1*"]"), "data = bart.clean"),
-                             "plot4" = list("bart.clean$alt", "bart.clean$SI.h100", "alt [a]", "SI.h100 [m]", "data = bart.clean"))
+## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
+## - "x.source": source of the x values
+## - "y.source": source of the y values
+## - "main.": main plot title
+## - "x.label": x axis label
+## - "y.label": y axis label
+## - "log.": setting of "plot(log = …)" (see ?plot.default)
+kPlottingInformation <- list("plot1" = list("x.source" = "bart.clean$h100",
+                                            "y.source" = "bart.clean$gha",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "h100 [m]",
+                                            "y.label" = expression("gha [m"^2*"ha"^-1*"]"),
+                                            "log." = ""),
+                             "plot2" = list("x.source" = "bart.clean$alt",
+                                            "y.source" = "bart.clean$ekl",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "alt [a]",
+                                            "y.label" = "ekl",
+                                            "log." = ""),
+                             "plot3" = list("x.source" = "bart.clean$alt",
+                                            "y.source" = "bart.clean$gha",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "alt [a]",
+                                            "y.label" = expression("gha [m"^2*"ha"^-1*"]"),
+                                            "log." = ""),
+                             "plot4" = list("x.source" = "bart.clean$alt",
+                                            "y.source" = "bart.clean$SI.h100",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "alt [a]",
+                                            "y.label" = "SI.h100 [m]",
+                                            "log." = ""),
+                             "plot5" = list("x.source" = "bart.clean$ln.dg",
+                                            "y.source" = "bart.clean$ln.nha",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "ln.dg",
+                                            "y.label" = "ln.nha",
+                                            "log." = ""),
+                             "plot6" = list("x.source" = "bart.clean$log.dg",
+                                            "y.source" = "bart.clean$log.nha",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "log.dg",
+                                            "y.label" = "log.nha",
+                                            "log." = ""),
+                             "plot7" = list("x.source" = "bart.clean$dg",
+                                            "y.source" = "bart.clean$nha",
+                                            "main." = "data = bart.clean",
+                                            "x.label" = "dg [cm]",
+                                            "y.label" = expression("nha [ha"^-1*"]"),
+                                            "log." = "xy"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 open.pdf <- TRUE
@@ -61,11 +100,11 @@ open.pdf <- TRUE
 for (cur.list in names(x = kPlottingInformation)) {
     graphics.off()
     ## Extract the necessary information for the current plot from "kPlottingInformation".
-    x.source <- unlist(kPlottingInformation[[cur.list]][1])
-    y.source <- unlist(kPlottingInformation[[cur.list]][2])
-    x.label <- unlist(kPlottingInformation[[cur.list]][3])
-    y.label <- unlist(kPlottingInformation[[cur.list]][4])
-    main. <- kPlottingInformation[[cur.list]][5]
+    for (cur.name in names(x = kPlottingInformation[[cur.list]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+        cur.el <- kPlottingInformation[[cur.list]][cur.name]
+        assign(x = names(x = cur.el),
+               value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
+    }
     ## Create vectors containing the actual x and y values.
     x.values <- eval(expr = parse(text = x.source))
     y.values <- eval(expr = parse(text = y.source))
@@ -101,7 +140,8 @@ for (cur.list in names(x = kPlottingInformation)) {
          ylim = y.lim,
          xaxs = kXAxs,
          yaxs = kYAxs,
-         main = main.)
+         main = main.,
+         log = log.)
     grid(col = kGridCol,
          lwd = kGridLwd)
     ## Add points to empty plot.
