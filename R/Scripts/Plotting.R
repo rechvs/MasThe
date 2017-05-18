@@ -4,6 +4,7 @@
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
+{sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load base file.
 kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
@@ -86,10 +87,22 @@ kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
                                                      "main." = "data = bart.clean",
                                                      "x.label" = "log.dg",
                                                      "y.label" = "log.nha",
-                                                     "log." = ""))
+                                                     "log." = ""),
+                             "alt_ksha" = list("x.source" = "bart.clean$alt",
+                                               "y.source" = "bart.clean$ksha",
+                                               "main." = "data = bart.clean",
+                                               "x.label" = "alt [a]",
+                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]"),
+                                               "log." = ""),
+                             "h100_ksha" = list("x.source" = "bart.clean$h100",
+                                               "y.source" = "bart.clean$ksha",
+                                               "main." = "data = bart.clean",
+                                               "x.label" = "h100 [m]",
+                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]"),
+                                               "log." = ""))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
-open.pdf <- TRUE
+## open.pdf <- TRUE
 ## Initiate "for" loop.
 for (cur.list in names(x = kPlottingInformation)) {
     graphics.off()
