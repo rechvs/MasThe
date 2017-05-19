@@ -32,7 +32,7 @@ kYAxs <- "r"
 kGridCol <- "black"
 kGridLwd <- 2
 kPchVec <- c(21:25)
-kColVec <- c(vapply(X = c("black","green","red","brown","cyan","darkorange","burlywood","dimgray","yellow4","magenta"),
+kColVec <- c(vapply(X = c("black", "green", "red", "purple", "cyan", "darkorange", "burlywood", "dimgray", "yellow4", "magenta"),
                     FUN.VALUE = vector(mode = "character", length = length(x = kPchVec)),
                     FUN = function(col) { rep(x = col, times = length(kPchVec)) }))
 kLtyVec <- 1
@@ -197,7 +197,7 @@ kGridCol <- "black"
 kGridLwd <- 2
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
-open.pdf <- TRUE
+## open.pdf <- TRUE
 ## Initiate "for" loop.
 for (cur.model.name in names(x = models)) {
     ## Turn off graphics device.
