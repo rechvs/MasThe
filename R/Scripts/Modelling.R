@@ -10,10 +10,9 @@ kFileVersion <- "2.2"
 kFileName <- paste0(kDataDir, "gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 
-######################################################################
-## Evaluate and store models in object "models"                     ##
-## (in order to be able to retrieve them from outside this script). ##
-######################################################################
+##########
+## GAMs ##
+##########
 ## Modelling preamble ##
 library("mgcv")  ## Load required libraries.
 ## n <- 3  ## Number of models to be stored.
