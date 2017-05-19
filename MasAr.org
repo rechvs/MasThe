@@ -1,4 +1,4 @@
-* TODO [10/13]
+* TODO [7/10]
 ** done read Sterba (1987)
    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
@@ -35,3 +35,4 @@
     - State "done"       from "CURRENT"    [2017-05-18 Do 16:00]
 *** CURRENT What is a “smooth function”?
 *** CURRENT What is a “regression spline”?
+** CURRENT Add clean up sections to each block in [[file:R/Scripts/DataSetCreation.R::##%20Preamble][DataSetCreation.R]] (to prevent obstruction of the workspace by objects no longer needed if the script is called from outside)
