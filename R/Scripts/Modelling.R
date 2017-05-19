@@ -13,13 +13,11 @@ models <- vector(mode = "list")
 formulas <- vector(mode = "list")
 start.vals <- vector(mode = "list")
 print.sumries <- TRUE
-print.sumries <- FALSE
+## print.sumries <- FALSE
 
 ##########
 ## GAMs ##
 ##########
-## Modelling preamble.
-library("mgcv")
 ## Setup for model "GAM_gha_sh100".
 formulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 ## Setup for model "GAM_gha_sh100.EKL.I".
@@ -28,32 +26,38 @@ formulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k 
 formulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
 ## Evaluate and store models.
 for (cur.formula.name in names(x = formulas)) {
-    models[[cur.formula.name]] <- gam(formula = formulas[[cur.formula.name]],
-                                      data = bart.clean)
+    models[[cur.formula.name]] <- mgcv::gam(formula = formulas[[cur.formula.name]],
+                                            data = bart.clean)
 }
 
 ############
 ## Sterba ##
 ############
-## Modelling preamble.
-library(package = "nls2")
 ## Setup for model "Sterba_dgGmax".
-formulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
-start.vals[["Sterba_dgGmax"]] <- expand.grid("a0" = c(-2, 10),
+formulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")  ## cp. Wördehoff (2014), (Gl. 1)
+start.vals[["Sterba_dgGmax"]] <- expand.grid("a0" = c(-2, 10),  ## cp. Sterba (1987), tab. 2
                                              "a1" = c(-2, 10),
                                              "b0" = c(-2, 10),
                                              "b1" = c(-2, 10))
+## ## Setup for model "Sterba_NGmax".
+formulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ b0 / a0 * (2 * b0 * dg) ^ (a1 / b1 -1)")  ## cp. Wördehoff (2014), (Gl. 2)
+start.vals[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
+                                            "a1" = c(-2:2),
+                                            "b0" = c(-2:2),
+                                            "b1" = c(-2:2))
 ## Setup for model "Sterba_Gmax".
-formulas[["Sterba_Gmax"]] <- as.formula(object = "gha ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
+formulas[["Sterba_Gmax"]] <- as.formula(object = "gha ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")  ## cp. Wördehoff (2014), (Gl. 3)
 start.vals[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),  ## cp. Wördehoff (2016), tab. 3.6
                                            "a1" = c(0, 1),
                                            "b0" = c(0, 1),
                                            "b1" = c(-2, 2))
 ## Evaluate and store models.
 for (cur.formula.name in names(x = formulas)) {
-    models[[cur.formula.name]] <- nls2(formula = formulas[[cur.formula.name]],
-                                       data = bart.clean,
-                                       start = start.vals[[cur.formula.name]])
+    if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
+        models[[cur.formula.name]] <- nls2::nls2(formula = formulas[[cur.formula.name]],
+                                                 data = bart.clean,
+                                                 start = start.vals[[cur.formula.name]])
+    }
 }
 
 #####################
