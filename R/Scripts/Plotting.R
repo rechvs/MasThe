@@ -1,10 +1,10 @@
-###############
-## Preamble. ##
-###############
+##############
+## Preamble ##
+##############
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
-{sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
+## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
 kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
