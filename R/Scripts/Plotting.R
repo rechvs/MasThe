@@ -5,11 +5,10 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-## Load base file.
+## Load data set.
 kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-
 ## Tree species according to Wördehoff (2016).
 ## 110 = Eiche
 ## 211 = Buche
@@ -17,9 +16,9 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 
-############################
-## Plot various relations ##
-############################
+####################
+## Plot relations ##
+####################
 ## Plotting preamble.
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
@@ -53,47 +52,47 @@ kLegendBg <- "slategray1"
 ## - "y.label": y axis label
 kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$gha",
-                                               "main." = "data = bart.clean",
+                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                "x.label" = "h100 [m]",
                                                "y.label" = expression("gha [m"^2*"ha"^-1*"]")),
                              "alt_ekl" = list("x.source" = "bart.clean$alt",
                                               "y.source" = "bart.clean$ekl",
-                                              "main." = "data = bart.clean",
+                                              "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                               "x.label" = "alt [a]",
                                               "y.label" = "ekl"),
                              "alt_gha" = list("x.source" = "bart.clean$alt",
                                               "y.source" = "bart.clean$gha",
-                                              "main." = "data = bart.clean",
+                                              "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                               "x.label" = "alt [a]",
                                               "y.label" = expression("gha [m"^2*"ha"^-1*"]")),
                              "alt_SI.h100" = list("x.source" = "bart.clean$alt",
                                                   "y.source" = "bart.clean$SI.h100",
-                                                  "main." = "data = bart.clean",
+                                                  "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                   "x.label" = "alt [a]",
                                                   "y.label" = "SI.h100 [m]"),
                              "ln.dg_ln.nha" = list("x.source" = "bart.clean$ln.dg",
                                                    "y.source" = "bart.clean$ln.nha",
-                                                   "main." = "data = bart.clean",
+                                                   "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                    "x.label" = "ln.dg",
                                                    "y.label" = "ln.nha"),
                              "log.dg_log.nha" = list("x.source" = "bart.clean$log.dg",
                                                      "y.source" = "bart.clean$log.nha",
-                                                     "main." = "data = bart.clean",
+                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                      "x.label" = "log.dg",
                                                      "y.label" = "log.nha"),
                              "alt_ksha" = list("x.source" = "bart.clean$alt",
                                                "y.source" = "bart.clean$ksha",
-                                               "main." = "data = bart.clean",
+                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                "x.label" = "alt [a]",
                                                "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
                              "h100_ksha" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$ksha",
-                                               "main." = "data = bart.clean",
+                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                "x.label" = "h100 [m]",
                                                "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
                              "h100_h100.diff.EKL.I" = list("x.source" = "bart.clean$h100",
                                                "y.source" = "bart.clean$h100.diff.EKL.I",
-                                               "main." = "data = bart.clean",
+                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                "x.label" = "h100 [m]",
                                                "y.label" = "h100.diff.EKL.I [m]"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
@@ -101,6 +100,7 @@ open.pdf <- FALSE
 ## open.pdf <- TRUE
 ## Initiate "for" loop.
 for (cur.list in names(x = kPlottingInformation)) {
+    ## Turn off graphics device.
     graphics.off()
     ## Extract the necessary information for the current plot from "kPlottingInformation".
     for (cur.name in names(x = kPlottingInformation[[cur.list]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
@@ -168,8 +168,60 @@ for (cur.list in names(x = kPlottingInformation)) {
            pch = kPointsLinesSettings$pch,
            lty = kPointsLinesSettings$lty,
            lwd = kPointsLinesSettings$lwd)
+    ## Turn off graphics device.
     graphics.off()
-    ## Open .pdf file via mupdf.
+    ## If desired, open .pdf file via mupdf.
+    if (open.pdf) {
+        system2(command = "mupdf",
+                args = paste0("-r 64 ",
+                              file.name),
+                wait = FALSE)
+    }
+}
+
+#################
+## Plot models ##
+#################
+## Plotting preamble.
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+kPdfWidth <- 30
+kPdfHeight <- kPdfWidth * 0.625
+kPdfPointSize <- 19
+kPdfFamily <- "Times"
+kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+kPointsType <- "b"
+kXAxs <- "r"
+kYAxs <- "r"
+kGridCol <- "black"
+kGridLwd <- 2
+## Set flag to determine whether the newly created .pdf file should be opened.
+open.pdf <- FALSE
+open.pdf <- TRUE
+## Initiate "for" loop.
+for (cur.model.name in names(x = models)) {
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <- gsub(pattern = "[$]",
+                      replacement = ".",
+                      x = paste0("Graphics/",
+                                 cur.model.name,
+                                 ".pdf"))
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidth,
+        height = kPdfHeight,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot margins.
+    par(mar = kPlotMargins)
+    ## Plot model.
+    cur.model <- models[[cur.model.name]]
+    plot.gam(x = cur.model)
+    ## Turn off graphics device.
+    graphics.off()
+    ## If desired, open .pdf file via mupdf.
     if (open.pdf) {
         system2(command = "mupdf",
                 args = paste0("-r 64 ",
