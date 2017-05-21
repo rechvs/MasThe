@@ -15,6 +15,11 @@ kgmaxObjects <- load(file = paste0(kDataDir, "gmax.RData"), verbose = TRUE)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_1.1.RData". ##
@@ -43,6 +48,14 @@ bart <- bart[order(bart$edvid,bart$auf),]
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "ksha.sums"))
 
 ##############################
 ## Create "gmax_1.2.RData". ##
@@ -61,6 +74,13 @@ bart$ksha.rel <- bart$ksha / bart$ksha.sum.edvid.auf
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_1.3.RData". ##
@@ -79,6 +99,13 @@ bart$nhaa.rel <- bart$nhaa / bart$nha
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_1.4.RData". ##
@@ -100,6 +127,13 @@ bart$art <- as.factor(bart$art)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_1.5.RData". ##
@@ -119,6 +153,13 @@ bart$SI.h100 <- (bart$h100 + 49.87200 - 7.33090 * log(x = bart$alt) - 0.77338 * 
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_1.6.RData". ##
@@ -139,6 +180,14 @@ bart$h100.EKL.I <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart$alt)) - 49.
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "SI.h100.EKL.I"))
 
 ##############################
 ## Create "gmax_1.7.RData". ##
@@ -162,6 +211,16 @@ for (parcel in levels(bart$edvid)) {
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "parcel",
+            "species",
+            "gha.cur.par"))
 
 ##############################
 ## Create "gmax_1.8.RData". ##
@@ -188,6 +247,17 @@ for (parcel in levels(bart$edvid)) {
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "parcel",
+            "species",
+            "gha.cur.par",
+            "gha.diff"))
 
 ##############################
 ## Create "gmax_1.9.RData". ##
@@ -235,6 +305,20 @@ kgmaxObjects <- c("bart.clean", kgmaxObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "parcel",
+            "name.cur",
+            "names.vec",
+            names.vec,
+            "auf.mark",
+            "parcel.subset",
+            "auf.vec"))
 
 ##############################
 ## Create "gmax_2.0.RData". ##
@@ -253,6 +337,13 @@ bart.clean$h100.diff.EKL.I <- bart.clean$h100.EKL.I - bart.clean$h100
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_2.1.RData". ##
@@ -273,6 +364,13 @@ bart.clean$ln.dg <- log(x = bart.clean$dg, base = exp(x = 1))
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
 
 ##############################
 ## Create "gmax_2.2.RData". ##
@@ -293,3 +391,10 @@ bart.clean$log.dg <- log10(x = bart.clean$dg)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
