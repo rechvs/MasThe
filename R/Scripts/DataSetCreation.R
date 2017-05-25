@@ -1,4 +1,6 @@
-## Preamble
+##############
+## Preamble ##
+##############
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
@@ -488,3 +490,41 @@ rm(list = c("kBaseFileVersion",
             "kFileName",
             kgmaxObjects,
             "kgmaxObjects"))
+
+##############################
+## Create "gmax_2.6.RData". ##
+##############################
+## Based on version 2.5.
+## In this version, "bart.clean" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
+kBaseFileVersion <- "2.5"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.6"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Create "jahr".
+for (cur.row.index in 1:nrow(auf)) {
+    cur.row <- auf[cur.row.index, ]
+    cur.edvid <- cur.row$"edvid"
+    cur.auf <- as.numeric(cur.row$"auf")
+    cur.jahr <- as.numeric(cur.row$"jahr")
+    index.bart.clean <- which(x = bart.clean$"edvid" == cur.edvid & bart.clean$"auf" == cur.auf)
+    bart.clean$"jahr"[index.bart.clean] <- cur.jahr
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "cur.row.index",
+            "cur.row",
+            "cur.edvid",
+            "cur.auf",
+            "cur.jahr",
+            "index.bart.clean"))
