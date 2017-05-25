@@ -398,3 +398,93 @@ rm(list = c("kBaseFileVersion",
             "kFileName",
             kgmaxObjects,
             "kgmaxObjects"))
+
+##############################
+## Create "gmax_2.3.RData". ##
+##############################
+## Based on version 2.2.
+## In this version, "bart.clean" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
+kBaseFileVersion <- "2.2"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.3"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "ksha.diff".
+for (parcel in levels(bart.clean$edvid)) {
+    ksha.cur.par <- bart.clean$ksha[bart.clean$edvid == parcel]
+    bart.clean$ksha.diff[bart.clean$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "parcel",
+            "ksha.cur.par"))
+
+##############################
+## Create "gmax_2.4.RData". ##
+##############################
+## Based on version 2.3.
+## In this version, "bart.clean" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
+kBaseFileVersion <- "2.3"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.4"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "ksha.rel.cha".
+for (parcel in levels(bart.clean$edvid)) {
+    ksha.cur.par <- bart.clean$ksha[bart.clean$edvid == parcel]
+    ksha.cur.par <- ksha.cur.par[1:length(ksha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
+    ksha.diff <- bart.clean$ksha.diff[bart.clean$edvid == parcel]
+    ksha.diff <- ksha.diff[2:length(ksha.diff)]  ## Remove first element since it is not necessary for the calculation.
+    bart.clean$ksha.rel.cha[bart.clean$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "parcel",
+            "kgmaxObjects",
+            "ksha.cur.par",
+            "ksha.diff"))
+
+##############################
+## Create "gmax_2.5.RData". ##
+##############################
+## Based on version 2.4.
+## In this version, "bart.clean" contains an additional 35. column "ksha.clean" which is based on "ksha" but in which values are replaced with NA if "ksha.rel.cha < -0.05".
+kBaseFileVersion <- "2.4"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.5"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Create "ksha.clean".
+bart.clean$ksha.clean <- bart.clean$ksha
+bart.clean$ksha.clean[which(x = bart.clean$ksha.rel.cha < -0.05)] <- NA
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects"))
