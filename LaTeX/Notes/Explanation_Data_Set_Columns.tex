@@ -1,0 +1,33 @@
+% NOTE: when inserting R code, escape special characters in the following way:
+% - “_” = “\_”
+% - “$” = “\$”
+% - “^” = “\textasciicircum”
+\section{Explanation of Data Set Columns}
+
+\subsection{h100.EKL.I}
+\textbf{First appearance:} gmax\_1.6.RData
+
+\textbf{Relevant R Code:}
+
+\begin{rcode}
+  SI.h100.EKL.I <- 35.1 \\
+  bart\$h100.EKL.I <- \=SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart\$alt)) \\
+  \>- 49.872 + 7.3309 * log(x = bart\$alt) \\
+  \>+ 0.77338 * (log(x = bart\$alt))\textasciicircum 2
+\end{rcode}
+
+Explanation: ``h100.EKL.I'' holds h\textsubscript{100} for a given age if the stand were EKL I.
+
+\subsection{h100.diff.EKL.I}
+\textbf{First appearance:} gmax\_2.0.RData
+
+\textbf{Relevant R Code:}
+
+\begin{rcode}
+  bart.clean\$h100.diff.EKL.I <- bart.clean\$h100.EKL.I - bart.clean\$h100
+\end{rcode}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasAr_Notes"
+%%% End:
