@@ -6,7 +6,7 @@ setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
-kBaseFileVersion <- "2.6"
+kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -133,7 +133,17 @@ kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
                                                      "y.source" = "bart.clean$ksha.clean",
                                                      "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                                      "x.label" = expression("gha [m"^2*" ha"^-1*"]"),
-                                                     "y.label" = expression("ksha.clean [m"^2*" ha"^-1*"]")))
+                                                     "y.label" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
+                             "ghaa.cum_gha" = list("x.source" = "bart.clean$ghaa.cum",
+                                                     "y.source" = "bart.clean$gha",
+                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, ghaa.cum.rel.cha >= -0.05)",
+                                                     "x.label" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                                                     "y.label" = expression("gha [m"^2*" ha"^-1*"]")),
+                             "ksha.clean_gha" = list("x.source" = "bart.clean$ksha.clean",
+                                                     "y.source" = "bart.clean$gha",
+                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, ksha.clean.rel.cha >= -0.05)",
+                                                     "x.label" = expression("ksha.clean [m"^2*" ha"^-1*"]"),
+                                                     "y.label" = expression("gha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 ## open.pdf <- TRUE
