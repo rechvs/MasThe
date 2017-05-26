@@ -5,7 +5,7 @@
 \section{Explanation of Data Frame Columns}
 
 \subsection{SI.h100}
-\textbf{First appearance:} gmax\_1.5.RData
+\textbf{Introduced with:} gmax\_1.5.RData
 
 \textbf{Relevant R Code:}
 
@@ -18,21 +18,21 @@
 \textbf{Explanation:} ``SI.h100'' holds the absolute stand index for a given stand (i.e., the value of h\textsubscript{100} at age \SI{100}{\years}) calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
 
 \subsection{h100.EKL.I}
-\textbf{First appearance:} gmax\_1.6.RData
+\textbf{Introduced with:} gmax\_1.6.RData
 
 \textbf{Relevant R Code:}
 
 \begin{rcode}
   SI.h100.EKL.I <- 35.1 \\
-  bart\$h100.EKL.I <- \=SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart\$alt)) \\
-  \>- 49.872 + 7.3309 * log(x = bart\$alt) \\
-  \>+ 0.77338 * (log(x = bart\$alt))\textasciicircum 2
+  bart\$h100.EKL.I <- \=SI.h100.EKL.I * (0.52684 + 0.10542 \\
+  \>* log(x = bart\$alt)) - 49.872 + 7.3309 \\
+  \>* log(x = bart\$alt) + 0.77338 * (log(x = bart\$alt))\textasciicircum 2
 \end{rcode}
 
 \textbf{Explanation:} ``h100.EKL.I'' holds h\textsubscript{100} for a given age if the stand were EKL I.
 
 \subsection{h100.diff.EKL.I}
-\textbf{First appearance:} gmax\_2.0.RData
+\textbf{Introduced with:} gmax\_2.0.RData
 
 \textbf{Relevant R Code:}
 
