@@ -528,3 +528,38 @@ rm(list = c("kBaseFileVersion",
             "cur.auf",
             "cur.jahr",
             "index.bart.clean"))
+
+##############################
+## Create "gmax_2.7.RData". ##
+##############################
+## Based on version 2.6.
+## In this version, "bart.clean" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
+kBaseFileVersion <- "2.6"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.7"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "ghaa.cum".
+ghaa.cum <- NULL
+for (cur.edvid in levels(bart.clean$"edvid")) {
+    ghaa.subset <- bart.clean$"ghaa"[bart.clean$"edvid" == cur.edvid]
+    ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
+    ghaa.cum <- c(ghaa.cum,
+                  cumsum(x = ghaa.subset))
+}
+bart.clean$"ghaa.cum" <- ghaa.cum
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = c("kBaseFileVersion",
+            "kBaseFileName",
+            "kFileVersion",
+            "kFileName",
+            kgmaxObjects,
+            "kgmaxObjects",
+            "cur.edvid",
+            "ghaa.subset",
+            "ghaa.cum"))
