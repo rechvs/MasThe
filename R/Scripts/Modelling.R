@@ -20,9 +20,11 @@ kStartValsVecs <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- c("mgcv..gam")
-## kFunctionsToUse <- c("stats..nls")
-## kFunctionsToUse <- c("nls2..nls2")
+kFunctionsToUse <- c("stats..nls")
+kFunctionsToUse <- c("nls2..nls2")
 kFunctionsToUse <- c("minpack.lm..nlsLM")
+kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
+## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
 
 ##########
 ## GAMs ##
@@ -35,8 +37,8 @@ kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k
 kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
 ## Evaluate and store models.
 kFunction <- "mgcv..gam"
-if (grepl(pattern = kFunction,
-          x = kFunctionsToUse)) {
+if (any(grepl(pattern = kFunction,
+          x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
         models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
                                                                data = bart.clean)
@@ -77,8 +79,8 @@ kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
                                      "b1" = -1)
 ## Evaluate and store models fitted with "stats::nls".
 kFunction <- "stats..nls"
-if (grepl(pattern = kFunction,
-          x = kFunctionsToUse)) {
+if (any(grepl(pattern = kFunction,
+          x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
         if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
             try(expr = 
@@ -91,8 +93,8 @@ if (grepl(pattern = kFunction,
     }}
 ## Evaluate and store models fitted with "nls2::nls2"
 kFunction <- "nls2..nls2"
-if (grepl(pattern = kFunction,
-          x = kFunctionsToUse)) {
+if (any(grepl(pattern = kFunction,
+          x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
         if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
             try(expr = 
@@ -104,8 +106,8 @@ if (grepl(pattern = kFunction,
     }}
 ## Evaluate and store models fitted with "minpack.lm::nlsLM"
 kFunction <- "minpack.lm..nlsLM"
-if (grepl(pattern = kFunction,
-          x = kFunctionsToUse)) {
+if (any(grepl(pattern = kFunction,
+          x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
         if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
             try(expr = 
