@@ -94,7 +94,7 @@ for (cur.formula.name in names(x = kFormulas)) {
         try(expr = 
                 models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
                                                                                        data = bart.clean,
-                                                                                       start = kStartValsGrids[[cur.formula.name]])
+                                                                                       start = kStartValsVecs[[cur.formula.name]])
             )
     }
 }
