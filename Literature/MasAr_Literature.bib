@@ -381,7 +381,7 @@ If the e.d.f. [estimated degrees of freedom] is close to 1 but the answer to 2. 
   author    = {Reinhard Schober},
   title     = {Ertragstafeln wichtiger Baumarten},
   year      = {1995},
-  file      = {:Scans/Schober_1995_Spruce_unsepOCR.pdf:PDF;:Scans/Schober_1995_Spruce_unsep.pdf:PDF;:Scans/Schober_1995_SpruceOCR.pdf:PDF;:Scans/Schober_1995_Spruce.pdf:PDF},
+  file      = {:Scans/Schober_1995_Spruce_unsep.pdf:PDF;:Scans/Schober_1995_Spruce_unsepOCR.pdf:PDF;:Scans/Schober_1995_Spruce.pdf:PDF;:Scans/Schober_1995_SpruceOCR.pdf:PDF},
   owner     = {renke},
   timestamp = {2017.05.02},
 }
@@ -420,16 +420,15 @@ If the e.d.f. [estimated degrees of freedom] is close to 1 but the answer to 2. 
 }
 
 @Book{Field2012,
-  author        = {Field, Andy P. and Miles, Jeremy and Field, Zoë},
-  title         = {Discovering statistics using R},
-  date          = {2012},
-  note          = {{OCLC}: ocn760970657},
-  publisher     = {Sage},
-  location      = {London ; Thousand Oaks, Calif},
-  isbn          = {978-1-4462-0046-9 978-1-4462-0045-2},
-  pagetotal     = {957},
-  __markedentry = {[renke:]},
-  abstract      = {- p. 38, Jane Superbrain 2.2: “In statistical terms the degrees of freedom relate to the number of observations that are free to vary” when trying to calculate the standard deviation of the population to which the observations belong to.
+  author    = {Field, Andy P. and Miles, Jeremy and Field, Zoë},
+  title     = {Discovering statistics using R},
+  date      = {2012},
+  note      = {{OCLC}: ocn760970657},
+  publisher = {Sage},
+  location  = {London ; Thousand Oaks, Calif},
+  isbn      = {978-1-4462-0046-9 978-1-4462-0045-2},
+  pagetotal = {957},
+  abstract  = {- p. 38, Jane Superbrain 2.2: “In statistical terms the degrees of freedom relate to the number of observations that are free to vary” when trying to calculate the standard deviation of the population to which the observations belong to.
 Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. We thus assume the population mean to be 10 and keep this value constant. If we were to take another set of 4 observations from the population, only 3 of these observations would be free to vary in order to not violate our assumption of the population mean to be 10 (e.g., if in our 2. sample x_1 = 7, x_2 = 15, and x_3 = 8 then x_4 would need to be 10 in order to keep the assumption of mean(x) = 10). “This fact explains why when we use a sample to estimate the standard deviation of a population, we have to divide the sums of squares by N-1 rather than N alone.”
 
 - definition of “mean”: Notes, p. 1
@@ -445,9 +444,55 @@ Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. W
 - definition of “standard deviation”: Notes, p. 2
 
 - explanation of the “central limit theorem” and definition of the “standard error of the mean”: Notes, p. 3},
-  keywords      = {Computer programs, R (Computer program language), Social sciences, Statistical methods Computer programs, Statistics},
+  keywords  = {Computer programs, R (Computer program language), Social sciences, Statistical methods Computer programs, Statistics},
+  owner     = {renke},
+  timestamp = {2017.05.18},
+}
+
+@Article{Kira1953,
+  author       = {Tatuo Kira and Husato Ogawa and Nobuyuki Sakazaki},
+  title        = {Intraspecific competition among higher plants I. Competition-Yield-Density Interrelationship in regularly dispersed populations},
+  journaltitle = {Journal of the Institute of Polytechnics Osaka City University},
+  year         = {1953},
+  series       = {D, Biology},
+  volume       = {4},
+  pages        = {1-16},
+  abstract     = {- Note: for an explanation of equations see handwritten notes
+
+- p. 5: statistical analysis unexpectedly revealed that planting density had no significant effect on variation of fresh weight of individual plants around the plot mean
+
+- fig. 3: the slope of the log(individual dry weight) vs. log(density) curve [which is coefficient “a” in eq. (2) times -1] decreases (becomes more negative) as plant age increases
+
+- p. 11: index “a” from eq. (2) is called the “C-D index”;
+
+- p. 12: the C-D index is a measure of
+ - space utilization by plants at certain ages
+ - competition density (the higher the value is, the more intense the competition is)},
+  file         = {:Articles/Kira_et_al_1953.pdf:PDF;:Articles/Kira_et_al_1953OCR.pdf:PDF},
+  owner        = {renke},
+  timestamp    = {2017.05.24},
+}
+
+@Book{Hastie1991,
+  author        = {Hastie, Trevor and Tibshirani, Robert},
+  title         = {Generalized additive models},
+  date          = {1991},
+  publisher     = {Chapman \& Hall/{CRC}},
+  location      = {Boca Raton, Fla},
+  isbn          = {978-0-412-34390-2},
+  pagetotal     = {335},
+  __markedentry = {[renke:]},
+  abstract      = {- p. 3: definition of a “smooth” [cp. Notes, p. 1]
+
+- p. 11:“Most smoothers attempt to mimic category averaging through local averaging”, where the “averaging is done in neighbourhoods around the target value.”
+“Smoothers differ mainly in their method of averaging.”
+“The size of the neighbourhood is typically expressed in terms of an adjustable smoothing parameter.”
+”There is a fundamental tradeoff between bias and variance, governed by the smoothing parameter.” (large neighbourhood = low variance but potentially high bias; small neighbourhood = high variance but potentially low bias)
+
+- p. 22: Regression splines represent the model fit as a piecewise polynomial.},
+  keywords      = {Linear models (Statistics), Regression analysis, Smoothing (Statistics)},
   owner         = {renke},
-  timestamp     = {2017.05.18},
+  timestamp     = {2017.05.26},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

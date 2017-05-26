@@ -1,4 +1,4 @@
-* TODO [7/10]
+* TODO [8/10]
 ** done read Sterba (1987)
    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
@@ -22,6 +22,8 @@
 ** done change column names in [[file:R/Scripts/DataSetCreation.R::1][DataSetCreation.R]];
    - State "done"       from "CURRENT"    [2017-05-08 Mo 09:51]
    e.g., from “rel.ksha” to “ksha.rel”
+** done Add clean up sections to each block in [[file:R/Scripts/DataSetCreation.R::##%20Preamble][DataSetCreation.R]] (to prevent obstruction of the workspace by objects no longer needed if the script is called from outside)
+   - State "done"       from "CURRENT"    [2017-05-24 Mi 08:43]
 ** CURRENT improve understanding of Sterba’s approach
 *** done read Sterba (1975)
    - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
@@ -29,10 +31,36 @@
    - State "done"       from "CURRENT"    [2017-05-17 Mi 12:52]
 *** done read Reineke (1933)
    - State "done"       from "CURRENT"    [2017-05-17 Mi 14:48]
-*** CURRENT pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
+*** done pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 12:18]
+*** CURRENT acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
+    the article supposedly also deals with the yield-density relationship
+*** CURRENT acquire Mitscherlich (1919) (cp. Kira et al. (1953), p. 10)
+    the article supposedly also deals with the yield-density relationship
+*** CURRENT acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Ando (1968) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Goulding (1972) (cp. Sterba (1987), p. 1023)
 ** CURRENT Improve understanding of GAMs
 *** done read Wood (2001)
     - State "done"       from "CURRENT"    [2017-05-18 Do 16:00]
-*** CURRENT What is a “smooth function”?
-*** CURRENT What is a “regression spline”?
-** CURRENT Add clean up sections to each block in [[file:R/Scripts/DataSetCreation.R::##%20Preamble][DataSetCreation.R]] (to prevent obstruction of the workspace by objects no longer needed if the script is called from outside)
+*** done What is a “smooth function”?
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 16:12]
+      cp. Hastie & Tibshirani (1990), p. 3 for a definition of “smooth” [not sure, whether “smooth” and “smooth function” are synonymous]
+*** done What is a “regression spline”?
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 18:00]
+      cp. Hastie & Tibshirani (1990), p. 22 ff.
+*** CURRENT Read Hastie & Tibshirani (1990)
+    + [-] important chapters according to section 1.3
+      + [X] Chapter 2
+      + [ ] Chapter 4
+      + [ ] Chapter 6
+* NOTES
+** R Code Style Guidelines
+   + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
+   + constants: an object is considered a constant if its value is (meant to be) hardcoded or if its value is the indirect result of functions acting only on hardcoded values
+** Diary
+*** [2017-05-26 Fr]
+    + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
+    + apparently, “(Gl. 3)” from Wördehoff et al. (2014) assumes “[Gmax] = m^2 m^-2”;
+      when trying to [[file:R/Scripts/Modelling.R::kFormulas%5B%5B"Sterba_Gmax"%5D%5D%20<-%20as.formula(object%20=%20"gha%20/%2010000%20~%20pi%20/%20(16%20*%20a0%20*%20b0%20*%20(h100%20^(a1%20+%20b1)))")%20##%20cp.%20W%C3%B6rdehoff%20et%20al.%20(2014),%20(Gl.%203)][fit this equation]], we therefore need to didivde the value of “bart.clean$gha” by 100000 in order to obtain the required unit
