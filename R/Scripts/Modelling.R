@@ -74,8 +74,8 @@ kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
                                                 "b0" = c(0, 1),
                                                 "b1" = c(-2, 2))
 kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
-                                     "a1" = 0,
-                                     "b0" = 0,
+                                     "a1" = 0.1,
+                                     "b0" = 0.1,
                                      "b1" = -1)
 ## Evaluate and store models fitted with "stats::nls".
 kFunction <- "stats..nls"
@@ -86,8 +86,7 @@ if (any(grepl(pattern = kFunction,
             try(expr = 
                     models[["stats..nls"]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                              data = bart.clean,
-                                                                             start = kStartValsVecs[[cur.formula.name]],
-                                                                             control = list("minFactor" = 1e-10))
+                                                                             start = kStartValsVecs[[cur.formula.name]])
                 )
         }
     }}
