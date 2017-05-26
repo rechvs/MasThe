@@ -22,8 +22,9 @@ kPrintSumries <- FALSE
 kFunctionsToUse <- c("mgcv..gam")
 kFunctionsToUse <- c("stats..nls")
 kFunctionsToUse <- c("nls2..nls2")
-kFunctionsToUse <- c("minpack.lm..nlsLM")
-kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
+## kFunctionsToUse <- c("minpack.lm..nlsLM")
+## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
+## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
 
 ##########
@@ -49,10 +50,10 @@ if (any(grepl(pattern = kFunction,
 ############
 ## Setup for model "Sterba_dgGmax". For possible start values cp. Sterba (1987), tab. 2.
 kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")  ## cp. Wördehoff et al. (2014), (Gl. 1)
-kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = c(0, 1),
+kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = c(-1, 1),
                                                   "a1" = c(0, 1),
                                                   "b0" = c(0, 1),
-                                                  "b1" = c(-1, 1))
+                                                  "b1" = c(-3, 0))
 kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,  ## "stats::nls" and "minpack.lm::nlsLM" converge with these starting values.
                                        "a1" = 0,
                                        "b0" = 2,
@@ -99,7 +100,10 @@ if (any(grepl(pattern = kFunction,
             try(expr = 
                     models[["nls2..nls2"]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
                                                                              data = bart.clean,
-                                                                             start = kStartValsGrids[[cur.formula.name]])
+                                                                             start = kStartValsGrids[[cur.formula.name]],
+                                                                             algorithm = "random-search",
+                                                                             control = (stats::nls.control(maxiter = 100,
+                                                                                                           minFactor = 10 ^ -10)))
                 )
         }
     }}
