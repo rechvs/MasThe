@@ -16,6 +16,30 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 
+###################
+## BEGIN TESTING ##
+###################
+## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+graphics.off()
+dev.new()
+plot(x = bart.clean$h100,
+     y = bart.clean$gha)
+points(x = bart.clean$h100,
+       y = predict(object = models$"nls2..nls2"$"Sterba_Gmax") * 10000,
+       col = "blue")
+## Using coefficient values from Wördehoff (2016).
+a0 <- 4.913256e-06
+a1 <- 0.4394706
+b0 <- 0.3716977
+b1 <- -0.9097641
+plot(x = bart.clean$h100,
+      ## y = pi/(16 * a0 * b0 * (bart.clean$h100^(a1 + b1))) / 10000,
+      y = pi/(16 * a0 * b0 * (bart.clean$h100^(a1 + b1))),
+      col = "red")
+#################
+## END TESTING ##
+#################
+
 ####################
 ## Plot relations ##
 ####################
