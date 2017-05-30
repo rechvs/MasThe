@@ -489,7 +489,21 @@ Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. W
 “The size of the neighbourhood is typically expressed in terms of an adjustable smoothing parameter.”
 ”There is a fundamental tradeoff between bias and variance, governed by the smoothing parameter.” (large neighbourhood = low variance but potentially high bias; small neighbourhood = high variance but potentially low bias)
 
-- p. 22: Regression splines represent the model fit as a piecewise polynomial.},
+- p. 22: Regression splines represent the model fit as a piecewise polynomial.
+
+- p. 82: [A “design vector” contains all measurements of the predictor (or independent) variables for a given object (cp. https://en.wikipedia.org/wiki/Design_matrix).]
+
+- p. 83: [Listing of the benefits of linear regression models, which, however, are only applicable if the underlying assumption of a linear relationship between response (or dependent) variable and the predictors assumption.]
+
+- p. 83: Explanation of the “curse of dimensionality”: the term stands for the fact that with increasing number of dimensions [i.e., the number of predictors], the side length of a cube comprising a local average of all predictors increases as well [e.g., for p = 3 dimensions and a cube comprising 0.3 % of the total volume of 100 the side length would be (0.3 % * 100) ^ 1/3 = 0.669, for p = 10 it would be (0.3 % * 100) ^ 1/10 = 0.887, which can hardly be called “local” anymore].
+
+- p. 83 f.: Due to the “curse of dimensionality”, one, in order to preserve the meaning of a “local” average, is forced to use kernels with a smaller bandwidth [for an explanation of the term “bandwidth” in the context of kernel smoothers cp. Notes, p. 1] as dimensions increase, which in turn requires increasingly more data in order to obtain variance stable estimates.
+Despite this, surface smoothers are still useful, especially for 2 dimensions (where the obtained estimate can be illustrated as a plane in 3D space).
+
+- p. 88: The ease of interpreting an additive model comes at the price of the model almost always being an approximation to the true regression surface.
+The purpose of an additive model is not to be correct but rather to aid in uncovering the important predictors and their influence on the response.
+
+- fig. 4.6: illustration of the possible different components of an additive model},
   keywords      = {Linear models (Statistics), Regression analysis, Smoothing (Statistics)},
   owner         = {renke},
   timestamp     = {2017.05.26},
