@@ -503,7 +503,20 @@ Despite this, surface smoothers are still useful, especially for 2 dimensions (w
 - p. 88: The ease of interpreting an additive model comes at the price of the model almost always being an approximation to the true regression surface.
 The purpose of an additive model is not to be correct but rather to aid in uncovering the important predictors and their influence on the response.
 
-- fig. 4.6: illustration of the possible different components of an additive model},
+- fig. 4.6: illustration of the possible different components of an additive model
+
+- p. 137: elements of a genearlized linear model:
+ - random component (the response Y is assumed to have exponential family density)
+ - systematic component (the expectation of Y is assumed to be related to the set of covariates by the so called linear predictor)
+ - link function (linking random component and systematic component (e.g., the logit))
+
+- p. 137: [The term “exponential family” refers to a set of probability distributions of a certain form (cp. https://en.wikipedia.org/wiki/Exponential_family).]
+
+- p. 140: A generalized additive model differs from a generalized linear model in that the linear predictor is replaced by an additive predictor.
+Thus, the elements of a generalized additive model are:
+ - random component (the response Y is assumed to have exponential family density)
+ - systematic component (the expectation of Y is assumed to be related to the set of covariates by the so called additive predictor)
+ - link function (linking random component and systematic component (e.g., the logit))},
   keywords      = {Linear models (Statistics), Regression analysis, Smoothing (Statistics)},
   owner         = {renke},
   timestamp     = {2017.05.26},
