@@ -5,6 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
@@ -232,7 +233,6 @@ for (cur.list in names(x = kPlottingInformation)) {
 ## Plot models ##
 #################
 ## Plotting preamble.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
@@ -284,7 +284,6 @@ for (cur.function.name in names(x = models)) {
 ## Plot relations and respective model predictions ##
 #####################################################
 ## Plotting preamble.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
