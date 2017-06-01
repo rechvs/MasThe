@@ -23,7 +23,7 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Plot relations and respective model predictions. ##
 ######################################################
 ## Plotting preamble.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
@@ -40,15 +40,12 @@ kLegendBg <- "slategray1"
 kPlottingInformation <- list("h100_gha" = list("main." = "Measurements and model predictions for gha vs. h100 (data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05))",
                                                "x.label" = "h100 [m]",
                                                "y.label" = expression("gha [m"^2*" ha"^-1*"]"),
+                                               "n.plots" = 3,
                                                "x.source.1" = "bart.clean$h100",
                                                "y.source.1" = "bart.clean$gha",
-                                               "coeffs.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
-                                               "x.source.2" = "seq(from = min(bart.clean$h100), to = max(bart.clean$h100), by = 0.5)",
-                                               ## "y.source.2" = "predict(object = models$\"nls2..nls2\"$\"Sterba_Gmax\") * 10000",
-                                               "y.source.2" = "pi/(16 * eval(parse(text = coeffs.2))[[\"a0\"]] * eval(parse(text = coeffs.2))[[\"b0\"]] * (eval(parse(text = x.source.2)) ^ (eval(parse(text = coeffs.2))[[\"a1\"]] + eval(parse(text = coeffs.2))[[\"b1\"]]))) * 10000",
-                                               "x.source.3" = "seq(from = min(bart.clean$h100), to = max(bart.clean$h100), by = 0.5)",
-                                               ## "y.source.3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (bart.clean$h100^(0.4394706 + -0.9097641))) / 10000",  ## coefficient values from Wördehoff (2016), tab. 3.6
-                                               "y.source.3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (eval(parse(text = x.source.3)) ^ (0.4394706 + -0.9097641))) / 10000",  ## coefficient values from Wördehoff (2016), tab. 3.6
+                                               "coeffs.source.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
+                                               "curve.expr.2" = "pi/(16 * eval(parse(text = coeffs.source.2))[[\"a0\"]] * eval(parse(text = coeffs.source.2))[[\"b0\"]] * (x ^ (eval(parse(text = coeffs.source.2))[[\"a1\"]] + eval(parse(text = coeffs.source.2))[[\"b1\"]]))) * 10000",
+                                               "curve.expr.3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
                                                "pch." = 1,
                                                "col." = c("black", "red", "blue")))
 ## Initiate "for" loop.
@@ -71,25 +68,25 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                                  y.source.1,
                                  ".pdf"))
     ## Start graphics device driver for producing PDF graphics.
-    pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
-        pointsize = kPdfPointSize,
-        family = kPdfFamily)
-    for (plot.nr in 1:length(x = which(x = grepl(pattern = "x.source*", x = names(x = kPlottingInformation[[cur.list.name]]))))) {
-        ## Create vectors containing the actual x and y values.
-        x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("x.source.", plot.nr)))))
-        y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("y.source.", plot.nr)))))
-        ## Calculate numerical values necessary for creating the plot.
-        x.lim.low <- range(x.values, na.rm = TRUE)[1]
-        x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
-        x.lim <- c(x.lim.low, x.lim.high)
-        y.lim.low <- range(y.values, na.rm = TRUE)[1]
-        y.lim.high <- range(y.values, na.rm = TRUE)[2]
-        y.lim <- c(y.lim.low, y.lim.high)
+    ## pdf(file = file.name,
+        ## width = kPdfWidth,
+        ## height = kPdfHeight,
+        ## pointsize = kPdfPointSize,
+        ## family = kPdfFamily)
+    for (plot.nr in 1:n.plots) {
         ## Set plot margins.
         par(mar = kPlotMargins)
-        if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to use "plot(…)".
+        if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to determine all settings required for and call "plot(…)".
+            ## Create vectors containing the actual x and y values.
+            x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("x.source.", plot.nr)))))
+            y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("y.source.", plot.nr)))))
+            ## Calculate numerical values necessary for creating the plot.
+            x.lim.low <- range(x.values, na.rm = TRUE)[1]
+            x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
+            x.lim <- c(x.lim.low, x.lim.high)
+            y.lim.low <- range(y.values, na.rm = TRUE)[1]
+            y.lim.high <- range(y.values, na.rm = TRUE)[2]
+            y.lim <- c(y.lim.low, y.lim.high)
             ## Create plot.
             plot(x = x.values,
                  y = y.values,
@@ -103,17 +100,16 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                  pch = pch.,
                  col = col.[plot.nr],
                  type = kPointsType)
-        } else {  ## If this is true, it means we are plotting model predictions and need to use "points(…)".
-            ## Create plot.
-            points(x = x.values,
-                   y = y.values,
-                   pch = pch.,
-                   col = col.[plot.nr],
-                   type = kPointsType)
+        } else {  ## If this is true, it means we are plotting model predictions and need to use "curve(…)".
+            ## Add curve.
+            func <- function(x) {}
+            body(func) <- parse(text = eval(expr = parse(text = paste0("curve.expr.", plot.nr))))
+            print(x = func)  ## TESTING
+            curve(expr = func, from = 0, to = 40, add = TRUE)  ## TESTING
         }
     }
     ## Turn off graphics device.
-    graphics.off()
+    ## graphics.off()
 }
 
 ## ## Plot base relation. ##
