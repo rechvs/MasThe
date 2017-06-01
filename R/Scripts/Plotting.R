@@ -146,7 +146,7 @@ kPlottingInformation <- list("h100_gha" = list("kXSource" = "bart.clean$h100",
                                                      "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
-kOpenPdf <- TRUE
+## kOpenPdf <- TRUE
 ## Initiate "for" loop.
 for (cur.list in names(x = kPlottingInformation)) {
     ## Turn off graphics device.
@@ -232,7 +232,7 @@ for (cur.list in names(x = kPlottingInformation)) {
 ## Plot models ##
 #################
 ## Plotting preamble.
-## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
@@ -292,39 +292,39 @@ kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
 ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
 kPlotType <- "p"
-kXAxs <- "r"
-kYAxs <- "r"
+kPlotXAxs <- "r"
+kPlotYAxs <- "r"
 kLegendBg <- "slategray1"
-kPlottingInformation <- list("h100_gha" = list("main." = "Measurements and model predictions for gha vs. h100 (data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05))",
-                                               "x.label" = "h100 [m]",
-                                               "y.label" = expression("gha [m"^2*" ha"^-1*"]"),
-                                               "n.plots" = 3,
-                                               "x.source.1" = "bart.clean$h100",
-                                               "y.source.1" = "bart.clean$gha",
-                                               "coeffs.source.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
-                                               "curve.expr.2" = "pi/(16 * eval(parse(text = coeffs.source.2))[[\"a0\"]] * eval(parse(text = coeffs.source.2))[[\"b0\"]] * (x ^ (eval(parse(text = coeffs.source.2))[[\"a1\"]] + eval(parse(text = coeffs.source.2))[[\"b1\"]]))) * 10000",
-                                               "curve.expr.3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
-                                               "legend.legend" = c("Measurements", as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using estimated coefficients")), as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using coefficients from Wördehoff (2016)"))),
-                                               "legend.x" = "topleft",
-                                               "pch." = c(1, NA, NA),
-                                               "lty." = c(NA, 1, 1),
-                                               "col." = c("black", "red", "blue")),
-                             "dg_nha" = list("main." = "Measurements and model predictions for nha vs. dg (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
-                                             "x.label" = "dg [cm]",
-                                             "y.label" = expression("nha [ha"^-1*"]"),
-                                             "n.plots" = 2,
-                                             "x.source.1" = "bart.clean$dg",
-                                             "y.source.1" = "bart.clean$nha",
-                                             "coeffs.source.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_NGmax\")",
-                                             "curve.expr.2" = "eval(expr = parse(text = coeffs.source.2))[[\"b0\"]] / eval(expr = parse(text = coeffs.source.2))[[\"a0\"]] * (2 * eval(expr = parse(text = coeffs.source.2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = coeffs.source.2))[[\"a1\"]] / eval(expr = parse(text = coeffs.source.2))[[\"b1\"]] - 1)",
-                                             "legend.legend" = c("Measurements", as.expression(x = bquote(expr = "N"[G[max]]*"(dg"[G[max]]*") predicted using estimated coefficients"))),
-                                             "legend.x" = "topleft",
-                                             "pch." = c(1, NA),
-                                             "lty." = c(NA, 1),
-                                             "col." = c("black", "red", "blue")))
+kPlottingInformation <- list("h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100 (data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05))",
+                                               "kPlotXLabel" = "h100 [m]",
+                                               "kPlotYLabel" = expression("gha [m"^2*" ha"^-1*"]"),
+                                               "kNPlots" = 3,
+                                               "kXSource1" = "bart.clean$h100",
+                                               "kYSource1" = "bart.clean$gha",
+                                               "kCoeffsSource2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
+                                               "kCurveExpr2" = "pi/(16 * eval(parse(text = kCoeffsSource2))[[\"a0\"]] * eval(parse(text = kCoeffsSource2))[[\"b0\"]] * (x ^ (eval(parse(text = kCoeffsSource2))[[\"a1\"]] + eval(parse(text = kCoeffsSource2))[[\"b1\"]]))) * 10000",
+                                               "kCurveExpr3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
+                                               "kLegendLegend" = c("Measurements", as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using estimated coefficients")), as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using coefficients from Wördehoff (2016)"))),
+                                               "kLegendX" = "topleft",
+                                               "kPch" = c(1, NA, NA),
+                                               "kLty" = c(NA, 1, 1),
+                                               "kCol" = c("black", "red", "blue")),
+                             "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
+                                             "kPlotXLabel" = "dg [cm]",
+                                             "kPlotYLabel" = expression("nha [ha"^-1*"]"),
+                                             "kNPlots" = 2,
+                                             "kXSource1" = "bart.clean$dg",
+                                             "kYSource1" = "bart.clean$nha",
+                                             "kCoeffsSource2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_NGmax\")",
+                                             "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
+                                             "kLegendLegend" = c("Measurements", as.expression(x = bquote(expr = "N"[G[max]]*"(dg"[G[max]]*") predicted using estimated coefficients"))),
+                                             "kLegendX" = "topleft",
+                                             "kPch" = c(1, NA),
+                                             "kLty" = c(NA, 1),
+                                             "kCol" = c("black", "red", "blue")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
-open.pdf <- FALSE
-open.pdf <- TRUE
+kOpenPdf <- FALSE
+## kOpenPdf <- TRUE
 ## Initiate "for" loop.
 for (cur.list.name in names(x = kPlottingInformation)) {
     ## Turn off graphics device.
@@ -340,9 +340,9 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                       replacement = ".",
                       x = paste0("Graphics/",
                                  "measmod_",
-                                 x.source.1,
+                                 kXSource1,
                                  "_",
-                                 y.source.1,
+                                 kYSource1,
                                  ".pdf"))
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
@@ -350,13 +350,13 @@ for (cur.list.name in names(x = kPlottingInformation)) {
         height = kPdfHeight,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
-    for (plot.nr in 1:n.plots) {
+    for (plot.nr in 1:kNPlots) {
         ## Set plot margins.
         par(mar = kPlotMargins)
         if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to determine all settings required for and call "plot(…)".
             ## Create vectors containing the actual x and y values.
-            x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("x.source.", plot.nr)))))
-            y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("y.source.", plot.nr)))))
+            x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kXSource", plot.nr)))))
+            y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kYSource", plot.nr)))))
             ## Calculate numerical values necessary for creating the plot.
             x.lim.low <- range(x.values, na.rm = TRUE)[1]
             x.lim.high <- range(x.values, na.rm = TRUE)[2]
@@ -367,37 +367,37 @@ for (cur.list.name in names(x = kPlottingInformation)) {
             ## Create plot.
             plot(x = x.values,
                  y = y.values,
-                 xlab = x.label,
-                 ylab = y.label,
+                 xlab = kPlotXLabel,
+                 ylab = kPlotYLabel,
                  xlim = x.lim,
                  ylim = y.lim,
-                 xaxs = kXAxs,
-                 yaxs = kYAxs,
-                 main = main.,
-                 pch = pch.[plot.nr],
-                 col = col.[plot.nr],
+                 xaxs = kPlotXAxs,
+                 yaxs = kPlotYAxs,
+                 main = kPlotMain,
+                 pch = kPch[plot.nr],
+                 col = kCol[plot.nr],
                  type = kPlotType)
         } else {  ## If this is true, it means we are plotting model predictions and need to use "curve(…)".
             ## Add curve.
             func <- function(x) {}
-            body(func) <- parse(text = eval(expr = parse(text = paste0("curve.expr.", plot.nr))))
+            body(func) <- parse(text = eval(expr = parse(text = paste0("kCurveExpr", plot.nr))))
             curve(expr = func,
                   add = TRUE,
-                  col = col.[plot.nr],
-                  lty = lty.[plot.nr])
+                  col = kCol[plot.nr],
+                  lty = kLty[plot.nr])
         }
     }
     ## Add legend.
-    legend(x = legend.x,
-           legend = as.expression(legend.legend),,
+    legend(x = kLegendX,
+           legend = as.expression(kLegendLegend),,
            bg = kLegendBg,
-           col = col.,
-           pch = pch.,
-           lty = lty.)
+           col = kCol,
+           pch = kPch,
+           lty = kLty)
     ## Turn off graphics device.
     graphics.off()
     ## If desired, open .pdf file via mupdf.
-    if (open.pdf) {
+    if (kOpenPdf) {
         system2(command = "mupdf",
                 args = paste0("-r 64 ",
                               file.name),
