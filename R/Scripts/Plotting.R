@@ -303,12 +303,24 @@ kPlottingInformation <- list("h100_gha" = list("main." = "Measurements and model
                                                "coeffs.source.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
                                                "curve.expr.2" = "pi/(16 * eval(parse(text = coeffs.source.2))[[\"a0\"]] * eval(parse(text = coeffs.source.2))[[\"b0\"]] * (x ^ (eval(parse(text = coeffs.source.2))[[\"a1\"]] + eval(parse(text = coeffs.source.2))[[\"b1\"]]))) * 10000",
                                                "curve.expr.3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
-                                               ## "legend.legend" = c("Measurements", as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using estimated coefficients")), as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using coefficients from Wördehoff (2016)"))),
                                                "legend.legend" = c("Measurements", as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using estimated coefficients")), as.expression(x = bquote(expr = "G"[max]*"(h"[100]*") predicted using coefficients from Wördehoff (2016)"))),
                                                "legend.x" = "topleft",
                                                "pch." = c(1, NA, NA),
                                                "lty." = c(NA, 1, 1),
-                                               "col." = c("black", "red", "blue")))
+                                               "col." = c("black", "red", "blue")),
+                             "dg_nha" = list("main." = "Measurements and model predictions for nha vs. dg (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
+                                             "x.label" = "dg [cm]",
+                                             "y.label" = expression("nha [ha"^-1*"]"),
+                                             "n.plots" = 2,
+                                             "x.source.1" = "bart.clean$dg",
+                                             "y.source.1" = "bart.clean$nha",
+                                             "coeffs.source.2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_NGmax\")",
+                                             "curve.expr.2" = "eval(expr = parse(text = coeffs.source.2))[[\"b0\"]] / eval(expr = parse(text = coeffs.source.2))[[\"a0\"]] * (2 * eval(expr = parse(text = coeffs.source.2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = coeffs.source.2))[[\"a1\"]] / eval(expr = parse(text = coeffs.source.2))[[\"b1\"]] - 1)",
+                                             "legend.legend" = c("Measurements", as.expression(x = bquote(expr = "N"[G[max]]*"(dg"[G[max]]*") predicted using estimated coefficients"))),
+                                             "legend.x" = "topleft",
+                                             "pch." = c(1, NA),
+                                             "lty." = c(NA, 1),
+                                             "col." = c("black", "red", "blue")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 open.pdf <- FALSE
 open.pdf <- TRUE
