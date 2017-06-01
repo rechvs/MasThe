@@ -50,17 +50,37 @@
 *** done What is a “regression spline”?
     - State "done"       from "CURRENT"    [2017-05-24 Mi 18:00]
       cp. Hastie & Tibshirani (1990), p. 22 ff.
+*** CURRENT Read/Scan Wood, Simon (2006): “Generalized additive models. An Introduction with R”
+    + SIG: 16 : C 2202 Woo
+    + location: Bereichsbibliothek Wirtschafts- und Sozialwissenschaften (Platz der Göttinger Sieben 3, Oeconomicum)
+      opening hours: Mo–Fr: 08:00–21:00
+*** CURRENT Read/Scan Zuur, Alain F. (2012): “A beginner’s guide to generalized additive models with R”
+    + SIG: 39 910
+    + location: Department für Agrarökonomie und Rurale Entwicklung (Platz der Göttingeer Sieben 5, Blauer Turm)
+      opening hours: Mo–Fr: 09:00–13:00
 *** CURRENT Read Hastie & Tibshirani (1990)
-    + [-] important chapters according to section 1.3
-      + [X] Chapter 2
-      + [ ] Chapter 4
-      + [ ] Chapter 6
+**** done Chapter 2
+     - State "done"       from              [2017-05-31 Mi 10:18]
+**** done Chapter 4
+     - State "done"       from              [2017-05-31 Mi 10:18]
+**** done Chapter 6
+     - State "done"       from "CURRENT"    [2017-05-31 Mi 18:08]
+     + skipped most parts of section 6.2 “Fisher scoring for generalized linear models”
+     + skipped section 6.5 “Derivation of the local-scoring procedure”
+     + skipped section 6.6 “Convergence of the local-scoring algorithm”
+     + skipped section 6.8 “Inference”
 * NOTES
 ** R Code Style Guidelines
    + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
    + constants: an object is considered a constant if its value is (meant to be) hardcoded or if its value is the indirect result of functions acting only on hardcoded values
+   + beginning of “blocks” are marked by a block header of the following form (note the absence of a dot at the end):
+     ################
+     ## BLOCK NAME ##
+     ################
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
     + apparently, “(Gl. 3)” from Wördehoff et al. (2014) assumes “[Gmax] = m^2 m^-2”;
       when trying to [[file:R/Scripts/Modelling.R::kFormulas%5B%5B"Sterba_Gmax"%5D%5D%20<-%20as.formula(object%20=%20"gha%20/%2010000%20~%20pi%20/%20(16%20*%20a0%20*%20b0%20*%20(h100%20^(a1%20+%20b1)))")%20##%20cp.%20W%C3%B6rdehoff%20et%20al.%20(2014),%20(Gl.%203)][fit this equation]], we therefore need to didivde the value of “bart.clean$gha” by 100000 in order to obtain the required unit
+*** [2017-06-01 Do]
+    + added block “Plot relations and respective model predictions” to and refined [[file:R/Scripts/Plotting.R::1][Plotting.R]]
