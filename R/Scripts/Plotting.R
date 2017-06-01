@@ -232,50 +232,51 @@ for (cur.list in names(x = kPlottingInformation)) {
 ## Plot models ##
 #################
 ## Plotting preamble.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
 kPdfPointSize <- 19
 kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
 ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
-kPointsType <- "b"
-kXAxs <- "r"
-kYAxs <- "r"
-kGridCol <- "black"
-kGridLwd <- 2
 ## Set flag to determine whether the newly created .pdf file should be opened.
-open.pdf <- FALSE
-## open.pdf <- TRUE
-## Initiate "for" loop.
-for (cur.model.name in names(x = models)) {
-    ## Turn off graphics device.
-    graphics.off()
-    ## Create file name.
-    file.name <- gsub(pattern = "[$]",
-                      replacement = ".",
-                      x = paste0("Graphics/",
-                                 cur.model.name,
-                                 ".pdf"))
-    ## Start graphics device driver for producing PDF graphics.
-    pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
-        pointsize = kPdfPointSize,
-        family = kPdfFamily)
-    ## Set plot margins.
-    par(mar = kPlotMargins)
-    ## Plot model.
-    cur.model <- models[[cur.model.name]]
-    plot.gam(x = cur.model)
-    ## Turn off graphics device.
-    graphics.off()
-    ## If desired, open .pdf file via mupdf.
-    if (open.pdf) {
-        system2(command = "mupdf",
-                args = paste0("-r 64 ",
-                              file.name),
-                wait = FALSE)
+kOpenPdf <- FALSE
+## kOpenPdf <- TRUE
+## Initiate "for" loops.
+for (cur.function.name in names(x = models)) {
+    for (cur.model.name in names(x = models[[cur.function.name]])) {
+        ## Extract current model.
+        cur.model <- models[[cur.function.name]][[cur.model.name]]
+        ## Turn off graphics device.
+        graphics.off()
+        ## Create file name.
+        file.name <- gsub(pattern = "[$]",
+                          replacement = ".",
+                          x = paste0("Graphics/",
+                                     cur.model.name,
+                                     ".pdf"))
+        if (grepl(pattern = "GAM", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAM and we need to use “plot.gam(…)”.
+            ## Start graphics device driver for producing PDF graphics.
+            pdf(file = file.name,
+                width = kPdfWidth,
+                height = kPdfHeight,
+                pointsize = kPdfPointSize,
+                family = kPdfFamily)
+            ## Set plot margins.
+            par(mar = kPlotMargins)
+            ## Plot model.
+            mgcv::plot.gam(x = cur.model,
+                           main = as.character(as.expression(x = formula(x = cur.model))))
+        }
+        ## Turn off graphics device.
+        graphics.off()
+        ## If desired, open .pdf file via mupdf.
+        if (kOpenPdf) {
+            system2(command = "mupdf",
+                    args = paste0("-r 64 ",
+                                  file.name),
+                    wait = FALSE)
+        }
     }
 }
 
