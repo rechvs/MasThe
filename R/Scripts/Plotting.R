@@ -279,9 +279,9 @@ for (cur.model.name in names(x = models)) {
     }
 }
 
-######################################################
-## Plot relations and respective model predictions. ##
-######################################################
+#####################################################
+## Plot relations and respective model predictions ##
+#####################################################
 ## Plotting preamble.
 {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 kPdfWidth <- 30
