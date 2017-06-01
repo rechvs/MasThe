@@ -27,8 +27,8 @@ kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
 ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
 kPointsType <- "b"
-kXAxs <- "r"
-kYAxs <- "r"
+kPlotXAxs <- "r"
+kPlotYAxs <- "r"
 kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
@@ -74,79 +74,79 @@ if (kColPerTrial) {
                                        stringsAsFactors = FALSE)
 }
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
-## - "x.source": source of the x values
-## - "y.source": source of the y values
-## - "main.": main plot title
-## - "x.label": x axis label
-## - "y.label": y axis label
-kPlottingInformation <- list("h100_gha" = list("x.source" = "bart.clean$h100",
-                                               "y.source" = "bart.clean$gha",
-                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                               "x.label" = "h100 [m]",
-                                               "y.label" = expression("gha [m"^2*" ha"^-1*"]")),
-                             "alt_ekl" = list("x.source" = "bart.clean$alt",
-                                              "y.source" = "bart.clean$ekl",
-                                              "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                              "x.label" = "alt [a]",
-                                              "y.label" = "ekl"),
-                             "alt_gha" = list("x.source" = "bart.clean$alt",
-                                              "y.source" = "bart.clean$gha",
-                                              "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                              "x.label" = "alt [a]",
-                                              "y.label" = expression("gha [m"^2*" ha"^-1*"]")),
-                             "alt_SI.h100" = list("x.source" = "bart.clean$alt",
-                                                  "y.source" = "bart.clean$SI.h100",
-                                                  "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                  "x.label" = "alt [a]",
-                                                  "y.label" = "SI.h100 [m]"),
-                             "ln.dg_ln.nha" = list("x.source" = "bart.clean$ln.dg",
-                                                   "y.source" = "bart.clean$ln.nha",
-                                                   "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                   "x.label" = "ln.dg",
-                                                   "y.label" = "ln.nha"),
-                             "log.dg_log.nha" = list("x.source" = "bart.clean$log.dg",
-                                                     "y.source" = "bart.clean$log.nha",
-                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                     "x.label" = "log.dg",
-                                                     "y.label" = "log.nha"),
-                             "alt_ksha" = list("x.source" = "bart.clean$alt",
-                                               "y.source" = "bart.clean$ksha",
-                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                               "x.label" = "alt [a]",
-                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
-                             "h100_ksha" = list("x.source" = "bart.clean$h100",
-                                                "y.source" = "bart.clean$ksha",
-                                                "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                "x.label" = "h100 [m]",
-                                                "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
-                             "h100_h100.diff.EKL.I" = list("x.source" = "bart.clean$h100",
-                                                           "y.source" = "bart.clean$h100.diff.EKL.I",
-                                                           "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                           "x.label" = "h100 [m]",
-                                                           "y.label" = "h100.diff.EKL.I [m]"),
-                             "gha_ksha" = list("x.source" = "bart.clean$gha",
-                                               "y.source" = "bart.clean$ksha",
-                                               "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                               "x.label" = expression("gha [m"^2*" ha"^-1*"]"),
-                                               "y.label" = expression("ksha [m"^2*" ha"^-1*"]")),
-                             "gha_ksha.clean" = list("x.source" = "bart.clean$gha",
-                                                     "y.source" = "bart.clean$ksha.clean",
-                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
-                                                     "x.label" = expression("gha [m"^2*" ha"^-1*"]"),
-                                                     "y.label" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
-                             "ghaa.cum_gha" = list("x.source" = "bart.clean$ghaa.cum",
-                                                     "y.source" = "bart.clean$gha",
-                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, ghaa.cum.rel.cha >= -0.05)",
-                                                     "x.label" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
-                                                     "y.label" = expression("gha [m"^2*" ha"^-1*"]")),
-                             "ksha.clean_gha" = list("x.source" = "bart.clean$ksha.clean",
-                                                     "y.source" = "bart.clean$gha",
-                                                     "main." = "data = bart.clean (art == 511, ksha.rel >= 0.7, ksha.clean.rel.cha >= -0.05)",
-                                                     "x.label" = expression("ksha.clean [m"^2*" ha"^-1*"]"),
-                                                     "y.label" = expression("gha [m"^2*" ha"^-1*"]")))
+## - "kXSource": source of the x values
+## - "kYSource": source of the y values
+## - "kPlotMain": main plot title
+## - "kPlotXLab": x axis label
+## - "kPlotYLab": y axis label
+kPlottingInformation <- list("h100_gha" = list("kXSource" = "bart.clean$h100",
+                                               "kYSource" = "bart.clean$gha",
+                                               "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                               "kPlotXLab" = "h100 [m]",
+                                               "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+                             "alt_ekl" = list("kXSource" = "bart.clean$alt",
+                                              "kYSource" = "bart.clean$ekl",
+                                              "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                              "kPlotXLab" = "alt [a]",
+                                              "kPlotYLab" = "ekl"),
+                             "alt_gha" = list("kXSource" = "bart.clean$alt",
+                                              "kYSource" = "bart.clean$gha",
+                                              "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                              "kPlotXLab" = "alt [a]",
+                                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+                             "alt_SI.h100" = list("kXSource" = "bart.clean$alt",
+                                                  "kYSource" = "bart.clean$SI.h100",
+                                                  "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                  "kPlotXLab" = "alt [a]",
+                                                  "kPlotYLab" = "SI.h100 [m]"),
+                             "ln.dg_ln.nha" = list("kXSource" = "bart.clean$ln.dg",
+                                                   "kYSource" = "bart.clean$ln.nha",
+                                                   "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                   "kPlotXLab" = "ln.dg",
+                                                   "kPlotYLab" = "ln.nha"),
+                             "log.dg_log.nha" = list("kXSource" = "bart.clean$log.dg",
+                                                     "kYSource" = "bart.clean$log.nha",
+                                                     "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                     "kPlotXLab" = "log.dg",
+                                                     "kPlotYLab" = "log.nha"),
+                             "alt_ksha" = list("kXSource" = "bart.clean$alt",
+                                               "kYSource" = "bart.clean$ksha",
+                                               "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                               "kPlotXLab" = "alt [a]",
+                                               "kPlotYLab" = expression("ksha [m"^2*" ha"^-1*"]")),
+                             "h100_ksha" = list("kXSource" = "bart.clean$h100",
+                                                "kYSource" = "bart.clean$ksha",
+                                                "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                "kPlotXLab" = "h100 [m]",
+                                                "kPlotYLab" = expression("ksha [m"^2*" ha"^-1*"]")),
+                             "h100_h100.diff.EKL.I" = list("kXSource" = "bart.clean$h100",
+                                                           "kYSource" = "bart.clean$h100.diff.EKL.I",
+                                                           "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                           "kPlotXLab" = "h100 [m]",
+                                                           "kPlotYLab" = "h100.diff.EKL.I [m]"),
+                             "gha_ksha" = list("kXSource" = "bart.clean$gha",
+                                               "kYSource" = "bart.clean$ksha",
+                                               "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                               "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                                               "kPlotYLab" = expression("ksha [m"^2*" ha"^-1*"]")),
+                             "gha_ksha.clean" = list("kXSource" = "bart.clean$gha",
+                                                     "kYSource" = "bart.clean$ksha.clean",
+                                                     "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                                     "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                                                     "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
+                             "ghaa.cum_gha" = list("kXSource" = "bart.clean$ghaa.cum",
+                                                     "kYSource" = "bart.clean$gha",
+                                                     "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, ghaa.cum.rel.cha >= -0.05)",
+                                                     "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                                                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+                             "ksha.clean_gha" = list("kXSource" = "bart.clean$ksha.clean",
+                                                     "kYSource" = "bart.clean$gha",
+                                                     "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, ksha.clean.rel.cha >= -0.05)",
+                                                     "kPlotXLab" = expression("ksha.clean [m"^2*" ha"^-1*"]"),
+                                                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
-open.pdf <- FALSE
-## open.pdf <- TRUE
+kOpenPdf <- FALSE
+kOpenPdf <- TRUE
 ## Initiate "for" loop.
 for (cur.list in names(x = kPlottingInformation)) {
     ## Turn off graphics device.
@@ -158,8 +158,8 @@ for (cur.list in names(x = kPlottingInformation)) {
                value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
     }
     ## Create vectors containing the actual x and y values.
-    x.values <- eval(expr = parse(text = x.source))
-    y.values <- eval(expr = parse(text = y.source))
+    x.values <- eval(expr = parse(text = kXSource))
+    y.values <- eval(expr = parse(text = kYSource))
     ## Calculate numerical values necessary for creating the plot.
     x.lim.low <- range(x.values, na.rm = TRUE)[1]
     x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
@@ -171,9 +171,9 @@ for (cur.list in names(x = kPlottingInformation)) {
     file.name <- gsub(pattern = "[$]",
                       replacement = ".",
                       x = paste0("Graphics/",
-                                 x.source,
+                                 kXSource,
                                  "_",
-                                 y.source,
+                                 kYSource,
                                  ".pdf"))
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
@@ -186,13 +186,13 @@ for (cur.list in names(x = kPlottingInformation)) {
     ## Create empty plot.
     plot(x = NA,
          y = NA,
-         xlab = x.label,
-         ylab = y.label,
+         xlab = kPlotXLab,
+         ylab = kPlotYLab,
          xlim = x.lim,
          ylim = y.lim,
-         xaxs = kXAxs,
-         yaxs = kYAxs,
-         main = main.)
+         xaxs = kPlotXAxs,
+         yaxs = kPlotYAxs,
+         main = kPlotMain)
     grid(col = kGridCol,
          lwd = kGridLwd)
     ## Add points to empty plot.
@@ -220,7 +220,7 @@ for (cur.list in names(x = kPlottingInformation)) {
     ## Turn off graphics device.
     graphics.off()
     ## If desired, open .pdf file via mupdf.
-    if (open.pdf) {
+    if (kOpenPdf) {
         system2(command = "mupdf",
                 args = paste0("-r 64 ",
                               file.name),
