@@ -478,15 +478,14 @@ Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. W
 }
 
 @Book{Hastie1991,
-  author        = {Hastie, Trevor and Tibshirani, Robert},
-  title         = {Generalized additive models},
-  date          = {1991},
-  publisher     = {Chapman \& Hall/{CRC}},
-  location      = {Boca Raton, Fla},
-  isbn          = {978-0-412-34390-2},
-  pagetotal     = {335},
-  __markedentry = {[renke:]},
-  abstract      = {- p. 3: definition of a “smooth” [cp. Notes, p. 1]
+  author    = {Hastie, Trevor and Tibshirani, Robert},
+  title     = {Generalized additive models},
+  date      = {1991},
+  publisher = {Chapman \& Hall/{CRC}},
+  location  = {Boca Raton, Fla},
+  isbn      = {978-0-412-34390-2},
+  pagetotal = {335},
+  abstract  = {- p. 3: definition of a “smooth” [cp. Notes, p. 1]
 
 - p. 11:“Most smoothers attempt to mimic category averaging through local averaging”, where the “averaging is done in neighbourhoods around the target value.”
 “Smoothers differ mainly in their method of averaging.”
@@ -523,9 +522,110 @@ Thus, the elements of a generalized additive model are:
  - link function (linking random component and systematic component (e.g., the logit))
 
 - p. 161: “Typically the width of the standard-error bands, approximate deviance tests and residual plots give support to the important features of the fit, and give the analyst warnings about those features that are likely to be spurious.”},
-  keywords      = {Linear models (Statistics), Regression analysis, Smoothing (Statistics)},
+  keywords  = {Linear models (Statistics), Regression analysis, Smoothing (Statistics)},
+  owner     = {renke},
+  timestamp = {2017.05.26},
+}
+
+@Book{Wood2006,
+  author     = {Wood, Simon N.},
+  title      = {Generalized additive models: an introduction with R},
+  date       = {2006},
+  series     = {Texts in statistical science},
+  note       = {{OCLC}: ocm64084887},
+  publisher  = {Chapman \& Hall/{CRC}},
+  location   = {Boca Raton, {FL}},
+  isbn       = {978-1-58488-474-3},
+  pagetotal  = {391},
+  abstract   = {- p. xv: Assumed type of distribution of the response variable based on model type:
+ - Linear models:
+  - normal distribution
+ - Generalized linear models (GLMs) and generalized additive models (GAMs):
+  - exponential family distribution
+ - Generalized Additive Models for Location Scale and Shape (GAMLSS):
+  - no assumption is made (cp. Stasinopoulos & Rigby (2007))
+
+- p. 121: [model matrix = design matrix, cp. p. 11]
+
+- p. 122: [covariate = predictor]
+
+- p. 122: [i.i.d. = independent and identically distributed]
+
+- p. 122: In order to estimate the smooth function f from eq. (3.2) using the methods of linear modelling, f must be reprensented in such a way that eq. (3.2) becomes a linear model. This can be done by choosing a basis (defining a space of functions of which f (or its approximation) is an element), which amounts to choosing some basis functions, which will be treated as completely known.
+
+- p. 122: If smooth function f is believed to be a 4th order polynomial, it means that the space of polynomials of order 4 and below is believed to contain f.
+[Thus, the following basis functions are valid: b_1(x) = 1, b_2(x) = x, b_3(x) = x^2, b_4(x) = x^3, b_5(x) = x^4.]
+
+- p. 124: definition of “cubic spline”:
+“A cubic spline is a curve made up of sections of cubic polynomial[s] joined together so that they are continuous in value, as well as first and second derivatives […]. The points at which the sections join are known as the knots of the spline. […] for the regression splines of interest here, the locations of the knots must be chosen.”
+
+- p. 133 f.: Important remarks on the additive model given by eq. (3.7):
+1. The model “f_1(x) + f_2(z)” is a quite restrictive special case of the general smooth function of 2 variables “f(x, z)”.
+2. The fact that the model contains more than one function introduces an identifiability problem insofar, as a constant could be added to f_1 and simultaneously subtracted from f_2 without changing model predicitions. Thus, identifiability constraints must be imposed before fitting.},
+  file       = {:Scans/Wood_2006/Wood_2006_Chapter_2-5.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_2-5OCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_2.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_2OCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_3.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_3OCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_4.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_4OCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_5.pdf:PDF;:Scans/Wood_2006/Wood_2006_Chapter_5OCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Bibliography.pdf:PDF;:Scans/Wood_2006/Wood_2006_BibliographyOCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Index.pdf:PDF;:Scans/Wood_2006/Wood_2006_IndexOCR.pdf:PDF;:Scans/Wood_2006/Wood_2006_Titlepage.pdf:PDF;:Scans/Wood_2006/Wood_2006_TitlepageOCR.pdf:PDF},
+  keywords   = {Linear models (Statistics), Mathematical models, Random walks (Mathematics), R (Computer program language)},
+  owner      = {renke},
+  shorttitle = {Generalized additive models},
+  timestamp  = {2017.06.06},
+}
+
+@Article{Stasinopoulos2007,
+  author        = {Stasinopoulos, D. Mikis and Rigby, Robert A.},
+  title         = {Generalized Additive Models for Location Scale and Shape ({GAMLSS}) in \textit{R}},
+  journaltitle  = {Journal of Statistical Software},
+  date          = {2007},
+  volume        = {23},
+  number        = {7},
+  pages         = {1-46},
+  issn          = {1548-7660},
+  doi           = {10.18637/jss.v023.i07},
+  url           = {http://www.jstatsoft.org/v23/i07/},
+  urldate       = {2017-06-06},
+  __markedentry = {[renke:]},
+  abstract      = {- p. 2: In GAMLSSs the distribution of the response variable is (unlike GLMs) not assumed to belong to the exponential family, but rather to a general distribution family.},
+  file          = {:Articles/Stasinopoulos_Rigby_2007.pdf:PDF},
+  langid        = {english},
   owner         = {renke},
-  timestamp     = {2017.05.26},
+  timestamp     = {2017.06.06},
+}
+
+@InProceedings{Rigby2001,
+  author    = {Bob Rigby and Mikis Stasinopoulos},
+  title     = {The GAMLSS project: a Flexible Approach to Statistical Modelling},
+  booktitle = {New Trends in Statistical Modelling: Proceedings of the 16th International Workshop on Statistical Modelling},
+  year      = {2001},
+  editor    = {Bjarke Klein AND Lars Korsholm},
+  pages     = {249-256},
+  url       = {http://www.gamlss.org/wp-content/uploads/2013/01/paper044.pdf},
+  urldate   = {2017-06-06},
+  file      = {:Articles/Rigby_Stasinopoulos_2001.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.06.06},
+}
+
+@Article{Rigby2005,
+  author    = {R. A. Rigby AND D. M. Stasinopoulos},
+  title     = {Generalized Additive Models for Location, Scale and Shape},
+  journal   = {Applied Statistics},
+  year      = {2005},
+  pages     = {507-554},
+  file      = {:Articles/Rigby_Stasinopoulos_2005.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.06.06},
+}
+
+@InProceedings{Akanztiliotou2002,
+  author    = {K. Akanztiliotou AND R. A. Rigby AND D. M. Stasinopoulos},
+  title     = {The R implementation of Generalized Additive Models for Location, Scale and Shape},
+  booktitle = {Statistical Modelling in Society: Proceedings of the 17th International Workshop on Statistical Modelling},
+  year      = {2002},
+  editor    = {Mikis Stasinopoulos AND Giota Touloumi},
+  pages     = {75–83},
+  url       = {http://www.gamlss.org/wp-content/uploads/2013/01/cretegamlss.pdf},
+  urldate   = {2017-06-06},
+  file      = {:Articles/Akantziliotou_et_al_2002.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.06.06},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

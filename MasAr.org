@@ -1,7 +1,64 @@
-* TODO [8/10]
-** done read Sterba (1987)
-   - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
-     haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
+* TODO [7/10]
+** CURRENT improve understanding of Sterba’s approach
+*** CURRENT acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
+    the article supposedly also deals with the yield-density relationship
+*** CURRENT acquire Mitscherlich (1919) (cp. Kira et al. (1953), p. 10)
+    the article supposedly also deals with the yield-density relationship
+*** CURRENT acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Ando (1968) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
+*** CURRENT acquire Goulding (1972) (cp. Sterba (1987), p. 1023)
+*** done read Sterba (1975)
+   - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
+*** done read Sterba (1981)
+   - State "done"       from "CURRENT"    [2017-05-17 Mi 12:52]
+*** done read Reineke (1933)
+   - State "done"       from "CURRENT"    [2017-05-17 Mi 14:48]
+*** done pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 12:18]
+*** done read Sterba (1987)
+    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
+      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
+** on hold Improve understanding of GAMs
+   - State "on hold"    from "CURRENT"    [2017-06-06 Di 18:07] \\
+     Started reading on GAMLSSs.
+*** on hold Read Wood, Simon (2006): “Generalized additive models. An Introduction with R”
+    - State "on hold"    from "CURRENT"    [2017-06-06 Di 18:03] \\
+      Started reading on GAMLSSs.
+**** CURRENT Chapter 2
+**** CURRENT Chapter 3
+     + skipped section 3.2.2 “Controlling the degree of smoothing with penalized regression splines”
+     + skipped section 3.2.3 “Choosing the smoothing parameter, А: Crass validation”
+**** CURRENT Chapter 4
+**** CURRENT Chapter 5
+*** on hold Read/Scan Zuur, Alain F. (2012): “A beginner’s guide to generalized additive models with R”
+    - State "on hold"    from "CURRENT"    [2017-06-06 Di 18:04] \\
+      Started reading on GAMLSSs.
+    + SIG: 2013 A 17075
+    + location: Freefloater Biodiversity, Macroecology and Conservation Biogeography, Büsgenweg 1
+*** done Read Hastie & Tibshirani (1990)
+    - State "done"       from "CURRENT"    [2017-06-06 Di 11:50]
+**** done Chapter 2
+     - State "done"       from              [2017-05-31 Mi 10:18]
+**** done Chapter 4
+     - State "done"       from              [2017-05-31 Mi 10:18]
+**** done Chapter 6
+     - State "done"       from "CURRENT"    [2017-05-31 Mi 18:08]
+     + skipped most parts of section 6.2 “Fisher scoring for generalized linear models”
+     + skipped section 6.5 “Derivation of the local-scoring procedure”
+     + skipped section 6.6 “Convergence of the local-scoring algorithm”
+     + skipped section 6.8 “Inference”
+*** done read Wood (2001)
+    - State "done"       from "CURRENT"    [2017-05-18 Do 16:00]
+*** done What is a “smooth function”?
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 16:12]
+      cp. Hastie & Tibshirani (1990), p. 3 for a definition of “smooth” [not sure, whether “smooth” and “smooth function” are synonymous]
+*** done What is a “regression spline”?
+    - State "done"       from "CURRENT"    [2017-05-24 Mi 18:00]
+      cp. Hastie & Tibshirani (1990), p. 22 ff.
+** CURRENT Improve understanding of GAMLSSs
+*** CURRENT Read Stasinopoulos & Rigby (2007)
+    + continue with section 1.4
 ** done scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
    - State "done"       from "CURRENT"    [2017-05-02 Di 10:38]
      see “Sterba_1975.pdf“ and „Sterba_1981.pdf“ [[file:Literature/Articles/][here]]
@@ -24,51 +81,6 @@
    e.g., from “rel.ksha” to “ksha.rel”
 ** done Add clean up sections to each block in [[file:R/Scripts/DataSetCreation.R::##%20Preamble][DataSetCreation.R]] (to prevent obstruction of the workspace by objects no longer needed if the script is called from outside)
    - State "done"       from "CURRENT"    [2017-05-24 Mi 08:43]
-** CURRENT improve understanding of Sterba’s approach
-*** done read Sterba (1975)
-   - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
-*** done read Sterba (1981)
-   - State "done"       from "CURRENT"    [2017-05-17 Mi 12:52]
-*** done read Reineke (1933)
-   - State "done"       from "CURRENT"    [2017-05-17 Mi 14:48]
-*** done pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
-    - State "done"       from "CURRENT"    [2017-05-24 Mi 12:18]
-*** CURRENT acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
-    the article supposedly also deals with the yield-density relationship
-*** CURRENT acquire Mitscherlich (1919) (cp. Kira et al. (1953), p. 10)
-    the article supposedly also deals with the yield-density relationship
-*** CURRENT acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT acquire Ando (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
-*** CURRENT acquire Goulding (1972) (cp. Sterba (1987), p. 1023)
-** CURRENT Improve understanding of GAMs
-*** done read Wood (2001)
-    - State "done"       from "CURRENT"    [2017-05-18 Do 16:00]
-*** done What is a “smooth function”?
-    - State "done"       from "CURRENT"    [2017-05-24 Mi 16:12]
-      cp. Hastie & Tibshirani (1990), p. 3 for a definition of “smooth” [not sure, whether “smooth” and “smooth function” are synonymous]
-*** done What is a “regression spline”?
-    - State "done"       from "CURRENT"    [2017-05-24 Mi 18:00]
-      cp. Hastie & Tibshirani (1990), p. 22 ff.
-*** CURRENT Read/Scan Wood, Simon (2006): “Generalized additive models. An Introduction with R”
-    + SIG: 16 : C 2202 Woo
-    + location: Bereichsbibliothek Wirtschafts- und Sozialwissenschaften (Platz der Göttinger Sieben 3, Oeconomicum)
-      opening hours: Mo–Fr: 08:00–21:00
-*** CURRENT Read/Scan Zuur, Alain F. (2012): “A beginner’s guide to generalized additive models with R”
-    + SIG: 39 910
-    + location: Department für Agrarökonomie und Rurale Entwicklung (Platz der Göttingeer Sieben 5, Blauer Turm)
-      opening hours: Mo–Fr: 09:00–13:00
-*** CURRENT Read Hastie & Tibshirani (1990)
-**** done Chapter 2
-     - State "done"       from              [2017-05-31 Mi 10:18]
-**** done Chapter 4
-     - State "done"       from              [2017-05-31 Mi 10:18]
-**** done Chapter 6
-     - State "done"       from "CURRENT"    [2017-05-31 Mi 18:08]
-     + skipped most parts of section 6.2 “Fisher scoring for generalized linear models”
-     + skipped section 6.5 “Derivation of the local-scoring procedure”
-     + skipped section 6.6 “Convergence of the local-scoring algorithm”
-     + skipped section 6.8 “Inference”
 * NOTES
 ** R Code Style Guidelines
    + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
