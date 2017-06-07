@@ -1,13 +1,27 @@
 * TODO [7/10]
+** CURRENT Improve understanding of GAMLSSs
+*** CURRENT Read Rigby & Stasinopoulos (2005)
+*** done Read Stasinopoulos & Rigby (2007)
+    - State "done"       from "CURRENT"    [2017-06-07 Mi 14:29]
 ** CURRENT improve understanding of Sterba’s approach
-*** CURRENT acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
-    the article supposedly also deals with the yield-density relationship
-*** CURRENT acquire Mitscherlich (1919) (cp. Kira et al. (1953), p. 10)
-    the article supposedly also deals with the yield-density relationship
-*** CURRENT acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT acquire Ando (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
 *** CURRENT acquire Goulding (1972) (cp. Sterba (1987), p. 1023)
+    [2017-06-07 Mi]: requested book from library
+*** CURRENT acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
+    [2017-06-07 Mi]: requested Journal of Horticultural Science 1952, vol. 27 from library
+    The article supposedly also deals with the yield-density relationship.
+*** problem acquire Mitscherlich (1919) (cp. Kira et al. (1953), p. 10)
+    - State "problem"    from "CURRENT"    [2017-06-07 Mi 16:43] \\
+      impossible to acquire
+    The article supposedly also deals with the yield-density relationship.
+*** problem acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
+    - State "problem"    from "CURRENT"    [2017-06-07 Mi 16:33] \\
+      impossible to acquire
+*** problem acquire Ando (1968) (cp. Sterba (1987), p. 1023)
+    - State "problem"    from "CURRENT"    [2017-06-07 Mi 16:33] \\
+      impossible to acquire
+*** problem acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
+    - State "problem"    from "CURRENT"    [2017-06-07 Mi 16:32] \\
+      impossible to acquire
 *** done read Sterba (1975)
    - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
 *** done read Sterba (1981)
@@ -56,9 +70,6 @@
 *** done What is a “regression spline”?
     - State "done"       from "CURRENT"    [2017-05-24 Mi 18:00]
       cp. Hastie & Tibshirani (1990), p. 22 ff.
-** CURRENT Improve understanding of GAMLSSs
-*** CURRENT Read Stasinopoulos & Rigby (2007)
-    + continue with section 1.4
 ** done scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
    - State "done"       from "CURRENT"    [2017-05-02 Di 10:38]
      see “Sterba_1975.pdf“ and „Sterba_1981.pdf“ [[file:Literature/Articles/][here]]
