@@ -311,15 +311,16 @@ kPlottingInformation <- list("h100_gha" = list("kPlotMain" = "Measurements and m
                              "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
                                              "kPlotXLabel" = "dg [cm]",
                                              "kPlotYLabel" = expression("nha [ha"^-1*"]"),
-                                             "kNPlots" = 2,
+                                             "kNPlots" = 3,
                                              "kXSource1" = "bart.clean$dg",
                                              "kYSource1" = "bart.clean$nha",
                                              "kCoeffsSource2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_NGmax\")",
                                              "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
-                                             "kLegendLegend" = c("Measurements", as.expression(x = bquote(expr = "N"[G[max]]*"(dg"[G[max]]*") predicted using estimated coefficients"))),
+                                             "kCurveExpr3" = "1/x * 27000",
+                                             "kLegendLegend" = c("Measurements", as.expression(x = bquote(expr = "N"[G[max]]*"(dg"[G[max]]*") predicted using estimated coefficients")), as.expression(x = bquote(expr = frac(1, x)%.%"27000"))),
                                              "kLegendX" = "topleft",
-                                             "kPch" = c(1, NA),
-                                             "kLty" = c(NA, 1),
+                                             "kPch" = c(1, NA, NA),
+                                             "kLty" = c(NA, 1, 1),
                                              "kCol" = c("black", "red", "blue")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
