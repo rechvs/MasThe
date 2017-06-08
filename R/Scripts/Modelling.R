@@ -22,6 +22,7 @@ kPrintSumries <- FALSE
 kFunctionsToUse <- c("mgcv..gam")
 kFunctionsToUse <- c("stats..nls")
 kFunctionsToUse <- c("nls2..nls2")
+## kFunctionsToUse <- c("mgcv..gam", "nls2..nls2")
 ## kFunctionsToUse <- c("minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
@@ -48,18 +49,21 @@ if (any(grepl(pattern = kFunction,
 ############
 ## Sterba ##
 ############
-## Setup for model "Sterba_dgGmax". For possible start values cp. Sterba (1987), tab. 2.
-kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")  ## cp. Wördehoff et al. (2014), (Gl. 1)
+## Setup for model "Sterba_dgGmax".
+## Source of model formula: Wördehoff et al. (2014), (Gl. 1)
+## Source of possible start values: Sterba (1987), tab. 2.
+kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
 kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = c(-1, 1),
                                                   "a1" = c(0, 1),
                                                   "b0" = c(0, 1),
                                                   "b1" = c(-3, 0))
-kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,  ## "stats::nls" and "minpack.lm::nlsLM" converge with these starting values.
+kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
                                        "a1" = 0,
                                        "b0" = 2,
                                        "b1" = -2)
 ## ## Setup for model "Sterba_NGmax".
-kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")  ## cp. Wördehoff et al. (2014), (Gl. 2)
+## Source of model formula: Wördehoff et al. (2014), (Gl. 2)
+kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
 kStartValsGrids[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
                                                  "a1" = c(-2:2),
                                                  "b0" = c(-2:2),
@@ -68,8 +72,10 @@ kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
                                       "a1" = -2,
                                       "b0" = 0,
                                       "b1" = 1)
-## Setup for model "Sterba_Gmax". For possible start values  cp. Wördehoff (2016), tab. 3.6.
-kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")  ## cp. Wördehoff et al. (2014), (Gl. 3)
+## Setup for model "Sterba_Gmax".
+## Source of model formula: Wördehoff et al. (2014), (Gl. 3)
+## Source of possible start values: Wördehoff (2016), tab. 3.6.
+kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
 kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
                                                 "a1" = c(0, 1),
                                                 "b0" = c(0, 1),
