@@ -53,10 +53,10 @@ if (any(grepl(pattern = kFunction,
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 1)
 ## Source of possible start values: Sterba (1987), tab. 2.
 kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
-kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = c(-1, 1),
-                                                  "a1" = c(0, 1),
-                                                  "b0" = c(0, 1),
-                                                  "b1" = c(-3, 0))
+kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = seq(from = 1.260e-6, to =1.261e-6, by = 1e-10),
+                                                  "a1" = seq(from = 0.840, to = 0.841, by = 1e-4),
+                                                  "b0" = seq(from = 2.0135, to = 2.0145, by = 1e-4),
+                                                  "b1" = seq(from = -1.3615, to = -1.3625, by = -1e-4))
 kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
                                        "a1" = 0,
                                        "b0" = 2,
