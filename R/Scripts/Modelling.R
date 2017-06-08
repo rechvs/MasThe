@@ -20,13 +20,16 @@ kStartValsVecs <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- c("mgcv..gam")
-kFunctionsToUse <- c("stats..nls")
+## kFunctionsToUse <- c("stats..nls")
 kFunctionsToUse <- c("nls2..nls2")
 ## kFunctionsToUse <- c("mgcv..gam", "nls2..nls2")
 ## kFunctionsToUse <- c("minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
+## kFormulasToUse <- c("Sterba_dgGmax")
+kFormulasToUse <- c("Sterba_NGmax")
+## kFormulasToUse <- c("GAM_gha_sh100", "Sterba_dgGmax")
 
 ##########
 ## GAMs ##
@@ -40,11 +43,13 @@ kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)
 ## Evaluate and store models.
 kFunction <- "mgcv..gam"
 if (any(grepl(pattern = kFunction,
-          x = kFunctionsToUse))) {
+              x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                               data = bart.clean)
-    }}
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
+            models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
+                                                                   data = bart.clean)
+        }}}
 
 ############
 ## Sterba ##
@@ -87,37 +92,45 @@ kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
 ## Evaluate and store models fitted with "stats::nls".
 kFunction <- "stats..nls"
 if (any(grepl(pattern = kFunction,
-          x = kFunctionsToUse))) {
+              x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
-            try(expr = 
-                    models[["stats..nls"]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
-                                                                             data = bart.clean,
-                                                                             start = kStartValsVecs[[cur.formula.name]])
-                )
-        }
-    }}
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
+            if (grepl(pattern = "Sterba",
+                      x = cur.formula.name,
+                      fixed = TRUE)) {
+                try(expr = 
+                        models[["stats..nls"]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
+                                                                                 data = bart.clean,
+                                                                                 start = kStartValsVecs[[cur.formula.name]])
+                    )
+            }
+        }}}
 ## Evaluate and store models fitted with "nls2::nls2"
 kFunction <- "nls2..nls2"
 if (any(grepl(pattern = kFunction,
-          x = kFunctionsToUse))) {
+              x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
-            try(expr = 
-                    models[["nls2..nls2"]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
-                                                                             data = bart.clean,
-                                                                             start = kStartValsGrids[[cur.formula.name]],
-                                                                             algorithm = "random-search",
-                                                                             control = (stats::nls.control(maxiter = 100,
-                                                                                                           minFactor = 10 ^ -10)))
-                )
-        }
-    }}
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
+            if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
+                try(expr = 
+                        models[["nls2..nls2"]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
+                                                                                 data = bart.clean,
+                                                                                 start = kStartValsGrids[[cur.formula.name]],
+                                                                                 algorithm = "random-search",
+                                                                                 control = (stats::nls.control(maxiter = 100,
+                                                                                                               minFactor = 10 ^ -10)))
+                    )
+            }
+        }}}
 ## Evaluate and store models fitted with "minpack.lm::nlsLM"
 kFunction <- "minpack.lm..nlsLM"
 if (any(grepl(pattern = kFunction,
-          x = kFunctionsToUse))) {
+              x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
         if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
             try(expr = 
                     models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
@@ -125,7 +138,7 @@ if (any(grepl(pattern = kFunction,
                                                                                            start = kStartValsVecs[[cur.formula.name]])
                 )
         }
-    }}
+    }}}
 
 #####################
 ## Print summaries ##
