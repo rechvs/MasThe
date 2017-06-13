@@ -27,8 +27,7 @@ kFunctionsToUse <- c("nls2..nls2")
 ## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
-## kFormulasToUse <- c("Sterba_dgGmax")
-kFormulasToUse <- c("Sterba_NGmax")
+kFormulasToUse <- c("Sterba_dgGmax")
 ## kFormulasToUse <- c("GAM_gha_sh100", "Sterba_dgGmax")
 
 ##########
@@ -66,30 +65,7 @@ kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
                                        "a1" = 0,
                                        "b0" = 2,
                                        "b1" = -2)
-## ## Setup for model "Sterba_NGmax".
-## Source of model formula: Wördehoff et al. (2014), (Gl. 2)
-kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
-kStartValsGrids[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
-                                                 "a1" = c(-2:2),
-                                                 "b0" = c(-2:2),
-                                                 "b1" = c(-2:2))
-kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
-                                      "a1" = -2,
-                                      "b0" = 0,
-                                      "b1" = 1)
-## Setup for model "Sterba_Gmax".
-## Source of model formula: Wördehoff et al. (2014), (Gl. 3)
-## Source of possible start values: Wördehoff (2016), tab. 3.6.
-kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
-kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
-                                                "a1" = c(0, 1),
-                                                "b0" = c(0, 1),
-                                                "b1" = c(-2, 2))
-kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
-                                     "a1" = 0.1,
-                                     "b0" = 0.1,
-                                     "b1" = -1)
-## Evaluate and store models fitted with "stats::nls".
+## Evaluate and store model fitted with "stats::nls".
 kFunction <- "stats..nls"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
@@ -106,7 +82,7 @@ if (any(grepl(pattern = kFunction,
                     )
             }
         }}}
-## Evaluate and store models fitted with "nls2::nls2"
+## Evaluate and store model fitted with "nls2::nls2"
 kFunction <- "nls2..nls2"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
@@ -124,7 +100,7 @@ if (any(grepl(pattern = kFunction,
                     )
             }
         }}}
-## Evaluate and store models fitted with "minpack.lm::nlsLM"
+## Evaluate and store model fitted with "minpack.lm::nlsLM"
 kFunction <- "minpack.lm..nlsLM"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
