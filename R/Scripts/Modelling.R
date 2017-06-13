@@ -23,22 +23,24 @@ kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
-kFunctionsToUse <- c("mgcv..gam")
-## kFunctionsToUse <- c("stats..nls")
-## kFunctionsToUse <- c("nls2..nls2")
-## kFunctionsToUse <- c("gamlss..gamlss")
-kFunctionsToUse <- c("mgcv..gam", "nls2..nls2", "gamlss..gamlss")
-## kFunctionsToUse <- c("minpack.lm..nlsLM")
-## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
-## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
-## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
-## kFormulasToUse <- c("Sterba_dgGmax")
-## kFormulasToUse <- c("Sterba_NGmax")
-kFormulasToUse <- c("Sterba_Gmax")
-## kFormulasToUse <- c("Sterba_dgGmax", "Sterba_NGmax", "Sterba_Gmax")
-## kFormulasToUse <- c("GAM_gha_sh100", "Sterba_dgGmax")
-kFormulasToUse <- c("GAM_gha_sh100")
-kFormulasToUse <- c("GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I", "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I", "GAMLSS_gha_h100")
+kFunctionsToUse <- NULL
+## kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
+## kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
+## kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
+## kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
+## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
+kFormulasToUse <- NULL
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
 
 ##########
 ## GAMs ##
@@ -181,6 +183,26 @@ if (any(grepl(pattern = kFunction,
                     )
             }
         }}}
+
+#########
+## LMs ##
+#########
+## Setup for model "LM_ln.nha_ln.dg".
+kFormulas[["LM_ln.nha_ln.dg"]] <- as.formula(object = "ln.nha ~ ln.dg")
+## Evaluate and store models.
+kFunction <- "stats..lm"
+if (any(grepl(pattern = kFunction,
+              x = kFunctionsToUse))) {
+    for (cur.formula.name in names(x = kFormulas)) {
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
+            if (grepl(pattern = "LM_", x = cur.formula.name, fixed = TRUE)) {
+                try(expr =
+                        models[["stats..lm"]][[cur.formula.name]] <- stats::lm(formula = kFormulas[[cur.formula.name]],
+                                                                               data = bart.clean,
+                                                                               na.action = na.omit))
+                }}}}
+                    
 
 #####################
 ## Print summaries ##
