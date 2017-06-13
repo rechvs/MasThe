@@ -107,14 +107,14 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
-        if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
-            try(expr = 
-                    models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
-                                                                                           data = bart.clean,
-                                                                                           start = kStartValsVecs[[cur.formula.name]])
-                )
-        }
-    }}}
+            if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
+                try(expr = 
+                        models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
+                                                                                               data = bart.clean,
+                                                                                               start = kStartValsVecs[[cur.formula.name]])
+                    )
+            }
+        }}}
 
 #####################
 ## Print summaries ##
