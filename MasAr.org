@@ -1,6 +1,10 @@
-* TODO [7/10]
-** CURRENT Improve understanding of GAMLSSs
-*** CURRENT Read Rigby & Stasinopoulos (2005)
+* TODO [8/10]
+** done Improve understanding of GAMLSSs
+   - State "done"       from "CURRENT"    [2017-06-12 Mo 18:44]
+*** done Read Rigby & Stasinopoulos (2001)
+    - State "done"       from "CURRENT"    [2017-06-12 Mo 09:40]
+*** done Read Rigby & Stasinopoulos (2005)
+    - State "done"       from "CURRENT"    [2017-06-12 Mo 18:44]
 *** done Read Stasinopoulos & Rigby (2007)
     - State "done"       from "CURRENT"    [2017-06-07 Mi 14:29]
 ** CURRENT improve understanding of Sterba’s approach
@@ -104,6 +108,6 @@
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
     + apparently, “(Gl. 3)” from Wördehoff et al. (2014) assumes “[Gmax] = m^2 m^-2”;
-      when trying to [[file:R/Scripts/Modelling.R::kFormulas%5B%5B"Sterba_Gmax"%5D%5D%20<-%20as.formula(object%20=%20"gha%20/%2010000%20~%20pi%20/%20(16%20*%20a0%20*%20b0%20*%20(h100%20^(a1%20+%20b1)))")%20##%20cp.%20W%C3%B6rdehoff%20et%20al.%20(2014),%20(Gl.%203)][fit this equation]], we therefore need to didivde the value of “bart.clean$gha” by 100000 in order to obtain the required unit
+      when trying to [[file:R/Scripts/Modelling.R::kFormulas%5B%5B"Sterba_Gmax"%5D%5D][fit this equation]], we therefore need to didivde the value of “bart.clean$gha” by 10000 in order to obtain the required unit
 *** [2017-06-01 Do]
     + added block “Plot relations and respective model predictions” to and refined [[file:R/Scripts/Plotting.R::1][Plotting.R]]
