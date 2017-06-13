@@ -24,11 +24,11 @@ kStartValsVecs <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
-## kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
-## kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
-## kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
-## kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
-## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
+kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
+kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
+kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
+kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
@@ -58,9 +58,10 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
+            if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
             models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
                                                                    data = bart.clean)
-        }}}
+        }}}}
 
 #############
 ## GAMLSSs ##
@@ -87,13 +88,14 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
+            if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
             models[["gamlss..gamlss"]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
                                                                              sigma.formula = kSigmaFormulas[[cur.formula.name]],
                                                                              nu.formula = kNuFormulas[[cur.formula.name]],
                                                                              tau.formula = kTauFormulas[[cur.formula.name]],
                                                                              family = gamlss.dist::BCCG(),
                                                                              data = na.omit(bart.clean))
-        }}}
+        }}}}
 
 ############
 ## Sterba ##
@@ -140,7 +142,7 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba",
+            if (grepl(pattern = "Sterba_",
                       x = cur.formula.name,
                       fixed = TRUE)) {
                 try(expr = 
@@ -157,7 +159,7 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
+            if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
                 try(expr = 
                         models[["nls2..nls2"]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
                                                                                  data = bart.clean,
@@ -175,7 +177,7 @@ if (any(grepl(pattern = kFunction,
     for (cur.formula.name in names(x = kFormulas)) {
         if (any(grepl(pattern = cur.formula.name,
                       x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba", x = cur.formula.name, fixed = TRUE)) {
+            if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
                 try(expr = 
                         models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
                                                                                                data = bart.clean,
@@ -201,7 +203,7 @@ if (any(grepl(pattern = kFunction,
                         models[["stats..lm"]][[cur.formula.name]] <- stats::lm(formula = kFormulas[[cur.formula.name]],
                                                                                data = bart.clean,
                                                                                na.action = na.omit))
-                }}}}
+        }}}}
                     
 
 #####################
