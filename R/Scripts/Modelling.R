@@ -11,27 +11,34 @@ kFileName <- paste0(kDataDir, "gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
 models[["mgcv..gam"]] <- vector(mode = "list")
+models[["gamlss..gamlss"]] <- vector(mode = "list")
 models[["stats..nls"]] <- vector(mode = "list")
 models[["nls2..nls2"]] <- vector(mode = "list")
 models[["minpack.lm..nlsLM"]] <- vector(mode = "list")
 kFormulas <- vector(mode = "list")
+kSigmaFormulas <- vector(mode = "list")
+kNuFormulas <- vector(mode = "list")
+kTauFormulas <- vector(mode = "list")
 kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- c("mgcv..gam")
 ## kFunctionsToUse <- c("stats..nls")
-kFunctionsToUse <- c("nls2..nls2")
-## kFunctionsToUse <- c("mgcv..gam", "nls2..nls2")
+## kFunctionsToUse <- c("nls2..nls2")
+## kFunctionsToUse <- c("gamlss..gamlss")
+kFunctionsToUse <- c("mgcv..gam", "nls2..nls2", "gamlss..gamlss")
 ## kFunctionsToUse <- c("minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "minpack.lm..nlsLM")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2")
 ## kFunctionsToUse <- c("stats..nls", "nls2..nls2", "minpack.lm..nlsLM")
 ## kFormulasToUse <- c("Sterba_dgGmax")
 ## kFormulasToUse <- c("Sterba_NGmax")
-## kFormulasToUse <- c("Sterba_Gmax")
-kFormulasToUse <- c("Sterba_dgGmax", "Sterba_NGmax", "Sterba_Gmax")
+kFormulasToUse <- c("Sterba_Gmax")
+## kFormulasToUse <- c("Sterba_dgGmax", "Sterba_NGmax", "Sterba_Gmax")
 ## kFormulasToUse <- c("GAM_gha_sh100", "Sterba_dgGmax")
+kFormulasToUse <- c("GAM_gha_sh100")
+kFormulasToUse <- c("GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I", "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I", "GAMLSS_gha_h100")
 
 ##########
 ## GAMs ##
@@ -51,6 +58,39 @@ if (any(grepl(pattern = kFunction,
                       x = kFormulasToUse))) {
             models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
                                                                    data = bart.clean)
+        }}}
+
+#############
+## GAMLSSs ##
+#############
+## Setup for model "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I".
+kFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kNuFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kTauFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
+## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I".
+kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
+## Setup for model "GAMLSS_gha_h100".
+kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
+kSigmaFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
+kNuFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
+kTauFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "~1")
+## Evaluate and store models.
+kFunction <- "gamlss..gamlss"
+if (any(grepl(pattern = kFunction,
+              x = kFunctionsToUse))) {
+    for (cur.formula.name in names(x = kFormulas)) {
+        if (any(grepl(pattern = cur.formula.name,
+                      x = kFormulasToUse))) {
+            models[["gamlss..gamlss"]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
+                                                                             sigma.formula = kSigmaFormulas[[cur.formula.name]],
+                                                                             nu.formula = kNuFormulas[[cur.formula.name]],
+                                                                             tau.formula = kTauFormulas[[cur.formula.name]],
+                                                                             family = gamlss.dist::BCCG(),
+                                                                             data = na.omit(bart.clean))
         }}}
 
 ############
