@@ -470,7 +470,6 @@ rm(list = setdiff(x = ls(), y = objects.before))
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
 ## In this version, "bart.clean" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
-## In this version, parcels (i.e., all rows sharing a given "edvid") are removed from "bart.clean", who, according to "parz$BESONDERHEITEN", were subject to thinning measures and whose "ksha.clean" is lower than the mean of "ksha.clean" aggregated over a given age class (with a total of 7 age classes).
 kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.8"
