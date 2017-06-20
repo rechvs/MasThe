@@ -484,3 +484,29 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+##############################
+## Create "gmax_2.9.RData". ##
+##############################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 2.8.
+## In this version, "bart.clean" contains an additional 39. column "ksha.clean.mean.edvid" which holds the mean of "ksha.clean" aggregated over "edvid".
+kBaseFileVersion <- "2.8"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.9"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Aggregate mean of "ksha.clean" over "edvid".
+ksha.clean.mean.aggregate.df <- aggregate(x = bart.clean$"ksha.clean",
+                                       by = list("edvid" = bart.clean[["edvid"]]),
+                                       FUN = function(X) { mean(x = X, na.rm = TRUE)} )
+names(x = ksha.clean.mean.aggregate.df) <- c("edvid", "ksha.clean.mean.edvid")
+## Merge "bart.clean" and "ksha.clean.mean.aggregate.df" based on "edvid".
+bart.clean <- merge(x = bart.clean, y = ksha.clean.mean.aggregate.df, by = "edvid")
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
