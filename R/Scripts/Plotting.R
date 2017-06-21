@@ -144,7 +144,12 @@ kPlottingInformation <- list("h100_gha" = list("kXSource" = "bart.clean$h100",
                                                      "kYSource" = "bart.clean$gha",
                                                      "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, ksha.clean.rel.cha >= -0.05)",
                                                      "kPlotXLab" = expression("ksha.clean [m"^2*" ha"^-1*"]"),
-                                                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
+                                                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+                             "alt_ksha.clean" = list("kXSource" = "bart.clean$alt",
+                                               "kYSource" = "bart.clean$ksha.clean",
+                                               "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
+                                               "kPlotXLab" = "alt [a]",
+                                               "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
@@ -255,7 +260,7 @@ for (cur.function.name in names(x = models)) {
                           x = paste0("Graphics/",
                                      cur.model.name,
                                      ".pdf"))
-        if (grepl(pattern = "GAM", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAM and we need to use “plot.gam(…)”.
+        if (grepl(pattern = "GAM_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAM and we need to use “mgcv::plot.gam(...)”.
             ## Start graphics device driver for producing PDF graphics.
             pdf(file = file.name,
                 width = kPdfWidth,
@@ -268,6 +273,31 @@ for (cur.function.name in names(x = models)) {
             mgcv::plot.gam(x = cur.model,
                            main = as.character(as.expression(x = formula(x = cur.model))))
         }
+        if (grepl(pattern = "GAMLSS_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAMLSS and we need to use “gamlss::plot.gamlss(...)”.
+            ## Start graphics device driver for producing PDF graphics.
+            pdf(file = file.name,
+                width = kPdfWidth,
+                height = kPdfHeight,
+                pointsize = kPdfPointSize,
+                family = kPdfFamily)
+            ## Set plot margins.
+            par(mar = kPlotMargins)
+            ## Plot model.            
+            plot(x = cur.model
+                 ## ,xvar = bart.clean$h100  ## To be turned on and off as desired.
+                 ,parameters = par("mfrow" = c(2, 2),
+                                  "mar" = par("mar") + c(0, 1, 0, 0),
+                                  "col.axis" = "black",
+                                  "col" = "black",
+                                  "col.main" = "black",
+                                  "col.lab" = "black",
+                                  "pch" = 20,
+                                  "cex" = 1.00,
+                                  "cex.lab" = 1.00,
+                                  "cex.axis" = 1,
+                                  "cex.main" = 1.5)  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                 )
+        }
         ## Turn off graphics device.
         graphics.off()
         ## If desired, open .pdf file via mupdf.
@@ -279,6 +309,27 @@ for (cur.function.name in names(x = models)) {
         }
     }
 }
+
+##############
+## QQ-Plots ##
+##############
+## WORK IN PROGRESS (2017-06-15) ##
+X <- bart.clean$gha
+X <- bart.clean$ksha
+p <- seq(from = 0.01, to = 0.99, by = 0.01)
+q <- quantile(x = Z,
+              probs = p)
+Y <- qnorm(p = p)
+Y <- qBCCG(p = p,
+           mu = mean(x = X),
+           sigma = 0.35)
+qqplot(x = X,
+       y = Y,
+       xlab = "Sample Quantiles",
+       ylab = "Theoretical Quantiles")
+abline(a = 0,
+       b = 1)
+
 
 #####################################################
 ## Plot relations and respective model predictions ##
@@ -326,23 +377,27 @@ kPlottingInformation <- list(
     "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg) (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
                           "kPlotXLabel" = "ln(dg)",
                           "kPlotYLabel" = "ln(nha)",
-                          "kNPlots" = 3,
+                          "kNPlots" = 4,
                           "kXSource1" = "bart.clean$ln.dg",
                           "kYSource1" = "bart.clean$ln.nha",
                           "kCoeffsSource2" = "coef(object = models$\"stats..lm\"$\"LM_ln.nha_ln.dg\")",
+                          "kCoeffsSource4" = "coef(object = models$\"stats..lm\"$\"LM_ln.nha_ln.dg_fixed_slope\")",
                           "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"ln.dg\"]] * x",
                           "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
+                          "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
                           "kLegendLegend" = "c(\"Measurements\",
                                                paste0(\"y = \",
                                                       eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"ln.dg\"]], digits = 3))),
                                                       \" x + \",
                                                       eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
                                                paste0(\"y = -1.605 x + \",
-                                                      eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))))",
+                                                      eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
+                                               paste0(\"y = -1.605 x + \",
+                                                      eval(parse(text = round(x = eval(parse(text = kCoeffsSource4))[[\"(Intercept)\"]], digits = 3)))))",
                           "kLegendX" = "topleft",
-                          "kPch" = c(1, NA, NA),
-                          "kLty" = c(NA, 1, 1),
-                          "kCol" = c("black", "red", "blue")))
+                          "kPch" = c(1, NA, NA, NA),
+                          "kLty" = c(NA, 1, 1, 1),
+                          "kCol" = c("black", "red", "blue", "magenta")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
