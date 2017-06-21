@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "3.0"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
@@ -151,10 +151,15 @@ kPlottingInformation <- list(
                                  "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                  "kPlotXLab" = "alt [a]",
                                  "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
-    "meas_alt_ksha.clean_above_average_ksha" = list("kXSource" = "bart.clean$alt[bart.clean[[\"ksha.above.mean.edvid\"]]]",
-                                                    "kYSource" = "bart.clean$ksha.clean[bart.clean[[\"ksha.above.mean.edvid\"]]]",
+    "meas_alt_ksha.clean_above_average_ksha" = list("kXSource" = "bart.clean$alt[bart.clean[[\"ksha.clean.mean.edvid.ratio\"]] >= 1]",
+                                                    "kYSource" = "bart.clean$ksha.clean[bart.clean[[\"ksha.clean.mean.edvid.ratio\"]] >= 1]",
                                                     "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05, ksha.above.mean.edvid == TRUE)",
                                                     "kPlotXLab" = "alt [a]",
+                                                    "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
+    "meas_gha_ksha.clean_above_average_ksha" = list("kXSource" = "bart.clean$gha[bart.clean[[\"ksha.clean.mean.edvid.ratio\"]] >= 1]",
+                                                    "kYSource" = "bart.clean$ksha.clean[bart.clean[[\"ksha.clean.mean.edvid.ratio\"]] >= 1]",
+                                                    "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05, ksha.above.mean.edvid == TRUE)",
+                                                    "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
                                                     "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
@@ -210,9 +215,9 @@ for (cur.list in names(x = kPlottingInformation)) {
     if (grepl(pattern = "above_average_ksha",
               x = cur.list,
               fixed = TRUE)) {
-        for (ts in levels(x = droplevels(x = bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]]))) {
-            points(x = x.values[bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]] == ts],
-                   y = y.values[bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]] == ts],
+        for (ts in levels(x = droplevels(x = bart.clean[["edvid"]][bart.clean[["ksha.clean.mean.edvid.ratio"]] >= 1]))) {
+            points(x = x.values[bart.clean[["edvid"]][bart.clean[["ksha.clean.mean.edvid.ratio"]] >= 1] == ts],
+                   y = y.values[bart.clean[["edvid"]][bart.clean[["ksha.clean.mean.edvid.ratio"]] >= 1] == ts],
                    type = kPointsType,
                    col = kPointsLinesSettings$col[kCntr],
                    bg = kPointsLinesSettings$col[kCntr],
