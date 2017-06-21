@@ -177,9 +177,7 @@ for (cur.list in names(x = kPlottingInformation)) {
     file.name <- gsub(pattern = "[$]",
                       replacement = ".",
                       x = paste0("Graphics/",
-                                 kXSource,
-                                 "_",
-                                 kYSource,
+                                 cur.list,
                                  ".pdf"))
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
@@ -313,7 +311,7 @@ for (cur.function.name in names(x = models)) {
 ##############
 ## QQ-Plots ##
 ##############
-## WORK IN PROGRESS (2017-06-15) ##
+if (FALSE) { ## WORK IN PROGRESS (2017-06-15) ##
 X <- bart.clean$gha
 X <- bart.clean$ksha
 p <- seq(from = 0.01, to = 0.99, by = 0.01)
@@ -329,7 +327,7 @@ qqplot(x = X,
        ylab = "Theoretical Quantiles")
 abline(a = 0,
        b = 1)
-
+}
 
 #####################################################
 ## Plot relations and respective model predictions ##
