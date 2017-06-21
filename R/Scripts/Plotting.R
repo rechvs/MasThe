@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "2.7"
+kBaseFileVersion <- "3.0"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -150,7 +150,12 @@ kPlottingInformation <- list(
                                  "kYSource" = "bart.clean$ksha.clean",
                                  "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05)",
                                  "kPlotXLab" = "alt [a]",
-                                 "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")))
+                                 "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")),
+    "meas_alt_ksha.clean_above_average_ksha" = list("kXSource" = "bart.clean$alt[bart.clean[[\"ksha.above.mean.edvid\"]]]",
+                                                    "kYSource" = "bart.clean$ksha.clean[bart.clean[[\"ksha.above.mean.edvid\"]]]",
+                                                    "kPlotMain" = "data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05, ksha.above.mean.edvid == TRUE)",
+                                                    "kPlotXLab" = "alt [a]",
+                                                    "kPlotYLab" = expression("ksha.clean [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
@@ -202,16 +207,32 @@ for (cur.list in names(x = kPlottingInformation)) {
          lwd = kGridLwd)
     ## Add points to empty plot.
     kCntr <- 1
-    for (ts in levels(bart.clean$edvid)) {
-        points(x = x.values[bart.clean$edvid == ts],
-               y = y.values[bart.clean$edvid == ts],
-               type = kPointsType,
-               col = kPointsLinesSettings$col[kCntr],
-               bg = kPointsLinesSettings$col[kCntr],
-               pch = kPointsLinesSettings$pch[kCntr],
-               lty = kPointsLinesSettings$lty[kCntr],
-               lwd = kPointsLinesSettings$lwd[kCntr])
-        kCntr <- kCntr+1
+    if (grepl(pattern = "above_average_ksha",
+              x = cur.list,
+              fixed = TRUE)) {
+        for (ts in levels(x = droplevels(x = bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]]))) {
+            points(x = x.values[bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]] == ts],
+                   y = y.values[bart.clean[["edvid"]][bart.clean[["ksha.above.mean.edvid"]]] == ts],
+                   type = kPointsType,
+                   col = kPointsLinesSettings$col[kCntr],
+                   bg = kPointsLinesSettings$col[kCntr],
+                   pch = kPointsLinesSettings$pch[kCntr],
+                   lty = kPointsLinesSettings$lty[kCntr],
+                   lwd = kPointsLinesSettings$lwd[kCntr])
+            kCntr <- kCntr+1
+        }
+    } else {
+        for (ts in levels(bart.clean$edvid)) {
+            points(x = x.values[bart.clean$edvid == ts],
+                   y = y.values[bart.clean$edvid == ts],
+                   type = kPointsType,
+                   col = kPointsLinesSettings$col[kCntr],
+                   bg = kPointsLinesSettings$col[kCntr],
+                   pch = kPointsLinesSettings$pch[kCntr],
+                   lty = kPointsLinesSettings$lty[kCntr],
+                   lwd = kPointsLinesSettings$lwd[kCntr])
+            kCntr <- kCntr+1
+        }
     }
     ## Add legend.
     legend(x = kLegendX,
