@@ -21,6 +21,8 @@ kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
+kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid having to use "data = na.omit(DATA)".
+kDistFamilyToUse <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
@@ -34,13 +36,16 @@ kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 
 ##########
 ## GAMs ##
@@ -56,7 +61,7 @@ kFunction <- "mgcv..gam"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
             models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
@@ -66,36 +71,57 @@ if (any(grepl(pattern = kFunction,
 #############
 ## GAMLSSs ##
 #############
-## Setup for model "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I".
-kFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kSigmaFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kNuFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kTauFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
-## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I".
-kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
 ## Setup for model "GAMLSS_gha_h100".
 kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
 kSigmaFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
 kNuFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
 kTauFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "~1")
+kDistFamilyToUse[["GAMLSS_gha_h100"]] <- "BCCG()"
+kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
+## Setup for model "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I".
+kFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kNuFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kTauFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
+kDistFamilyToUse[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- "BCCG()"
+kColumnsToSelect[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- c("gha", "SI.h100", "ghaa.cum", "h100.EKL.I")
+## Setup for model "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I".
+kFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kSigmaFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kNuFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kTauFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "~1")
+kDistFamilyToUse[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- "BCCG()"
+kColumnsToSelect[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- c("gha", "SI.h100", "ghaa.cum", "h100.EKL.I", "h100.diff.EKL.I")
+## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I".
+kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
+kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
+kDistFamilyToUse[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- "()"
+kColumnsToSelect[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- c("ksha", "SI.h100", "ghaa.cum", "h100.EKL.I")
+## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I".
+kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
+kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "~1")
+kColumnsToSelect[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- c("ksha", "SI.h100", "ghaa.cum", "h100.EKL.I", "h100.diff.EKL.I")
 ## Evaluate and store models.
 kFunction <- "gamlss..gamlss"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
-            models[["gamlss..gamlss"]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
-                                                                             sigma.formula = kSigmaFormulas[[cur.formula.name]],
-                                                                             nu.formula = kNuFormulas[[cur.formula.name]],
-                                                                             tau.formula = kTauFormulas[[cur.formula.name]],
-                                                                             family = gamlss.dist::BCCG(),
-                                                                             data = na.omit(bart.clean))
-        }}}}
+                models[["gamlss..gamlss"]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
+                                                                                 sigma.formula = kSigmaFormulas[[cur.formula.name]],
+                                                                                 nu.formula = kNuFormulas[[cur.formula.name]],
+                                                                                 tau.formula = kTauFormulas[[cur.formula.name]],
+                                                                                 family = gamlss.dist::BCCG(),
+                                                                                 data = subset(x = bart.clean, select = kColumnsToSelect[[cur.formula.name]]),
+                                                                                 method = RS(50))
+            }}}}
+## 2017-06-15: gamlss::gamlss fails at modelling "ksha ~ ..."
 
 ############
 ## Sterba ##
@@ -140,7 +166,7 @@ kFunction <- "stats..nls"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "Sterba_",
                       x = cur.formula.name,
@@ -157,7 +183,7 @@ kFunction <- "nls2..nls2"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
                 try(expr = 
@@ -175,7 +201,7 @@ kFunction <- "minpack.lm..nlsLM"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
                 try(expr = 
@@ -191,12 +217,14 @@ if (any(grepl(pattern = kFunction,
 #########
 ## Setup for model "LM_ln.nha_ln.dg".
 kFormulas[["LM_ln.nha_ln.dg"]] <- as.formula(object = "ln.nha ~ ln.dg")
+## Setup for model "LM_ln.nha_ln.dg_fixed_slope".
+kFormulas[["LM_ln.nha_ln.dg_fixed_slope"]] <- as.formula(object = "ln.nha - -1.605 * ln.dg ~ 1")
 ## Evaluate and store models.
 kFunction <- "stats..lm"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = cur.formula.name,
+        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                       x = kFormulasToUse))) {
             if (grepl(pattern = "LM_", x = cur.formula.name, fixed = TRUE)) {
                 try(expr =
