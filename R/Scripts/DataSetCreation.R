@@ -510,3 +510,34 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+##############################
+## Create "gmax_3.0.RData". ##
+##############################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 2.9.
+## In this version, "bart.clean" contains an additional 40. column "ksha.above.mean.edvid" which holds logical values indicating whether the corresponding value of "ksha.clean.mean.edvid" is greater or equal than (TRUE) or less than (FALSE) the mean of all values of "ksha.clean".
+kBaseFileVersion <- "2.9"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "3.0"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Calculate "ksha.above.mean.edvid".
+bart.clean[["ksha.above.mean.edvid"]] <- bart.clean[["ksha.clean.mean.edvid"]] >= mean(x = bart.clean[["ksha.clean"]], na.rm = TRUE)
+## Print "edvid"s which have a below average "ksha.clean.mean.edvid" and the corresponding "BESONDERHEITEN".
+parz.matches <- match(x = unique(x = bart.clean[["edvid"]][!bart.clean[["ksha.above.mean.edvid"]]]),
+                      table = parz[["edvid"]])
+print(x = parz[parz.matches, c(2, 14)])
+## Print "edvid"s which have a below average "ksha.clean.mean.edvid" and the corresponding "forstamt" and "abt".
+vers.matches <- match(x = substr(x = parz[parz.matches, 2], start = 1, 6),
+                      table = vers[["vers"]])
+print(x = data.frame("edvid" = parz[parz.matches, 2],
+                     "forstamt" = vers[vers.matches, 2],
+                     "abt" = vers[vers.matches, 3]))
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
