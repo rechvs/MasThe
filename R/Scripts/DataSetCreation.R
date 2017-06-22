@@ -389,14 +389,14 @@ save(list = kgmaxObjects,
 rm(list = setdiff(x = ls(), y = objects.before))
 
 ##############################
-## Create "gmax_2.6.RData". ##
+## Create "gmax_2.5.RData". ##
 ##############################
 objects.before <- ls()  ## Required for clean up.
-## Based on version 2.5.
+## Based on version 2.4.
 ## In this version, "bart.clean" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
-kBaseFileVersion <- "2.5"
+kBaseFileVersion <- "2.4"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "2.6"
+kFileVersion <- "2.5"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
@@ -417,14 +417,14 @@ save(list = kgmaxObjects,
 rm(list = setdiff(x = ls(), y = objects.before))
 
 ##############################
-## Create "gmax_2.7.RData". ##
+## Create "gmax_2.6.RData". ##
 ##############################
 objects.before <- ls()  ## Required for clean up.
-## Based on version 2.6.
+## Based on version 2.5.
 ## In this version, "bart.clean" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
-kBaseFileVersion <- "2.6"
+kBaseFileVersion <- "2.5"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "2.7"
+kFileVersion <- "2.6"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
@@ -445,14 +445,14 @@ save(list = kgmaxObjects,
 rm(list = setdiff(x = ls(), y = objects.before))
 
 ##############################
-## Create "gmax_2.8.RData". ##
+## Create "gmax_2.7.RData". ##
 ##############################
 objects.before <- ls()  ## Required for clean up.
-## Based on version 2.7.
+## Based on version 2.6.
 ## In this version, "bart.clean" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
-kBaseFileVersion <- "2.7"
+kBaseFileVersion <- "2.6"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "2.8"
+kFileVersion <- "2.7"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
