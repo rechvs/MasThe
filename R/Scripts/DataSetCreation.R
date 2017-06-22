@@ -470,7 +470,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
-## In this version, an additional data frame "edvid.archive.info" is created which contains all levels of "bart.clean[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]".
+## In this version, an additional data frame "edvid.archive.info" is created which contains all levels of "bart.clean[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
 kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.8"
@@ -480,13 +480,17 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Extract all levels of "bart.clean[["edvid"]]".
 edvid.vers.matches <- data.frame("edvid" = levels(x = bart.clean[["edvid"]]))
 ## Find out which elements of "vers[["vers"]]" match the elements of "edvid.vers.matches[["edvid"]]".
-vers.matches <- match(x = substr(x = edvid.vers.matches$edvid,
+vers.matches <- match(x = substr(x = edvid.vers.matches[["edvid"]],
                                  start = 0,
                                  stop = 6),
                       table = vers[["vers"]])
-## Add columns "forstamt" and "abt" to "edvid.vers.matches".
+## Find out which elements of "parz[["edvid"]]" match the elements of "edvid.vers.matches[["edvid"]]".
+parz.matches <- match(x = edvid.vers.matches[["edvid"]],
+                      table = parz[["edvid"]])
+## Add columns "forstamt", "abt" and "BESONDERHEITEN" to "edvid.vers.matches".
 edvid.vers.matches[["forstamt"]] <- vers[["forstamt"]][vers.matches]
 edvid.vers.matches[["abt"]] <- vers[["abt"]][vers.matches]
+edvid.vers.matches[["BESONDERHEITEN"]] <- parz[["BESONDERHEITEN"]][parz.matches]
 ## Add "edvid.vers.matches" to the vector of names of objects meant to be saved.
 kgmaxObjects <- c("edvid.vers.matches", kgmaxObjects)
 ## Save results.
