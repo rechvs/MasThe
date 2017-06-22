@@ -464,3 +464,34 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+#############################
+## Create "gmax_2.8.RData" ##
+#############################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 2.7.
+## In this version, an additional data frame "edvid.archive.info" is created which contains all levels of "bart.clean[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]".
+kBaseFileVersion <- "2.7"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "2.8"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Extract all levels of "bart.clean[["edvid"]]".
+edvid.vers.matches <- data.frame("edvid" = levels(x = bart.clean[["edvid"]]))
+## Find out which elements of "vers[["vers"]]" match the elements of "edvid.vers.matches[["edvid"]]".
+vers.matches <- match(x = substr(x = edvid.vers.matches$edvid,
+                                 start = 0,
+                                 stop = 6),
+                      table = vers[["vers"]])
+## Add columns "forstamt" and "abt" to "edvid.vers.matches".
+edvid.vers.matches[["forstamt"]] <- vers[["forstamt"]][vers.matches]
+edvid.vers.matches[["abt"]] <- vers[["abt"]][vers.matches]
+## Add "edvid.vers.matches" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("edvid.vers.matches", kgmaxObjects)
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
