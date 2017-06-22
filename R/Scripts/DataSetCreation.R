@@ -5,9 +5,9 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 
-##############################
-## Create "gmax_1.0.RData". ##
-##############################
+#############################
+## Create "gmax_1.0.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## This version is an untamperd copy of the original version of "gmax.RData" (see email by Matthias Schmidt from 2017-04-27).
 kFileVersion <- "1.0"
@@ -21,9 +21,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.1.RData". ##
-##############################
+#############################
+## Create "gmax_1.1.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.0.
 ## In this version, "bart" contains an additional 21. column "ksha.sum.edvid.auf" holding the sum of "ksha" for each combination of "edvid" and "auf".
@@ -52,9 +52,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.2.RData". ##
-##############################
+#############################
+## Create "gmax_1.2.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.1.
 ## In this version, "bart" contains an additional 22. column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum.edvid.auf" for each combination of "edvid" and "auf".
@@ -73,9 +73,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.3.RData". ##
-##############################
+#############################
+## Create "gmax_1.3.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.2.
 ## In this version, "bart" contains an additional 23. column "nhaa.rel" = "nhaa" / "nha".
@@ -94,9 +94,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.4.RData". ##
-##############################
+#############################
+## Create "gmax_1.4.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.3.
 ## In this version, the following columns of "bart" are transformed into factors:
@@ -118,9 +118,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.5.RData". ##
-##############################
+#############################
+## Create "gmax_1.5.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.4.
 ## In this version, "bart" contains an additional 24. column "SI.h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
@@ -140,9 +140,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.6.RData". ##
-##############################
+#############################
+## Create "gmax_1.6.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.5.
 ## In this version, "bart" contains an additional 25. column "h100.EKL.I" which holds h100 for a given age if the stand were EKL I.
@@ -163,9 +163,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.7.RData". ##
-##############################
+#############################
+## Create "gmax_1.7.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.6.
 ## In this version, "bart" contains an additional 26. column "gha.diff" which holds the difference in "gha" between the current and the previous measurement, calculated separately for each combination of "edvid" and "art".
@@ -189,9 +189,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.8.RData". ##
-##############################
+#############################
+## Create "gmax_1.8.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.7.
 ## In this version, "bart" contains an additional 27. column "gha.rel.cha" which holds the relative change of "gha" between the previous and the current measurement relative to previous measurement, calculated separately for each combination of "edvid" and "art".
@@ -218,9 +218,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_1.9.RData". ##
-##############################
+#############################
+## Create "gmax_1.9.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
 ## In this version, an additional data frame "bart.clean" is created which is a subset of "bart", excluding all invalid data (see below for details).
@@ -270,9 +270,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.0.RData". ##
-##############################
+#############################
+## Create "gmax_2.0.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.9.
 ## In this version, "bart.clean" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
@@ -291,9 +291,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.1.RData". ##
-##############################
+#############################
+## Create "gmax_2.1.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.0.
 ## In this version, "bart.clean" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
@@ -314,9 +314,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.2.RData". ##
-##############################
+#############################
+## Create "gmax_2.2.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.1.
 ## In this version, "bart.clean" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
@@ -337,9 +337,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.3.RData". ##
-##############################
+#############################
+## Create "gmax_2.3.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.2.
 ## In this version, "bart.clean" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
@@ -361,9 +361,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.4.RData". ##
-##############################
+#############################
+## Create "gmax_2.4.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.3.
 ## In this version, "bart.clean" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
@@ -388,9 +388,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.5.RData". ##
-##############################
+#############################
+## Create "gmax_2.5.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
 ## In this version, "bart.clean" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
@@ -416,9 +416,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.6.RData". ##
-##############################
+#############################
+## Create "gmax_2.6.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.5.
 ## In this version, "bart.clean" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
@@ -444,9 +444,9 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-##############################
-## Create "gmax_2.7.RData". ##
-##############################
+#############################
+## Create "gmax_2.7.RData" ##
+#############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.6.
 ## In this version, "bart.clean" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
