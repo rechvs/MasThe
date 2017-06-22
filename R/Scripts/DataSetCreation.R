@@ -389,28 +389,6 @@ save(list = kgmaxObjects,
 rm(list = setdiff(x = ls(), y = objects.before))
 
 ##############################
-## Create "gmax_2.5.RData". ##
-##############################
-objects.before <- ls()  ## Required for clean up.
-## Based on version 2.4.
-## In this version, "bart.clean" contains an additional 35. column "ksha.clean" which is based on "ksha" but in which values are replaced with NA if "ksha.rel.cha < -0.05".
-kBaseFileVersion <- "2.4"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "2.5"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
-## Load base file.
-kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create "ksha.clean".
-bart.clean$ksha.clean <- bart.clean$ksha
-bart.clean$ksha.clean[which(x = bart.clean$ksha.rel.cha < -0.05)] <- NA
-## Save results.
-save(list = kgmaxObjects,
-     file = kFileName,
-     precheck = TRUE)
-## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
-
-##############################
 ## Create "gmax_2.6.RData". ##
 ##############################
 objects.before <- ls()  ## Required for clean up.
@@ -480,53 +458,6 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "age.class".
 bart.clean[["age.class"]] <- cut(x = bart.clean[["alt"]], breaks = 7, include.lowest = TRUE)
-## Save results.
-save(list = kgmaxObjects,
-     file = kFileName,
-     precheck = TRUE)
-## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
-
-##############################
-## Create "gmax_2.9.RData". ##
-##############################
-objects.before <- ls()  ## Required for clean up.
-## Based on version 2.8.
-## In this version, "bart.clean" contains an additional 39. column "ksha.clean.mean.edvid" which holds the mean of "ksha.clean" aggregated over "edvid".
-kBaseFileVersion <- "2.8"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "2.9"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
-## Load base file.
-kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Aggregate mean of "ksha.clean" over "edvid".
-ksha.clean.mean.aggregate.df <- aggregate(x = bart.clean$"ksha.clean",
-                                       by = list("edvid" = bart.clean[["edvid"]]),
-                                       FUN = function(X) { mean(x = X, na.rm = TRUE)} )
-names(x = ksha.clean.mean.aggregate.df) <- c("edvid", "ksha.clean.mean.edvid")
-## Merge "bart.clean" and "ksha.clean.mean.aggregate.df" based on "edvid".
-bart.clean <- merge(x = bart.clean, y = ksha.clean.mean.aggregate.df, by = "edvid")
-## Save results.
-save(list = kgmaxObjects,
-     file = kFileName,
-     precheck = TRUE)
-## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
-
-##############################
-## Create "gmax_3.0.RData". ##
-##############################
-objects.before <- ls()  ## Required for clean up.
-## Based on version 2.9.
-## In this version, "bart.clean" contains an additional 40. column "ksha.clean.mean.edvid.ratio" which holds the ratio between "ksha.clean.mean.edvid" and the mean of all measurements of "ksha.clean".
-kBaseFileVersion <- "2.9"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
-kFileVersion <- "3.0"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
-## Load base file.
-kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.clean.mean.edvid.ratio".
-bart.clean[["ksha.clean.mean.edvid.ratio"]] <- bart.clean[["ksha.clean.mean.edvid"]] / mean(x = bart.clean[["ksha.clean"]], na.rm = TRUE)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
