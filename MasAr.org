@@ -116,3 +116,97 @@
       when trying to [[file:R/Scripts/Modelling.R::kFormulas%5B%5B"Sterba_Gmax"%5D%5D][fit this equation]], we therefore need to didivde the value of “bart.clean$gha” by 10000 in order to obtain the required unit
 *** [2017-06-01 Do]
     + added block “Plot relations and respective model predictions” to and refined [[file:R/Scripts/Plotting.R::1][Plotting.R]]
+** Supplementary information per “edvid” 
+*** “edvid.vers.matches”
+| edvid    | forstamt                | abt         | BESONDERHEITEN                                                                        |
+|----------+-------------------------+-------------+---------------------------------------------------------------------------------------|
+| 05451102 | Idarwald                | 149/150     |                                                                                       |
+| 06451102 | Hochstift               | 990B        | 2000  intern aufgegeben                                                               |
+| 07151102 | Hochstift               | 697B        | aufgeg. m. Schreiben v. 21.10.2009;1990 Kalkung                                       |
+| 07551103 | Westerhof               | 131b        | 1986 Kalkung; 2001 aufgegeben                                                         |
+| 07551105 | Westerhof               | 131b        | 1977 aufgegeben:  keine ertragskundl. Aufnahme                                        |
+| 11651100 | Nationalpark Harz (NDS) | 683j        |                                                                                       |
+| 4665111A | SHLF                    | 3532j       | 1977 Vollumbruch. unbehandelt. Erhebung Aststärkendurchmesser                         |
+| 4665112B | SHLF                    | 3532j       | 1977 Vollumbruch. Auszeichnung nach Baumzahlleitkurve. Erhebung Aststärkendurchmesser |
+| 4665113B | SHLF                    | 3532j       | 1977 Vollumbruch. Auszeichnung nach Baumzahlleitkurve. Erhebung Aststärkendurchmesser |
+| 4665114B | SHLF                    | 3532j       | 1977 Vollumbruch. Auszeichnung nach Baumzahlleitkurve. Erhebung Aststärkendurchmesser |
+| 4675111A | Grünenplan              | 66j1        | unbehandelt. Erhebung Aststärkendurchmesser                                           |
+| 4675112A | Grünenplan              | 66j1        | unbehandelt. Erhebung Aststärkendurchmesser                                           |
+| 4675113A | Grünenplan              | 66j1        | unbehandelt. Erhebung Aststärkendurchmesser                                           |
+| 4675113B | Grünenplan              | 66j1        | ab  2009 st. NDF wegen WW (Kyrill)                                                    |
+| 4675114A | Grünenplan              | 66j1        | unbehandelt. Erhebung Aststärkendurchmesser                                           |
+| 47451104 | Neuhaus                 | 2271j       | Standort 09.3.2.4. z.T. 14.3.2.4. Df. nach Baumzahlleitkurve                          |
+| 55751102 | Clausthal               | 1408j/1411j | gegattert                                                                             |
+| 56151100 | Dassel                  | 28j1        | Standort 80% 9.2.2.2. 20% 15.2.2.2                                                    |
+| 61851101 | Nationalpark Harz (NDS) | 358a1       | keine Durchforstung. da NP (Schutzzone 1). Düngungsangaben nachtragen !!!             |
+| 61851102 | Nationalpark Harz (NDS) | 358a1       | keine Durchforstung. da NP (Schutzzone 1); ungedüngt                                  |
+| 87021515 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| 87021516 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| 87021517 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| 87021520 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| 87021521 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| 87021522 | Clausthal               | 1100j       | Prov.: Buche                                                                          |
+| A6251101 | Neuhaus                 | 2146j/2149j | Feinkartierung; Kompensationskalkung (3 t/ha)                                         |
+| A6251104 | Neuhaus                 | 2146j/2149j | Feinkartierung; Kompensationskalkung (3 t/ha)                                         |
+| J5851106 | Romrod                  | 1301A2      | Nullfläche                                                                            |
+| J6351111 | Wehretal                | 2588A1      | Df.art: starke Niederdurchforstung u. BZL                                             |
+| J6351121 | Wehretal                | 2588A1      | Df.art: starke Niederdurchforstung u. BZL                                             |
+| J6351131 | Wehretal                | 2588A1      | Df.art: starke Niederdurchforstung u. BZL                                             |
+| J6351141 | Wehretal                | 2588A1      | Df.art: starke Niederdurchforstung u. BZL                                             |
+| J6551105 | Bad Hersfeld            | 190C1       | Durchforstung: starke Niederdurchfostung und Baumzahlleitkurve                        |
+| J6551108 | Bad Hersfeld            | 190C1       | Durchforstung: starke Niederdurchfostung und Baumzahlleitkurve                        |
+| S0651102 | Oberharz                | 332a1/334h  | 0                                                                                     |
+| S1051103 | Nationalpark Harz (ST)  | 137 a3      | <NA>                                                                                  |
+| S1751101 | Oberharz                | 359d5       | <NA>                                                                                  |
+| S1851101 | Nationalpark Harz (ST)  | 137a6       | <NA>                                                                                  |
+| S1951101 | Nationalpark Harz (ST)  | 133 a4      | <NA>                                                                                  |
+| S2051102 | Nationalpark Harz (ST)  | 174a1       | <NA>                                                                                  |
+| S2151101 | Nationalpark Harz (ST)  | 439 a1      | <NA>                                                                                  |
+| S2251101 | Nationalpark Harz (ST)  | 459a\xb2    | <NA>                                                                                  |
+| S2351103 | Oberharz                | 1118 a1     | Schlußaufnahme 2013                                                                   |
+| S2451102 | Oberharz                | 483 a2/4    | <NA>                                                                                  |
+| S2551103 | Oberharz                | 257 b6      | <NA>                                                                                  |
+| S2651104 | Ostharz                 | 91a4        | <NA>                                                                                  |
+*** Noteworthy archive content regarding “edvid”s of interest
+**** “vers”: 467511
+***** “edvid”: 4675111A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
+      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675112A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
+      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675113A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; NOT in accordance with “gha” based ranking]
+      + - behandelt - ab 2009: Df.-art: st. Niederdurchf. (wg. WW-Schäden) [NOT in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675113B (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
+      + - unbehandelt - [NOT in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675114A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
+      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
+**** “vers”: 466511
+***** “edvid”: 4665111A (“forstamt”: SHLF, “abt”: 3532j)
+      + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt [in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4665112B (“forstamt”: SHLF, “abt”: 3532j)
+      + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4665113B (“forstamt”: SHLF, “abt”: 3532j)
+      + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4665114B (“forstamt”: SHLF, “abt”: 3532j)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+**** “vers”: J63511 [cp. [[file:Data/Supplementary_Information/][vers_J63511.pdf]]]
+***** “edvid”: J6351111 (“forstamt”: Wheretal, “abt”: 2588A1)
+      + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt
+***** “edvid”: J6351121 (“forstamt”: Wheretal, “abt”: 2588A1)
+      + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt
+***** “edvid”: J6351131 (“forstamt”: Wheretal, “abt”: 2588A1)
+      + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt
+***** “edvid”: J6351141 (“forstamt”: Wheretal, “abt”: 2588A1)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
+      + unbehandelt 
