@@ -230,23 +230,25 @@ kFileVersion <- "1.9"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Exclude all lines in which "bart$art != 511".
-bart.clean <- droplevels(x = bart[bart$art == 511, ])
-## Exclude all lines in which "bart.clean$ksha.rel < 0.7".
-bart.clean <- bart.clean[bart.clean$ksha.rel >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean$gha.rel.cha < -0.05".
+## Create untampered source version of "bart.clean".
+bart.clean <- bart
+## Exclude all lines in which "bart[["art"]] != 511".
+bart.clean <- bart.clean[bart.clean[["art"]] == 511, ]
+## Exclude all lines in which "bart.clean[["ksha.rel"]] < 0.7".
+bart.clean <- bart.clean[bart.clean[["ksha.rel"]] >= 0.7, ]
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean[["gha.rel.cha"]] < 0".
 names.vec <- NULL
-for (parcel in levels(bart.clean$edvid)) {
+for (parcel in levels(bart.clean[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean[bart.clean$edvid == parcel, ]
-    auf.vec <- parcel.subset$auf[parcel.subset$gha.rel.cha < -0.05]
-    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < -0.05", i.e., no exclusions are necessary.
+    parcel.subset <- bart.clean[bart.clean[["edvid"]] == parcel, ]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
+    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
-    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < -0.05", i.e., exclusions are necessary.
+    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
         auf.mark <- min(auf.vec, na.rm = TRUE)
-        parcel.subset <- parcel.subset[parcel.subset$auf < auf.mark, ]
+        parcel.subset <- parcel.subset[parcel.subset[["auf"]] < auf.mark, ]
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
     }
