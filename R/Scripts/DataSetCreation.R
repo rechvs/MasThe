@@ -223,7 +223,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
-## In this version, an additional data frame "bart.clean.1.0" is created which is a subset of "bart", excluding all invalid data (see below for details).
+## In version, an additional data frame "bart.clean.1.0" is created which is a subset of "bart", excluding certain data (see below for details).
 kBaseFileVersion <- "1.8"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.9"
@@ -236,6 +236,26 @@ bart.clean.1.0 <- bart
 bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["art"]] == 511, ]
 ## Exclude all lines in which "bart.clean.1.0[["ksha.rel"]] < 0.7".
 bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["ksha.rel"]] >= 0.7, ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665111A", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665112B", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665113B", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675111A", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675112A", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675113A", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675114A", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351111", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351121", ]
+## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351131", ]
 ## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.0[["gha.rel.cha"]] < 0".
 names.vec <- NULL
 for (parcel in levels(bart.clean.1.0[["edvid"]])) {
