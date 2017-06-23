@@ -663,3 +663,51 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+#############################
+## Create "gmax_3.2.RData" ##
+#############################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 3.1.
+## In this version, an additional data frame "bart.clean.1.4" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.15 * bart.clean.1.4[["gha"]] ".
+kBaseFileVersion <- "3.1"
+kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kFileVersion <- "3.2"
+kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Create untampered source version of "bart.clean.1.4".
+bart.clean.1.4 <- bart.clean.1.0
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.15 * bart.clean.1.4[["gha"]] ".
+names.vec <- NULL
+for (parcel in levels(x = bart.clean.1.4[["edvid"]])) {
+    name.cur <- paste0("obj.", as.character(parcel))
+    names.vec <- c(names.vec, name.cur)
+    parcel.subset <- bart.clean.1.4[bart.clean.1.4[["edvid"]] == parcel, ]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.15 * parcel.subset[["gha"]]]
+    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
+        auf.mark <- min(auf.vec, na.rm = TRUE)
+        parcel.subset <- parcel.subset[parcel.subset[["auf"]] < auf.mark, ]
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    }
+}
+## Create new data frame from objects created by "for" loop above.
+bart.clean.1.4 <- data.frame(NULL)
+for (name.cur in names.vec) {
+    bart.clean.1.4 <- rbind(bart.clean.1.4,
+                          eval(expr = as.name(x = name.cur)))
+}
+## Drop unused levels.
+bart.clean.1.4 <- droplevels(x = bart.clean.1.4)
+## Add "bart.clean.1.4" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bart.clean.1.4", kgmaxObjects)
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
