@@ -525,7 +525,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.8.
-## In this version, an additional data frame "bart.clean.1.1" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.10 * bart.clean.1.1[["gha"]] ".
+## In this version, an additional data frame "bart.clean.1.1" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.20 * bart.clean.1.1[["gha"]] ".
 kBaseFileVersion <- "2.8"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.9"
@@ -534,13 +534,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Create untampered source version of "bart.clean.1.1".
 bart.clean.1.1 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.10 * bart.clean.1.1[["gha"]] ".
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.20 * bart.clean.1.1[["gha"]] ".
 names.vec <- NULL
 for (parcel in levels(x = bart.clean.1.1[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
     parcel.subset <- bart.clean.1.1[bart.clean.1.1[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.10 * parcel.subset[["gha"]]]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.20 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
@@ -573,7 +573,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.9.
-## In this version, an additional data frame "bart.clean.1.2" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.20 * bart.clean.1.2[["gha"]] ".
+## In this version, an additional data frame "bart.clean.1.2" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.15 * bart.clean.1.2[["gha"]] ".
 kBaseFileVersion <- "2.9"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.0"
@@ -582,13 +582,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Create untampered source version of "bart.clean.1.2".
 bart.clean.1.2 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.20 * bart.clean.1.2[["gha"]] ".
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.15 * bart.clean.1.2[["gha"]] ".
 names.vec <- NULL
 for (parcel in levels(x = bart.clean.1.2[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
     parcel.subset <- bart.clean.1.2[bart.clean.1.2[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.20 * parcel.subset[["gha"]]]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.15 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
@@ -621,7 +621,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.0.
-## In this version, an additional data frame "bart.clean.1.3" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.05 * bart.clean.1.3[["gha"]] ".
+## In this version, an additional data frame "bart.clean.1.3" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.10 * bart.clean.1.3[["gha"]] ".
 kBaseFileVersion <- "3.0"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.1"
@@ -630,13 +630,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Create untampered source version of "bart.clean.1.3".
 bart.clean.1.3 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.05 * bart.clean.1.3[["gha"]] ".
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.10 * bart.clean.1.3[["gha"]] ".
 names.vec <- NULL
 for (parcel in levels(x = bart.clean.1.3[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
     parcel.subset <- bart.clean.1.3[bart.clean.1.3[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.05 * parcel.subset[["gha"]]]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.10 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
@@ -669,7 +669,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.1.
-## In this version, an additional data frame "bart.clean.1.4" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.15 * bart.clean.1.4[["gha"]] ".
+## In this version, an additional data frame "bart.clean.1.4" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.05 * bart.clean.1.4[["gha"]] ".
 kBaseFileVersion <- "3.1"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.2"
@@ -678,13 +678,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Create untampered source version of "bart.clean.1.4".
 bart.clean.1.4 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.15 * bart.clean.1.4[["gha"]] ".
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.05 * bart.clean.1.4[["gha"]] ".
 names.vec <- NULL
 for (parcel in levels(x = bart.clean.1.4[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
     parcel.subset <- bart.clean.1.4[bart.clean.1.4[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.15 * parcel.subset[["gha"]]]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.05 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
                value = parcel.subset)
