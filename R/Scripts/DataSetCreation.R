@@ -223,25 +223,25 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
-## In this version, an additional data frame "bart.clean" is created which is a subset of "bart", excluding all invalid data (see below for details).
+## In this version, an additional data frame "bart.clean.1.0" is created which is a subset of "bart", excluding all invalid data (see below for details).
 kBaseFileVersion <- "1.8"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.9"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean".
-bart.clean <- bart
-## Exclude all lines in which "bart[["art"]] != 511".
-bart.clean <- bart.clean[bart.clean[["art"]] == 511, ]
-## Exclude all lines in which "bart.clean[["ksha.rel"]] < 0.7".
-bart.clean <- bart.clean[bart.clean[["ksha.rel"]] >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean[["gha.rel.cha"]] < 0".
+## Create untampered source version of "bart.clean.1.0".
+bart.clean.1.0 <- bart
+## Exclude all lines in which "bart.clean.1.0[["art"]] != 511".
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["art"]] == 511, ]
+## Exclude all lines in which "bart.clean.1.0[["ksha.rel"]] < 0.7".
+bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["ksha.rel"]] >= 0.7, ]
+## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.0[["gha.rel.cha"]] < 0".
 names.vec <- NULL
-for (parcel in levels(bart.clean[["edvid"]])) {
+for (parcel in levels(bart.clean.1.0[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean[bart.clean[["edvid"]] == parcel, ]
+    parcel.subset <- bart.clean.1.0[bart.clean.1.0[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -254,15 +254,15 @@ for (parcel in levels(bart.clean[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean <- data.frame(NULL)
+bart.clean.1.0 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean <- rbind(bart.clean,
+    bart.clean.1.0 <- rbind(bart.clean.1.0,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean <- droplevels(x = bart.clean)
-## Add "bart.clean" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean", kgmaxObjects)
+bart.clean.1.0 <- droplevels(x = bart.clean.1.0)
+## Add "bart.clean.1.0" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bart.clean.1.0", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -275,7 +275,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.9.
-## In this version, "bart.clean" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
+## In this version, "bart.clean.1.0" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
 kBaseFileVersion <- "1.9"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.0"
@@ -283,7 +283,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "h100.diff.EKL.I".
-bart.clean$h100.diff.EKL.I <- bart.clean$h100.EKL.I - bart.clean$h100
+bart.clean.1.0$h100.diff.EKL.I <- bart.clean.1.0$h100.EKL.I - bart.clean.1.0$h100
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -296,7 +296,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.0.
-## In this version, "bart.clean" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
+## In this version, "bart.clean.1.0" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
 kBaseFileVersion <- "2.0"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.1"
@@ -304,9 +304,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ln.nha".
-bart.clean$ln.nha <- log(x = bart.clean$nha, base = exp(x = 1))
+bart.clean.1.0$ln.nha <- log(x = bart.clean.1.0$nha, base = exp(x = 1))
 ## Calculate "ln.dg".
-bart.clean$ln.dg <- log(x = bart.clean$dg, base = exp(x = 1))
+bart.clean.1.0$ln.dg <- log(x = bart.clean.1.0$dg, base = exp(x = 1))
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -319,7 +319,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.1.
-## In this version, "bart.clean" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
+## In this version, "bart.clean.1.0" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
 kBaseFileVersion <- "2.1"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.2"
@@ -327,9 +327,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "log.nha".
-bart.clean$log.nha <- log10(x = bart.clean$nha)
+bart.clean.1.0$log.nha <- log10(x = bart.clean.1.0$nha)
 ## Calculate "log.dg".
-bart.clean$log.dg <- log10(x = bart.clean$dg)
+bart.clean.1.0$log.dg <- log10(x = bart.clean.1.0$dg)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -342,7 +342,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.2.
-## In this version, "bart.clean" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
+## In this version, "bart.clean.1.0" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
 kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.3"
@@ -350,9 +350,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ksha.diff".
-for (parcel in levels(bart.clean$edvid)) {
-    ksha.cur.par <- bart.clean$ksha[bart.clean$edvid == parcel]
-    bart.clean$ksha.diff[bart.clean$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
+for (parcel in levels(bart.clean.1.0$edvid)) {
+    ksha.cur.par <- bart.clean.1.0$ksha[bart.clean.1.0$edvid == parcel]
+    bart.clean.1.0$ksha.diff[bart.clean.1.0$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -366,7 +366,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.3.
-## In this version, "bart.clean" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
+## In this version, "bart.clean.1.0" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
 kBaseFileVersion <- "2.3"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.4"
@@ -374,12 +374,12 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ksha.rel.cha".
-for (parcel in levels(bart.clean$edvid)) {
-    ksha.cur.par <- bart.clean$ksha[bart.clean$edvid == parcel]
+for (parcel in levels(bart.clean.1.0$edvid)) {
+    ksha.cur.par <- bart.clean.1.0$ksha[bart.clean.1.0$edvid == parcel]
     ksha.cur.par <- ksha.cur.par[1:length(ksha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
-    ksha.diff <- bart.clean$ksha.diff[bart.clean$edvid == parcel]
+    ksha.diff <- bart.clean.1.0$ksha.diff[bart.clean.1.0$edvid == parcel]
     ksha.diff <- ksha.diff[2:length(ksha.diff)]  ## Remove first element since it is not necessary for the calculation.
-    bart.clean$ksha.rel.cha[bart.clean$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+    bart.clean.1.0$ksha.rel.cha[bart.clean.1.0$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -393,7 +393,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
-## In this version, "bart.clean" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
+## In this version, "bart.clean.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
 kBaseFileVersion <- "2.4"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.5"
@@ -406,8 +406,8 @@ for (cur.row.index in 1:nrow(auf)) {
     cur.edvid <- cur.row$"edvid"
     cur.auf <- as.numeric(cur.row$"auf")
     cur.jahr <- as.numeric(cur.row$"jahr")
-    index.bart.clean <- which(x = bart.clean$"edvid" == cur.edvid & bart.clean$"auf" == cur.auf)
-    bart.clean$"jahr"[index.bart.clean] <- cur.jahr
+    index.bart.clean.1.0 <- which(x = bart.clean.1.0$"edvid" == cur.edvid & bart.clean.1.0$"auf" == cur.auf)
+    bart.clean.1.0$"jahr"[index.bart.clean.1.0] <- cur.jahr
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -421,7 +421,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.5.
-## In this version, "bart.clean" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
+## In this version, "bart.clean.1.0" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
 kBaseFileVersion <- "2.5"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.6"
@@ -430,13 +430,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ghaa.cum".
 ghaa.cum <- NULL
-for (cur.edvid in levels(bart.clean$"edvid")) {
-    ghaa.subset <- bart.clean$"ghaa"[bart.clean$"edvid" == cur.edvid]
+for (cur.edvid in levels(bart.clean.1.0$"edvid")) {
+    ghaa.subset <- bart.clean.1.0$"ghaa"[bart.clean.1.0$"edvid" == cur.edvid]
     ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
     ghaa.cum <- c(ghaa.cum,
                   cumsum(x = ghaa.subset))
 }
-bart.clean$"ghaa.cum" <- ghaa.cum
+bart.clean.1.0$"ghaa.cum" <- ghaa.cum
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -449,7 +449,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.6.
-## In this version, "bart.clean" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
+## In this version, "bart.clean.1.0" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
 kBaseFileVersion <- "2.6"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.7"
@@ -457,7 +457,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "age.class".
-bart.clean[["age.class"]] <- cut(x = bart.clean[["alt"]], breaks = 7, include.lowest = TRUE)
+bart.clean.1.0[["age.class"]] <- cut(x = bart.clean.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -470,15 +470,15 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
-## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "bart.clean[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
+## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "bart.clean.1.0[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
 kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.8"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Extract all levels of "bart.clean[["edvid"]]".
-edvid.archive.suppl.info <- data.frame("edvid" = levels(x = bart.clean[["edvid"]]))
+## Extract all levels of "bart.clean.1.0[["edvid"]]".
+edvid.archive.suppl.info <- data.frame("edvid" = levels(x = bart.clean.1.0[["edvid"]]))
 ## Find out which elements of "vers[["vers"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
 vers.matches <- match(x = substr(x = edvid.archive.suppl.info[["edvid"]],
                                  start = 0,
