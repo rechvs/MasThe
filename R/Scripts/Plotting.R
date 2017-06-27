@@ -509,6 +509,15 @@ for (cur.function.name in names(x = models)) {
                 ## Plot model.
                 mgcv::plot.gam(x = cur.model,
                                main = as.character(as.expression(x = formula(x = cur.model))))
+                ## Turn off graphics device.
+                graphics.off()
+                ## If desired, open .pdf file via mupdf.
+                if (kOpenPdf) {
+                    system2(command = "mupdf",
+                            args = paste0("-r 64 ",
+                                          file.name),
+                            wait = FALSE)
+                }
             }
         }
     }
