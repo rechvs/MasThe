@@ -33,19 +33,19 @@ kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
 kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
-kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
 names.input.data.sources <- objects.present[grepl(pattern = "bart.clean", x = objects.present, fixed = FALSE)]
@@ -135,9 +135,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                                                                                                method = RS(300))
                 }
             }
-            writeLines(text = paste("Input data name: ", cur.input.data.source.name, "
-Current formula name: ", cur.formula.name))  ## TESTING
-            warnings()  ## TESTING
         }
     }
 }
@@ -181,56 +178,66 @@ kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
                                      "a1" = 0.1,
                                      "b0" = 0.1,
                                      "b1" = -1)
-## Evaluate and store models fitted with "stats::nls".
-kFunction <- "stats..nls"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba_",
-                      x = cur.formula.name,
-                      fixed = TRUE)) {
-                try(expr = 
-                        models[["stats..nls"]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
-                                                                                 data = bart.clean,
-                                                                                 start = kStartValsVecs[[cur.formula.name]])
-                    )
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models fitted with "stats::nls".
+    kFunction <- "stats..nls"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_",
+                          x = cur.formula.name,
+                          fixed = TRUE)) {
+                    try(expr = 
+                            models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
+                        )
+                }
             }
-        }}}
-## Evaluate and store models fitted with "nls2::nls2"
-kFunction <- "nls2..nls2"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                try(expr = 
-                        models[["nls2..nls2"]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
-                                                                                 data = bart.clean,
-                                                                                 start = kStartValsGrids[[cur.formula.name]],
-                                                                                 algorithm = "random-search",
-                                                                                 control = (stats::nls.control(maxiter = 100,
-                                                                                                               minFactor = 10 ^ -10)))
-                    )
+        }
+    }
+    ## Evaluate and store models fitted with "nls2::nls2"
+    kFunction <- "nls2..nls2"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr = 
+                            models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   start = kStartValsGrids[[cur.formula.name]],
+                                                                                                                   algorithm = "random-search",
+                                                                                                                   control = (stats::nls.control(maxiter = 100,
+                                                                                                                                                 minFactor = 10 ^ -10)))
+                        )
+                }
             }
-        }}}
-## Evaluate and store models fitted with "minpack.lm::nlsLM"
-kFunction <- "minpack.lm..nlsLM"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                try(expr = 
-                        models[["minpack.lm..nlsLM"]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
-                                                                                               data = bart.clean,
-                                                                                               start = kStartValsVecs[[cur.formula.name]])
-                    )
+        }
+    }
+    ## Evaluate and store models fitted with "minpack.lm::nlsLM"
+    kFunction <- "minpack.lm..nlsLM"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr = 
+                            models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
+                                                                                                                                 data = input.data,
+                                                                                                                                 start = kStartValsVecs[[cur.formula.name]])
+                        )
+                }
             }
-        }}}
+        }
+    }
+}
 
 #########
 ## LMs ##
