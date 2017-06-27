@@ -41,11 +41,11 @@ kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
-kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
-## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
 names.input.data.sources <- objects.present[grepl(pattern = "bart.clean", x = objects.present, fixed = FALSE)]
@@ -246,19 +246,26 @@ for (cur.input.data.source.name in names.input.data.sources) {
 kFormulas[["LM_ln.nha_ln.dg"]] <- as.formula(object = "ln.nha ~ ln.dg")
 ## Setup for model "LM_ln.nha_ln.dg_fixed_slope".
 kFormulas[["LM_ln.nha_ln.dg_fixed_slope"]] <- as.formula(object = "ln.nha - -1.605 * ln.dg ~ 1")
-## Evaluate and store models.
-kFunction <- "stats..lm"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "LM_", x = cur.formula.name, fixed = TRUE)) {
-                try(expr =
-                        models[["stats..lm"]][[cur.formula.name]] <- stats::lm(formula = kFormulas[[cur.formula.name]],
-                                                                               data = bart.clean,
-                                                                               na.action = na.omit))
-        }}}}
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models.
+    kFunction <- "stats..lm"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "LM_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr =
+                            models[["stats..lm"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::lm(formula = kFormulas[[cur.formula.name]],
+                                                                                                                 data = input.data,
+                                                                                                                 na.action = na.omit))
+                }
+            }
+        }
+    }
+}
                     
 
 #####################
