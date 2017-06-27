@@ -379,12 +379,12 @@ kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
 for (cur.data.source in names(x = kPlottingInformation)) {
-    for (cur.list in names(x = kPlottingInformation[[cur.data.source]])) {
+    for (cur.list.name in names(x = kPlottingInformation[[cur.data.source]])) {
         ## Turn off graphics device.
         graphics.off()
         ## Extract the necessary information for the current plot from "kPlottingInformation".
-        for (cur.name in names(x = kPlottingInformation[[cur.data.source]][[cur.list]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
-            cur.el <- kPlottingInformation[[cur.data.source]][[cur.list]][cur.name]
+        for (cur.name in names(x = kPlottingInformation[[cur.data.source]][[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+            cur.el <- kPlottingInformation[[cur.data.source]][[cur.list.name]][cur.name]
             assign(x = names(x = cur.el),
                    value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
         }
@@ -403,7 +403,7 @@ for (cur.data.source in names(x = kPlottingInformation)) {
         ## Create file name.
         graphics.sub.dir <- paste0("Graphics/measurements/", cur.data.source, "/")
         file.name <-paste0(graphics.sub.dir,
-                           cur.list,
+                           cur.list.name,
                            ".pdf")
         ## If nonexistent, create "graphics.sub.dir".
         system2(command = "mkdir",
@@ -632,13 +632,14 @@ kPlotXAxs <- "r"
 kPlotYAxs <- "r"
 kLegendBg <- "slategray1"
 kPlottingInformation <- list(
-    "h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100 (data = bart.clean (art == 511, ksha.rel >= 0.7, gha.rel.cha >= -0.05))",
+    "h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100",
                       "kPlotXLabel" = "h100 [m]",
                       "kPlotYLabel" = expression("gha [m"^2*" ha"^-1*"]"),
+                      "kDataSource" = "bart.clean.1.0",
                       "kNPlots" = 3,
-                      "kXSource1" = "bart.clean$h100",
-                      "kYSource1" = "bart.clean$gha",
-                      "kCoeffsSource2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_Gmax\")",
+                      "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"h100\"]]",
+                      "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"gha\"]]",
+                      "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[kDataSource]][[\"Sterba_Gmax\"]])",
                       "kCurveExpr2" = "pi/(16 * eval(parse(text = kCoeffsSource2))[[\"a0\"]] * eval(parse(text = kCoeffsSource2))[[\"b0\"]] * (x ^ (eval(parse(text = kCoeffsSource2))[[\"a1\"]] + eval(parse(text = kCoeffsSource2))[[\"b1\"]]))) * 10000",
                       "kCurveExpr3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
                       "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using coefficients from Wördehoff (2016)\")))",
@@ -646,13 +647,14 @@ kPlottingInformation <- list(
                       "kPch" = c(1, NA, NA),
                       "kLty" = c(NA, 1, 1),
                       "kCol" = c("black", "red", "blue")),
-    "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
+    "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg",
                     "kPlotXLabel" = "dg [cm]",
                     "kPlotYLabel" = expression("nha [ha"^-1*"]"),
+                    "kDataSource" = "bart.clean.1.0",
                     "kNPlots" = 3,
-                    "kXSource1" = "bart.clean$dg",
-                    "kYSource1" = "bart.clean$nha",
-                    "kCoeffsSource2" = "coef(object = models$\"nls2..nls2\"$\"Sterba_NGmax\")",
+                    "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"dg\"]]",
+                    "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"nha\"]]",
+                    "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[kDataSource]][[\"Sterba_NGmax\"]])",
                     "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
                     "kCurveExpr3" = "1/x * 27000",
                     "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"N\"[G[max]]*\"(dg\"[G[max]]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = frac(1, x)%.%\"27000\")))",
@@ -660,14 +662,15 @@ kPlottingInformation <- list(
                     "kPch" = c(1, NA, NA),
                     "kLty" = c(NA, 1, 1),
                     "kCol" = c("black", "red", "blue")),
-    "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg) (data = bart.clean (art == 511, ksha.rel >= 0.7, nha.rel.cha >= -0.05))",
+    "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg)",
                           "kPlotXLabel" = "ln(dg)",
                           "kPlotYLabel" = "ln(nha)",
+                          "kDataSource" = "bart.clean.1.0",
                           "kNPlots" = 4,
-                          "kXSource1" = "bart.clean$ln.dg",
-                          "kYSource1" = "bart.clean$ln.nha",
-                          "kCoeffsSource2" = "coef(object = models$\"stats..lm\"$\"LM_ln.nha_ln.dg\")",
-                          "kCoeffsSource4" = "coef(object = models$\"stats..lm\"$\"LM_ln.nha_ln.dg_fixed_slope\")",
+                          "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"ln.dg\"]]",
+                          "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"ln.nha\"]]",
+                          "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[kDataSource]][[\"LM_ln.nha_ln.dg\"]])",
+                          "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[kDataSource]][[\"LM_ln.nha_ln.dg_fixed_slope\"]])",
                           "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"ln.dg\"]] * x",
                           "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
                           "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
@@ -698,14 +701,15 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
     }
     ## Create file name.
-    file.name <- gsub(pattern = "[$]",
-                      replacement = ".",
-                      x = paste0("Graphics/",
-                                 "measmod_",
-                                 kXSource1,
-                                 "_",
-                                 kYSource1,
-                                 ".pdf"))
+    graphics.sub.dir <- paste0("Graphics/measurements_predictions/")
+    file.name <-paste0(graphics.sub.dir,
+                       kDataSource,
+                       "_",
+                       cur.list.name,
+                       ".pdf")
+    ## If nonexistent, create "graphics.sub.dir".
+    system2(command = "mkdir",
+            args = paste0("-p ", graphics.sub.dir))
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidth,
@@ -735,7 +739,7 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                  ylim = y.lim,
                  xaxs = kPlotXAxs,
                  yaxs = kPlotYAxs,
-                 main = kPlotMain,
+                 main = paste0(kPlotMain, " (", eval(expr = substitute(expr = kDataSource)), ")"),
                  pch = kPch[plot.nr],
                  col = kCol[plot.nr],
                  type = kPlotType)
