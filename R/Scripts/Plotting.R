@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "3.3"
 kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
@@ -635,11 +635,11 @@ kPlottingInformation <- list(
     "h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100",
                       "kPlotXLabel" = "h100 [m]",
                       "kPlotYLabel" = expression("gha [m"^2*" ha"^-1*"]"),
-                      "kDataSource" = "bart.clean.1.0",
                       "kNPlots" = 3,
-                      "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"h100\"]]",
-                      "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"gha\"]]",
-                      "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[kDataSource]][[\"Sterba_Gmax\"]])",
+                      "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
+                      "kXSource1" = "data.source[[\"h100\"]]",
+                      "kYSource1" = "data.source[[\"gha\"]]",
+                      "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_Gmax\"]])",
                       "kCurveExpr2" = "pi/(16 * eval(parse(text = kCoeffsSource2))[[\"a0\"]] * eval(parse(text = kCoeffsSource2))[[\"b0\"]] * (x ^ (eval(parse(text = kCoeffsSource2))[[\"a1\"]] + eval(parse(text = kCoeffsSource2))[[\"b1\"]]))) * 10000",
                       "kCurveExpr3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
                       "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using coefficients from Wördehoff (2016)\")))",
@@ -650,11 +650,11 @@ kPlottingInformation <- list(
     "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg",
                     "kPlotXLabel" = "dg [cm]",
                     "kPlotYLabel" = expression("nha [ha"^-1*"]"),
-                    "kDataSource" = "bart.clean.1.0",
                     "kNPlots" = 3,
-                    "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"dg\"]]",
-                    "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"nha\"]]",
-                    "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[kDataSource]][[\"Sterba_NGmax\"]])",
+                    "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
+                    "kXSource1" = "data.source[[\"dg\"]]",
+                    "kYSource1" = "data.source[[\"nha\"]]",
+                    "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_NGmax\"]])",
                     "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
                     "kCurveExpr3" = "1/x * 27000",
                     "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"N\"[G[max]]*\"(dg\"[G[max]]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = frac(1, x)%.%\"27000\")))",
@@ -665,12 +665,12 @@ kPlottingInformation <- list(
     "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg)",
                           "kPlotXLabel" = "ln(dg)",
                           "kPlotYLabel" = "ln(nha)",
-                          "kDataSource" = "bart.clean.1.0",
                           "kNPlots" = 4,
-                          "kXSource1" = "eval(expr = parse(text = kDataSource))[[\"ln.dg\"]]",
-                          "kYSource1" = "eval(expr = parse(text = kDataSource))[[\"ln.nha\"]]",
-                          "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[kDataSource]][[\"LM_ln.nha_ln.dg\"]])",
-                          "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[kDataSource]][[\"LM_ln.nha_ln.dg_fixed_slope\"]])",
+                          "kAppropriateNamesSource" = "names(x = models[[\"stats..lm\"]])",
+                          "kXSource1" = "data.source[[\"ln.dg\"]]",
+                          "kYSource1" = "data.source[[\"ln.nha\"]]",
+                          "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg\"]])",
+                          "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg_fixed_slope\"]])",
                           "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"ln.dg\"]] * x",
                           "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
                           "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
@@ -690,83 +690,87 @@ kPlottingInformation <- list(
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
-## Initiate "for" loop.
+## Initiate "for" loops.
 for (cur.list.name in names(x = kPlottingInformation)) {
-    ## Turn off graphics device.
-    graphics.off()
-    ## Extract the necessary information for the current plot from "kPlottingInformation".
-    for (cur.el.name in names(x = kPlottingInformation[[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
-        cur.el <- kPlottingInformation[[cur.list.name]][cur.el.name]
-        assign(x = names(x = cur.el),
-               value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
-    }
-    ## Create file name.
-    graphics.sub.dir <- paste0("Graphics/measurements_predictions/")
-    file.name <-paste0(graphics.sub.dir,
-                       kDataSource,
-                       "_",
-                       cur.list.name,
-                       ".pdf")
-    ## If nonexistent, create "graphics.sub.dir".
-    system2(command = "mkdir",
-            args = paste0("-p ", graphics.sub.dir))
-    ## Start graphics device driver for producing PDF graphics.
-    pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
-        pointsize = kPdfPointSize,
-        family = kPdfFamily)
-    for (plot.nr in 1:kNPlots) {
-        ## Set plot margins.
-        par(mar = kPlotMargins)
-        if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to determine all settings required for and call "plot(…)".
-            ## Create vectors containing the actual x and y values.
-            x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kXSource", plot.nr)))))
-            y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kYSource", plot.nr)))))
-            ## Calculate numerical values necessary for creating the plot.
-            x.lim.low <- range(x.values, na.rm = TRUE)[1]
-            x.lim.high <- range(x.values, na.rm = TRUE)[2]
-            x.lim <- c(x.lim.low, x.lim.high)
-            y.lim.low <- range(y.values, na.rm = TRUE)[1]
-            y.lim.high <- range(y.values, na.rm = TRUE)[2] # + diff(x = range(y.values, na.rm = TRUE)) * 0.10  ## accounts for extra space for placing the legend.
-            y.lim <- c(y.lim.low, y.lim.high)
-            ## Create plot.
-            plot(x = x.values,
-                 y = y.values,
-                 xlab = kPlotXLabel,
-                 ylab = kPlotYLabel,
-                 xlim = x.lim,
-                 ylim = y.lim,
-                 xaxs = kPlotXAxs,
-                 yaxs = kPlotYAxs,
-                 main = paste0(kPlotMain, " (", eval(expr = substitute(expr = kDataSource)), ")"),
-                 pch = kPch[plot.nr],
-                 col = kCol[plot.nr],
-                 type = kPlotType)
-        } else {  ## If this is true, it means we are plotting model predictions and need to use "curve(…)".
-            ## Add curve.
-            func <- function(x) {}
-            body(func) <- parse(text = eval(expr = parse(text = paste0("kCurveExpr", plot.nr))))
-            curve(expr = func,
-                  add = TRUE,
-                  col = kCol[plot.nr],
-                  lty = kLty[plot.nr])
+    for (data.source.name in eval(expr = parse(text = kPlottingInformation[[cur.list.name]][["kAppropriateNamesSource"]]))) {
+        ## Create data source.
+        data.source <- eval(expr = parse(text = data.source.name))
+        ## Turn off graphics device.
+        graphics.off()
+        ## Extract the necessary information for the current plot from "kPlottingInformation".
+        for (cur.el.name in names(x = kPlottingInformation[[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+            cur.el <- kPlottingInformation[[cur.list.name]][cur.el.name]
+            assign(x = names(x = cur.el),
+                   value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
         }
-    }
-    ## Add legend.
-    legend(x = kLegendX,
-           legend = eval(expr = parse(text = kLegendLegend)),
-           bg = kLegendBg,
-           col = kCol,
-           pch = kPch,
-           lty = kLty)
-    ## Turn off graphics device.
-    graphics.off()
-    ## If desired, open .pdf file via mupdf.
-    if (kOpenPdf) {
-        system2(command = "mupdf",
-                args = paste0("-r 64 ",
-                              file.name),
-                wait = FALSE)
+        ## Create file name.
+        graphics.sub.dir <- paste0("Graphics/measurements_predictions/")
+        file.name <-paste0(graphics.sub.dir,
+                           data.source.name,
+                           "_",
+                           cur.list.name,
+                           ".pdf")
+        ## If nonexistent, create "graphics.sub.dir".
+        system2(command = "mkdir",
+                args = paste0("-p ", graphics.sub.dir))
+        ## Start graphics device driver for producing PDF graphics.
+        pdf(file = file.name,
+            width = kPdfWidth,
+            height = kPdfHeight,
+            pointsize = kPdfPointSize,
+            family = kPdfFamily)
+        for (plot.nr in 1:kNPlots) {
+            ## Set plot margins.
+            par(mar = kPlotMargins)
+            if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to determine all settings required for and call "plot(…)".
+                ## Create vectors containing the actual x and y values.
+                x.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kXSource", plot.nr)))))
+                y.values <- eval(expr = parse(text = eval(expr = parse(text = paste0("kYSource", plot.nr)))))
+                ## Calculate numerical values necessary for creating the plot.
+                x.lim.low <- range(x.values, na.rm = TRUE)[1]
+                x.lim.high <- range(x.values, na.rm = TRUE)[2]
+                x.lim <- c(x.lim.low, x.lim.high)
+                y.lim.low <- range(y.values, na.rm = TRUE)[1]
+                y.lim.high <- range(y.values, na.rm = TRUE)[2] # + diff(x = range(y.values, na.rm = TRUE)) * 0.10  ## accounts for extra space for placing the legend.
+                y.lim <- c(y.lim.low, y.lim.high)
+                ## Create plot.
+                plot(x = x.values,
+                     y = y.values,
+                     xlab = kPlotXLabel,
+                     ylab = kPlotYLabel,
+                     xlim = x.lim,
+                     ylim = y.lim,
+                     xaxs = kPlotXAxs,
+                     yaxs = kPlotYAxs,
+                     main = paste0(kPlotMain, " (", data.source.name, ")"),
+                     pch = kPch[plot.nr],
+                     col = kCol[plot.nr],
+                     type = kPlotType)
+            } else {  ## If this is true, it means we are plotting model predictions and need to use "curve(…)".
+                ## Add curve.
+                func <- function(x) {}
+                body(func) <- parse(text = eval(expr = parse(text = paste0("kCurveExpr", plot.nr))))
+                curve(expr = func,
+                      add = TRUE,
+                      col = kCol[plot.nr],
+                      lty = kLty[plot.nr])
+            }
+        }
+        ## Add legend.
+        legend(x = kLegendX,
+               legend = eval(expr = parse(text = kLegendLegend)),
+               bg = kLegendBg,
+               col = kCol,
+               pch = kPch,
+               lty = kLty)
+        ## Turn off graphics device.
+        graphics.off()
+        ## If desired, open .pdf file via mupdf.
+        if (kOpenPdf) {
+            system2(command = "mupdf",
+                    args = paste0("-r 64 ",
+                                  file.name),
+                    wait = FALSE)
+        }
     }
 }
