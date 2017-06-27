@@ -401,13 +401,13 @@ for (cur.data.source in names(x = kPlottingInformation)) {
         y.lim.high <- range(y.values, na.rm = TRUE)[2]
         y.lim <- c(y.lim.low, y.lim.high)
         ## Create file name.
-        graphics.sub.dir <- paste0("Graphics/measurements/", cur.data.source, "/")
-        file.name <-paste0(graphics.sub.dir,
+        graphics.subdir <- paste0("Graphics/measurements/", cur.data.source, "/")
+        file.name <-paste0(graphics.subdir,
                            cur.list.name,
                            ".pdf")
-        ## If nonexistent, create "graphics.sub.dir".
+        ## If nonexistent, create "graphics.subdir".
         system2(command = "mkdir",
-                args = paste0("-p ", graphics.sub.dir))
+                args = paste0("-p ", graphics.subdir))
         ## Start graphics device driver for producing PDF graphics.
         pdf(file = file.name,
             width = kPdfWidth,
@@ -491,13 +491,13 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.sub.dir <- paste0("Graphics/models/GAMs/", cur.input.data.source.name, "/")
-                file.name <-paste0(graphics.sub.dir,
+                graphics.subdir <- paste0("Graphics/models/GAMs/", cur.input.data.source.name, "/")
+                file.name <-paste0(graphics.subdir,
                                    cur.model.name,
                                    ".pdf")
-                ## If nonexistent, create "graphics.sub.dir".
+                ## If nonexistent, create "graphics.subdir".
                 system2(command = "mkdir",
-                        args = paste0("-p ", graphics.sub.dir))
+                        args = paste0("-p ", graphics.subdir))
                 ## Start graphics device driver for producing PDF graphics.
                 pdf(file = file.name,
                     width = kPdfWidth,
@@ -552,13 +552,13 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.sub.dir <- paste0("Graphics/models/GAMLSSs/", cur.input.data.source.name, "/")
-                file.name <-paste0(graphics.sub.dir,
+                graphics.subdir <- paste0("Graphics/models/GAMLSSs/", cur.input.data.source.name, "/")
+                file.name <-paste0(graphics.subdir,
                                    cur.model.name,
                                    ".pdf")
-                ## If nonexistent, create "graphics.sub.dir".
+                ## If nonexistent, create "graphics.subdir".
                 system2(command = "mkdir",
-                        args = paste0("-p ", graphics.sub.dir))
+                        args = paste0("-p ", graphics.subdir))
                 ## Start graphics device driver for producing PDF graphics.
                 pdf(file = file.name,
                     width = kPdfWidth,
@@ -704,13 +704,13 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                    value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
         }
         ## Create file name.
-        graphics.sub.dir <- paste0("Graphics/measurements_predictions/", data.source.name, "/")
-        file.name <-paste0(graphics.sub.dir,
+        graphics.subdir <- paste0("Graphics/measurements_predictions/", data.source.name, "/")
+        file.name <-paste0(graphics.subdir,
                            cur.list.name,
                            ".pdf")
-        ## If nonexistent, create "graphics.sub.dir".
+        ## If nonexistent, create "graphics.subdir".
         system2(command = "mkdir",
-                args = paste0("-p ", graphics.sub.dir))
+                args = paste0("-p ", graphics.subdir))
         ## Start graphics device driver for producing PDF graphics.
         pdf(file = file.name,
             width = kPdfWidth,
