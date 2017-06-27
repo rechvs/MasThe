@@ -704,10 +704,8 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                    value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
         }
         ## Create file name.
-        graphics.sub.dir <- paste0("Graphics/measurements_predictions/")
+        graphics.sub.dir <- paste0("Graphics/measurements_predictions/", data.source.name, "/")
         file.name <-paste0(graphics.sub.dir,
-                           data.source.name,
-                           "_",
                            cur.list.name,
                            ".pdf")
         ## If nonexistent, create "graphics.sub.dir".
