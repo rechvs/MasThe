@@ -77,153 +77,388 @@ if (kColPerTrial) {
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - "kXColumn": source column of the x values
 ## - "kYColumn": source column of the y values
-## - "kDataSource": data frame containing "kXColumn" and "kYColumn" (also used as main plot title and as subdirectory name)
 ## - "kPlotXLab": x axis label
 ## - "kPlotYLab": y axis label
 kPlottingInformation <- list(
-    "alt_ekl" = list("kXColumn" = "alt",
-                     "kYColumn" = "ekl",
-                     "kDataSource" = "bart.clean.1.0",
-                     "kPlotXLab" = "alt [a]",
-                     "kPlotYLab" = "ekl"),
-    "alt_gha" = list("kXColumn" = "alt",
-                     "kYColumn" = "gha",
-                     "kDataSource" = "bart.clean.1.0",
-                     "kPlotXLab" = "alt [a]",
-                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-    "alt_ghaa.cum" = list("kXColumn" = "alt",
-                          "kYColumn" = "ghaa.cum",
-                          "kDataSource" = "bart.clean.1.0",
-                          "kPlotXLab" = "alt [a]",
-                          "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
-    "alt_h100" = list("kXColumn" = "alt",
-                     "kYColumn" = "h100",
-                     "kDataSource" = "bart.clean.1.0",
-                     "kPlotXLab" = "alt [a]",
-                     "kPlotYLab" = "h100 [m]"),
-    "alt_SI.h100" = list("kXColumn" = "alt",
-                         "kYColumn" = "SI.h100",
-                         "kDataSource" = "bart.clean.1.0",
+    "bart.clean.1.0" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
                          "kPlotXLab" = "alt [a]",
-                         "kPlotYLab" = "SI.h100 [m]"),
-    "h100_gha" = list("kXColumn" = "h100",
-                      "kYColumn" = "gha",
-                      "kDataSource" = "bart.clean.1.0",
-                      "kPlotXLab" = "h100 [m]",
-                      "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-    "gha_h100" = list("kXColumn" = "gha",
-                      "kYColumn" = "h100",
-                      "kDataSource" = "bart.clean.1.0",
-                      "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                      "kPlotYLab" = "h100 [m]"),
-    "gha_SI.h100" = list("kXColumn" = "gha",
-                         "kYColumn" = "SI.h100",
-                         "kDataSource" = "bart.clean.1.0",
-                         "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                         "kPlotYLab" = "SI.h100 [m]"),
-    "gha_SI.h100" = list("kXColumn" = "gha",
-                         "kYColumn" = "SI.h100",
-                         "kDataSource" = "bart.clean.1.0",
-                         "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                         "kPlotYLab" = "SI.h100 [m]"),
-    "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
-                          "kYColumn" = "ln.nha",
-                          "kDataSource" = "bart.clean.1.0",
-                          "kPlotXLab" = "ln.dg",
-                          "kPlotYLab" = "ln.nha"),
-    "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
-                                  "kYColumn" = "h100.diff.EKL.I",
-                                  "kDataSource" = "bart.clean.1.0",
-                                  "kPlotXLab" = "h100 [m]",
-                                  "kPlotYLab" = "h100.diff.EKL.I [m]"),
-    "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
                           "kYColumn" = "gha",
-                          "kDataSource" = "bart.clean.1.0",
-                          "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
-                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))),
+    "bart.clean.1.1" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
+                          "kYColumn" = "gha",
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))),
+    "bart.clean.1.2" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
+                          "kYColumn" = "gha",
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))),
+    "bart.clean.1.3" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
+                          "kYColumn" = "gha",
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))),
+    "bart.clean.1.4" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
+                          "kYColumn" = "gha",
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))),
+    "bart.clean.1.5" = list(
+        "alt_ekl" = list("kXColumn" = "alt",
+                         "kYColumn" = "ekl",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "ekl"),
+        "alt_gha" = list("kXColumn" = "alt",
+                         "kYColumn" = "gha",
+                         "kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kXColumn" = "alt",
+                              "kYColumn" = "ghaa.cum",
+                              "kPlotXLab" = "alt [a]",
+                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+        "alt_h100" = list("kXColumn" = "alt",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = "h100 [m]"),
+        "alt_SI.h100" = list("kXColumn" = "alt",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = "alt [a]",
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "h100_gha" = list("kXColumn" = "h100",
+                          "kYColumn" = "gha",
+                          "kPlotXLab" = "h100 [m]",
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "gha_h100" = list("kXColumn" = "gha",
+                          "kYColumn" = "h100",
+                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = "h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "gha_SI.h100" = list("kXColumn" = "gha",
+                             "kYColumn" = "SI.h100",
+                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                             "kPlotYLab" = "SI.h100 [m]"),
+        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
+                              "kYColumn" = "ln.nha",
+                              "kPlotXLab" = "ln.dg",
+                              "kPlotYLab" = "ln.nha"),
+        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
+                                      "kYColumn" = "h100.diff.EKL.I",
+                                      "kPlotXLab" = "h100 [m]",
+                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
+        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
+                              "kYColumn" = "gha",
+                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]"))))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
-## Initiate "for" loop.
-for (cur.list in names(x = kPlottingInformation)) {
-    ## Turn off graphics device.
-    graphics.off()
-    ## Extract the necessary information for the current plot from "kPlottingInformation".
-    for (cur.name in names(x = kPlottingInformation[[cur.list]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
-        cur.el <- kPlottingInformation[[cur.list]][cur.name]
-        assign(x = names(x = cur.el),
-               value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
-    }
-    ## Create data source.
-    data.source <- eval(expr = parse(text = kDataSource))
-    ## Create vectors containing the actual x and y values.
-    x.values <- data.source[[kXColumn]]
-    y.values <- data.source[[kYColumn]]
-    ## Calculate numerical values necessary for creating the plot.
-    x.lim.low <- range(x.values, na.rm = TRUE)[1]
-    x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
-    x.lim <- c(x.lim.low, x.lim.high)
-    y.lim.low <- range(y.values, na.rm = TRUE)[1]
-    y.lim.high <- range(y.values, na.rm = TRUE)[2]
-    y.lim <- c(y.lim.low, y.lim.high)
-    ## Create file name.
-    graphics.sub.dir <- paste0("Graphics/meas/", kDataSource, "/")
-    file.name <-paste0(graphics.sub.dir,
-                       cur.list,
-                       ".pdf")
-    ## If nonexistent, create "graphics.sub.dir".
-    system2(command = "mkdir",
-            args = paste0("-p ", graphics.sub.dir))
-    ## Start graphics device driver for producing PDF graphics.
-    pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
-        pointsize = kPdfPointSize,
-        family = kPdfFamily)
-    ## Set plot margins.
-    par(mar = kPlotMargins)
-    ## Create empty plot.
-    plot(x = NA,
-         y = NA,
-         xlab = kPlotXLab,
-         ylab = kPlotYLab,
-         xlim = x.lim,
-         ylim = y.lim,
-         xaxs = kPlotXAxs,
-         yaxs = kPlotYAxs,
-         main = kDataSource)
-    grid(col = kGridCol,
-         lwd = kGridLwd)
-    ## Add points to empty plot.
-    kCntr <- 1
-    for (ts in levels(data.source$edvid)) {
-        points(x = x.values[data.source$edvid == ts],
-               y = y.values[data.source$edvid == ts],
-               type = kPointsType,
-               col = kPointsLinesSettings$col[kCntr],
-               bg = kPointsLinesSettings$col[kCntr],
-               pch = kPointsLinesSettings$pch[kCntr],
-               lty = kPointsLinesSettings$lty[kCntr],
-               lwd = kPointsLinesSettings$lwd[kCntr])
-        kCntr <- kCntr+1
-    }
-    ## Add legend.
-    legend(x = kLegendX,
-           legend = paste("edvid: ", levels(data.source$edvid)),
-           bg = kLegendBg,
-           col = kPointsLinesSettings$col,
-           pt.bg = kPointsLinesSettings$col,
-           pch = kPointsLinesSettings$pch,
-           lty = kPointsLinesSettings$lty,
-           lwd = kPointsLinesSettings$lwd)
-    ## Turn off graphics device.
-    graphics.off()
-    ## If desired, open .pdf file via mupdf.
-    if (kOpenPdf) {
-        system2(command = "mupdf",
-                args = paste0("-r 64 ",
-                              file.name),
-                wait = FALSE)
+## Initiate "for" loops.
+for (cur.data.source in names(x = kPlottingInformation)) {
+    for (cur.list in names(x = kPlottingInformation[[cur.data.source]])) {
+        ## Turn off graphics device.
+        graphics.off()
+        ## Extract the necessary information for the current plot from "kPlottingInformation".
+        for (cur.name in names(x = kPlottingInformation[[cur.data.source]][[cur.list]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+            cur.el <- kPlottingInformation[[cur.data.source]][[cur.list]][cur.name]
+            assign(x = names(x = cur.el),
+                   value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
+        }
+        ## Create data source.
+        data.source <- eval(expr = parse(text = cur.data.source))
+        ## Create vectors containing the actual x and y values.
+        x.values <- data.source[[kXColumn]]
+        y.values <- data.source[[kYColumn]]
+        ## Calculate numerical values necessary for creating the plot.
+        x.lim.low <- range(x.values, na.rm = TRUE)[1]
+        x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
+        x.lim <- c(x.lim.low, x.lim.high)
+        y.lim.low <- range(y.values, na.rm = TRUE)[1]
+        y.lim.high <- range(y.values, na.rm = TRUE)[2]
+        y.lim <- c(y.lim.low, y.lim.high)
+        ## Create file name.
+        graphics.sub.dir <- paste0("Graphics/meas/", cur.data.source, "/")
+        file.name <-paste0(graphics.sub.dir,
+                           cur.list,
+                           ".pdf")
+        ## If nonexistent, create "graphics.sub.dir".
+        system2(command = "mkdir",
+                args = paste0("-p ", graphics.sub.dir))
+        ## Start graphics device driver for producing PDF graphics.
+        pdf(file = file.name,
+            width = kPdfWidth,
+            height = kPdfHeight,
+            pointsize = kPdfPointSize,
+            family = kPdfFamily)
+        ## Set plot margins.
+        par(mar = kPlotMargins)
+        ## Create empty plot.
+        plot(x = NA,
+             y = NA,
+             xlab = kPlotXLab,
+             ylab = kPlotYLab,
+             xlim = x.lim,
+             ylim = y.lim,
+             xaxs = kPlotXAxs,
+             yaxs = kPlotYAxs,
+             main = cur.data.source)
+        grid(col = kGridCol,
+             lwd = kGridLwd)
+        ## Add points to empty plot.
+        kCntr <- 1
+        for (ts in levels(data.source$edvid)) {
+            points(x = x.values[data.source$edvid == ts],
+                   y = y.values[data.source$edvid == ts],
+                   type = kPointsType,
+                   col = kPointsLinesSettings$col[kCntr],
+                   bg = kPointsLinesSettings$col[kCntr],
+                   pch = kPointsLinesSettings$pch[kCntr],
+                   lty = kPointsLinesSettings$lty[kCntr],
+                   lwd = kPointsLinesSettings$lwd[kCntr])
+            kCntr <- kCntr+1
+        }
+        ## Add legend.
+        legend(x = kLegendX,
+               legend = paste("edvid: ", levels(data.source$edvid)),
+               bg = kLegendBg,
+               col = kPointsLinesSettings$col,
+               pt.bg = kPointsLinesSettings$col,
+               pch = kPointsLinesSettings$pch,
+               lty = kPointsLinesSettings$lty,
+               lwd = kPointsLinesSettings$lwd)
+        ## Turn off graphics device.
+        graphics.off()
+        ## If desired, open .pdf file via mupdf.
+        if (kOpenPdf) {
+            system2(command = "mupdf",
+                    args = paste0("-r 64 ",
+                                  file.name),
+                    wait = FALSE)
+        }
     }
 }
 
