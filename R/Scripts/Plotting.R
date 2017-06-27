@@ -491,7 +491,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.sub.dir <- paste0("Graphics/models/", cur.function.name, "/", cur.input.data.source.name, "/")
+                graphics.sub.dir <- paste0("Graphics/models/GAMs/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.sub.dir,
                                    cur.model.name,
                                    ".pdf")
@@ -552,7 +552,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.sub.dir <- paste0("Graphics/models/", cur.function.name, "/", cur.input.data.source.name, "/")
+                graphics.sub.dir <- paste0("Graphics/models/GAMLSSs/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.sub.dir,
                                    cur.model.name,
                                    ".pdf")
@@ -592,82 +592,6 @@ for (cur.function.name in names(x = models)) {
                             wait = FALSE)
                 }
             }
-        }
-    }
-}
-        
-#################
-## Plot models ##
-#################
-## Plotting preamble.
-kPdfWidth <- 30
-kPdfHeight <- kPdfWidth * 0.625
-kPdfPointSize <- 19
-kPdfFamily <- "Times"
-kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
-## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
-## Set flag to determine whether the newly created .pdf file should be opened.
-kOpenPdf <- FALSE
-## kOpenPdf <- TRUE
-## Initiate "for" loops.
-for (cur.function.name in names(x = models)) {
-    for (cur.model.name in names(x = models[[cur.function.name]])) {
-        ## Extract current model.
-        cur.model <- models[[cur.function.name]][[cur.model.name]]
-        ## Turn off graphics device.
-        graphics.off()
-        ## Create file name.
-        file.name <- gsub(pattern = "[$]",
-                          replacement = ".",
-                          x = paste0("Graphics/",
-                                     cur.model.name,
-                                     ".pdf"))
-        if (grepl(pattern = "GAM_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAM and we need to use “mgcv::plot.gam(...)”.
-            ## Start graphics device driver for producing PDF graphics.
-            pdf(file = file.name,
-                width = kPdfWidth,
-                height = kPdfHeight,
-                pointsize = kPdfPointSize,
-                family = kPdfFamily)
-            ## Set plot margins.
-            par(mar = kPlotMargins)
-            ## Plot model.
-            mgcv::plot.gam(x = cur.model,
-                           main = as.character(as.expression(x = formula(x = cur.model))))
-        }
-        if (grepl(pattern = "GAMLSS_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAMLSS and we need to use “gamlss::plot.gamlss(...)”.
-            ## Start graphics device driver for producing PDF graphics.
-            pdf(file = file.name,
-                width = kPdfWidth,
-                height = kPdfHeight,
-                pointsize = kPdfPointSize,
-                family = kPdfFamily)
-            ## Set plot margins.
-            par(mar = kPlotMargins)
-            ## Plot model.            
-            plot(x = cur.model
-                 ## ,xvar = bart.clean$h100  ## To be turned on and off as desired.
-                 ,parameters = par("mfrow" = c(2, 2),
-                                  "mar" = par("mar") + c(0, 1, 0, 0),
-                                  "col.axis" = "black",
-                                  "col" = "black",
-                                  "col.main" = "black",
-                                  "col.lab" = "black",
-                                  "pch" = 20,
-                                  "cex" = 1.00,
-                                  "cex.lab" = 1.00,
-                                  "cex.axis" = 1,
-                                  "cex.main" = 1.5)  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
-                 )
-        }
-        ## Turn off graphics device.
-        graphics.off()
-        ## If desired, open .pdf file via mupdf.
-        if (kOpenPdf) {
-            system2(command = "mupdf",
-                    args = paste0("-r 64 ",
-                                  file.name),
-                    wait = FALSE)
         }
     }
 }
