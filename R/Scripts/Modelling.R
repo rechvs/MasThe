@@ -6,7 +6,7 @@ setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
-kFileVersion <- "2.7"
+kFileVersion <- "3.3"
 kFileName <- paste0(kDataDir, "gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
@@ -33,19 +33,22 @@ kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
-## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
+## Create a vector containing the names of all appropriate input data sources.
+objects.present <- ls()
+names.input.data.sources <- objects.present[grepl(pattern = "bart.clean", x = objects.present, fixed = FALSE)]
 
 ##########
 ## GAMs ##
@@ -56,17 +59,24 @@ kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 5)")
 ## Setup for model ""GAM_gha_sSI.h100"".
 kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
-## Evaluate and store models.
-kFunction <- "mgcv..gam"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
-            models[["mgcv..gam"]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                                   data = bart.clean)
-        }}}}
+## Initiate "for" loop (for looping over all names of input data sources).
+for (name.input.data.source in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = name.input.data.source))
+    ## Evaluate and store models.
+    kFunction <- "mgcv..gam"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
+                    models[["mgcv..gam"]][[name.input.data.source]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
+                                                                                                     data = input.data)
+                }
+            }
+        }
+    }
+}
 
 #############
 ## GAMLSSs ##
