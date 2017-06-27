@@ -60,8 +60,8 @@ kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k
 ## Setup for model ""GAM_gha_sSI.h100"".
 kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
 ## Initiate "for" loop (for looping over all names of input data sources).
-for (name.input.data.source in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = name.input.data.source))
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
     ## Evaluate and store models.
     kFunction <- "mgcv..gam"
     if (any(grepl(pattern = kFunction,
@@ -70,7 +70,7 @@ for (name.input.data.source in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
-                    models[["mgcv..gam"]][[name.input.data.source]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
+                    models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
                                                                                                      data = input.data)
                 }
             }
@@ -115,22 +115,32 @@ kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- a
 kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
 kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "~1")
 kColumnsToSelect[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- c("ksha", "SI.h100", "ghaa.cum", "h100.EKL.I", "h100.diff.EKL.I")
-## Evaluate and store models.
-kFunction <- "gamlss..gamlss"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    for (cur.formula.name in names(x = kFormulas)) {
-        if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                      x = kFormulasToUse))) {
-            if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
-                models[["gamlss..gamlss"]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
-                                                                                 sigma.formula = kSigmaFormulas[[cur.formula.name]],
-                                                                                 nu.formula = kNuFormulas[[cur.formula.name]],
-                                                                                 tau.formula = kTauFormulas[[cur.formula.name]],
-                                                                                 family = gamlss.dist::BCCG(),
-                                                                                 data = subset(x = bart.clean, select = kColumnsToSelect[[cur.formula.name]]),
-                                                                                 method = RS(50))
-            }}}}
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models.
+    kFunction <- "gamlss..gamlss"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
+                    models[["gamlss..gamlss"]][[cur.input.data.source.name]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
+                                                                                                               sigma.formula = kSigmaFormulas[[cur.formula.name]],
+                                                                                                               nu.formula = kNuFormulas[[cur.formula.name]],
+                                                                                                               tau.formula = kTauFormulas[[cur.formula.name]],
+                                                                                                               family = gamlss.dist::BCCG(),
+                                                                                                               data = subset(x = input.data, select = kColumnsToSelect[[cur.formula.name]]),
+                                                                                                               method = RS(300))
+                }
+            }
+            writeLines(text = paste("Input data name: ", cur.input.data.source.name, "
+Current formula name: ", cur.formula.name))  ## TESTING
+            warnings()  ## TESTING
+        }
+    }
+}
 ## 2017-06-15: gamlss::gamlss fails at modelling "ksha ~ ..."
 
 ############
