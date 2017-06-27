@@ -491,7 +491,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.sub.dir <- paste0("Graphics/", cur.function.name, "/", cur.input.data.source.name, "/")
+                graphics.sub.dir <- paste0("Graphics/models/", cur.function.name, "/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.sub.dir,
                                    cur.model.name,
                                    ".pdf")
