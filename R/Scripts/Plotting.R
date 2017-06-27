@@ -462,6 +462,58 @@ for (cur.data.source in names(x = kPlottingInformation)) {
     }
 }
 
+###############
+## Plot GAMs ##
+###############
+## Plotting preamble.
+kPdfWidth <- 30
+kPdfHeight <- kPdfWidth * 0.625
+kPdfPointSize <- 19
+kPdfFamily <- "Times"
+kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+## Set flag to determine whether the newly created .pdf file should be opened.
+kOpenPdf <- FALSE
+## kOpenPdf <- TRUE
+## Initiate "for" loops.
+for (cur.function.name in names(x = models)) {
+    for (cur.input.data.source.name in names(x = models[[cur.function.name]])) {
+        for (cur.model.name in names(x = models[[cur.function.name]][[cur.input.data.source.name]])) {
+            if (grepl(pattern = "GAM_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAM and we can continue with this block.
+                ## Extract current model.
+                cur.model <- models[[cur.function.name]][[cur.input.data.source.name]][[cur.model.name]]
+                ## Turn off graphics device.
+                graphics.off()
+                ## Create file name.
+                file.name <- gsub(pattern = "[$]",
+                                  replacement = ".",
+                                  x = paste0("Graphics/",
+                                             cur.model.name,
+                                             ".pdf"))
+                ## Create file name.
+                graphics.sub.dir <- paste0("Graphics/", cur.function.name, "/", cur.input.data.source.name, "/")
+                file.name <-paste0(graphics.sub.dir,
+                                   cur.model.name,
+                                   ".pdf")
+                ## If nonexistent, create "graphics.sub.dir".
+                system2(command = "mkdir",
+                        args = paste0("-p ", graphics.sub.dir))
+                ## Start graphics device driver for producing PDF graphics.
+                pdf(file = file.name,
+                    width = kPdfWidth,
+                    height = kPdfHeight,
+                    pointsize = kPdfPointSize,
+                    family = kPdfFamily)
+                ## Set plot margins.
+                par(mar = kPlotMargins)
+                ## Plot model.
+                mgcv::plot.gam(x = cur.model,
+                               main = as.character(as.expression(x = formula(x = cur.model))))
+            }
+        }
+    }
+}
+        
 #################
 ## Plot models ##
 #################
