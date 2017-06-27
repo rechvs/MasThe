@@ -401,7 +401,7 @@ for (cur.data.source in names(x = kPlottingInformation)) {
         y.lim.high <- range(y.values, na.rm = TRUE)[2]
         y.lim <- c(y.lim.low, y.lim.high)
         ## Create file name.
-        graphics.sub.dir <- paste0("Graphics/meas/", cur.data.source, "/")
+        graphics.sub.dir <- paste0("Graphics/measurements/", cur.data.source, "/")
         file.name <-paste0(graphics.sub.dir,
                            cur.list,
                            ".pdf")
