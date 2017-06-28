@@ -75,58 +75,35 @@ if (kColPerTrial) {
                                        stringsAsFactors = FALSE)
 }
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
-## - "kXColumn": source column of the x values
-## - "kYColumn": source column of the y values
+## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
 ## - "kPlotYLab": y axis label
 kPlottingInformation <- list(
-        "alt_ekl" = list("kXColumn" = "alt",
-                         "kYColumn" = "ekl",
-                         "kPlotXLab" = "alt [a]",
+        "alt_ekl" = list("kPlotXLab" = "alt [a]",
                          "kPlotYLab" = "ekl"),
-        "alt_gha" = list("kXColumn" = "alt",
-                         "kYColumn" = "gha",
-                         "kPlotXLab" = "alt [a]",
+        "alt_gha" = list("kPlotXLab" = "alt [a]",
                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-        "alt_ghaa.cum" = list("kXColumn" = "alt",
-                              "kYColumn" = "ghaa.cum",
-                              "kPlotXLab" = "alt [a]",
+        "dg_gha" = list("kPlotXLab" = "dg [cm]",
+                        "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+        "alt_ghaa.cum" = list("kPlotXLab" = "alt [a]",
                               "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
-        "alt_h100" = list("kXColumn" = "alt",
-                          "kYColumn" = "h100",
-                          "kPlotXLab" = "alt [a]",
+        "alt_h100" = list("kPlotXLab" = "alt [a]",
                           "kPlotYLab" = "h100 [m]"),
-        "alt_SI.h100" = list("kXColumn" = "alt",
-                             "kYColumn" = "SI.h100",
-                             "kPlotXLab" = "alt [a]",
+        "alt_SI.h100" = list("kPlotXLab" = "alt [a]",
                              "kPlotYLab" = "SI.h100 [m]"),
-        "h100_gha" = list("kXColumn" = "h100",
-                          "kYColumn" = "gha",
-                          "kPlotXLab" = "h100 [m]",
+        "h100_gha" = list("kPlotXLab" = "h100 [m]",
                           "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-        "gha_h100" = list("kXColumn" = "gha",
-                          "kYColumn" = "h100",
-                          "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+        "gha_h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
                           "kPlotYLab" = "h100 [m]"),
-        "gha_SI.h100" = list("kXColumn" = "gha",
-                             "kYColumn" = "SI.h100",
-                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+        "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
                              "kPlotYLab" = "SI.h100 [m]"),
-        "gha_SI.h100" = list("kXColumn" = "gha",
-                             "kYColumn" = "SI.h100",
-                             "kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+        "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
                              "kPlotYLab" = "SI.h100 [m]"),
-        "ln.dg_ln.nha" = list("kXColumn" = "ln.dg",
-                              "kYColumn" = "ln.nha",
-                              "kPlotXLab" = "ln.dg",
+        "ln.dg_ln.nha" = list("kPlotXLab" = "ln.dg",
                               "kPlotYLab" = "ln.nha"),
-        "h100_h100.diff.EKL.I" = list("kXColumn" = "h100",
-                                      "kYColumn" = "h100.diff.EKL.I",
-                                      "kPlotXLab" = "h100 [m]",
+        "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
                                       "kPlotYLab" = "h100.diff.EKL.I [m]"),
-        "ghaa.cum_gha" = list("kXColumn" = "ghaa.cum",
-                              "kYColumn" = "gha",
-                              "kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+        "ghaa.cum_gha" = list("kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
                               "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
@@ -146,8 +123,10 @@ for (cur.data.source in ls()[grepl(pattern = "bart.clean", x = ls(), fixed = TRU
         ## Create data source.
         data.source <- eval(expr = parse(text = cur.data.source))
         ## Create vectors containing the actual x and y values.
-        x.values <- data.source[[kXColumn]]
-        y.values <- data.source[[kYColumn]]
+        x.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][1]
+        y.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][2]
+        x.values <- data.source[[x.column.name]]
+        y.values <- data.source[[y.column.name]]
         ## Calculate numerical values necessary for creating the plot.
         x.lim.low <- range(x.values, na.rm = TRUE)[1]
         x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
