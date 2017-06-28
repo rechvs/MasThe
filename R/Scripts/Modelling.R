@@ -42,17 +42,17 @@ kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
 kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
 names.input.data.sources <- objects.present[grepl(pattern = "bart.clean", x = objects.present, fixed = FALSE)]
 
-##########
-## GAMs ##
-##########
+#########
+## GAM ##
+#########
 ## Setup for model "GAM_gha_sh100".
 kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 ## Setup for model "GAM_gha_sh100.EKL.I".
@@ -78,9 +78,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
     }
 }
 
-#############
-## GAMLSSs ##
-#############
+############
+## GAMLSS ##
+############
 ## Setup for model "GAMLSS_gha_h100".
 kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
 kSigmaFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ gamlss::cs(h100)")
