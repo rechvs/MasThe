@@ -1,4 +1,18 @@
-* TODO [7/10]
+* TODO [7/12]
+** CURRENT Read literature for introduction section
+*** CURRENT Read Pretzsch (2000)
+    + [2017-06-28 Mi]: continue with section 3., p. 207 f.
+*** CURRENT Acquire Daniel & Sterba (1980)
+    + complete reference:
+      Daniel, T. W. & Sterba, H. (1980): “Zur Ansprache der Bestandesdichte”, Allgemeine Forstzeitung 91, 155-157
+    + SIG: II, 255
+    + article supposedly (cp. Röhrig (1992), p.30) deals with converting Reineke’s SDI from imperial to metric system
+    + [2017-06-28 Mi]: needs to be ordered at BBF desk
+*** CURRENT Acquire Yoda et al. (1963)
+    + complete reference:
+      Yoda, K., Kira, T., Ogawa, H. Und Hozumi, K.: “Self-thinning in overcrowded pure stands under cultivated and natural conditions (Intraspecific competition among higher plants XI)”, Journal of the Institute of Polytechnics, Osaka City University, Series D 14, 107-129
+    + SIG: 4 Z TECHN 102/3
+    + [2017-06-28 Mi]: ordered at SUB
 ** CURRENT Improve understanding of GAMLSSs
 *** CURRENT Read Albert & Schmidt (2009)
     Article supposedly deals with the probability distribution of “bart.clean$gha” (cp. Wördehoff (2016), p. 50).
@@ -212,14 +226,18 @@
       + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ** JabRef
 *** Tags
-    + How to tag a comment (i.e., an individual “entry” within the “Abstract” portion of a JabRef entry):
-      - p. XY: {TAG1; TAG2}
-        This is where the actual comment content goes.
+**** How to tag a comment (i.e., an individual “entry” within the “Abstract” portion of a JabRef entry)
+     “- p. XY: {TAG1; TAG2}
+      This is where the actual comment content goes.”
+**** How to tag a whole entry
+     “- whole TYPE_OF_MEDIUM: {TAG1; TAG2}”
+     + Subsequent comments should only be tagged if their tag set differs from that of the whole entry.
+**** Table of tag meanings
     | Tag                | What the tagged comment contains                             |
     |--------------------+--------------------------------------------------------------|
     | equation           | description/explanation of any kind of mathematical equation |
     | statistics         | explanation of m.o.l. fundamental statistical principles     |
-    | glm                | explanation of GLM                                        |
+    | glm                | explanation of GLM                                           |
     | gam                | explanation of GAM                                           |
     | gamlss             | explanation of GAMLSS                                        |
     | basal area         | information regarding basal area                             |
@@ -229,3 +247,5 @@
     | Reineke            | information regarding Reineke’s approach                     |
     | silviculture       | information regarding silviculture                           |
     | forest mensuration | information regarding forest mensuration                     |
+    | introduction       | information suited for introduction section                  |
+    | selfthinning       | information regarding selfthinning                           |
