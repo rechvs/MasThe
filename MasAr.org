@@ -168,45 +168,64 @@
 | S2551103 | Oberharz                | 257 b6      | <NA>                                                                                  |
 | S2651104 | Ostharz                 | 91a4        | <NA>                                                                                  |
 *** Noteworthy archive content regarding “edvid”s of interest
-**** “vers”: 467511
-***** “edvid”: 4675111A (“forstamt”: Grünenplan, “abt”: 66j)
-      + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
-      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
-***** “edvid”: 4675112A (“forstamt”: Grünenplan, “abt”: 66j)
-      + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
-      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
-***** “edvid”: 4675113A (“forstamt”: Grünenplan, “abt”: 66j)
-      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; NOT in accordance with “gha” based ranking]
-      + - behandelt - ab 2009: Df.-art: st. Niederdurchf. (wg. WW-Schäden) [NOT in accordance with “parz$BESONDERHEITEN”]
-***** “edvid”: 4675113B (“forstamt”: Grünenplan, “abt”: 66j)
-      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
-      + - unbehandelt - [NOT in accordance with “parz$BESONDERHEITEN”]
-***** “edvid”: 4675114A (“forstamt”: Grünenplan, “abt”: 66j)
-      + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
-      + - unbehandelt - [in accordance with “parz$BESONDERHEITEN”]
 **** “vers”: 466511
 ***** “edvid”: 4665111A (“forstamt”: SHLF, “abt”: 3532j)
       + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt [in accordance with “parz$BESONDERHEITEN”]
+      + untreated [in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: 4665112B (“forstamt”: SHLF, “abt”: 3532j)
       + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: 4665113B (“forstamt”: SHLF, “abt”: 3532j)
       + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: 4665114B (“forstamt”: SHLF, “abt”: 3532j)
       + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt [NOT in accordance with “parz$BESONDERHEITEN”]
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
+**** “vers”: 467511
+***** “edvid”: 4675111A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
+      + untreated [in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675112A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
+      + untreated [in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675113A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; NOT in accordance with “gha” based ranking]
+      + treated (treatment: “ab 2009: Df.-art: st. Niederdurchf. (wg. WW-Schäden)” [NOT in accordance with “parz$BESONDERHEITEN”])
+***** “edvid”: 4675113B (“forstamt”: Grünenplan, “abt”: 66j)
+      + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
+***** “edvid”: 4675114A (“forstamt”: Grünenplan, “abt”: 66j)
+      + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
+      + untreated [in accordance with “parz$BESONDERHEITEN”]
 **** “vers”: J63511 [cp. [[file:Data/Supplementary_Information/][vers_J63511.pdf]]]
 ***** “edvid”: J6351111 (“forstamt”: Wheretal, “abt”: 2588A1)
       + 5.0 m x 5.0 m [= 400 plants/ha => 4. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: J6351121 (“forstamt”: Wheretal, “abt”: 2588A1)
       + 5.0 m x 2.5 m [= 800 plants/ha => 3. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: J6351131 (“forstamt”: Wheretal, “abt”: 2588A1)
       + 2.5 m x 2.5 m [= 1600 plants/ha => 2. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ***** “edvid”: J6351141 (“forstamt”: Wheretal, “abt”: 2588A1)
       + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
-      + unbehandelt 
+      + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
+** JabRef
+*** Tags
+    + How to tag a comment (i.e., an individual “entry” within the “Abstract” portion of a JabRef entry):
+      - p. XY: {TAG1; TAG2}
+        This is where the actual comment content goes.
+    | Tag                | What the tagged comment contains                             |
+    |--------------------+--------------------------------------------------------------|
+    | equation           | description/explanation of any kind of mathematical equation |
+    | statistics         | explanation of m.o.l. fundamental statistical principles     |
+    | glm                | explanation of GLM                                        |
+    | gam                | explanation of GAM                                           |
+    | gamlss             | explanation of GAMLSS                                        |
+    | basal area         | information regarding basal area                             |
+    | R                  | information regarding R                                      |
+    | R::PACKAGE         | information regarding the R package PACKAGE                  |
+    | Sterba             | information regarding Sterba’s approach                      |
+    | Reineke            | information regarding Reineke’s approach                     |
+    | silviculture       | information regarding silviculture                           |
+    | forest mensuration | information regarding forest mensuration                     |
