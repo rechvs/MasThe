@@ -217,9 +217,9 @@ for (cur.data.source in ls()[grepl(pattern = "bart.clean", x = ls(), fixed = TRU
     }
 }
 
-###############
-## Plot GAMs ##
-###############
+##############
+## Plot GAM ##
+##############
 ## Plotting preamble.
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
@@ -246,7 +246,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.subdir <- paste0("Graphics/models/GAMs/", cur.input.data.source.name, "/")
+                graphics.subdir <- paste0("Graphics/models/GAM/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.subdir,
                                    cur.model.name,
                                    ".pdf")
@@ -278,9 +278,9 @@ for (cur.function.name in names(x = models)) {
     }
 }
 
-##################
-## Plot GAMLSSs ##
-##################
+#################
+## Plot GAMLSS ##
+#################
 ## Plotting preamble.
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
@@ -307,7 +307,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.subdir <- paste0("Graphics/models/GAMLSSs/", cur.input.data.source.name, "/")
+                graphics.subdir <- paste0("Graphics/models/GAMLSS/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.subdir,
                                    cur.model.name,
                                    ".pdf")
