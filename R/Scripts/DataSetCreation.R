@@ -122,20 +122,28 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.3.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.3.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.2.
-## In this version, "bart" contains an additional 23. column "nhaa.rel" = "nhaa" / "nha".
+## In this version, "bart.SPECIES" contains an additional column "nhaa.rel" = "nhaa" / "nha".
 kBaseFileVersion <- "1.2"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.3"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "nhaa.rel".
-bart$nhaa.rel <- bart$nhaa / bart$nha
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "nhaa.rel".
+    cur.object[["nhaa.rel"]] <- cur.object[["nhaa"]] / cur.object[["nha"]]
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
