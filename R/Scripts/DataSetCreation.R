@@ -151,23 +151,31 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.4.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.4.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.3.
-## In this version, the following columns of "bart" are transformed into factors:
-## - edvid (1.)
-## - art (3.)
+## In this version, the following columns of "bart.SPECIES" are transformed into factors:
+## - edvid
+## - art
 kBaseFileVersion <- "1.3"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.4"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Transform columns.
-bart$edvid <- as.factor(bart$edvid)
-bart$art <- as.factor(bart$art)
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Transform columns.
+    cur.object[["edvid"]] <- as.factor(x = cur.object[["edvid"]])
+    cur.object[["art"]] <- as.factor(x = cur.object[["art"]])
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
