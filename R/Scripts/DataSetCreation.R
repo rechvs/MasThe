@@ -320,13 +320,15 @@ rm(list = setdiff(x = ls(), y = objects.before))
 ####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
-## In this version, an additional data frame "bart.spruce.clean.1.0" is created which is a subset of "bart.spruce" from "gmax.RData", excluding certain data (see below for details).
+## In this version, 2 additional data frames "bart.SPECIES.clean.1.0" are created, both of which are subsets of the respective "bart.SPECIES" data frame, excluding certain data (see below for details).
 kBaseFileVersion <- "1.8"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.9"
 kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+####################################
+## Create "bart.spruce.clean.1.0" ##
 ## Create untampered source version of "bart.spruce.clean.1.0".
 bart.spruce.clean.1.0 <- bart.spruce
 ## Exclude all lines in which "bart.spruce.clean.1.0[["art"]] != 511".
@@ -380,6 +382,22 @@ for (name.cur in names.vec) {
 bart.spruce.clean.1.0 <- droplevels(x = bart.spruce.clean.1.0)
 ## Add "bart.spruce.clean.1.0" to the vector of names of objects meant to be saved.
 kgmaxObjects <- c("bart.spruce.clean.1.0", kgmaxObjects)
+## Create "bart.spruce.clean.1.0" ##
+####################################
+###################################
+## Create "bart.beech.clean.1.0" ##
+## Create untampered source version of "bart.beech.clean.1.0".
+bart.beech.clean.1.0 <- bart.beech
+## Exclude all lines in which "bart.beech.clean.1.0[["art"]] != 511".
+bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["art"]] == 511, ]
+## Exclude all lines in which "bart.beech.clean.1.0[["ksha.rel"]] < 0.7".
+bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["ksha.rel"]] >= 0.7, ]
+## Drop unused levels.
+bart.beech.clean.1.0 <- droplevels(x = bart.beech.clean.1.0)
+## Add "bart.beech.clean.1.0" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bart.beech.clean.1.0", kgmaxObjects)
+## Create "bart.beech.clean.1.0" ##
+###################################
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
