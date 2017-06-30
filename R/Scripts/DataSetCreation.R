@@ -388,8 +388,8 @@ kgmaxObjects <- c("bart.spruce.clean.1.0", kgmaxObjects)
 ## Create "bart.beech.clean.1.0" ##
 ## Create untampered source version of "bart.beech.clean.1.0".
 bart.beech.clean.1.0 <- bart.beech
-## Exclude all lines in which "bart.beech.clean.1.0[["art"]] != 511".
-bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["art"]] == 511, ]
+## Exclude all lines in which "bart.beech.clean.1.0[["art"]] != 211".
+bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["art"]] == 211, ]
 ## Exclude all lines in which "bart.beech.clean.1.0[["ksha.rel"]] < 0.7".
 bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["ksha.rel"]] >= 0.7, ]
 ## Drop unused levels.
@@ -399,26 +399,39 @@ kgmaxObjects <- c("bart.beech.clean.1.0", kgmaxObjects)
 ## Create "bart.beech.clean.1.0" ##
 ###################################
 ## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.0.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.0.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.9.
-## In this version, "bart.spruce.clean.1.0" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "h100.diff.EKL.I = h100.EKL.I - h100".
 kBaseFileVersion <- "1.9"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.0"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "h100.diff.EKL.I".
-bart.spruce.clean.1.0$h100.diff.EKL.I <- bart.spruce.clean.1.0$h100.EKL.I - bart.spruce.clean.1.0$h100
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "h100.diff.EKL.I".
+    cur.object[["h100.diff.EKL.I"]] <- cur.object[["h100.EKL.I"]] - cur.object[["h100"]]
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
