@@ -278,27 +278,35 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.8.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.8.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.7.
-## In this version, "bart" contains an additional 27. column "gha.rel.cha" which holds the relative change of "gha" between the previous and the current measurement relative to previous measurement, calculated separately for each combination of "edvid" and "art".
+## In this version, "bart.SPECIES" contains an additional 27. column "gha.rel.cha" which holds the relative change of "gha" between the previous and the current measurement relative to previous measurement, calculated separately for each combination of "edvid" and "art".
 kBaseFileVersion <- "1.7"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.8"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "gha.rel.cha".
-for (parcel in levels(bart$edvid)) {
-    for (species in levels(bart$art)) {
-        gha.cur.par <- bart$gha[bart$edvid == parcel & bart$art == species]
-        gha.cur.par <- gha.cur.par[1:length(gha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
-        gha.diff <- bart$gha.diff[bart$edvid == parcel & bart$art == species]
-        gha.diff <- gha.diff[2:length(gha.diff)]  ## Remove first element since it is not necessary for the calculation.
-        bart$gha.rel.cha[bart$edvid == parcel & bart$art == species] <- c(NA, gha.diff / gha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "gha.rel.cha".
+    for (parcel in levels(cur.object[["edvid"]])) {
+        for (species in levels(cur.object[["art"]])) {
+            gha.cur.par <- cur.object[["gha"]][cur.object[["edvid"]] == parcel & cur.object[["art"]] == species]
+            gha.cur.par <- gha.cur.par[1:length(gha.cur.par) - 1]  ## Remove last element since it is not necessary for the calculation.
+            gha.diff <- cur.object[["gha.diff"]][cur.object[["edvid"]] == parcel & cur.object[["art"]] == species]
+            gha.diff <- gha.diff[2:length(gha.diff)]  ## Remove first element since it is not necessary for the calculation.
+            cur.object[["gha.rel.cha"]][cur.object[["edvid"]] == parcel & cur.object[["art"]] == species] <- c(NA, gha.diff / gha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+        }
     }
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
 ## Save results.
 save(list = kgmaxObjects,
