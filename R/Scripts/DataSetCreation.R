@@ -470,22 +470,30 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.2.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.2.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.1.
-## In this version, "bart.spruce.clean.1.0" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "log.nha = log10(x = nha)" and an additional column "log.dh = log10(x = dg)".
 kBaseFileVersion <- "2.1"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.2"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "log.nha".
-bart.spruce.clean.1.0$log.nha <- log10(x = bart.spruce.clean.1.0$nha)
-## Calculate "log.dg".
-bart.spruce.clean.1.0$log.dg <- log10(x = bart.spruce.clean.1.0$dg)
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "log.nha".
+    cur.object[["log.nha"]] <- log10(x = cur.object[["nha"]])
+    ## Calculate "log.dg".
+    cur.object[["log.dg"]] <- log10(x = cur.object[["dg"]])
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
