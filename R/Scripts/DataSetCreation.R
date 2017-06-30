@@ -5,17 +5,50 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 
-#############################
-## Create "gmax_1.0.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.0.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
-## This version is an untamperd copy of the original version of "gmax.RData" (see email by Matthias Schmidt from 2017-04-27).
+## This version serves as the base version consisting of untampered but renamed versions of the objects contained in "gmax.RData" (see email by Matthias Schmidt from 2017-04-27) and in "gmax_bu.RData". The resulting data set contains the following objects:
+## - auf.beech
+## - bart.beech
+## - best.beech
+## - parz.beech
+## - vers.beech
+## - auf.spruce
+## - bart.spruce
+## - best.spruce
+## - parz.spruce
+## - vers.spruce
 kFileVersion <- "1.0"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
-## Load base file.
-kgmaxObjects <- load(file = paste0(kDataDir, "gmax.RData"), verbose = TRUE)
-## Save results.
-save(list = kgmaxObjects,
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file of spruce data.
+kNamesOfLoadedSpruceObjects <- load(file = paste0(kDataDir, "Spruce/gmax.RData"), verbose = TRUE)
+## Assing values of old objects to new objects with ".spruce" as a name suffix.
+kNamesOfSpruceObjectsToSave <- vector(mode = "character")
+for (old.object.name in kNamesOfLoadedSpruceObjects) {
+    new.object.name <- paste0(old.object.name, ".spruce")
+    kNamesOfSpruceObjectsToSave <- c(kNamesOfSpruceObjectsToSave, new.object.name)
+    assign(x = new.object.name,
+           value = get(x = old.object.name))
+}
+## Clear workspace of old spruce objects.
+rm(list = kNamesOfLoadedSpruceObjects)
+## Load base file of beech data.
+kNamesOfLoadedBeechObjects <- load(file = paste0(kDataDir, "Beech/gmax_bu.RData"), verbose = TRUE)
+## Assing values of old objects to new objects with ".beech" as a name suffix.
+kNamesOfBeechObjectsToSave <- vector(mode = "character")
+for (old.object.name in kNamesOfLoadedBeechObjects) {
+    new.object.name <- paste0(old.object.name, ".beech")
+    kNamesOfBeechObjectsToSave <- c(kNamesOfBeechObjectsToSave, new.object.name)
+    assign(x = new.object.name,
+           value = get(x = old.object.name))
+}
+## Clear workspace of old beech objects.
+rm(list = kNamesOfLoadedBeechObjects)
+## Save results (in an ordered fashion).
+kObjectsToSave <- c(kNamesOfBeechObjectsToSave[order(kNamesOfBeechObjectsToSave)], kNamesOfSpruceObjectsToSave[order(kNamesOfSpruceObjectsToSave)])
+save(list = kObjectsToSave,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
