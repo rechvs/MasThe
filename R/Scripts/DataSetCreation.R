@@ -223,45 +223,45 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
-## In version, an additional data frame "bart.clean.1.0" is created which is a subset of "bart", excluding certain data (see below for details).
+## In this version, an additional data frame "spruce.1.0" is created which is a subset of "bart" from "gmax.RData", excluding certain data (see below for details).
 kBaseFileVersion <- "1.8"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.9"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.0".
-bart.clean.1.0 <- bart
-## Exclude all lines in which "bart.clean.1.0[["art"]] != 511".
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["art"]] == 511, ]
-## Exclude all lines in which "bart.clean.1.0[["ksha.rel"]] < 0.7".
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["ksha.rel"]] >= 0.7, ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665111A", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665112B", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4665113B", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675111A", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675112A", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675113A", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "4675114A", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351111", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351121", ]
-## Exclude all lines in which "bart.clean.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
-bart.clean.1.0 <- bart.clean.1.0[bart.clean.1.0[["edvid"]] != "J6351131", ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.0[["gha.rel.cha"]] < 0".
+## Create untampered source version of "spruce.1.0".
+spruce.1.0 <- bart
+## Exclude all lines in which "spruce.1.0[["art"]] != 511".
+spruce.1.0 <- spruce.1.0[spruce.1.0[["art"]] == 511, ]
+## Exclude all lines in which "spruce.1.0[["ksha.rel"]] < 0.7".
+spruce.1.0 <- spruce.1.0[spruce.1.0[["ksha.rel"]] >= 0.7, ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665111A", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665112B", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665113B", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675111A", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675112A", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675113A", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675114A", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351111", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351121", ]
+## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
+spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351131", ]
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.0[["gha.rel.cha"]] < 0".
 names.vec <- NULL
-for (parcel in levels(bart.clean.1.0[["edvid"]])) {
+for (parcel in levels(spruce.1.0[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.0[bart.clean.1.0[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.0[spruce.1.0[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -274,15 +274,15 @@ for (parcel in levels(bart.clean.1.0[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.0 <- data.frame(NULL)
+spruce.1.0 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.0 <- rbind(bart.clean.1.0,
+    spruce.1.0 <- rbind(spruce.1.0,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.0 <- droplevels(x = bart.clean.1.0)
-## Add "bart.clean.1.0" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.0", kgmaxObjects)
+spruce.1.0 <- droplevels(x = spruce.1.0)
+## Add "spruce.1.0" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.0", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -295,7 +295,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.9.
-## In this version, "bart.clean.1.0" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
+## In this version, "spruce.1.0" contains an additional 28. column "h100.diff.EKL.I = h100.EKL.I - h100".
 kBaseFileVersion <- "1.9"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.0"
@@ -303,7 +303,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "h100.diff.EKL.I".
-bart.clean.1.0$h100.diff.EKL.I <- bart.clean.1.0$h100.EKL.I - bart.clean.1.0$h100
+spruce.1.0$h100.diff.EKL.I <- spruce.1.0$h100.EKL.I - spruce.1.0$h100
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -316,7 +316,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.0.
-## In this version, "bart.clean.1.0" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
+## In this version, "spruce.1.0" contains an additional 29. column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional 30. column "ln.dh = log(x = dg, base = exp(x = 1))".
 kBaseFileVersion <- "2.0"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.1"
@@ -324,9 +324,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ln.nha".
-bart.clean.1.0$ln.nha <- log(x = bart.clean.1.0$nha, base = exp(x = 1))
+spruce.1.0$ln.nha <- log(x = spruce.1.0$nha, base = exp(x = 1))
 ## Calculate "ln.dg".
-bart.clean.1.0$ln.dg <- log(x = bart.clean.1.0$dg, base = exp(x = 1))
+spruce.1.0$ln.dg <- log(x = spruce.1.0$dg, base = exp(x = 1))
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -339,7 +339,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.1.
-## In this version, "bart.clean.1.0" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
+## In this version, "spruce.1.0" contains an additional 31. column "log.nha = log10(x = nha)" and an additional 32. column "log.dh = log10(x = dg)".
 kBaseFileVersion <- "2.1"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.2"
@@ -347,9 +347,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "log.nha".
-bart.clean.1.0$log.nha <- log10(x = bart.clean.1.0$nha)
+spruce.1.0$log.nha <- log10(x = spruce.1.0$nha)
 ## Calculate "log.dg".
-bart.clean.1.0$log.dg <- log10(x = bart.clean.1.0$dg)
+spruce.1.0$log.dg <- log10(x = spruce.1.0$dg)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -362,7 +362,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.2.
-## In this version, "bart.clean.1.0" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
+## In this version, "spruce.1.0" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
 kBaseFileVersion <- "2.2"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.3"
@@ -370,9 +370,9 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ksha.diff".
-for (parcel in levels(bart.clean.1.0$edvid)) {
-    ksha.cur.par <- bart.clean.1.0$ksha[bart.clean.1.0$edvid == parcel]
-    bart.clean.1.0$ksha.diff[bart.clean.1.0$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
+for (parcel in levels(spruce.1.0$edvid)) {
+    ksha.cur.par <- spruce.1.0$ksha[spruce.1.0$edvid == parcel]
+    spruce.1.0$ksha.diff[spruce.1.0$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -386,7 +386,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.3.
-## In this version, "bart.clean.1.0" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
+## In this version, "spruce.1.0" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
 kBaseFileVersion <- "2.3"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.4"
@@ -394,12 +394,12 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ksha.rel.cha".
-for (parcel in levels(bart.clean.1.0$edvid)) {
-    ksha.cur.par <- bart.clean.1.0$ksha[bart.clean.1.0$edvid == parcel]
+for (parcel in levels(spruce.1.0$edvid)) {
+    ksha.cur.par <- spruce.1.0$ksha[spruce.1.0$edvid == parcel]
     ksha.cur.par <- ksha.cur.par[1:length(ksha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
-    ksha.diff <- bart.clean.1.0$ksha.diff[bart.clean.1.0$edvid == parcel]
+    ksha.diff <- spruce.1.0$ksha.diff[spruce.1.0$edvid == parcel]
     ksha.diff <- ksha.diff[2:length(ksha.diff)]  ## Remove first element since it is not necessary for the calculation.
-    bart.clean.1.0$ksha.rel.cha[bart.clean.1.0$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+    spruce.1.0$ksha.rel.cha[spruce.1.0$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -413,7 +413,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
-## In this version, "bart.clean.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
+## In this version, "spruce.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
 kBaseFileVersion <- "2.4"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.5"
@@ -426,8 +426,8 @@ for (cur.row.index in 1:nrow(auf)) {
     cur.edvid <- cur.row$"edvid"
     cur.auf <- as.numeric(cur.row$"auf")
     cur.jahr <- as.numeric(cur.row$"jahr")
-    index.bart.clean.1.0 <- which(x = bart.clean.1.0$"edvid" == cur.edvid & bart.clean.1.0$"auf" == cur.auf)
-    bart.clean.1.0$"jahr"[index.bart.clean.1.0] <- cur.jahr
+    index.spruce.1.0 <- which(x = spruce.1.0$"edvid" == cur.edvid & spruce.1.0$"auf" == cur.auf)
+    spruce.1.0$"jahr"[index.spruce.1.0] <- cur.jahr
 }
 ## Save results.
 save(list = kgmaxObjects,
@@ -441,7 +441,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.5.
-## In this version, "bart.clean.1.0" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
+## In this version, "spruce.1.0" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
 kBaseFileVersion <- "2.5"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.6"
@@ -450,13 +450,13 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "ghaa.cum".
 ghaa.cum <- NULL
-for (cur.edvid in levels(bart.clean.1.0$"edvid")) {
-    ghaa.subset <- bart.clean.1.0$"ghaa"[bart.clean.1.0$"edvid" == cur.edvid]
+for (cur.edvid in levels(spruce.1.0$"edvid")) {
+    ghaa.subset <- spruce.1.0$"ghaa"[spruce.1.0$"edvid" == cur.edvid]
     ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
     ghaa.cum <- c(ghaa.cum,
                   cumsum(x = ghaa.subset))
 }
-bart.clean.1.0$"ghaa.cum" <- ghaa.cum
+spruce.1.0$"ghaa.cum" <- ghaa.cum
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -469,7 +469,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.6.
-## In this version, "bart.clean.1.0" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
+## In this version, "spruce.1.0" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
 kBaseFileVersion <- "2.6"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.7"
@@ -477,7 +477,7 @@ kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Calculate "age.class".
-bart.clean.1.0[["age.class"]] <- cut(x = bart.clean.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
+spruce.1.0[["age.class"]] <- cut(x = spruce.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -490,15 +490,15 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
-## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "bart.clean.1.0[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
+## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "spruce.1.0[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
 kBaseFileVersion <- "2.7"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.8"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Extract all levels of "bart.clean.1.0[["edvid"]]".
-edvid.archive.suppl.info <- data.frame("edvid" = levels(x = bart.clean.1.0[["edvid"]]))
+## Extract all levels of "spruce.1.0[["edvid"]]".
+edvid.archive.suppl.info <- data.frame("edvid" = levels(x = spruce.1.0[["edvid"]]))
 ## Find out which elements of "vers[["vers"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
 vers.matches <- match(x = substr(x = edvid.archive.suppl.info[["edvid"]],
                                  start = 0,
@@ -525,21 +525,21 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.8.
-## In this version, an additional data frame "bart.clean.1.1" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.20 * bart.clean.1.1[["gha"]] ".
+## In this version, an additional data frame "spruce.1.1" is created which is a subset of "spruce.1.0", excluding all consecutive measurements for a given "edvid" if "spruce.1.1[["ghaa"]] > 0.20 * spruce.1.1[["gha"]] ".
 kBaseFileVersion <- "2.8"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.9"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.1".
-bart.clean.1.1 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.1[["ghaa"]] > 0.20 * bart.clean.1.1[["gha"]] ".
+## Create untampered source version of "spruce.1.1".
+spruce.1.1 <- spruce.1.0
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.1[["ghaa"]] > 0.20 * spruce.1.1[["gha"]] ".
 names.vec <- NULL
-for (parcel in levels(x = bart.clean.1.1[["edvid"]])) {
+for (parcel in levels(x = spruce.1.1[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.1[bart.clean.1.1[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.1[spruce.1.1[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.20 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -552,15 +552,15 @@ for (parcel in levels(x = bart.clean.1.1[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.1 <- data.frame(NULL)
+spruce.1.1 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.1 <- rbind(bart.clean.1.1,
+    spruce.1.1 <- rbind(spruce.1.1,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.1 <- droplevels(x = bart.clean.1.1)
-## Add "bart.clean.1.1" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.1", kgmaxObjects)
+spruce.1.1 <- droplevels(x = spruce.1.1)
+## Add "spruce.1.1" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.1", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -573,21 +573,21 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.9.
-## In this version, an additional data frame "bart.clean.1.2" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.15 * bart.clean.1.2[["gha"]] ".
+## In this version, an additional data frame "spruce.1.2" is created which is a subset of "spruce.1.0", excluding all consecutive measurements for a given "edvid" if "spruce.1.2[["ghaa"]] > 0.15 * spruce.1.2[["gha"]] ".
 kBaseFileVersion <- "2.9"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.0"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.2".
-bart.clean.1.2 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.2[["ghaa"]] > 0.15 * bart.clean.1.2[["gha"]] ".
+## Create untampered source version of "spruce.1.2".
+spruce.1.2 <- spruce.1.0
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.2[["ghaa"]] > 0.15 * spruce.1.2[["gha"]] ".
 names.vec <- NULL
-for (parcel in levels(x = bart.clean.1.2[["edvid"]])) {
+for (parcel in levels(x = spruce.1.2[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.2[bart.clean.1.2[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.2[spruce.1.2[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.15 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -600,15 +600,15 @@ for (parcel in levels(x = bart.clean.1.2[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.2 <- data.frame(NULL)
+spruce.1.2 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.2 <- rbind(bart.clean.1.2,
+    spruce.1.2 <- rbind(spruce.1.2,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.2 <- droplevels(x = bart.clean.1.2)
-## Add "bart.clean.1.2" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.2", kgmaxObjects)
+spruce.1.2 <- droplevels(x = spruce.1.2)
+## Add "spruce.1.2" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.2", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -621,21 +621,21 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.0.
-## In this version, an additional data frame "bart.clean.1.3" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.10 * bart.clean.1.3[["gha"]] ".
+## In this version, an additional data frame "spruce.1.3" is created which is a subset of "spruce.1.0", excluding all consecutive measurements for a given "edvid" if "spruce.1.3[["ghaa"]] > 0.10 * spruce.1.3[["gha"]] ".
 kBaseFileVersion <- "3.0"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.1"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.3".
-bart.clean.1.3 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.3[["ghaa"]] > 0.10 * bart.clean.1.3[["gha"]] ".
+## Create untampered source version of "spruce.1.3".
+spruce.1.3 <- spruce.1.0
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.3[["ghaa"]] > 0.10 * spruce.1.3[["gha"]] ".
 names.vec <- NULL
-for (parcel in levels(x = bart.clean.1.3[["edvid"]])) {
+for (parcel in levels(x = spruce.1.3[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.3[bart.clean.1.3[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.3[spruce.1.3[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.10 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -648,15 +648,15 @@ for (parcel in levels(x = bart.clean.1.3[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.3 <- data.frame(NULL)
+spruce.1.3 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.3 <- rbind(bart.clean.1.3,
+    spruce.1.3 <- rbind(spruce.1.3,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.3 <- droplevels(x = bart.clean.1.3)
-## Add "bart.clean.1.3" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.3", kgmaxObjects)
+spruce.1.3 <- droplevels(x = spruce.1.3)
+## Add "spruce.1.3" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.3", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -669,21 +669,21 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.1.
-## In this version, an additional data frame "bart.clean.1.4" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.05 * bart.clean.1.4[["gha"]] ".
+## In this version, an additional data frame "spruce.1.4" is created which is a subset of "spruce.1.0", excluding all consecutive measurements for a given "edvid" if "spruce.1.4[["ghaa"]] > 0.05 * spruce.1.4[["gha"]] ".
 kBaseFileVersion <- "3.1"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.2"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.4".
-bart.clean.1.4 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.4[["ghaa"]] > 0.05 * bart.clean.1.4[["gha"]] ".
+## Create untampered source version of "spruce.1.4".
+spruce.1.4 <- spruce.1.0
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.4[["ghaa"]] > 0.05 * spruce.1.4[["gha"]] ".
 names.vec <- NULL
-for (parcel in levels(x = bart.clean.1.4[["edvid"]])) {
+for (parcel in levels(x = spruce.1.4[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.4[bart.clean.1.4[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.4[spruce.1.4[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.05 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -696,15 +696,15 @@ for (parcel in levels(x = bart.clean.1.4[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.4 <- data.frame(NULL)
+spruce.1.4 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.4 <- rbind(bart.clean.1.4,
+    spruce.1.4 <- rbind(spruce.1.4,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.4 <- droplevels(x = bart.clean.1.4)
-## Add "bart.clean.1.4" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.4", kgmaxObjects)
+spruce.1.4 <- droplevels(x = spruce.1.4)
+## Add "spruce.1.4" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.4", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
@@ -717,21 +717,21 @@ rm(list = setdiff(x = ls(), y = objects.before))
 #############################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.2.
-## In this version, an additional data frame "bart.clean.1.5" is created which is a subset of "bart.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.clean.1.5[["ghaa"]] > 0.00 * bart.clean.1.5[["gha"]] ".
+## In this version, an additional data frame "spruce.1.5" is created which is a subset of "spruce.1.0", excluding all consecutive measurements for a given "edvid" if "spruce.1.5[["ghaa"]] > 0.00 * spruce.1.5[["gha"]] ".
 kBaseFileVersion <- "3.2"
 kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.3"
 kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "bart.clean.1.5".
-bart.clean.1.5 <- bart.clean.1.0
-## Exclude all consecutive measurements for a given "edvid" if "bart.clean.1.5[["ghaa"]] > 0.00 * bart.clean.1.5[["gha"]] ".
+## Create untampered source version of "spruce.1.5".
+spruce.1.5 <- spruce.1.0
+## Exclude all consecutive measurements for a given "edvid" if "spruce.1.5[["ghaa"]] > 0.00 * spruce.1.5[["gha"]] ".
 names.vec <- NULL
-for (parcel in levels(x = bart.clean.1.5[["edvid"]])) {
+for (parcel in levels(x = spruce.1.5[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.clean.1.5[bart.clean.1.5[["edvid"]] == parcel, ]
+    parcel.subset <- spruce.1.5[spruce.1.5[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["ghaa"]] > 0.00 * parcel.subset[["gha"]]]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -744,15 +744,15 @@ for (parcel in levels(x = bart.clean.1.5[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-bart.clean.1.5 <- data.frame(NULL)
+spruce.1.5 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    bart.clean.1.5 <- rbind(bart.clean.1.5,
+    spruce.1.5 <- rbind(spruce.1.5,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-bart.clean.1.5 <- droplevels(x = bart.clean.1.5)
-## Add "bart.clean.1.5" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.clean.1.5", kgmaxObjects)
+spruce.1.5 <- droplevels(x = spruce.1.5)
+## Add "spruce.1.5" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("spruce.1.5", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
