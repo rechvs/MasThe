@@ -244,24 +244,32 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.7.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.7.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.6.
-## In this version, "bart" contains an additional 26. column "gha.diff" which holds the difference in "gha" between the current and the previous measurement, calculated separately for each combination of "edvid" and "art".
+## In this version, "bart.SPECIES" contains an additional column "gha.diff" which holds the difference in "gha" between the current and the previous measurement, calculated separately for each combination of "edvid" and "art".
 kBaseFileVersion <- "1.6"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.7"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "gha.diff".
-for (parcel in levels(bart$edvid)) {
-    for (species in levels(bart$art)) {
-        gha.cur.par <- bart$gha[bart$edvid == parcel & bart$art == species]
-        bart$gha.diff[bart$edvid == parcel & bart$art == species] <- c(diff(x = c(0, gha.cur.par)))  ## "gha" of year 0 is taken as 0
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "gha.diff".
+    for (parcel in levels(cur.object[["edvid"]])) {
+        for (species in levels(cur.object[["art"]])) {
+            gha.cur.par <- cur.object[["gha"]][cur.object[["edvid"]] == parcel & cur.object[["art"]] == species]
+            cur.object[["gha.diff"]][cur.object[["edvid"]] == parcel & cur.object[["art"]] == species] <- c(diff(x = c(0, gha.cur.par)))  ## "gha" of year 0 is taken as 0
+        }
     }
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
 ## Save results.
 save(list = kgmaxObjects,
