@@ -93,20 +93,28 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.2.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.2.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.1.
-## In this version, "bart" contains an additional 22. column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum.edvid.auf" for each combination of "edvid" and "auf".
+## In this version, "bart.SPECIES" contains an additional column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum.edvid.auf" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.1"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.2"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.rel".
-bart$ksha.rel <- bart$ksha / bart$ksha.sum.edvid.auf
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "ksha.rel".
+    cur.object[["ksha.rel"]] <- cur.object[["ksha"]] / cur.object[["ksha.sum.edvid.auf"]]
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
