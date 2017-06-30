@@ -54,30 +54,38 @@ save(list = kObjectsToSave,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.1.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.1.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.0.
-## In this version, "bart" contains an additional 21. column "ksha.sum.edvid.auf" holding the sum of "ksha" for each combination of "edvid" and "auf".
+## In this version, "bart.SPECIES" contains an additional column "ksha.sum.edvid.auf" holding the sum of "ksha" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.0"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.1"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.sum.edvid.auf" and store in data frame "ksha.sums".
-ksha.sums <- aggregate(x = list(ksha.sum.edvid.auf = bart$ksha),
-                       by = list(edvid = bart$edvid,
-                                 auf = bart$auf),
-                       FUN = sum)
-## Merge "ksha.sums" and "bart".
-bart <- merge(x = bart,
-              y = ksha.sums,
-              by.x = c("edvid","auf"),
-              by.y = c("edvid","auf"))
-## Order "bart" by "edvid" and "auf".
-bart <- bart[order(bart$edvid,bart$auf),]
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "ksha.sum.edvid.auf" and store in data frame "ksha.sums".
+    ksha.sums <- aggregate(x = list(ksha.sum.edvid.auf = cur.object$ksha),
+                           by = list(edvid = cur.object$edvid,
+                                     auf = cur.object$auf),
+                           FUN = sum)
+    ## Merge "ksha.sums" and "cur.object".
+    cur.object <- merge(x = cur.object,
+                        y = ksha.sums,
+                        by.x = c("edvid","auf"),
+                        by.y = c("edvid","auf"))
+    ## Order "cur.object" by "edvid" and "auf".
+    cur.object <- cur.object[order(cur.object$edvid,cur.object$auf),]
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
