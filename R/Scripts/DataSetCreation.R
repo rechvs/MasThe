@@ -501,22 +501,30 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.3.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.3.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.2.
-## In this version, "bart.spruce.clean.1.0" contains an additional 33. column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
 kBaseFileVersion <- "2.2"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.3"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.diff".
-for (parcel in levels(bart.spruce.clean.1.0$edvid)) {
-    ksha.cur.par <- bart.spruce.clean.1.0$ksha[bart.spruce.clean.1.0$edvid == parcel]
-    bart.spruce.clean.1.0$ksha.diff[bart.spruce.clean.1.0$edvid == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "ksha.diff".
+    for (parcel in levels(cur.object[["edvid"]])) {
+        ksha.cur.par <- cur.object[["ksha"]][cur.object[["edvid"]] == parcel]
+        cur.object[["ksha.diff"]][cur.object[["edvid"]] == parcel] <- c(diff(x = c(0, ksha.cur.par)))  ## "ksha" of year 0 is taken as 0
+    }
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
 ## Save results.
 save(list = kgmaxObjects,
