@@ -315,50 +315,50 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.9.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.9.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
-## In this version, an additional data frame "spruce.1.0" is created which is a subset of "bart" from "gmax.RData", excluding certain data (see below for details).
+## In this version, an additional data frame "bart.spruce.clean.1.0" is created which is a subset of "bart.spruce" from "gmax.RData", excluding certain data (see below for details).
 kBaseFileVersion <- "1.8"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.9"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create untampered source version of "spruce.1.0".
-spruce.1.0 <- bart
-## Exclude all lines in which "spruce.1.0[["art"]] != 511".
-spruce.1.0 <- spruce.1.0[spruce.1.0[["art"]] == 511, ]
-## Exclude all lines in which "spruce.1.0[["ksha.rel"]] < 0.7".
-spruce.1.0 <- spruce.1.0[spruce.1.0[["ksha.rel"]] >= 0.7, ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665111A", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665112B", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4665113B", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675111A", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675112A", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675113A", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "4675114A", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351111", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351121", ]
-## Exclude all lines in which "spruce.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
-spruce.1.0 <- spruce.1.0[spruce.1.0[["edvid"]] != "J6351131", ]
-## Exclude all consecutive measurements for a given "edvid" if "spruce.1.0[["gha.rel.cha"]] < 0".
+## Create untampered source version of "bart.spruce.clean.1.0".
+bart.spruce.clean.1.0 <- bart.spruce
+## Exclude all lines in which "bart.spruce.clean.1.0[["art"]] != 511".
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["art"]] == 511, ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["ksha.rel"]] < 0.7".
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["ksha.rel"]] >= 0.7, ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665111A", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665112B", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665113B", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675111A", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675112A", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675113A", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675114A", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351111", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351121", ]
+## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
+bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351131", ]
+## Exclude all consecutive measurements for a given "edvid" if "bart.spruce.clean.1.0[["gha.rel.cha"]] < 0".
 names.vec <- NULL
-for (parcel in levels(spruce.1.0[["edvid"]])) {
+for (parcel in levels(bart.spruce.clean.1.0[["edvid"]])) {
     name.cur <- paste0("obj.", as.character(parcel))
     names.vec <- c(names.vec, name.cur)
-    parcel.subset <- spruce.1.0[spruce.1.0[["edvid"]] == parcel, ]
+    parcel.subset <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] == parcel, ]
     auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
     if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
         assign(x = make.names(names = name.cur),
@@ -371,15 +371,15 @@ for (parcel in levels(spruce.1.0[["edvid"]])) {
     }
 }
 ## Create new data frame from objects created by "for" loop above.
-spruce.1.0 <- data.frame(NULL)
+bart.spruce.clean.1.0 <- data.frame(NULL)
 for (name.cur in names.vec) {
-    spruce.1.0 <- rbind(spruce.1.0,
+    bart.spruce.clean.1.0 <- rbind(bart.spruce.clean.1.0,
                           eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
-spruce.1.0 <- droplevels(x = spruce.1.0)
-## Add "spruce.1.0" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("spruce.1.0", kgmaxObjects)
+bart.spruce.clean.1.0 <- droplevels(x = bart.spruce.clean.1.0)
+## Add "bart.spruce.clean.1.0" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bart.spruce.clean.1.0", kgmaxObjects)
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
