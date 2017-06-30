@@ -213,22 +213,30 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_1.6.RData" ##
-#############################
+####################################
+## Create "gmax_merged_1.6.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.5.
-## In this version, "bart" contains an additional 25. column "h100.EKL.I" which holds h100 for a given age if the stand were EKL I.
+## In this version, "bart.SPECIES" contains an additional column "h100.EKL.I" which holds h100 for a given age if the stand were EKL I.
 kBaseFileVersion <- "1.5"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "1.6"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
-## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-SI.h100.EKL.I <- 35.1  ##  This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
-bart$h100.EKL.I <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = bart$alt)) - 49.872 + 7.3309 * log(x = bart$alt) + 0.77338 * (log(x = bart$alt))^2
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
+    ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
+    SI.h100.EKL.I <- 35.1  ##  This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
+    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = cur.object[["alt"]])) - 49.872 + 7.3309 * log(x = cur.object[["alt"]]) + 0.77338 * (log(x = cur.object[["alt"]]))^2
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
