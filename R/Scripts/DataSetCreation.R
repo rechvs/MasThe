@@ -643,20 +643,28 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.7.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.7.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.6.
-## In this version, "bart.spruce.clean.1.0" contains an additional 38. column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
 kBaseFileVersion <- "2.6"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.7"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "age.class".
-bart.spruce.clean.1.0[["age.class"]] <- cut(x = bart.spruce.clean.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "age.class".
+    bart.spruce.clean.1.0[["age.class"]] <- cut(x = bart.spruce.clean.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
