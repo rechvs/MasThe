@@ -573,7 +573,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 ####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
-## In this version, "bart.SPECIES.clean.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
 kBaseFileVersion <- "2.4"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.5"
@@ -607,27 +607,35 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.6.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.6.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.5.
-## In this version, "bart.spruce.clean.1.0" contains an additional 37. column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
 kBaseFileVersion <- "2.5"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.6"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ghaa.cum".
-ghaa.cum <- NULL
-for (cur.edvid in levels(bart.spruce.clean.1.0$"edvid")) {
-    ghaa.subset <- bart.spruce.clean.1.0$"ghaa"[bart.spruce.clean.1.0$"edvid" == cur.edvid]
-    ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
-    ghaa.cum <- c(ghaa.cum,
-                  cumsum(x = ghaa.subset))
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "ghaa.cum".
+    ghaa.cum <- NULL
+    for (cur.edvid in levels(bart.spruce.clean.1.0[["edvid"]])) {
+        ghaa.subset <- bart.spruce.clean.1.0[["ghaa"]][bart.spruce.clean.1.0[["edvid"]] == cur.edvid]
+        ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
+        ghaa.cum <- c(ghaa.cum,
+                      cumsum(x = ghaa.subset))
+    }
+    bart.spruce.clean.1.0[["ghaa.cum"]] <- ghaa.cum
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
-bart.spruce.clean.1.0$"ghaa.cum" <- ghaa.cum
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
