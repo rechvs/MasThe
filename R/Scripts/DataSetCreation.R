@@ -533,25 +533,33 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.4.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.4.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.3.
-## In this version, "bart.spruce.clean.1.0" contains an additional 34. column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
+## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
 kBaseFileVersion <- "2.3"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.4"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Calculate "ksha.rel.cha".
-for (parcel in levels(bart.spruce.clean.1.0$edvid)) {
-    ksha.cur.par <- bart.spruce.clean.1.0$ksha[bart.spruce.clean.1.0$edvid == parcel]
-    ksha.cur.par <- ksha.cur.par[1:length(ksha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
-    ksha.diff <- bart.spruce.clean.1.0$ksha.diff[bart.spruce.clean.1.0$edvid == parcel]
-    ksha.diff <- ksha.diff[2:length(ksha.diff)]  ## Remove first element since it is not necessary for the calculation.
-    bart.spruce.clean.1.0$ksha.rel.cha[bart.spruce.clean.1.0$edvid == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "ksha.rel.cha".
+    for (parcel in levels(cur.object[["edvid"]])) {
+        ksha.cur.par <- cur.object[["ksha"]][cur.object[["edvid"]] == parcel]
+        ksha.cur.par <- ksha.cur.par[1:length(ksha.cur.par)-1]  ## Remove last element since it is not necessary for the calculation.
+        ksha.diff <- cur.object[["ksha.diff"]][cur.object[["edvid"]] == parcel]
+        ksha.diff <- ksha.diff[2:length(ksha.diff)]  ## Remove first element since it is not necessary for the calculation.
+        cur.object[["ksha.rel.cha"]][cur.object[["edvid"]] == parcel] <- c(NA, ksha.diff / ksha.cur.par)  ## First element of vector replaced by NA since its calculation would require dividing by 0.
+    }
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
 ## Save results.
 save(list = kgmaxObjects,
