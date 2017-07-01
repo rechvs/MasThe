@@ -568,26 +568,37 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.5.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.5.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
-## In this version, "bart.spruce.clean.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
+## In this version, "bart.SPECIES.clean.1.0" contains an additional 36. column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
 kBaseFileVersion <- "2.4"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.5"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Create "jahr".
-for (cur.row.index in 1:nrow(auf)) {
-    cur.row <- auf[cur.row.index, ]
-    cur.edvid <- cur.row$"edvid"
-    cur.auf <- as.numeric(cur.row$"auf")
-    cur.jahr <- as.numeric(cur.row$"jahr")
-    index.bart.spruce.clean.1.0 <- which(x = bart.spruce.clean.1.0$"edvid" == cur.edvid & bart.spruce.clean.1.0$"auf" == cur.auf)
-    bart.spruce.clean.1.0$"jahr"[index.bart.spruce.clean.1.0] <- cur.jahr
+## Loop over all relevant objects.
+for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Assign data frame "auf.SPECIES".
+    cur.auf.df.name <- paste0("auf.", strsplit(x = cur.object.name, split = ".", fixed = TRUE)[[1]][2])
+    cur.auf.df <- get(x = cur.auf.df.name)
+    ## Create "jahr".
+    for (cur.row.index in 1:nrow(cur.auf.df)) {
+        cur.row <- cur.auf.df[cur.row.index, ]
+        cur.edvid <- cur.row[["edvid"]]
+        cur.auf <- as.numeric(cur.row[["auf"]])
+        cur.jahr <- as.numeric(cur.row[["jahr"]])
+        index.cur.object <- which(x = cur.object[["edvid"]] == cur.edvid & cur.object[["auf"]] == cur.auf)
+        cur.object[["jahr"]][index.cur.object] <- cur.jahr
+    }
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
 }
 ## Save results.
 save(list = kgmaxObjects,
