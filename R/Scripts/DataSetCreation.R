@@ -672,34 +672,46 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
-#############################
-## Create "gmax_2.8.RData" ##
-#############################
+####################################
+## Create "gmax_merged_2.8.RData" ##
+####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
 ## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "bart.spruce.clean.1.0[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
 kBaseFileVersion <- "2.7"
-kBaseFileName <- paste0(kDataDir,"gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "2.8"
-kFileName <- paste0(kDataDir,"gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-## Extract all levels of "bart.spruce.clean.1.0[["edvid"]]".
-edvid.archive.suppl.info <- data.frame("edvid" = levels(x = bart.spruce.clean.1.0[["edvid"]]))
-## Find out which elements of "vers[["vers"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
-vers.matches <- match(x = substr(x = edvid.archive.suppl.info[["edvid"]],
-                                 start = 0,
-                                 stop = 6),
-                      table = vers[["vers"]])
-## Find out which elements of "parz[["edvid"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
-parz.matches <- match(x = edvid.archive.suppl.info[["edvid"]],
-                      table = parz[["edvid"]])
-## Add columns "forstamt", "abt" and "BESONDERHEITEN" to "edvid.archive.suppl.info".
-edvid.archive.suppl.info[["forstamt"]] <- vers[["forstamt"]][vers.matches]
-edvid.archive.suppl.info[["abt"]] <- vers[["abt"]][vers.matches]
-edvid.archive.suppl.info[["BESONDERHEITEN"]] <- parz[["BESONDERHEITEN"]][parz.matches]
-## Add "edvid.archive.suppl.info" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("edvid.archive.suppl.info", kgmaxObjects)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Assign current "bart.SPECIES.clean.1.0".
+    cur.bart.object <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
+    ## Assign current "vers.SPECIES".
+    cur.vers.object <- get(x = paste0("vers.", cur.species.name))
+    ## Assign current "parz.SPECIES".
+    cur.parz.object <- get(x = paste0("parz.", cur.species.name))
+    ## Extract all levels of "cur.bart.object[["edvid"]]".
+    edvid.archive.suppl.info <- data.frame("edvid" = levels(x = cur.bart.object[["edvid"]]))
+    ## Find out which elements of "cur.vers.object[["vers"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
+    vers.matches <- match(x = substr(x = edvid.archive.suppl.info[["edvid"]],
+                                     start = 0,
+                                     stop = 6),
+                          table = cur.vers.object[["vers"]])
+    ## Find out which elements of "cur.parz.object[["edvid"]]" match the elements of "edvid.archive.suppl.info[["edvid"]]".
+    parz.matches <- match(x = edvid.archive.suppl.info[["edvid"]],
+                          table = cur.parz.object[["edvid"]])
+    ## Add columns "forstamt", "abt" and "BESONDERHEITEN" to "edvid.archive.suppl.info".
+    edvid.archive.suppl.info[["forstamt"]] <- cur.vers.object[["forstamt"]][vers.matches]
+    edvid.archive.suppl.info[["abt"]] <- cur.vers.object[["abt"]][vers.matches]
+    edvid.archive.suppl.info[["BESONDERHEITEN"]] <- cur.parz.object[["BESONDERHEITEN"]][parz.matches]
+    ## Add "edvid.archive.suppl.info" to the vector of names of objects meant to be saved.
+    kgmaxObjects <- c("edvid.archive.suppl.info", kgmaxObjects)
+    ## Assign "edvid.archive.suppl.info" to correctly named object.
+    assign(x = paste0("edvid.archive.suppl.info.", cur.species.name),
+           value = edvid.archive.suppl.info)
+}
 ## Save results.
 save(list = kgmaxObjects,
      file = kFileName,
