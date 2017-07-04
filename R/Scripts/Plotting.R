@@ -8,7 +8,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "3.3"
-kBaseFileName <- paste0(kDataDir, "gmax_", kBaseFileVersion, ".RData")
+kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
 ## 110 = Eiche
@@ -44,7 +44,7 @@ kLwdVec <- 2
 kColVecAll <- c("#630053", "#50cb56", "#8e62e3", "#008322", "#e167e0", "#84ffbc", "#e32b4a", "#37558f", "#0263d9", "#e39305", "#01418a", "#f18022", "#029ba6", "#810012", "#ecffa2", "#ffaaff", "#6b7400", "#c5c4ff", "#945a00", "#ffadc3", "#795e55", "#ff8d94", "#442900", "#ffd584", "#6d1f00", "#c1be8f", "#685f35", "#ffaf77")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
 if (kColPerTrial) {
     kPchVecAll <- c(21:25, 10)
-    kEdvidSubstr <- substr(x = levels(bart.clean.1.0$edvid), start = 1, stop = 3)
+    kEdvidSubstr <- substr(x = levels(bart.spruce.clean.1.0$edvid), start = 1, stop = 3)
     kEdvidSubstrCounts <- table(kEdvidSubstr)
     ## n.colors <- length(x = unique(x = kEdvidSubstr))  ## Determine required number of colors (not required for script execution).
     ## n.pchs <- max(kEdvidSubstrCounts)  ## Determine maximum number of point characters required (not required for script execution).
@@ -101,6 +101,8 @@ kPlottingInformation <- list(
                              "kPlotYLab" = "SI.h100 [m]"),
         "ln.dg_ln.nha" = list("kPlotXLab" = "ln.dg",
                               "kPlotYLab" = "ln.nha"),
+        "log.dg_log.nha" = list("kPlotXLab" = "log.dg",
+                              "kPlotYLab" = "log.nha"),
         "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
                                       "kPlotYLab" = "h100.diff.EKL.I [m]"),
         "ghaa.cum_gha" = list("kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
@@ -110,7 +112,7 @@ kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
 ## for (cur.data.source in names(x = kPlottingInformation)) {
-for (cur.data.source in ls()[grepl(pattern = "bart.clean", x = ls(), fixed = TRUE)]) {
+for (cur.data.source in ls()[grepl(pattern = "bart.spruce.clean", x = ls(), fixed = TRUE)]) {
     for (cur.list.name in names(x = kPlottingInformation)) {
         ## Turn off graphics device.
         graphics.off()
