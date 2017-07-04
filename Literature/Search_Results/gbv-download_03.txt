@@ -1,0 +1,582 @@
+
+Ihr Suchauftrag war
+eingeschr&auml;nkt suchen [und] ([TIT] Titel (Stichwort)) "schließende statistik" 
+Es gibt 22 Treffer.
+
+Dies sind Treffer 1 - 10.
+
+                           [Elektronische Ressource]
+                    Titel: Wahrscheinlichkeitsrechnung und schließende
+                           Statistik : Praxisorientierte Einführung Mit
+                           Aufgaben und Lösungen / von Günther Bourier
+              VerfasserIn: Bourier, Günther
+                  Ausgabe: 8., aktualisierte Auflage
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden : Springer Gabler, 2013
+                   Umfang: Online-Ressource (XI, 382 S) : 107 schw.-w. Ill.,
+                           17 schw.-w. Tab
+                Anmerkung: Description based upon print version of record
+   Bibliogr. Zusammenhang: Print version: Wahrscheinlichkeitsrechnung und
+                           schließende Statistik : Praxisorientierte
+                           Einführung. Mit Aufgaben und Lösungen
+                     ISBN: 978-3-658-01447-6
+                           Weitere Ausgaben: 978-3-658-01446-9 (Printausgabe)
+               Identifier: DOI: 10.1007/978-3-658-01447-6
+       Inhaltsverzeichnis: Grundbegriffe der
+                           WahrscheinlichkeitsrechnungErmittlung von
+                           Wahrscheinlichkeiten -- Kombinatorik --
+                           Zufallsvariable -- Theoretische Verteilungen von
+                           Zufallsvariablen -- Grundlagen der schließenden
+                           Statistik -- Schätzverfahren -- Testverfahren.
+            Schlagwörter: *Statistics ; Economics -- Statistics ; Operations
+                           research
+           Mehr zum Thema: Klassifikation der Library of Congress: QA276-280
+                           Dewey Dezimal-Klassifikation: [23] 330.015195
+                           Regensburger Verbund-Klassifikation: QH 231 ; SK
+                           800 ; SK 850
+
+              Gesamttitel: Springer eBook Collection : Life Science and Basic
+                           Disciplines
+           Mehr zum Titel: <a
+                           href='http://external.dandelon.com/download/
+                           attachments/dandelon/ids/
+                           DE010D4731746E7A632A1C1257B1E0048ADB5.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+                Anmerkung: nl
+                     Link: <a
+                           href='http://dx.doi.org/10.1007/978-3-658-01447-6'
+                           target=_blank>http://dx.doi.org/10.1007/978-3-658-
+                           01447-6</a> [Volltext, Campuszugriff]
+                           <a
+                           href='http://han.sub.uni-goettingen.de/han/
+                           Springer-eBook-Naturwissenschaften/dx.doi.org/10.
+                           1007/978-3-658-01447-6'
+                           target=_blank>http://han.sub.uni-goettingen.de/
+                           han/Springer-eBook-Naturwissenschaften/dx.doi.org/
+                           10.1007/978-3-658-01447-6</a> [Volltext, Externer
+                           Zugriff]
+                           <a
+                           href='http://www.bibliothek.uni-regensburg.de/
+                           dbinfo/frontdoor.php?titel_id=8680&bibid=SUBGO'
+                           target=_blank>http://www.bibliothek.uni-
+                           regensburg.de/dbinfo/frontdoor.php?titel_id=8680&
+                           bibid=SUBGO</a> [Dieser Titel ist Teil einer
+                           Datenbank]
+
+                           [Elektronische Ressource]
+                    Titel: Statistik-Übungen : Beschreibende Statistik
+                           Wahrscheinlichkeitsrechnung Schließende Statistik
+                           / von Günther Bourier
+              VerfasserIn: Bourier, Günther
+                  Ausgabe: 4., aktualisierte Auflage
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden : Gabler Verlag / Springer Fachmedien
+                           Wiesbaden GmbH, Wiesbaden, 2012
+                   Umfang: Online-Ressource (226 S.)
+   Bibliogr. Zusammenhang: Druckausg.: Bourier, Günther: Statistik-Übungen
+                     ISBN: 978-3-8349-6930-9
+                           Weitere Ausgaben: 978-3-8349-3039-2 (Printausgabe)
+               Identifier: DOI: 10.1007/978-3-8349-6930-9
+            Schlagwörter: *Statistics ; Economics -- Statistics
+           Mehr zum Thema: Klassifikation der Library of Congress: QA276-280
+                           Regensburger Verbund-Klassifikation: QH 212 ; SK
+                           980
+
+         Sekundärausgabe: [Online-Ausg.]
+ Veröffentlichungsangabe: 2012
+              Gesamttitel: Springer eBook Collection : Life Science & Basic
+                           Disciplines
+
+                Anmerkung: nl
+                     Link: <a
+                           href='http://dx.doi.org/10.1007/978-3-8349-6930-9'
+                           target=_blank>http://dx.doi.org/10.1007/978-3-
+                           8349-6930-9</a> [Volltext, Campuszugriff]
+                           Lizenzpflichtig
+                           <a
+                           href='http://han.sub.uni-goettingen.de/han/
+                           Springer-eBook-Naturwissenschaften/dx.doi.org/10.
+                           1007/978-3-8349-6930-9'
+                           target=_blank>http://han.sub.uni-goettingen.de/
+                           han/Springer-eBook-Naturwissenschaften/dx.doi.org/
+                           10.1007/978-3-8349-6930-9</a> [Volltext, Externer
+                           Zugriff]
+                           <a
+                           href='http://www.bibliothek.uni-regensburg.de/
+                           dbinfo/frontdoor.php?titel_id=8680&bibid=SUBGO'
+                           target=_blank>http://www.bibliothek.uni-
+                           regensburg.de/dbinfo/frontdoor.php?titel_id=8680&
+                           bibid=SUBGO</a> [Dieser Titel ist Teil einer
+                           Datenbank]
+
+                    Titel: Statistik-Übungen : beschreibende Statistik,
+                           Wahrscheinlichkeitsrechnung, schließende Statistik
+                           / Günther Bourier
+              VerfasserIn: Bourier, Günther
+                  Ausgabe: 4., aktualisierte Aufl.
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden : Gabler, 2011
+                   Umfang: 226 S. : graph. Darst. ; 24 cm
+   Bibliogr. Zusammenhang: Online-Ausg: Statistik-Übungen
+                           Online-Ausg.: Bourier, Günther:
+                           Statistik-Übungen
+                     ISBN: 978-383-49303-9-2*Pb. : ca. EUR 24.95 (DE)
+                           3-8349-3039-3*Pb. : ca. EUR 24.95 (DE)
+            Schlagwörter: *Deskriptive Statistik / Aufgabensammlung
+                           *Wahrscheinlichkeitsrechnung / Aufgabensammlung
+                           *Inferenzstatistik / Aufgabensammlung
+              Sachgebiete: 31.73  Mathematische Statistik
+                           83.03  Methoden und Techniken der Volkswirtschaft
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 650
+                           Dewey Dezimal-Klassifikation: [DDC22ger] 519.53
+                           Regensburger Verbund-Klassifikation: QH 212
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/bs/toc/661305201.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+              Sachgebiete: LC 100    Allgemeine Wirtschafts- und
+                           Sozialstatistik
+                           LC 130    Deskriptive Wirtschafts- und
+                           Sozialstatistik
+
+                 Standort: LS1
+                 Signatur: LC 130:i = 2012 A 9051
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 1.
+                           OG, LS1
+
+                    Titel: Wahrscheinlichkeitsrechnung und schließende
+                           Statistik : praxisorientierte Einführung ; mit
+                           Aufgaben und Lösungen / Günther Bourier
+              VerfasserIn: Bourier, Günther
+                  Ausgabe: 7., aktualisierte Aufl.
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden : Gabler, 2011
+                   Umfang: XI, 382 S. : graph. Darst.
+           Schriftenreihe: Gabler Lehrbuch
+   Bibliogr. Zusammenhang: Online-Ausg.: Bourier, Günther:
+                           Wahrscheinlichkeitsrechnung und schließende
+                           Statistik
+                     ISBN: 3-8349-2762-7, 978-3-8349-2762-0*Pb. : EUR 29.95
+                           (DE)
+            Schlagwörter: *Inferenzstatistik / Lehrbuch
+                           *Wahrscheinlichkeitsrechnung / Lehrbuch
+                           *Economics
+                           Wahrscheinlichkeitsrechnung / Statistische
+                           Methodenlehre / Theorie
+               Art/Inhalt: Lehrbuch / Textbook
+              Sachgebiete: 31.73  Mathematische Statistik
+                           31.70  Wahrscheinlichkeitsrechnung
+                           83.03  Methoden und Techniken der Volkswirtschaft
+                           31.12  Kombinatorik  Graphentheorie
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 330
+                           Dewey Dezimal-Klassifikation: [DDC22ger] 330.01519
+                           Regensburger Verbund-Klassifikation: QH 231
+           Mehr zum Titel: <a
+                           href='http://deposit.d-nb.de/cgi-bin/dokserv?
+                           id=3553179&prov=M&dok_var=1&dok_ext=htm'
+                           target=_blank>Inhaltsbeschreibung</a>
+                           <a href='http://www.gbv.de/dms/zbw/638419514.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+              Sachgebiete: LC 130    Deskriptive Wirtschafts- und
+                           Sozialstatistik
+
+                 Standort: LS1
+                 Signatur: LC 130:i = 2012 A 9049
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 1.
+                           OG, LS1
+
+                    Titel: Statistik-Übungen : beschreibende Statistik,
+                           Wahrscheinlichkeitsrechnung, schließende Statistik
+                           / von Günther Bourier
+              VerfasserIn: Bourier, Günther
+                  Ausgabe: 2., vollst. überarb. Aufl.
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Herne [u.a.] : Verl. Neue Wirtschafts-Briefe, 2006
+                   Umfang: VII, 225 S. : graph. Darst. ; 21 cm
+           Schriftenreihe: Betriebswirtschaft in Studium und Praxis
+                     ISBN: 3-482-52702-4, 978-3-482-52702-9*kart. : EUR
+                           19.80, ca. sfr 34.80
+            Schlagwörter: *Deskriptive Statistik / Aufgabensammlung
+                           *Wahrscheinlichkeitsrechnung / Aufgabensammlung
+                           *Inferenzstatistik / Aufgabensammlung
+              Sachgebiete: 31.73  Mathematische Statistik
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 330 ; S
+                           Regensburger Verbund-Klassifikation: QH 231 ; QH
+                           212 ; SK 800
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/hbz/toc/ht014766619.
+                           pdf' target=_blank>Inhaltsverzeichnis</a>
+                           [2008-11-15]
+                           <a href='http://d-nb.info/979613736/04'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2010 Bou
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                    Titel: Schließende Statistik : grundlegende Methoden / U.
+                           Genschel; C. Becker
+              VerfasserIn: Genschel, Ulrike ; Becker, Claudia
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Berlin [u.a.] : Springer, 2005
+                   Umfang: XI, 352 S. : graph. Darst. ; a
+           Schriftenreihe: EMILeA-stat - Medienreihe zur angewandten
+                           Statistik
+                     ISBN: 3-540-21838-6, 978-3-540-21838-8*Pb. : EUR 24.95,
+                           CHF 42.50
+            Schlagwörter: *Inferenzstatistik / Lehrbuch
+                           *Probabilistische Testtheorie / Schätztheorie
+              Sachgebiete: 31.70  Wahrscheinlichkeitsrechnung
+                           31.73  Mathematische Statistik
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 310 ; 310
+                           Regensburger Verbund-Klassifikation: QH 231 ; SK
+                           830
+                           Mathematics Subject Classification: *62-01
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/hebis-darmstadt/toc/
+                           124023290.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://d-nb.info/971707545/04'
+                           target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://zbmath.org/?q=an:1053.62002'
+                           target=_blank>http://zbmath.org/?q=an:1053.62002</
+                           a> [Zentralblatt MATH]
+
+              Sachgebiete: EGC 010    Instructional exposition {Statistics}
+
+                 Standort: FMAG
+                 Signatur: 2004 A 14028
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                    Titel: Wahrscheinlichkeitsrechnung und schließende
+                           Statistik / Karl Mosler; Friedrich Schmid
+              VerfasserIn: Mosler, Karl C., 1947- ; Schmid, Friedrich
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Berlin [u.a.] : Springer, 2004
+                   Umfang: XII, 347 S : graph. Darst ; a
+           Schriftenreihe: Springer-Lehrbuch
+                Anmerkung: Literaturverz. S. 339 - 342
+                     ISBN: 3-540-00970-1 : EUR 19.95
+            Schlagwörter: *Inferenzstatistik / Lehrbuch
+                           *Wahrscheinlichkeitsrechnung / Lehrbuch
+                           Wahrscheinlichkeitsrechnung / |stw| Theorie /
+                           |stw| Induktive Statistik / |stw| Deutschland /
+                           |stw| Statistische Methodenlehre
+               Art/Inhalt: Buch / Book / Lehrbuch / Textbook
+              Sachgebiete: 31.70  Wahrscheinlichkeitsrechnung
+                           31.73  Mathematische Statistik
+                           83.03  Methoden und Techniken der Volkswirtschaft
+           Mehr zum Thema: Regensburger Verbund-Klassifikation: QH 230 ; QH
+                           231 ; QH 170 ; SK 800
+                           Mathematics Subject Classification: *60-01
+                           Mathematics Subject Classification: 62-01
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/ilmenau/toc/369905695.
+                           PDF' target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://zbmath.org/?q=an:1061.60002'
+                           target=_blank>http://zbmath.org/?q=an:1061.60002</
+                           a> [Zentralblatt MATH]
+
+                 Standort: FMAG
+                 Signatur: 2003 A 13745
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                           [Elektronische Ressource]
+                    Titel: Wahrscheinlichkeitsrechnung und schließende
+                           Statistik : Praxisorientierte Einführung / von
+                           Günther Bourier
+              VerfasserIn: Bourier, Günther [author.]
+                  Ausgabe: 3., überarbeitete Auflage
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden ; s.l. : Gabler Verlag ; Imprint: Gabler
+                           Verlag, 2002
+                   Umfang: Online-Ressource (XII, 382S. 110 Abb) : online
+                           resource
+                Anmerkung: Dieses einführende Lehrbuch zeigt den gesamten
+                           Weg von der elementaren Ermittlung von
+                           Wahrscheinlichkeiten bis zur Erstellung
+                           theoretischer Wahrscheinlichkeitsverteilungen auf.
+                           Es erklärt außerdem detailliert den Ablauf des
+                           statistischen Schließens, ausgehend von der
+                           Stichprobenauswahl über die Stichprobenauswertung
+                           bis zur Parameterschätzung und
+                           Hypothesenprüfung. Im Vordergrund stehen die
+                           Anwendung und praktische Umsetzung statistischer
+                           Methoden. Der Autor legt besonderen Wert auf eine
+                           anschauliche, verständliche und nachvollziehbare
+                           Beschreibung. Zu diesem Zweck werden alle Methoden
+                           in klar strukturierter Form, Schritt für Schritt
+                           und detailliert dargestellt. Übungsaufgaben und
+                           Kontrollfragen zu allen Kapiteln vertiefen den
+                           Stoff. Für alle rechnerisch zu lösenden Aufgaben
+                           ist eine ausführliche Lösung angegeben. Für die
+                           dritte Auflage wurde das Lehrbuch inhaltlich und
+                           didaktisch überarbeitet.
+                           "Wahrscheinlichkeitsrechnung und schließende
+                           Statistik" richtet sich an Studenten und Dozenten
+                           der Wirtschaftswissenschaften im Grund- und
+                           Hauptstudium an Fachhochschulen und
+                           Universitäten. Dem Praktiker erschließt es sich
+                           durch seine Eignung zum Selbststudium. Professor
+                           Dr. Günther Bourier lehrt Statistik und Logistik
+                           an der Fachhochschule Regensburg
+                     ISBN: 978-3-322-96585-1
+                           Weitere Ausgaben: 978-3-409-31463-3 (Printausgabe)
+               Identifier: DOI: 10.1007/978-3-322-96585-1
+       Inhaltsverzeichnis: 1 Einführung2 Grundbegriffe der
+                           Wahrscheinlichkeitsrechnung -- 2.1 Zufallsvorgang
+                           -- 2.2 Elementarereignis und Ereignisraum -- 2.3
+                           Ereignis -- 2.4 Übungsaufgaben und Kontrollfragen
+                           -- 3 Direkte Ermittlung von Wahrscheinlichkeiten
+                           -- 3.1 Die klassische
+                           Wahrscheinlichkeitsermittlung -- 3.2 Die
+                           statistische Wahrscheinlichkeitsermittlung -- 3.3
+                           Die subjektive Wahrscheinlichkeitsermittlung --
+                           3.4 Übungsaufgaben und Kontrollfragen -- 4
+                           Indirekte Ermittlung von Wahrscheinlichkeiten --
+                           4.1 Relationen von Ereignissen -- 4.2
+                           Eigenschaften von Wahrscheinlichkeiten -- 4.3
+                           Rechnen mit Wahrscheinlichkeiten -- 4.4
+                           Übungsaufgaben und Kontrollfragen -- 5
+                           Kombinatorik -- 5.1 Permutationen -- 5.2
+                           Kombinationen -- 5.3 Permutation, Variation oder
+                           Kombination -- 5.4 Übungsaufgaben und
+                           Kontrollfragen -- 6 Zufallsvariable -- 6.1 Zum
+                           Begriff Zufallsvariable -- 6.2 Diskrete
+                           Zufallsvariable -- 6.3 Stetige Zufallsvariable --
+                           6.4 Mehrdimensionale Zufallsvariable -- 6.5
+                           Übungsaufgaben und Kontrollfragen -- 7
+                           Theoretische Verteilungen von Zufallsvariablen --
+                           7.1 Diskrete Verteilungen -- 7.2 Stetige
+                           Verteilungen -- 7.3 Übersicht zu den
+                           Approximationsmöglichkeiten -- 7.4
+                           Übungsaufgaben und Kontrollfragen -- 8 Grundlagen
+                           der schließenden Statistik -- 8.1 Chancen und
+                           Risiken von Teilerhebungen -- 8.2 Zur Konzeption
+                           des Rückschlusses -- 8.3 Auswahlverfahren -- 8.4
+                           Stichprobenverteilungen -- 8.5
+                           Stichprobenfunktionen und ihre Verteilungen -- 8.6
+                           Übungsaufgaben und Kontrollfragen -- 9
+                           Schätzverfahren -- 9.1 Schätzfunktionen -- 9.2
+                           Punktschätzung -- 9.3 Intervall s chätzung --
+                           9.4 Übungsaufgaben und Kontrollfragen -- 10
+                           Testverfahren -- 10.1 Einführungsbeispiel -- 10.2
+                           Elemente der Testverfahren -- 10.3 Trennschärfe
+                           -- 10.4 Testverfahren für das arithmetische
+                           Mittel -- 10.5 Testverfahren für den Anteilswert
+                           -- 10.6 Chi-Quadrat-Verteilungstest -- 10.7
+                           Chi-Quadrat-Unabhängigkeitstest -- 10.8
+                           Übungsaufgaben und Kontrollfragen -- 11 Lösung
+                           ausgewählter Übungsaufgaben -- Tabellenanhang --
+                           Binomialverteilung -- Poissonverteilung --
+                           Standardnormalverteilung -- Zufallszahlen --
+                           Chi-Quadrat-Verteilung -- t-Verteilung --
+                           F-Verteilung -- Stichwortverzeichnis.
+            Schlagwörter: *Statistics ; Economics -- Statistics
+           Mehr zum Thema: Klassifikation der Library of Congress: QA276-280
+                           Dewey Dezimal-Klassifikation: [23] 330.015195
+
+              Gesamttitel: Springer eBook Collection : Life Science and Basic
+                           Disciplines
+           Mehr zum Titel: <a
+                           href='http://external.dandelon.com/download/
+                           attachments/dandelon/ids/
+                           DE0016D129B99AEE97C35C12571A2002F09B3.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+                Anmerkung: nl
+                     Link: <a
+                           href='http://dx.doi.org/10.1007/978-3-322-96585-1'
+                           target=_blank>http://dx.doi.org/10.1007/978-3-322-
+                           96585-1</a> [Volltext, Campuszugriff]
+                           <a
+                           href='http://han.sub.uni-goettingen.de/han/
+                           springer-ebook-life-science-and-basic-disciplines/
+                           dx.doi.org/10.1007/978-3-322-96585-1'
+                           target=_blank>http://han.sub.uni-goettingen.de/
+                           han/springer-ebook-life-science-and-basic-
+                           disciplines/dx.doi.org/10.1007/978-3-322-96585-1</
+                           a> [Volltext, Externer Zugriff]
+                           <a
+                           href='http://www.bibliothek.uni-regensburg.de/
+                           dbinfo/frontdoor.php?titel_id=8680&bibid=SUBGO'
+                           target=_blank>http://www.bibliothek.uni-
+                           regensburg.de/dbinfo/frontdoor.php?titel_id=8680&
+                           bibid=SUBGO</a> [Dieser Titel ist Teil einer
+                           Datenbank]
+
+                    Titel: Schließende Statistik : eine Einführung für
+                           Sozialwissenschaftler / Heinz Sahner
+              VerfasserIn: Sahner, Heinz, 1938-
+                  Ausgabe: 5., überarb. Aufl
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden : Westdt. Verl., 2002
+                   Umfang: 154 S : graph. Darst ; 19 cm
+           Schriftenreihe: Studienskripten zur Soziologie
+                Anmerkung: Bis 4. Aufl. als Bd. 2 von: Statistik für
+                           Soziologen
+                     ISBN: 3-531-33729-7*kart. : EUR 15.80
+            Schlagwörter: *Inferenzstatistik / Lehrbuch
+              Sachgebiete: 31.73  Mathematische Statistik
+           Mehr zum Thema: Regensburger Verbund-Klassifikation: MR 2100 ; QH
+                           231
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/hebis-darmstadt/toc/
+                           103475370.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://d-nb.info/963757458/04'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+              Sachgebiete: LE 610    Mathematische Methoden in den
+                           Sozialwissenschaften {Soziologie: Methodenlehre}
+
+                 Standort: LS1
+                 Signatur: LE 610 = 2003 A 407
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 1.
+                           OG, LS1
+
+                 Standort: LS1
+                 Signatur: LE 610 = 2003 A 407 [a]
+            Ausleihstatus: Ausleihbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 1.
+                           OG, LS1
+
+                 Standort: LS1
+                 Signatur: LE 610 = 2003 A 407 [b]
+            Ausleihstatus: Ausleihbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 1.
+                           OG, LS1
+
+                           [Elektronische Ressource]
+                    Titel: Wahrscheinlichkeitsrechnung und schließende
+                           Statistik : Praxisorientierte Einführung. Mit
+                           Aufgaben und Lösungen / von Günther Bourier
+              VerfasserIn: Bourier, Günther [author.]
+                  Ausgabe: 2., überarbeitete Auflage
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Wiesbaden ; s.l. : Gabler Verlag ; Imprint: Gabler
+                           Verlag, 2001
+                   Umfang: Online-Ressource (XII, 382S) : online resource
+                Anmerkung: Dieses einführende Lehrbuch zeigt den gesamten
+                           Weg von der elementaren Ermittlung von
+                           Wahrscheinlichkeiten bis zur Erstellung
+                           theoretischer Wahrscheinlichkeitsverteilungen auf.
+                           Es erklärt außerdem detailliert den Ablauf des
+                           statistischen Schließens, ausgehend von der
+                           Stichprobenauswahl über die Stichprobenauswertung
+                           bis zur Parameterschätzung und
+                           Hypothesenprüfung. Im Vordergrund stehen die
+                           Anwendung und praktische Umsetzung statistischer
+                           Methoden. Der Autor legt besonderen Wert auf eine
+                           anschauliche, verständliche und nachvollziehbare
+                           Beschreibung. Zu diesem Zweck werden alle Methoden
+                           in klar strukturierter Form, Schritt für Schritt
+                           und detailliert dargestellt. Übungsaufgaben und
+                           Kontrollfragen zu allen Kapiteln vertiefen den
+                           Stoff. Für alle rechnerisch zu lösenden Aufgaben
+                           ist eine ausführliche Lösung angegeben. Für die
+                           zweite Auflage wurde das Lehrbuch inhaltlich und
+                           didaktisch überarbeitet.
+                           "Wahrscheinlichkeitsrechnung und schließende
+                           Statistik" richtet sich an Studenten und Dozenten
+                           der Wirtschaftswissenschaften im Grund- und
+                           Hauptstudium an Fachhochschulen und
+                           Universitäten. Dem Praktiker erschließt es sich
+                           durch seine Eignung zum Selbststudium. Professor
+                           Dr. Günther Bourier lehrt Statistik und Logistik
+                           an der Fachhochschule Regensburg
+                     ISBN: 978-3-322-96538-7
+                           Weitere Ausgaben: 978-3-409-21463-6 (Printausgabe)
+               Identifier: DOI: 10.1007/978-3-322-96538-7
+       Inhaltsverzeichnis: 1. Einführung2. Grundbegriffe der
+                           Wahrscheinlichkeitsrechnung -- 2.1. Zufallsvorgang
+                           -- 2.2. Elementarereignis und Ereignisraum -- 2.3.
+                           Ereignis -- 2.4. Übungsaufgaben und
+                           Kontrollfragen -- 3. Direkte Ermittlung von
+                           Wahrscheinlichkeiten -- 3.1. Die klassische
+                           Wahrscheinlichkeitsermittlung -- 3.2. Die
+                           statistische Wahrscheinlichkeitsermittlung -- 3.3.
+                           Die subjektive Wahrscheinlichkeitsermittlung --
+                           3.4. Übungsaufgaben und Kontrollfragen -- 4.
+                           Indirekte Ermittlung von Wahrscheinlichkeiten --
+                           4.1. Relationen von Ereignissen -- 4.2.
+                           Eigenschaften von Wahrscheinlichkeiten -- 4.3.
+                           Rechnen mit Wahrscheinlichkeiten -- 4.4.
+                           Übungsaufgaben und Kontrollfragen -- 5.
+                           Kombinatorik -- 5.1. Permutationen -- 5.2.
+                           Kombinationen -- 5.3. Permutation, Variation oder
+                           Kombination -- 5.4. Übungsaufgaben und
+                           Kontrollfragen -- 6. Zufallsvariable -- 6.1. Zum
+                           Begriff Zufallsvariable -- 6.2. Diskrete
+                           Zufallsvariable -- 6.3. Stetige Zufallsvariable --
+                           6.4. Mehrdimensionale Zufallsvariable -- 6.5.
+                           Übungsaufgaben und Kontrollfragen -- 7.
+                           Theoretische Verteilungen von Zufallsvariablen --
+                           7.1. Diskrete Verteilungen -- 7.2. Stetige
+                           Verteilungen -- 7.3. Übersicht zu den
+                           Approximationsmöglichkeiten -- 7.4.
+                           Übungsaufgaben und Kontrollfragen -- 8.
+                           Grundlagen der schließenden Statistik -- 8.1.
+                           Chancen und Risiken von Teilerhebungen -- 8.2. Zur
+                           Konzeption des Rückschlusses -- 8.3.
+                           Auswahlverfahren -- 8.4. Stichprobenverteilungen
+                           -- 8.5. Stichprobenfunktionen und ihre
+                           Verteilungen -- 8.6. Übungsaufgaben und
+                           Kontrollfragen -- 9. Schätzverfahren -- 9.1.
+                           Schätzfunktionen -- 9.2. Punktschätzung -- 9.3.
+                           Intervallschätzung -- 9.4. Übungsaufgaben und
+                           Kontrollfragen -- 10. Testverfahren -- 10.1.
+                           Einführungsbeispiel -- 10.2. Elemente der
+                           Testverfahren -- 10.3. Trennschärfe -- 10.4.
+                           Testverfahren für das arithmetische Mittel --
+                           10.5. Testverfahren für den Anteilswert -- 10.6.
+                           Chi-Quadrat-Verteilungstest -- 10.7.
+                           Chi-Quadrat-Unabhängigkeitstest -- 10.8.
+                           Übungsaufgaben und Kontrollfragen -- 11. Lösung
+                           ausgewählter Übungsaufgaben -- Tabellenanhang --
+                           Binomialverteilung -- Poissonverteilung --
+                           Standardnormalverteilung -- Zufallszahlen --
+                           Chi-Quadrat-Verteilung -- t-Verteilung --
+                           F-Verteilung -- Stichwortverzeichnis.
+            Schlagwörter: *Statistics ; Economics -- Statistics ; Operations
+                           research
+           Mehr zum Thema: Klassifikation der Library of Congress: QA276-280
+                           Dewey Dezimal-Klassifikation: [23] 330.015195
+
+              Gesamttitel: Springer eBook Collection : Life Science and Basic
+                           Disciplines
+           Mehr zum Titel: <a
+                           href='http://external.dandelon.com/download/
+                           attachments/dandelon/ids/
+                           DE001660D55F8195891F9C12572AD00422257.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+                Anmerkung: nl
+                     Link: <a
+                           href='http://dx.doi.org/10.1007/978-3-322-96538-7'
+                           target=_blank>http://dx.doi.org/10.1007/978-3-322-
+                           96538-7</a> [Volltext, Campuszugriff]
+                           <a
+                           href='http://han.sub.uni-goettingen.de/han/
+                           springer-ebook-life-science-and-basic-disciplines/
+                           dx.doi.org/10.1007/978-3-322-96538-7'
+                           target=_blank>http://han.sub.uni-goettingen.de/
+                           han/springer-ebook-life-science-and-basic-
+                           disciplines/dx.doi.org/10.1007/978-3-322-96538-7</
+                           a> [Volltext, Externer Zugriff]
+                           <a
+                           href='http://www.bibliothek.uni-regensburg.de/
+                           dbinfo/frontdoor.php?titel_id=8680&bibid=SUBGO'
+                           target=_blank>http://www.bibliothek.uni-
+                           regensburg.de/dbinfo/frontdoor.php?titel_id=8680&
+                           bibid=SUBGO</a> [Dieser Titel ist Teil einer
+                           Datenbank]
+

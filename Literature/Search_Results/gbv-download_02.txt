@@ -1,0 +1,94 @@
+
+Ihr Suchauftrag war
+eingeschr&auml;nkt suchen [und] ([TIT] Titel (Stichwort)) "inferential statistics" 
+Es gibt 4 Treffer.
+
+Dies sind Treffer 1 - 4.
+
+                    Titel: Descriptive and inferential statistics : an
+                           introduction / Herman J. Loether; M[a]cTavish,
+                           Donald G.
+              VerfasserIn: Loether, Herman J. ; MacTavish, Donald G.
+                  Ausgabe: 3. ed
+ Veröffentlichungsangabe: Boston u.a. : Allyn and Bacon, 1988
+                   Umfang: XVI, 703 S : ill ; 25 cm
+                     ISBN: 0-205-11186-6
+            Schlagwörter: *Statistik / Soziologie
+                           *Sociology -- Statistical methods ; Sampling
+                           (Statistics) ; Statistical hypothesis testing
+           Mehr zum Thema: Klassifikation der Library of Congress: HN25
+                           Dewey Dezimal-Klassifikation: 301'.028
+
+              Sachgebiete: LCA 1:i (FH)
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: 89 A 22225
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                    Titel: Schließende Statistik für Geographen : eine
+                           Einführung / Glen B. Norcliffe. Übers. von T.
+                           Teyssen
+              VerfasserIn: Norcliffe, Glen B.
+          Sonst. Personen: Teyssen, T.
+                Sprache/n: Deutsch
+ Veröffentlichungsangabe: Berlin [u.a.] : Springer, 1981
+                   Umfang: X, 250 S. : graph. Darst., Kt
+        Einheitssachtitel: Inferential statistics for geographers <dt.>
+                Anmerkung: Literaturverz. S. 226 - 230
+                     ISBN: 3-540-10774-6
+                           0-387-10774-6
+              Sachgebiete: 74.03  Methoden und Techniken der Geographie und
+                           Anthropogeographie
+           Mehr zum Titel: <a href='http://d-nb.info/810634767/04'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+              Sachgebiete: QBD 200    Statistische Methodenlehre,
+                           Quantitative Geographie {Geographie}
+
+                 Standort: LS1
+                 Signatur: QBD 200:m = 81 A 14754
+            Ausleihstatus: Ausleihbestand
+                           Bitte am Standort entnehmen: Zentralbibliothek, 2.
+                           OG, LS1
+
+                 Standort: 7/016
+                 Signatur: 118 A/40
+            Ausleihstatus: Praesenzbestand
+
+
+                 Standort: 7/016
+                 Signatur: 118 A/40,2
+            Ausleihstatus: Praesenzbestand
+
+
+                    Titel: Descriptive and inferential statistics / Richard
+                           P. Runyon
+              VerfasserIn: Runyon, Richard P.
+ Veröffentlichungsangabe: Reading, Mass. u.a. : Addison-Wesley, 1977
+                   Umfang: 354 S
+           Schriftenreihe: Addison-Wesley series in statistics
+                     ISBN: 0-201-06655-6
+              Sachgebiete: 31.73  Mathematische Statistik
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 519.53
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: 78 B 1238
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                    Titel: Inferential statistics for geographers / G.B.
+                           Norcliffe
+              VerfasserIn: Norcliffe, G.B.
+ Veröffentlichungsangabe: London, 1977
+                   Umfang: 272 S
+                     ISBN: 0-09-128621-2
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: 78 A 1493
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+

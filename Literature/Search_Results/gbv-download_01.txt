@@ -1,0 +1,323 @@
+
+Ihr Suchauftrag war
+eingeschr&auml;nkt suchen [und] ([TIT] Titel (Stichwort)) generalized additive models 
+Es gibt 8 Treffer.
+
+Dies sind Treffer 1 - 8.
+
+                    Titel: Vector generalized linear and additive models :
+                           with an implementation in R / Thomas W. Yee
+              VerfasserIn: Yee, Thomas W.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: New York [u.a.] : Springer, 2015
+                   Umfang: XXIV, 589 S. : Ill., graph. Darst.
+           Schriftenreihe: Springer series in statistics
+                Anmerkung: Literaturverz. S. 567 - 584
+                     ISBN: 978-1-4939-2817-0
+                           Weitere Ausgaben: 978-1-4939-2818-7*ebook
+            Schlagwörter: *Statistisches Modell ; Lineares Modell ;
+                           Hochleistungsrechnen ; Wahrscheinlichkeitstheorie
+                           ; Datenverarbeitung
+                           *Linear models (Statistics) ; Vector spaces ;
+                           Regression analysis
+           Mehr zum Thema: Klassifikation der Library of Congress: QA279
+                           Regensburger Verbund-Klassifikation: SK 800 ; QH
+                           234 ; SK 840
+
+                 Standort: 7/061
+                 Signatur: 40 186 a
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Dep. fuer
+                           Agraroekonomie u. Rurale Entwicklung
+
+                 Standort: 7/061
+                 Signatur: 40 186 b
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Dep. fuer
+                           Agraroekonomie u. Rurale Entwicklung
+
+                 Standort: 7/061
+                 Signatur: 40 186 c
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Dep. fuer
+                           Agraroekonomie u. Rurale Entwicklung
+
+                    Titel: A beginner's guide to generalized additive models
+                           with R / Alain F. Zuur
+              VerfasserIn: Zuur, Alain F.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: Newburgh, United Kingdom : Highland Statistics,
+                           2012
+                   Umfang: XII, 194 S. : graph. Darst.
+                     ISBN: 978-0-9571741-2-2
+            Schlagwörter: *R/   Programm / Einführung / Verallgemeinertes
+                           Regressionsmodell
+                           *Verallgemeinertes lineares Modell / Statistik /
+                           R/   Programm
+                           *Umweltdaten / Datenverarbeitung / Statistische
+                           Analyse / R/   Programm
+           Mehr zum Thema: Regensburger Verbund-Klassifikation: ST 250
+
+                 Standort: 7/061
+                 Signatur: 39 910
+            Schlagwörter: Datenverarbeitung
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Dep. fuer
+                           Agraroekonomie u. Rurale Entwicklung
+
+                 Standort: EXZ-30
+                 Signatur: 2013 A 17075
+            Ausleihstatus: nicht ausleihbar
+
+
+                    Titel: Generalized additive models : an introduction with
+                           R / Simon N. Wood
+              VerfasserIn: Wood, Simon N.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: Boca Raton [u.a.] : Chapman & Hall/CRC, 2006
+                   Umfang: XVII, 392 S. : graph. Darst., Kt.
+           Schriftenreihe: Texts in statistical science
+                Anmerkung: Literaturverz. S. 379 - 383
+                     ISBN: 1-584-88474-6, 978-1-58488-474-3*hbk
+            Schlagwörter: *Stochastischer Prozess / Verallgemeinertes
+                           lineares Modell / R/   Programm
+                           *Regressionsanalyse / Irrfahrtsproblem /
+                           Verallgemeinertes lineares Modell / R/   Programm
+                           *Random walks (Mathematics) ; Linear models
+                           (Statistics) ; R (Computer program language) --
+                           Mathematical models
+              Sachgebiete: 31.73  Mathematische Statistik
+                           38.03  Methoden und Techniken der
+                           Geowissenschaften
+           Mehr zum Thema: Klassifikation der Library of Congress: QA274.73
+                           Dewey Dezimal-Klassifikation: 519.282
+                           Regensburger Verbund-Klassifikation: QH 234
+                           Mathematics Subject Classification: *62J12
+                           Mathematics Subject Classification: 62-04
+                           Mathematics Subject Classification: 62-01
+           Mehr zum Titel: <a
+                           href='http://www.loc.gov/catdir/enhancements/
+                           fy0646/2006040209-d.html'
+                           target=_blank>http://www.loc.gov/catdir/
+                           enhancements/fy0646/2006040209-d.html</a>
+                           [Publisher description]
+                           <a
+                           href='http://www.loc.gov/catdir/enhancements/
+                           fy0702/2006040209-d.html'
+                           target=_blank>http://www.loc.gov/catdir/
+                           enhancements/fy0702/2006040209-d.html</a>
+                           [Publisher description]
+                           <a
+                           href='http://www.gbv.de/dms/bsz/toc/
+                           bsz251820610inh.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://zbmath.org/?q=an:1087.62082'
+                           target=_blank>http://zbmath.org/?q=an:1087.62082</
+                           a> [Zentralblatt MATH]
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2202 Woo
+            Ausleihstatus: Praesenzbestand
+                           Derzeit ausgeliehen bis 07-06-2017
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2202 Woo
+            Ausleihstatus: Praesenzbestand
+                           Derzeit ausgeliehen bis 20-11-2017
+
+                 Standort: EXZ-13
+                 Signatur: 2009 A 8136
+            Ausleihstatus: nicht ausleihbar
+
+
+                 Standort: 7/061
+                 Signatur: 38 617
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Dep. fuer
+                           Agraroekonomie u. Rurale Entwicklung
+
+                 Standort: 7/038
+                 Signatur: 2810
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Abt. Tierzucht u.
+                           Haustiergenetik
+
+                 Standort: 7/027
+                 Signatur:  06816
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Institut fuer
+                           Mathematische Stochastik
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2202 Woo
+            Ausleihstatus: Praesenzbestand
+                           Derzeit ausgeliehen bis 11-05-2018
+
+                    Titel: Bootstrap inference in semiparametric generalized
+                           additive models / Wolfgang Härdle ...
+          Sonst. Personen: Härdle, Wolfgang, 1953-
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: Aarhus, 2001
+                   Umfang: 43 S : graph. Darst
+           Schriftenreihe: [Working paper / D] Working paper / Department of
+                           Finance, Faculty of Business Administration, the
+                           Aarhus School of Business / Institut for
+                           Finansiering. - Århus, 19XX ; 01.3
+                Anmerkung: Literaturverz. S. 37 - 39
+                           Internetausg.:
+                           http://www.hha.dk/fin/finance/Research/D01_3.pdf
+            Schlagwörter: Nichtparametrisches Verfahren / |stw| Theorie /
+                           |stw| Bootstrap-Verfahren
+               Art/Inhalt: Arbeitspapier / Working paper / Graue Literatur /
+                           Non-commercial literature / Buch / Book /
+                           Online-Publikation / Online publication
+              Sachgebiete: 83.03  Methoden und Techniken der Volkswirtschaft
+
+              Sachgebiete: LCB 011    Ökonometrische Methoden
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: K 2002 A 137
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                    Titel: Generalized additive models / T. J. Hastie and R.
+                           J. Tibshirani
+              VerfasserIn: Hastie, Trevor, 1953- ; Tibshirani, Robert, 1956-
+                  Ausgabe: 1. ed., 1. CRC reprint
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: Boca Raton [u.a.] : Chapman & Hall/CRC, 1999
+                   Umfang: XV, 335 S. : graph. Darst.
+           Schriftenreihe: Monographs on statistics and applied probability.
+                           - Boca Raton, Fla : CRC Press, 1960- ; 43
+                Anmerkung: Orig. publ.: London [u.a.] : Chapman and Hall,
+                           1990
+                           Literaturverz. S. 311 - 324
+                     ISBN: 0-412-34390-8, 978-0-412-34390-2
+            Schlagwörter: *Verallgemeinertes lineares Modell /
+                           Nichtparametrische Regression
+                           *Lineares Regressionsmodell / Glattheit/
+                           Mathematik
+                           *Regression analysis ; Linear models (Statistics)
+                           ; Smoothing (Statistics)
+                           *Regression Analysis ; *Linear Models ;
+              Sachgebiete: 31.73  Mathematische Statistik
+                           31.70  Wahrscheinlichkeitsrechnung
+                           QA 278.2
+           Mehr zum Thema: Klassifikation der Library of Congress: QA278.2
+                           Dewey Dezimal-Klassifikation: [21] 519.5/36
+           Mehr zum Titel: <a
+                           href='http://external.dandelon.com/download/
+                           attachments/dandelon/ids/
+                           CH001C1ACCBBDF6E3E361C125751D004ED11A.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+
+                 Standort: EXZ-13
+                 Signatur: 2008 A 17095
+            Ausleihstatus: nicht ausleihbar
+
+
+                 Standort: 7/027
+                 Signatur:  06063
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Institut fuer
+                           Mathematische Stochastik
+
+                 Standort: 7/038
+                 Signatur: 2898
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Abt. Tierzucht u.
+                           Haustiergenetik
+
+                    Titel: Generalized additive modelling of mixed
+                           distribution Markov models with applications to
+                           Melbourne's rainfall / Rob J. Hyndman & Gary K.
+                           Grunwald
+              VerfasserIn: Hyndman, Rob J. ; Grunwald, Gary K.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: Clayton, Vic., 1999
+                   Umfang: 14 S : graph. Darst
+           Schriftenreihe: Working paper / Department of Econometrics and
+                           Business Statistics, Monash University / Monash
+                           University /   Department of Econometrics and
+                           Business Statistics. - Clayton, Vic., 1997- ; 99,2
+                     ISBN: 0-7326-1056-7
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: K 99 B 3387
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                    Titel: Generalized additive models / T. J. Hastie, R. J.
+                           Tibshirani
+              VerfasserIn: Hastie, Trevor J. ; Tibshirani, Robert J.
+                  Ausgabe: Reprinted
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: London [u.a.] : Chapman & Hall, 1991
+                   Umfang: XV, 335 S : Ill., graph. Darst ; 8°
+           Schriftenreihe: Monographs on statistics and applied probability.
+                           - Boca Raton, Fla : CRC Press, 1960- ; 43
+                Anmerkung: Literaturverz. S. 311 - 324
+                     ISBN: 0-412-34390-8
+            Schlagwörter:  ; Wahrscheinlichkeitstheorie ; Modell,
+                           mathematisches ; Statistische Methodenlehre
+           Mehr zum Thema: Mathematics Subject Classification: *62J02
+                           Mathematics Subject Classification: 62G07
+                           Mathematics Subject Classification: 62-02
+                           Mathematics Subject Classification: 65D10
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/hbz/toc/ht004836705.
+                           pdf' target=_blank>Inhaltsverzeichnis</a>
+                           [2008-11-15]
+                           <a href='http://zbmath.org/?q=an:0747.62061'
+                           target=_blank>http://zbmath.org/?q=an:0747.62061</
+                           a> [Zentralblatt MATH]
+
+              Sachgebiete: EGCG 000    Nonparametric inference {Statistics}
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: ZA 72326:43
+            Ausleihstatus: Ausleihbestand
+                           Derzeit ausgeliehen bis 30-06-2017
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2202 Has
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                    Titel: Generalized additive models / T. J. Hastie; R. J.
+                           Tibshirani
+              VerfasserIn: Hastie, Trevor, 1953- ; Tibshirani, Robert, 1956-
+                  Ausgabe: 1. ed.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: London [u.a.] : Chapman and Hall, 1990
+                   Umfang: XV, 335 S : Ill., graph. Darst
+           Schriftenreihe: Monographs on statistics and applied probability.
+                           - Boca Raton, Fla : CRC Press, 1960- ; 43
+                Anmerkung: Literaturverz. S. 311 - 324
+                     ISBN: 0-412-34390-8
+            Schlagwörter: *Mathematical statistics ; Mathematical models ;
+                           Regression analysis ; Linear models (Statistics) ;
+                           Smoothing (Statistics)
+           Mehr zum Thema: Klassifikation der Library of Congress: QA276 ;
+                           QA278.2
+                           Dewey Dezimal-Klassifikation: 519.5 ; 519.5/36
+                           Mathematics Subject Classification: *62J02
+                           Mathematics Subject Classification: 62G07
+                           Mathematics Subject Classification: 62-02
+                           Mathematics Subject Classification: 65D10
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/hbz/toc/ht003594979.
+                           pdf' target=_blank>Inhaltsverzeichnis</a>
+                           [2008-11-15]
+                           <a href='http://zbmath.org/?q=an:0747.62061'
+                           target=_blank>http://zbmath.org/?q=an:0747.62061</
+                           a> [Zentralblatt MATH]
+
+                 Standort: 7/507
+                 Signatur:  B 3912 H 56
+            Ausleihstatus: nicht ausleihbar
+
+

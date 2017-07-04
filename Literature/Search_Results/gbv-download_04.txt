@@ -1,0 +1,170 @@
+
+Ihr Suchauftrag war
+eingeschr&auml;nkt suchen [und] ([PER] Person, Autor) Johnson eingeschr&auml;nkt eingrenzen ([TIT] Titel (Stichwort)) univariate distributions 
+Es gibt 4 Treffer.
+
+Dies sind Treffer 1 - 3.
+
+                    Titel: Continuous univariate distributions / Norman L.
+                           Johnson; Samuel Kotz; N. Balakrishnan
+                     Teil: Vol. 2
+              VerfasserIn: Johnson, Norman Lloyd, 1917-2004 ; Kotz, Samuel,
+                           1930-2010 ; Balakrishnan, Narayanaswamy, 1956-
+                  Ausgabe: 2. ed.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: New York, NY [u.a.] : Wiley, 1995
+                   Umfang: XIX, 719 S. : graph. Darst.
+           Schriftenreihe: Wiley series in probability and mathematical
+                           statistics : Applied probability and statistics
+                           A Wiley-Interscience publication
+                Anmerkung: Literaturangaben
+                     ISBN: *0-471-58494-0=978-0-417-58494-0
+           Mehr zum Thema: Dewey Dezimal-Klassifikation: 519
+                           Mathematics Subject Classification: *62-00
+                           Mathematics Subject Classification: 62E15
+                           Mathematics Subject Classification: 60-00
+                           Mathematics Subject Classification: 62E10
+           Mehr zum Titel: <a
+                           href='http://www.zentralblatt-math.org/zmath/en/
+                           search/?an=0821.62001'
+                           target=_blank>http://www.zentralblatt-math.org/
+                           zmath/en/search/?an=0821.62001</a> [Zentralblatt
+                           MATH]
+                           <a
+                           href='http://www.gbv.de/dms/goettingen/188716564.
+                           pdf' target=_blank>Inhaltsverzeichnis</a>
+
+              Sachgebiete: EGCE 150    Exact distribution theory {Statistics:
+                           Distribution theory}
+                           EGCE 100    Characterization and structure theory
+                           {Statistics: Distribution theory}
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: FA 19661 [2]:2
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2120 Joh
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                 Standort: 7/027
+                 Signatur:  05495
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Institut fuer
+                           Mathematische Stochastik
+
+                    Titel: Continuous univariate distributions / Norman L.
+                           Johnson; Samuel Kotz; N. Balakrishnan
+                     Teil: Vol. 1
+              VerfasserIn: Johnson, Norman Lloyd, 1917-2004 ; Kotz, Samuel,
+                           1930-2010 ; Balakrishnan, Narayanaswamy, 1956-
+                  Ausgabe: 2. ed.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: New York [u.a.] : Wiley, 1994
+                   Umfang: XIX, 756 S. : graph. Darst.
+           Schriftenreihe: Wiley series in probability and mathematical
+                           statistics : Applied probability and statistics
+                           A Wiley-Interscience publication
+                Anmerkung: Literaturangaben
+                     ISBN: 0-471-58495-9
+            Schlagwörter: *Distribution (Probability theory)
+           Mehr zum Thema: Klassifikation der Library of Congress: QA273.6
+                           Dewey Dezimal-Klassifikation: 519.2/4 ; 519
+                           Mathematics Subject Classification: *62-00
+                           Mathematics Subject Classification: 62E15
+                           Mathematics Subject Classification: 62E10
+           Mehr zum Titel: <a
+                           href='http://www.gbv.de/dms/ilmenau/toc/172421373.
+                           PDF' target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://zbmath.org/?q=an:0811.62001'
+                           target=_blank>http://zbmath.org/?q=an:0811.62001</
+                           a> [Zentralblatt MATH]
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: FA 19661:1
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2120 Joh
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2120 Joh
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                    Titel: Univariate discrete distributions / Norman L.
+                           Johnson; Samuel Kotz; Adrienne W. Kemp
+              VerfasserIn: Johnson, Norman Lloyd, 1917-2004 ; Kotz, Samuel ;
+                           Kemp, Adrienne W.
+                  Ausgabe: 2. ed.
+                Sprache/n: Englisch
+ Veröffentlichungsangabe: New York [u.a.] : Wiley, 1993
+                   Umfang: XX, 565 S. ; 25 cm
+           Schriftenreihe: Wiley series in probability and mathematical
+                           statistics
+                           A Wiley-Interscience publication
+                Anmerkung: 1. Aufl. u.d.T.: Johnson, Norman L.: Discrete
+                           distributions
+                     ISBN: 0-471-54897-9
+            Schlagwörter: *Univariate Wahrscheinlichkeitsverteilung
+                           *Distribution (Probability theory)
+              Sachgebiete: 31.70  Wahrscheinlichkeitsrechnung
+           Mehr zum Thema: Klassifikation der Library of Congress: QA273.6
+                           Dewey Dezimal-Klassifikation: 519.532 ; 519.2422
+                           Mathematics Subject Classification: *62Exx
+                           Mathematics Subject Classification: 62-02
+                           Mathematics Subject Classification: 60Exx
+                           Mathematics Subject Classification: 60-02
+                           Mathematics Subject Classification: 62-01
+                           Mathematics Subject Classification: 60-01
+           Mehr zum Titel: <a
+                           href='http://www.loc.gov/catdir/description/
+                           wiley031/92011685.html'
+                           target=_blank>http://www.loc.gov/catdir/
+                           description/wiley031/92011685.html</a> [Publisher
+                           description]
+                           <a
+                           href='http://www.loc.gov/catdir/enhancements/
+                           fy0607/92011685-b.html'
+                           target=_blank>http://www.loc.gov/catdir/
+                           enhancements/fy0607/92011685-b.html</a>
+                           [Contributor biographical information]
+                           <a
+                           href='http://www.gbv.de/dms/bowker/toc/
+                           9780471548973.pdf'
+                           target=_blank>Inhaltsverzeichnis</a>
+                           <a
+                           href='http://www.gbv.de/dms/ilmenau/toc/112338763.
+                           PDF' target=_blank>Inhaltsverzeichnis</a>
+                           <a href='http://zbmath.org/?q=an:0773.62007'
+                           target=_blank>http://zbmath.org/?q=an:0773.62007</
+                           a> [Zentralblatt MATH]
+
+              Sachgebiete: EGAE 000    Distribution theory {Probability
+                           theory and stochastic processes}
+                           EGCE 000    Distribution theory {Statistics}
+
+                 Standort: <a href="http://www.sub.uni-goettingen.de/-rqZHt"
+                           target=_blank >SUB Zentralbibliothek</a>
+                 Signatur: 97 A 12784
+            Ausleihstatus: Ausleihbestand
+                           Derzeit verfuegbar
+
+                 Standort: BBWISO
+                 Signatur: 16 : C 2120 Joh
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: WiSo-Bibliothek
+
+                 Standort: 7/027
+                 Signatur: B' MathStat 04598
+            Ausleihstatus: Praesenzbestand
+                           Bitte am Standort entnehmen: Institut fuer
+                           Mathematische Stochastik
+
