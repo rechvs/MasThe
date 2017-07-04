@@ -1,4 +1,8 @@
 * TODO [7/12]
+** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Read Pretzsch & Biber (2005)
+    + found in the 2. set in [[file:Literature/Search_Results/history_01.ua][this WOS search]]
+    + [2017-07-04 Di]: continue on p. 305, section “Allometry under Self-Thinning”
 ** CURRENT Read literature for introduction section
 *** CURRENT Read Daniel & Sterba (1980)
     + article supposedly (cp. Röhrig (1992), p.30) deals with converting Reineke’s SDI from imperial to metric system
@@ -7,7 +11,7 @@
       Yoda, K., Kira, T., Ogawa, H. Und Hozumi, K.: “Self-thinning in overcrowded pure stands under cultivated and natural conditions (Intraspecific competition among higher plants XI)”, Journal of the Institute of Polytechnics, Osaka City University, Series D 14, 107-129
     + SIG: 4 Z TECHN 102/3
     + article supposedly (cp. Pretzsch (2000)) deals with -3/2 power rule
-    + [2017-06-28 Mi]: ordered at SUB
+    + [2017-07-04 Di]: journal volume not available at SUB, but may be available via interlibrary loan (see email by “SUB, Information” from [2017-06-29 Do 09:47])
 *** done Read Pretzsch (2000)
     - State "done"       from "CURRENT"    [2017-06-29 Do 13:34]
 ** CURRENT Improve understanding of GAMLSSs
@@ -113,13 +117,28 @@
    - State "done"       from "CURRENT"    [2017-05-24 Mi 08:43]
 * NOTES
 ** R Code Style Guidelines
-   + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
-   + constants: an object is considered a constant if its value is (meant to be) hardcoded or if its value is the indirect result of functions acting only on hardcoded values
-   + beginning of “blocks” are marked by a block header of the following form (note the absence of a dot at the end):
+*** Where to find Google’s R Style Guide?
+    + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
+*** Which objects are constants?
+    + An object is considered a constant if its value is (meant to be) hardcoded or if its value is the indirect result of functions acting only on hardcoded values.
+*** How to delimit blocks?
+    + A “block” is a (more or less) self-contained piece of code separated from the surrounding code like this (Note the missing dot in the block header and the empty line at the end.)
      ################
      ## BLOCK NAME ##
      ################
-   + If a function call spans several lines, comments regarding the function call in general (and not just a specific argument) should go on the line of the opening paranthesis.
+     PIECE OF CODE
+     ...
+
+*** How to delimit subblocks?
+    + A “subblock” is a piece of code within a block separated from the surrounding code like this:
+      ###################
+      ## SUBBLOCK NAME ##
+      PIECE OF CODE
+      ...
+      ## SUBBLOCK NAME ##
+      ###################
+*** How to comment multi-line function calls?
+    + If a function call spans several lines, comments regarding the function call in general (and not just a specific argument) should go on the line of the opening paranthesis.
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
@@ -226,7 +245,7 @@
 *** Tags
 **** How to tag a comment (i.e., an individual “entry” within the “Abstract” portion of a JabRef entry)
      “- p. XY: {TAG1; TAG2}
-      This is where the actual comment content goes.”
+      COMMENT CONTENT”
 **** How to tag a whole entry
      “- whole TYPE_OF_MEDIUM: {TAG1; TAG2}”
      + Subsequent comments should only be tagged if their tag set differs from that of the whole entry. If such a comment is tagged, however, its tag set is overwrites that of the whole article. Thus, if the tag set of a comment should only contain an additional tag compared to the tag set of the whole entry the tag set must contain both the tag set of the whole entry plus the additional tag.
