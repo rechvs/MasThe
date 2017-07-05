@@ -1,10 +1,13 @@
 * TODO [7/12]
 ** CURRENT Improve understanding of Reineke’s approach
-*** CURRENT Read Pretzsch & Biber (2005)
+*** CURRENT Read Pretzsch (2000): “A unified law of spatial allometry for woody and herbaceous plants”, Plant Biology, 4, 159–166
+    + article supposedly (cp. Pretzsch & Biber (2005), p. 305) deals with the relationship between Reineke’s rule and the -3/2 power rule
+*** done Read Pretzsch & Biber (2005)
+    - State "done"       from "CURRENT"    [2017-07-05 Mi 18:00]
     + found in the 2. set in [[file:Literature/Search_Results/history_01.ua][this WOS search]]
-    + [2017-07-04 Di]: continue on p. 305, section “Allometry under Self-Thinning”
 ** CURRENT Read literature for introduction section
-*** CURRENT Read Daniel & Sterba (1980)
+*** done Read Daniel & Sterba (1980)
+    - State "done"       from "CURRENT"    [2017-07-05 Mi 10:21]
     + article supposedly (cp. Röhrig (1992), p.30) deals with converting Reineke’s SDI from imperial to metric system
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
