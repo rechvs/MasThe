@@ -829,7 +829,7 @@ A “natural” cubic spline is a cubic spline in which the 2. derivative of eac
   isbn       = {978-3-490-01116-9},
   pages      = {25-40},
   abstract   = {- p. 28 f.: {introduction}
-Plants are subject to a phenomenon called “selfthinning”, according to which the average biomass of an individual plant is negatively related to the number of plants per unit area. In a log-log plot the envelope has a slope of -1.5, and the underlying relation is therefore called “-3/2 power law”.
+Plants are subject to a phenomenon called “self-thinning”, according to which the average biomass of an individual plant is negatively related to the number of plants per unit area. In a log-log plot the envelope has a slope of -1.5, and the underlying relation is therefore called “-3/2 power law”.
 
 - p. 29 f.: {introduction}
 In forest stands the afforementioned slope of the envelope is usually steeper than -1.5 and approximately -1.65 – -1.8.},
@@ -861,7 +861,7 @@ In forest stands the afforementioned slope of the envelope is usually steeper th
   date         = {2000},
   pages        = {205-210},
   url          = {http://www.sauerlaender-verlag.com/CMS/uploads/media/AFJZ171__11__2000.pdf},
-  abstract     = {- whole article: {introduction; Reineke; selfthinning}
+  abstract     = {- whole article: {introduction; Reineke; Yoda}
 
 - Note: for an explanation of the equations see handwritten notes
 
@@ -873,7 +873,8 @@ In forest stands the afforementioned slope of the envelope is usually steeper th
 
 - p. 208: Species-specific deviances from Reineke’s constant of -1.605 can be explained by the respective species’s biomass-diameter-relation, given that the -3/2 power rule is valid.
 
-- p. 208: Both Reineke’s stand density rule and Yoda’s -3/2 power rule are based on the allometric relationships between volume, projection surface and surface of stereometric [i.e., 3-dimensional] objects. In particular, Yoda’s -3/2 power rule is based on the allometric relationships between volume and projection surface of a sphere and between volume and mass [cp. eq. (9) and eq. (10)].},
+- p. 208:
+[How to move between Yoda’s rule and Reineke’s rule.] Both Reineke’s stand density rule and Yoda’s -3/2 power rule are based on the allometric relationships between volume, projection surface and surface of stereometric [i.e., 3-dimensional] objects. In particular, Yoda’s -3/2 power rule is based on the allometric relationships between volume and projection surface of a sphere and between volume and mass [cp. eq. (9) and eq. (10)].},
   file         = {:Articles/Pretzsch_2000.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.06.28},
@@ -983,6 +984,12 @@ The figure examplifies the over- or underestimation of the actual SDI its calcul
   doi          = {10.1055/s-2002-25732},
   url          = {http://doi.wiley.com/10.1055/s-2002-25732},
   urldate      = {2017-07-05},
+  abstract     = {- whole article: {Reineke; Yoda}
+
+- Note: The article is in large part a reiteration of Pretzsch (2000). Thus, for an explanation of equations (esp. eq. (7), which marks the transition from Yoda’s rule to Reineke’s rule) see Pretzsch (2000).
+
+- p. 163 f.: {Reineke}
+Deviations from Reineke’s coefficient of -1.605 may “be explained by the species-specific diameter-biomass relationships of tree species, e.g., caused by the species and age-dependent variation of wood density.”},
   file         = {:Articles/Pretzsch_2002.pdf:PDF},
   langid       = {english},
   owner        = {renke},
@@ -990,23 +997,22 @@ The figure examplifies the over- or underestimation of the actual SDI its calcul
 }
 
 @Article{ZEIDE1985149,
-  author        = {Boris Zeide},
-  title         = {Tolerance and self-tolerance of trees},
-  journal       = {Forest Ecology and Management},
-  year          = {1985},
-  volume        = {13},
-  number        = {3},
-  pages         = {149 - 166},
-  issn          = {0378-1127},
-  doi           = {http://dx.doi.org/10.1016/0378-1127(85)90031-3},
-  url           = {http://www.sciencedirect.com/science/article/pii/0378112785900313},
-  __markedentry = {[renke:]},
-  abstract      = {- whole article: {Reineke}
+  author    = {Boris Zeide},
+  title     = {Tolerance and self-tolerance of trees},
+  journal   = {Forest Ecology and Management},
+  year      = {1985},
+  volume    = {13},
+  number    = {3},
+  pages     = {149 - 166},
+  issn      = {0378-1127},
+  doi       = {http://dx.doi.org/10.1016/0378-1127(85)90031-3},
+  url       = {http://www.sciencedirect.com/science/article/pii/0378112785900313},
+  abstract  = {- whole article: {Reineke}
 
 - Note: the article is referenced in Pretzsch & Biber (2005)},
-  file          = {:Articles/Zeide_1985.pdf:PDF},
-  owner         = {renke},
-  timestamp     = {2017.07.05},
+  file      = {:Articles/Zeide_1985.pdf:PDF},
+  owner     = {renke},
+  timestamp = {2017.07.05},
 }
 
 @Proceedings{Nagel2008,
@@ -1034,6 +1040,62 @@ Even if allometric relationships appear to be uniform and to be restricted to a 
   file      = {:Articles/Pretzsch_2008.pdf:PDF},
   owner     = {renke},
   timestamp = {2017.07.05},
+}
+
+@Thesis{Goulding1972,
+  author      = {Christopher John Goulding},
+  title       = {Simulation techniques for a stochastic model of the growth of Douglas-fir},
+  type        = {phdthesis},
+  institution = {University of British Columbia, Vancouver},
+  date        = {1972},
+  abstract    = {- p. 55: {Sterba}
+Application of Kira’s Competition-Density Rule to average stand diameter at breast height (instead of average plant volume) resulted in a particularly good fit of the model [i.e., the Competition-Density rule may be suited for describing the diameter of trees as well as for describing the volume of smaller plants; Note: unlike Sterba (1987), p. 1023, suggests, Goulding (at least on p. 55) did NOT show that the Competition-Density rule is better suited for estimating mean diameter than it is for estimating mean volume.].},
+  file        = {:Scans/Goulding_1972_Page_55_57.pdf:PDF},
+  owner       = {renke},
+  timestamp   = {2017.07.06},
+}
+
+@Book{EFARES1953,
+  author    = {{The Empire Forestry Association at the Royal Empire Society}},
+  title     = {British Commonwealth Forest Terminology},
+  date      = {1953},
+  location  = {London},
+  owner     = {renke},
+  timestamp = {2017.07.06},
+}
+
+@Article{Franz1967,
+  author        = {Franz, F.},
+  title         = {Ertragsniveau-Schätzverfahren für die Fichte an Hand einmalig erhobener Bestandesgrößen},
+  journaltitle  = {Forstwissenschaftliches Centralblatt},
+  date          = {1967-04},
+  volume        = {86},
+  number        = {2},
+  pages         = {98--125},
+  issn          = {1612-4669, 1612-4677},
+  doi           = {10.1007/BF01822159},
+  url           = {http://link.springer.com/10.1007/BF01822159},
+  urldate       = {2017-07-06},
+  __markedentry = {[renke:]},
+  file          = {:Articles/Franz_1967.pdf:PDF},
+  langid        = {german},
+  owner         = {renke},
+  timestamp     = {2017.07.06},
+}
+
+@Article{Franz1965,
+  author        = {Franz, F.},
+  title         = {Ermittlung von Schätzwerten der natürlichen Grundfläche mit Hilfe ertragskundlicher Bestimmungsgrößen des verbleibenden Bestandes},
+  journaltitle  = {Forstwissenschaftliches Centralblatt},
+  date          = {1965},
+  volume        = {84},
+  pages         = {357-386},
+  urldate       = {2017-07-06},
+  __markedentry = {[renke:]},
+  file          = {:Articles/Franz_1965.pdf:PDF;:Articles/Franz_1967.pdf:PDF},
+  langid        = {german},
+  owner         = {renke},
+  timestamp     = {2017.07.06},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

@@ -1,36 +1,32 @@
-* TODO [7/12]
-** CURRENT Improve understanding of Reineke’s approach
-*** CURRENT Read Pretzsch (2000): “A unified law of spatial allometry for woody and herbaceous plants”, Plant Biology, 4, 159–166
-    + article supposedly (cp. Pretzsch & Biber (2005), p. 305) deals with the relationship between Reineke’s rule and the -3/2 power rule
-*** done Read Pretzsch & Biber (2005)
-    - State "done"       from "CURRENT"    [2017-07-05 Mi 18:00]
-    + found in the 2. set in [[file:Literature/Search_Results/history_01.ua][this WOS search]]
-** CURRENT Read literature for introduction section
-*** done Read Daniel & Sterba (1980)
-    - State "done"       from "CURRENT"    [2017-07-05 Mi 10:21]
-    + article supposedly (cp. Röhrig (1992), p.30) deals with converting Reineke’s SDI from imperial to metric system
+* TODO [7/13]
+** CURRENT Read literature for “Introduction”
+*** CURRENT Read Franz (1967)
+    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
+*** CURRENT Read Franz (1965)
+    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
+*** CURRENT Acquire Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
+    + book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept
+    + [2017-07-06 Do]: ordered at BBF
+** CURRENT Improve understanding of Yoda’s rule
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
       Yoda, K., Kira, T., Ogawa, H. Und Hozumi, K.: “Self-thinning in overcrowded pure stands under cultivated and natural conditions (Intraspecific competition among higher plants XI)”, Journal of the Institute of Polytechnics, Osaka City University, Series D 14, 107-129
     + SIG: 4 Z TECHN 102/3
-    + article supposedly (cp. Pretzsch (2000)) deals with -3/2 power rule
+    + article supposedly (cp. Pretzsch (2000)) deals with Yoda’s rule
     + [2017-07-04 Di]: journal volume not available at SUB, but may be available via interlibrary loan (see email by “SUB, Information” from [2017-06-29 Do 09:47])
+** CURRENT Improve understanding of Reineke’s approach
+*** done Read Daniel & Sterba (1980)
+    - State "done"       from "CURRENT"    [2017-07-05 Mi 10:21]
+    + article supposedly (cp. Röhrig (1992), p.30) deals with converting Reineke’s SDI from imperial to metric system
+*** done Read Pretzsch & Biber (2005)
+    - State "done"       from "CURRENT"    [2017-07-05 Mi 18:00]
+    + found in the 2. set in [[file:Literature/Search_Results/history_01.ua][this WOS search]]
 *** done Read Pretzsch (2000)
     - State "done"       from "CURRENT"    [2017-06-29 Do 13:34]
-** CURRENT Improve understanding of GAMLSSs
-*** CURRENT Read Albert & Schmidt (2009)
-    Article supposedly deals with the probability distribution of “bart.clean$gha” (cp. Wördehoff (2016), p. 50).
-*** CURRENT Acquire and read articles on frequency distributions of basal area (Grundfläche) and crown cover area (Kronenschirmfläche).
-**** CURRENT Acquire and read [[http://dx.doi.org/10.1007/s11676-015-0194-x][this article]] 
-*** done Read Rigby & Stasinopoulos (2001)
-    - State "done"       from "CURRENT"    [2017-06-12 Mo 09:40]
-*** done Read Rigby & Stasinopoulos (2005)
-    - State "done"       from "CURRENT"    [2017-06-12 Mo 18:44]
-*** done Read Stasinopoulos & Rigby (2007)
-    - State "done"       from "CURRENT"    [2017-06-07 Mi 14:29]
+*** done Read Pretzsch (2002)
+    - State "done"       from "CURRENT"    [2017-07-06 Do 14:54]
+    + article supposedly (cp. Pretzsch & Biber (2005), p. 305) deals with the relationship between Reineke’s rule and the Yoda’s rule
 ** CURRENT improve understanding of Sterba’s approach
-*** CURRENT acquire Goulding (1972) (cp. Sterba (1987), p. 1023)
-    [2017-06-07 Mi]: requested book from library
 *** on hold acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
     - State "on hold"    from "CURRENT"    [2017-06-13 Di 18:03] \\
       Journal of Horticultural Science 1952, vol. 27 is not available at SUB
@@ -59,6 +55,19 @@
 *** done read Sterba (1987)
     - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
       haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
+*** done Read Goulding (1972) (cp. Sterba (1987), p. 1023)
+    - State "done"       from "CURRENT"    [2017-07-06 Do 11:14]
+** CURRENT Improve understanding of GAMLSSs
+*** CURRENT Read Albert & Schmidt (2009)
+    Article supposedly deals with the probability distribution of “bart.clean$gha” (cp. Wördehoff (2016), p. 50).
+*** CURRENT Acquire and read articles on frequency distributions of basal area (Grundfläche) and crown cover area (Kronenschirmfläche).
+**** CURRENT Acquire and read [[http://dx.doi.org/10.1007/s11676-015-0194-x][this article]] 
+*** done Read Rigby & Stasinopoulos (2001)
+    - State "done"       from "CURRENT"    [2017-06-12 Mo 09:40]
+*** done Read Rigby & Stasinopoulos (2005)
+    - State "done"       from "CURRENT"    [2017-06-12 Mo 18:44]
+*** done Read Stasinopoulos & Rigby (2007)
+    - State "done"       from "CURRENT"    [2017-06-07 Mi 14:29]
 ** on hold Improve understanding of GAMs
    - State "on hold"    from "CURRENT"    [2017-06-06 Di 18:07] \\
      Started reading on GAMLSSs.
@@ -253,19 +262,19 @@
      “- whole TYPE_OF_MEDIUM: {TAG1; TAG2}”
      + Subsequent comments should only be tagged if their tag set differs from that of the whole entry. If such a comment is tagged, however, its tag set is overwrites that of the whole article. Thus, if the tag set of a comment should only contain an additional tag compared to the tag set of the whole entry the tag set must contain both the tag set of the whole entry plus the additional tag.
 **** Table of tag meanings
-    | Tag                | What the tagged comment contains                             |
-    |--------------------+--------------------------------------------------------------|
-    | equation           | description/explanation of any kind of mathematical equation |
-    | statistics         | explanation of m.o.l. fundamental statistical principles     |
-    | glm                | explanation of GLM                                           |
-    | gam                | explanation of GAM                                           |
-    | gamlss             | explanation of GAMLSS                                        |
-    | basal area         | information regarding basal area                             |
-    | R                  | information regarding R                                      |
-    | R::PACKAGE         | information regarding the R package PACKAGE                  |
-    | Sterba             | information regarding Sterba’s approach                      |
-    | Reineke            | information regarding Reineke’s approach                     |
-    | silviculture       | information regarding silviculture                           |
-    | forest mensuration | information regarding forest mensuration                     |
-    | introduction       | information suited for introduction section                  |
-    | selfthinning       | information regarding selfthinning                           |
+    | Tag                | What the tagged comment contains                              |
+    |--------------------+---------------------------------------------------------------|
+    | equation           | description/explanation of any kind of mathematical equation  |
+    | statistics         | explanation of m.o.l. fundamental statistical principles      |
+    | glm                | explanation of GLM                                            |
+    | gam                | explanation of GAM                                            |
+    | gamlss             | explanation of GAMLSS                                         |
+    | basal area         | information regarding basal area                              |
+    | R                  | information regarding R                                       |
+    | R::PACKAGE         | information regarding the R package PACKAGE                   |
+    | Sterba             | information regarding Sterba’s approach                       |
+    | Reineke            | information regarding Reineke’s approach                      |
+    | Yoda               | information regarding Yoda’s rule (i.e., the -3/2 power rule) |
+    | silviculture       | information regarding silviculture                            |
+    | forest mensuration | information regarding forest mensuration                      |
+    | introduction       | information suited for introduction section                   |
