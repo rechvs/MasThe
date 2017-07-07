@@ -1,15 +1,17 @@
 * TODO [7/13]
 ** CURRENT Read literature for “Introduction”
-*** CURRENT Read Franz (1967)
-    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
-*** CURRENT Read Franz (1965)
-    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
-*** CURRENT Acquire Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
-    + book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept
-    + [2017-07-06 Do]: ordered at BBF
 *** CURRENT Read Bartelink (1997)
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
     + may be of interest in terms of showing what can be estimated from a stand’s mean basal area
+*** CURRENT Acquire Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
+    + book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept
+    + [2017-07-06 Do]: ordered at BBF
+*** done Read Franz (1965)
+    - State "done"       from "CURRENT"    [2017-07-07 Fr 11:44]
+    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
+*** done Read Franz (1967)
+    - State "done"       from "CURRENT"    [2017-07-07 Fr 12:57]
+    + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
 ** CURRENT Improve understanding of Yoda’s rule
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
@@ -19,7 +21,7 @@
     + [2017-07-04 Di]: journal volume not available at SUB, but may be available via interlibrary loan (see email by “SUB, Information” from [2017-06-29 Do 09:47])
 *** CURRENT Read Vospernik & Sterba (2015)
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
-*** CURRENT Pretzsch (2006)
+*** CURRENT Read Pretzsch (2006)
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 ** CURRENT Improve understanding of Reineke’s approach
 *** CURRENT Read Schütz & Zingg (2010)
