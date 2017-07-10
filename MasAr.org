@@ -1,5 +1,20 @@
 * TODO [7/13]
 ** CURRENT Read literature for “Introduction”
+*** CURRENT Acquire Huber et al. (2014) (cp. Vospernik & Sterba (2015), p. 388)
+    + Article might be of interest in terms of different approaches for modelling potential density.
+*** CURRENT Acquire Schnedl (2003) (cp. Vospernik & Sterba (2015), p. 388)
+    + Article might be of interest in terms of attempts made at modelling basal area of beech.
+*** CURRENT Acquire Döbbeler (2004) (cp. Vospernik & Sterba (2015), p. 388)
+    + Article might be of interest in terms of attempts made at modelling basal area of spruce and beech.
+*** CURRENT Acquire Eckmüllner & Vospernik (2005) (cp. Vospernik & Sterba (2015), p. 388)
+    + Article might be of interest in terms of attempts made at modelling basal area of spruce.
+*** CURRENT Acquire Sterba (1975) (cp. Vospernik & Sterba (2015), p. 388)
+    + Article might be of interest in terms of attempts made at modelling basal area of spruce.
+*** CURRENT Read del Río, Montero and Bravo (2001) (cp. Vospernik & Sterba (2015), p. 386)
+    + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
+*** CURRENT Acquire Hynynen (1993) (cp. Vospernik & Sterba (2015), p. 385)
+    + Might require issuing an interlibrary loan (“gvk tit:Scandinavian journal of forest research”).
+    + Article supposedly deals with maximum stand density of spruce in Scandinavia.
 *** CURRENT Acquire Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
     + book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept
     + [2017-07-06 Do]: ordered at BBF
@@ -14,8 +29,6 @@
       Searched the article for “basal” and noted all relevant information.
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 ** CURRENT Improve understanding of Yoda’s rule
-*** CURRENT Read Vospernik & Sterba (2015)
-    + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
       Yoda, K., Kira, T., Ogawa, H. Und Hozumi, K.: “Self-thinning in overcrowded pure stands under cultivated and natural conditions (Intraspecific competition among higher plants XI)”, Journal of the Institute of Polytechnics, Osaka City University, Series D 14, 107-129
@@ -24,6 +37,9 @@
     + [2017-07-04 Di]: journal volume not available at SUB, but may be available via interlibrary loan (see email by “SUB, Information” from [2017-06-29 Do 09:47])
 *** done Read Pretzsch (2006)
     - State "done"       from "CURRENT"    [2017-07-10 Mo 11:26]
+    + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
+*** done Read Vospernik & Sterba (2015)
+    - State "done"       from "CURRENT"    [2017-07-10 Mo 19:01]
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 ** CURRENT Improve understanding of Reineke’s approach
 *** CURRENT Read Schütz & Zingg (2010)
@@ -291,5 +307,5 @@
     | silviculture       | information regarding silviculture                            |
     | forest mensuration | information regarding forest mensuration                      |
     | introduction       | information suited for introduction section                   |
-    | beech              | information regarding beech                                   |
-    | spruce             | information regarding spruce                                  |
+    | beech              | information regarding beech (Fagus sylvatica)                 |
+    | spruce             | information regarding spruce (Picea abies)                    |
