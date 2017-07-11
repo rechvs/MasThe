@@ -1,17 +1,15 @@
 * TODO [7/13]
 ** CURRENT Read literature for “Introduction”
-*** CURRENT Acquire Huber et al. (2014) (cp. Vospernik & Sterba (2015), p. 388)
-    + Article might be of interest in terms of different approaches for modelling potential density.
+*** CURRENT Acquire Van Soest et al. (1959) (cp. Curtis & Marshall (2000), p. 137)
+    + Article might be of interest in terms of which symbols to use in the thesis.
+*** CURRENT Acquire Del Río & Sterba (2009) (cp.  Huber et al. (2014), p. 1286)
+    + Article might be of interest in terms of a different method than GAMLSS for estimating/modelling maximum basal area.
+*** CURRENT Acquire Prodan (1959) (cp. Huber et al. (2014), p. 1282)
+    + Article might be of interest in terms of an application of maximum basal area.
 *** CURRENT Acquire Schnedl (2003) (cp. Vospernik & Sterba (2015), p. 388)
     + Article might be of interest in terms of attempts made at modelling basal area of beech.
-*** CURRENT Acquire Döbbeler (2004) (cp. Vospernik & Sterba (2015), p. 388)
-    + Article might be of interest in terms of attempts made at modelling basal area of spruce and beech.
 *** CURRENT Acquire Eckmüllner & Vospernik (2005) (cp. Vospernik & Sterba (2015), p. 388)
     + Article might be of interest in terms of attempts made at modelling basal area of spruce.
-*** CURRENT Acquire Sterba (1975) (cp. Vospernik & Sterba (2015), p. 388)
-    + Article might be of interest in terms of attempts made at modelling basal area of spruce.
-*** CURRENT Read del Río, Montero and Bravo (2001) (cp. Vospernik & Sterba (2015), p. 386)
-    + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
 *** CURRENT Acquire Hynynen (1993) (cp. Vospernik & Sterba (2015), p. 385)
     + Might require issuing an interlibrary loan (“gvk tit:Scandinavian journal of forest research”).
     + Article supposedly deals with maximum stand density of spruce in Scandinavia.
@@ -28,6 +26,17 @@
     - State "done"       from "CURRENT"    [2017-07-10 Mo 09:16]
       Searched the article for “basal” and noted all relevant information.
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
+*** done Read Döbbeler (2004) (cp. Vospernik & Sterba (2015), p. 388)
+    - State "done"       from "CURRENT"    [2017-07-11 Di 09:02]
+      Searched the thesis for “Grundfläche” and noted all relevant information.
+    + Article might be of interest in terms of attempts made at modelling basal area of spruce and beech.
+*** done Read Huber et al. (2014) (cp. Vospernik & Sterba (2015), p. 388)
+    - State "done"       from "CURRENT"    [2017-07-11 Di 09:41]
+      Searched the article for “basal area” and “maximum” and noted all relevant information.
+    + Article might be of interest in terms of different approaches for modelling potential density.
+*** done Read del Río, Montero and Bravo (2001) (cp. Vospernik & Sterba (2015), p. 386)
+    - State "done"       from "CURRENT"    [2017-07-11 Di 12:42]
+    + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
 ** CURRENT Improve understanding of Yoda’s rule
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
@@ -42,6 +51,29 @@
     - State "done"       from "CURRENT"    [2017-07-10 Mo 19:01]
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Acquire Puettmann et al. (1993) (cp. del Río et al. (2001), p. 85)
+    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
+*** CURRENT Acquire Bredenkamp & Burkhart (1990) (cp. del Río et al. (2001), p. 85)
+    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
+*** CURRENT Acquire Zeide (1985) (cp. del Río et al. (2001), p. 85)
+    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
+*** CURRENT Read Curtis & Marshall (2000)
+    + Article might be of interest in terms of what “quadratic” or “square mean diameter” means.
+    + Article found through [[https://www.google.de/search?q=Technical+Note%253A+Why+Quadratic+Mean+Diameter%253F&ie=utf-8&oe=utf-8&client=firefox-b-ab&gfe_rd=cr&ei=g5dkWafQPI3Z8Affl4PQCw][this Google search]].
+*** CURRENT Acquire Weller (1987b) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of the advantages of the approach by Tang et al. (1994).
+*** CURRENT Acquire Tang et al. (1994) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** CURRENT Acquire Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** CURRENT Acquire Smith & Hann (1986) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** CURRENT Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** CURRENT Acquire Zeide (1995) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** CURRENT Acquire Zeide (1987) (cp. del Río et al. (2001), p. 80)
+    + Article might be of interest in terms of shortcomings of Reineke’s or Yoda’s approach.
 *** CURRENT Read Schütz & Zingg (2010)
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 *** done Read Daniel & Sterba (1980)
