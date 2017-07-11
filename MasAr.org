@@ -1,6 +1,7 @@
 * TODO [7/13]
 ** CURRENT Read literature for “Introduction”
 *** CURRENT Acquire Van Soest et al. (1959) (cp. Curtis & Marshall (2000), p. 137)
+    [2017-07-11 Di]: ordered at BBF.
     + Article might be of interest in terms of which symbols to use in the thesis.
 *** CURRENT Acquire Del Río & Sterba (2009) (cp.  Huber et al. (2014), p. 1286)
     + Article might be of interest in terms of a different method than GAMLSS for estimating/modelling maximum basal area.
@@ -51,7 +52,8 @@
     - State "done"       from "CURRENT"    [2017-07-10 Mo 19:01]
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 ** CURRENT Improve understanding of Reineke’s approach
-*** CURRENT Acquire Puettmann et al. (1993) (cp. del Río et al. (2001), p. 85)
+*** CURRENT Read Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80, 85)
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** CURRENT Acquire Bredenkamp & Burkhart (1990) (cp. del Río et al. (2001), p. 85)
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
@@ -62,17 +64,11 @@
     + Article found through [[https://www.google.de/search?q=Technical+Note%253A+Why+Quadratic+Mean+Diameter%253F&ie=utf-8&oe=utf-8&client=firefox-b-ab&gfe_rd=cr&ei=g5dkWafQPI3Z8Affl4PQCw][this Google search]].
 *** CURRENT Acquire Weller (1987b) (cp. del Río et al. (2001), p. 80)
     + Article might be of interest in terms of the advantages of the approach by Tang et al. (1994).
-*** CURRENT Acquire Tang et al. (1994) (cp. del Río et al. (2001), p. 80)
+*** CURRENT Read Tang et al. (1994) (cp. del Río et al. (2001), p. 80)
     + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Acquire Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80)
+*** CURRENT Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
     + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Acquire Smith & Hann (1986) (cp. del Río et al. (2001), p. 80)
-    + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
-    + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Acquire Zeide (1995) (cp. del Río et al. (2001), p. 80)
-    + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Acquire Zeide (1987) (cp. del Río et al. (2001), p. 80)
+*** CURRENT Read Zeide (1987) (cp. del Río et al. (2001), p. 80)
     + Article might be of interest in terms of shortcomings of Reineke’s or Yoda’s approach.
 *** CURRENT Read Schütz & Zingg (2010)
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
@@ -87,6 +83,14 @@
 *** done Read Pretzsch (2002)
     - State "done"       from "CURRENT"    [2017-07-06 Do 14:54]
     + article supposedly (cp. Pretzsch & Biber (2005), p. 305) deals with the relationship between Reineke’s rule and the Yoda’s rule
+*** on hold Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
+    - State "on hold"    from "CURRENT"    [2017-07-11 Di 14:51] \\
+      Not available at any member library of the GVK.
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
+*** on hold Acquire Smith & Hann (1986) (cp. del Río et al. (2001), p. 80)
+    - State "on hold"    from "CURRENT"    [2017-07-11 Di 14:51] \\
+      Not available at any member library of the GVK.
+    + Article might be of interest in terms of an improved version of Reineke’s approach.
 ** CURRENT improve understanding of Sterba’s approach
 *** on hold acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
     - State "on hold"    from "CURRENT"    [2017-06-13 Di 18:03] \\
