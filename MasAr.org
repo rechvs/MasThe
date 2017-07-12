@@ -39,6 +39,10 @@
     - State "done"       from "CURRENT"    [2017-07-11 Di 12:42]
     + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
 ** CURRENT Improve understanding of Yoda’s rule
+*** CURRENT Read Tadaki & Shidei (1959) (cp. Zeide (1985), p. 155)
+    + Article might be of interest in terms of the origin of Yoda’s rule.
+*** CURRENT Acquire White (1981) (cp. Zeide (1985), p. 155)
+    + Article might be of interest in terms of the connection between Reineke’s approach and self-thinning.
 *** CURRENT Acquire Yoda et al. (1963)
     + complete reference:
       Yoda, K., Kira, T., Ogawa, H. Und Hozumi, K.: “Self-thinning in overcrowded pure stands under cultivated and natural conditions (Intraspecific competition among higher plants XI)”, Journal of the Institute of Polytechnics, Osaka City University, Series D 14, 107-129
@@ -56,8 +60,6 @@
     + Article might be of interest in terms of an improved version of Reineke’s approach.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** CURRENT Acquire Bredenkamp & Burkhart (1990) (cp. del Río et al. (2001), p. 85)
-    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
-*** CURRENT Acquire Zeide (1985) (cp. del Río et al. (2001), p. 85)
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** CURRENT Read Curtis & Marshall (2000)
     + Article might be of interest in terms of what “quadratic” or “square mean diameter” means.
@@ -83,6 +85,9 @@
 *** done Read Pretzsch (2002)
     - State "done"       from "CURRENT"    [2017-07-06 Do 14:54]
     + article supposedly (cp. Pretzsch & Biber (2005), p. 305) deals with the relationship between Reineke’s rule and the Yoda’s rule
+*** done Read Zeide (1985) (cp. del Río et al. (2001), p. 85)
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 11:02]
+    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** on hold Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
     - State "on hold"    from "CURRENT"    [2017-07-11 Di 14:51] \\
       Not available at any member library of the GVK.
@@ -345,3 +350,6 @@
     | introduction       | information suited for introduction section                   |
     | beech              | information regarding beech (Fagus sylvatica)                 |
     | spruce             | information regarding spruce (Picea abies)                    |
+**** How to refer to a specific portion of a reference
+     “- p. PAGE1 [tab. TABLE1 [tab. TABLE1.1]|fig. FIGURE1 [fig. FIGURE1.1]][, p. PAGE2 [tab. TABLE2 [tab. TABLE2.1]|fig. FIGURE2 [fig. FIGURE2.1]]]”
+     + Note the missing comma between a page number and a table or figure reference.
