@@ -509,6 +509,8 @@ Example: 4 observations: x_1 = 8, x_2 = 9, x_3 = 11, x_4 = 12, mean(x_i) = 10. W
 
 - Note: for an explanation of equations see handwritten notes
 
+- Note: {Sterba} I was unable to find any equation which might be considered the predecessor of eq. (1) in Sterba (1975).
+
 - p. 5: statistical analysis unexpectedly revealed that planting density had no significant effect on variation of fresh weight of individual plants around the plot mean
 
 - fig. 3: the slope of the log(individual dry weight) vs. log(density) curve [which is coefficient “a” in eq. (2) times -1] decreases (becomes more negative) as plant age increases
@@ -1254,7 +1256,7 @@ When trying to fit Reineke’s self-thinning line, the following data were ignor
 3. Data concerning mortality due to exceptional causes (e.g., a snowstorm).
 
 - p. 81 f.: {Reineke}
-[The authors describe different approaches by Reineke (1933), Zeidel (1995) and Tang et al. (1994) for estimating the density of a stand.]
+[The authors describe different approaches by Reineke (1933), Zeide (1995) and Tang et al. (1994) for estimating the density of a stand.]
 
 - p. 83, tab. 3: {Reineke}
 The estimated slope for Scots pine of the log(N)-log(dg)-curve is significantly different from -1.605.},
@@ -1336,23 +1338,6 @@ The estimated slope for Scots pine of the log(N)-log(dg)-curve is significantly 
   timestamp     = {2017.07.11},
 }
 
-@Article{Zeide1995,
-  author    = {Boris Zeide},
-  title     = {A relationship between size of trees and their number},
-  journal   = {Forest Ecology and Management},
-  year      = {1995},
-  volume    = {72},
-  number    = {2},
-  pages     = {265 - 272},
-  issn      = {0378-1127},
-  doi       = {http://dx.doi.org/10.1016/0378-1127(94)03453-4},
-  url       = {http://www.sciencedirect.com/science/article/pii/0378112794034534},
-  urldate   = {2017-07-11},
-  file      = {:Articles/Zeide_1995.pdf:PDF},
-  keywords  = {Diameter at crown base, Reineke's equation, Stand density},
-  owner     = {renke},
-  timestamp = {2017.07.11},
-}
 
 @Article{Tang1994,
   author    = {Shouzheng Tang and Chao Ho Meng and Fan-Rui Meng and Yong He Wang},
@@ -1383,6 +1368,28 @@ The estimated slope for Scots pine of the log(N)-log(dg)-curve is significantly 
   pages         = {517-537},
   issn          = {0015-749X},
   url           = {http://www.ingentaconnect.com/content/saf/fs/1987/00000033/00000002/art00024},
+  abstract      = {- p. 519 eq (4) eq (5): {Yoda}
+[Explanation of how the -3/2 power rule follows from certain proportionality assumptions between crown dimensions, number of plants per unit area and average plant weight.]
+
+- p. 520 ff.: {Yoda}
+[Discussion of reasons for the -3/2 power rule being false.]
+
+- p. 523: {Yoda}
+Instead of plant biomass [which is used in the original version of the -3/2 power rule], the stem diameter at breast height should be used when trying to model self-thinning, because of the following reasons:
+- it is easier to measure than biomass
+- its correlation with crown size (which is the governing factor of self-thinning) is close than that between crown size and biomass
+
+- p. 523 f.: {Reineke; Yoda}
+The Reineke equation, since it is based on diameter instead of volume or biomass, is preferable to the -3/2 power rule.
+
+- p. 524: {Reineke}
+The slope of Reineke’s equation is not constant across species and sites, but shows systematic variation.
+
+- p. 524: {Yoda}
+[Listing of several references which supposedly show that the -3/2 power rule is not universal.]
+
+- p. 528 f.: {Yoda}
+[Arguments against the general applicability of the -3/2 power rule.]},
   file          = {:Articles/Zeide_1987.pdf:PDF},
   itemtype      = {ARTICLE},
   keyword       = {Reineke's equation, Allometric regression, crown closure, stand dynamics, tree morphology, gap dynamics},
@@ -1412,7 +1419,7 @@ The estimated slope for Scots pine of the log(N)-log(dg)-curve is significantly 
   timestamp     = {2017.07.11},
 }
 
-@Article{1959341,
+@Article{Tadaki1959,
   author    = {Yoshiya Tadaki AND Tsunahide Shidei},
   title     = {Studies on the Competition of Forest trees (II). The Thinning Experiment on Small Model Stand of Sugi (\emph{Cryptomeria japonica}) Seedlings.},
   journal   = {JOURNAL OF THE JAPANESE FORESTRY SOCIETY},
@@ -1427,6 +1434,51 @@ The estimated slope for Scots pine of the log(N)-log(dg)-curve is significantly 
   file      = {:Articles/Tadaki_Shidei_1959.pdf:PDF},
   owner     = {renke},
   timestamp = {2017.07.12},
+}
+
+@Article{Zeide1995,
+  author    = {Boris Zeide},
+  title     = {A relationship between size of trees and their number},
+  journal   = {Forest Ecology and Management},
+  year      = {1995},
+  volume    = {72},
+  number    = {2},
+  pages     = {265 - 272},
+  issn      = {0378-1127},
+  doi       = {http://dx.doi.org/10.1016/0378-1127(94)03453-4},
+  url       = {http://www.sciencedirect.com/science/article/pii/0378112794034534},
+  urldate   = {2017-07-11},
+  abstract  = {- whole article: {Reineke}
+
+- Note: for an explanation of equations see handwritten notes.
+
+- p. 266 fig 1, p. 267 fig. 2:
+Measurements indicate that, at least for loblolly pine (Pinus taeda) and for shortleaf pine (Pinus echinata), the Reineke line is not a straight line but rather a curve.
+
+- p. 271:
+Judging by the results, eq. (7) [as a replacement for Reineke’s equation] is applicable over a wide range of species, sites, and areas and twice as accurate as Reineke’s equation.
+},
+  file      = {:Articles/Zeide_1995.pdf:PDF},
+  keywords  = {Diameter at crown base, Reineke's equation, Stand density},
+  owner     = {renke},
+  timestamp = {2017.07.11},
+}
+
+@Report{Meyer1938,
+  author      = {Walter H. Meyer},
+  title       = {Yield of even-aged stands of ponderosa pine},
+  type        = {techreport},
+  institution = {U.S. Dept. of Agriculture},
+  date        = {1938},
+  number      = {630},
+  url         = {https://naldc.nal.usda.gov/catalog/CAT86200625},
+  urldate     = {2017-07-12},
+  abstract    = {- p. 27, p. 29 fig. 12: {Reineke}
+The Reineke line did not fit the data examined in this study and had to be changed into a slight concave curve.},
+  file        = {:Articles/Meyer_1938.pdf:PDF},
+  owner       = {renke},
+  series      = {Technical Bulletin},
+  timestamp   = {2017.07.12},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

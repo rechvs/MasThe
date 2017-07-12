@@ -39,8 +39,10 @@
     - State "done"       from "CURRENT"    [2017-07-11 Di 12:42]
     + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
 ** CURRENT Improve understanding of Yoda’s rule
-*** CURRENT Read Tadaki & Shidei (1959) (cp. Zeide (1985), p. 155)
-    + Article might be of interest in terms of the origin of Yoda’s rule.
+*** CURRENT Acquire Weller (1987) (cp. Zeide (1987), p. 525)
+    + Article might be of interest in terms of shortcomings of the -3/2 power rule.
+*** CURRENT Acquire White & Harper (1970) (cp. Zeide (1987), p. 524)
+    + Article might be of interest in terms of the exponent of the -3/2 power rule not being constant.
 *** CURRENT Acquire White (1981) (cp. Zeide (1985), p. 155)
     + Article might be of interest in terms of the connection between Reineke’s approach and self-thinning.
 *** CURRENT Acquire Yoda et al. (1963)
@@ -55,7 +57,15 @@
 *** done Read Vospernik & Sterba (2015)
     - State "done"       from "CURRENT"    [2017-07-10 Mo 19:01]
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
+*** done Read Tadaki & Shidei (1959) (cp. Zeide (1985), p. 155)
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 16:19]
+      Didn’t read the article (since it’s in Japanese), but made wrote an appropriate “Abstract” in its BibTeX entry.
+    + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Acquire Laasasenaho & Koivuniemi (1990) (cp. Zeide (1995), p. 267)
+    + Article migh be of interest in terms of how Reineke’s approach might be improved by replacing diameter at breast height with diameter at crown base.
+*** CURRENT Acquire Bickford et al. (1957) (cp. Zeide (1995), p. 267)
+    + Article might be of interest in terms of the shortcomings of Reineke’s approach.
 *** CURRENT Read Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80, 85)
     + Article might be of interest in terms of an improved version of Reineke’s approach.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
@@ -70,8 +80,6 @@
     + Article might be of interest in terms of an improved version of Reineke’s approach.
 *** CURRENT Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
     + Article might be of interest in terms of an improved version of Reineke’s approach.
-*** CURRENT Read Zeide (1987) (cp. del Río et al. (2001), p. 80)
-    + Article might be of interest in terms of shortcomings of Reineke’s or Yoda’s approach.
 *** CURRENT Read Schütz & Zingg (2010)
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 *** done Read Daniel & Sterba (1980)
@@ -88,6 +96,14 @@
 *** done Read Zeide (1985) (cp. del Río et al. (2001), p. 85)
     - State "done"       from "CURRENT"    [2017-07-12 Mi 11:02]
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
+*** done Read Zeide (1987) (cp. del Río et al. (2001), p. 80)
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 17:47]
+      Did not read the whole article in detail, since it mainly deals with Yoda’s approach while my main focus (at the moment, at least) should probably be Reineke’s approach.
+    + Article might be of interest in terms of shortcomings of Reineke’s or Yoda’s approach.
+*** done Read Meyer (1938) (cp. Zeide (1995), p. 266)
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 18:56]
+      Read only the portion relevant for the topic mentioned below.
+    + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve not being constant.
 *** on hold Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
     - State "on hold"    from "CURRENT"    [2017-07-11 Di 14:51] \\
       Not available at any member library of the GVK.
