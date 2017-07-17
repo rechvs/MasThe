@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
 kFileVersion <- "3.3"
-kFileName <- paste0(kDataDir, "gmax_", kFileVersion, ".RData")
+kFileName <- paste0(kDataDir, "gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
 models[["mgcv..gam"]] <- vector(mode = "list")
@@ -33,22 +33,22 @@ kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
+kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
 kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
-names.input.data.sources <- objects.present[grepl(pattern = "bart.clean", x = objects.present, fixed = FALSE)]
+names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spruce)).clean", x = objects.present, fixed = FALSE)]
 
 #########
 ## GAM ##
