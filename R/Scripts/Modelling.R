@@ -246,8 +246,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
 ## Setup for model "Reineke_improved_quadratic".
 ## Source of model formula: Schütz (2008), eq. (1); Zeide (1995), eq. (2)
 ## Source of possible start values: 
-## kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
-kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "log.nha ~ a + b * log.dg + c * (log.dg)^2")
+kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "ln.nha ~ a + b * ln.dg + c * (ln.dg)^2")
 kStartValsVecs[["Reineke_improved_quadratic"]] <- c("a" = 1,
                                                     "b" = 1,
                                                     "c" = 1)
