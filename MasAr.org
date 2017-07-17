@@ -1,16 +1,7 @@
-* TODO [7/13]
+* TODO [7/14]
 ** CURRENT Read literature for “Introduction”
-*** CURRENT Read Franz (1967) (cp. Schütz & Zingg (2010), p. 507p2)
-    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
-*** CURRENT Read Franz (1965) (cp. Schütz & Zingg (2010), p. 507p2)
-    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
 *** CURRENT Acquire Assmann (1974) (cp. Schütz & Zingg (2010), p. 507p2)
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
-*** CURRENT Acquire Schütz (2008) (cp. Schütz & Zingg (2010), p. 507p2)
-    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands of beech and spruce.
-*** CURRENT Acquire Van Soest et al. (1959) (cp. Curtis & Marshall (2000), p. 137)
-    [2017-07-11 Di]: ordered at BBF.
-    + Article might be of interest in terms of which symbols to use in the thesis.
 *** CURRENT Acquire Del Río & Sterba (2009) (cp.  Huber et al. (2014), p. 1286)
     + Article might be of interest in terms of a different method than GAMLSS for estimating/modelling maximum basal area.
 *** CURRENT Acquire Prodan (1959) (cp. Huber et al. (2014), p. 1282)
@@ -22,9 +13,6 @@
 *** CURRENT Acquire Hynynen (1993) (cp. Vospernik & Sterba (2015), p. 385)
     + Might require issuing an interlibrary loan (“gvk tit:Scandinavian journal of forest research”).
     + Article supposedly deals with maximum stand density of spruce in Scandinavia.
-*** CURRENT Acquire Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
-    + book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept
-    + [2017-07-06 Do]: ordered at BBF
 *** done Read Franz (1965)
     - State "done"       from "CURRENT"    [2017-07-07 Fr 11:44]
     + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
@@ -46,6 +34,25 @@
 *** done Read del Río, Montero and Bravo (2001) (cp. Vospernik & Sterba (2015), p. 386)
     - State "done"       from "CURRENT"    [2017-07-11 Di 12:42]
     + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
+*** done Read Franz (1965) (cp. Schütz & Zingg (2010), p. 507p2)
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:10]
+      Didn’t find any figure of the density-diameter-relationship and since the file is not searchable I would have had to at least skim through all of it, which didn’t seem worth the hassle.
+    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
+*** done Read Franz (1967) (cp. Schütz & Zingg (2010), p. 507p2)
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:15]
+      Searched for “Anzahl” which didn’t produce any meaningful results.
+    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
+*** done Read Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:31]
+    + Book supposedly (cp. Pretzsch (2002), p. 165) deals with predicting potential yield of a stand based on its Reineke equation intercept.
+    + [2017-07-06 Do]: ordered at BBF
+*** done Acquire Van Soest et al. (1959) (cp. Curtis & Marshall (2000), p. 137)
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:46]
+    [2017-07-11 Di]: ordered at BBF.
+    + Article might be of interest in terms of which symbols to use in the thesis.
+*** done Read Schütz (2008) (cp. Schütz & Zingg (2010), p. 507p2)
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 13:09]
+    + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands of beech and spruce.
 ** CURRENT Improve understanding of Yoda’s rule
 *** CURRENT Acquire Weller (1987) (cp. Zeide (1987), p. 525)
     + Article might be of interest in terms of shortcomings of the -3/2 power rule.
@@ -70,6 +77,7 @@
       Didn’t read the article (since it’s in Japanese), but made wrote an appropriate “Abstract” in its BibTeX entry.
     + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Search for literature at [[http://apps-1webofknowledge-1com-1u6v4q0ag007b.han.sub.uni-goettingen.de/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=N23lNVXOmwcJWiAlQ6M&preferencesSaved=][WOS]] on bias due to log-log-transformation (cp. Schütz (2008), p. 123)
 *** CURRENT Acquire Pretzsch & Schütze (2005) (cp. Schütz & Zingg (2010))
     + Article might be of interest in terms of whether the log(density)-log(diameter)-relationship of spruce and beech forms a curve or a line.
 *** CURRENT Acquire Lonsdale (1990) (cp. Schütz & Zingg (2010), p. 507p1)
