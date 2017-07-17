@@ -625,13 +625,13 @@ for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
     cur.object <- get(x = cur.object.name)
     ## Calculate "ghaa.cum".
     ghaa.cum <- NULL
-    for (cur.edvid in levels(bart.spruce.clean.1.0[["edvid"]])) {
-        ghaa.subset <- bart.spruce.clean.1.0[["ghaa"]][bart.spruce.clean.1.0[["edvid"]] == cur.edvid]
+    for (cur.edvid in levels(cur.object[["edvid"]])) {
+        ghaa.subset <- cur.object[["ghaa"]][cur.object[["edvid"]] == cur.edvid]
         ghaa.subset[is.na(x = ghaa.subset)] <- 0  ## Replace NA manually, to prevent "cumsum" from having to deal with them.
         ghaa.cum <- c(ghaa.cum,
                       cumsum(x = ghaa.subset))
     }
-    bart.spruce.clean.1.0[["ghaa.cum"]] <- ghaa.cum
+    cur.object[["ghaa.cum"]] <- ghaa.cum
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -660,7 +660,7 @@ for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "age.class".
-    bart.spruce.clean.1.0[["age.class"]] <- cut(x = bart.spruce.clean.1.0[["alt"]], breaks = 7, include.lowest = TRUE)
+    cur.object[["age.class"]] <- cut(x = cur.object[["alt"]], breaks = 7, include.lowest = TRUE)
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
