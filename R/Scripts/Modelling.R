@@ -33,19 +33,20 @@ kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
-kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
-kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
+## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
 names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spruce)).clean", x = objects.present, fixed = FALSE)]
@@ -238,6 +239,42 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+
+######################
+## Reineke improved ##
+######################
+## Setup for model "Reineke_improved_quadratic".
+## Source of model formula: Schütz (2008), eq. (1); Zeide (1995), eq. (2)
+## Source of possible start values: 
+## kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
+kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "log.nha ~ a + b * log.dg + c * (log.dg)^2")
+kStartValsVecs[["Reineke_improved_quadratic"]] <- c("a" = 1,
+                                                    "b" = 1,
+                                                    "c" = 1)
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models fitted with "stats::nls".
+    kFunction <- "stats..nls"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Reineke_improved_",
+                          x = cur.formula.name,
+                          fixed = TRUE)) {
+                    try(expr = 
+                            models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
+                        )
+                }
+            }
+        }
+    }
+}
+
 
 #########
 ## LMs ##
