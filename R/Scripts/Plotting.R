@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "3.3"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
@@ -508,3 +508,7 @@ for (cur.list.name in names(x = kPlottingInformation)) {
         }
     }
 }
+
+## Continue here ##
+"kCoeffsSource5" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"Reineke_improved_quadratic\"]])",
+"kCurveExpr5" = "eval(expr = parse(text = kCoeffsSource5))[[\"a\"]] + parse(text = kCoeffsSource5))[[\"b\"]] * x + parse(text = kCoeffsSource5))[[\"c \"]] * x^2",
