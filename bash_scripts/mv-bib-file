@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Set shell options.
+set -eu
+
+# Set soure and destination directories as variables.
+src_dir=~/"Downloads/"
+dest_dir=~/"laptop02_MasAr/Literature/"
+
+# Set remaining variables.
+file_cnt=0
+
+# Check whether all required directories exist, exit if one does not.
+if [[ ! -d "${src_dir}" ]]; then
+    printf "%s\n" "Fehler: „${src_dir}“ ist kein Verzeichnis."
+    exit 1
+elif [[ ! -d "${dest_dir}" ]]; then
+    printf "%s\n" "Fehler: „${dest_dir}“ ist kein Verzeichnis."
+    exit 1
+fi
+
+# Check whether exactly one .bib file exists in $src_dir, exit if it does not.
+for bib_file in "${src_dir}*.bib"; do
+    file_cnt="$(( ${file_cnt} + 1 ))"
+done
+if [[ "${file_cnt}" > 1 ]]; then
+    printf "%s\n" "Fehler: mehr als eine .bib-Datei in „${src_dir}“ gefunden."
+    exit 1
+fi
+if [[ "${file_cnt}" < 1 ]]; then
+    printf "%s\n" "Fehler: keine .bib-Datei in „${src_dir}“ gefunden."
+    exit 1
+fi
+
+# Move .bib file from ${src_dir} to ${dest_dir}Exported_Items.bib.
+mv -v "${src_dir}"*".bib" "${dest_dir}Exported_Items.bib"
+
+exit 
