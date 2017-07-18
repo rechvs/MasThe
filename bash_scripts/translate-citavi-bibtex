@@ -1,0 +1,27 @@
+#! /bin/bash
+
+inputfile=~/"Privat/Labor/CITAVI_beispiel.ris"
+# Extract sections. Sections are separated by replacing the string "TY" with "\tTY" via sed while also setting "\t" as the IFS. (The second sed call is supposed to remove empty lines from the beginning of the input file to avoid them from being considered a separate section.)
+IFS=$'\t' citavi_sections=( $(sed -e "s/TY/\tTY/" "${inputfile}" | sed -e "/^$/d" -) )
+
+# Determine number of sections.
+nsections="${#citavi_sections[@]}"
+
+# Extract media types (2. field of lines starting with "TY").
+citavi_types=( $(printf "%s\n" "${citavi_sections[@]}" | sed -n /"TY/"p - | awk 'BEGIN {FS = "  - "} ; {print $2}') )
+
+# Extract titles (2. field of lines starting with "T1").
+citavi_titles=( $(printf "%s\n" "${citavi_sections[@]}" | sed -n /"T1/"p - | awk 'BEGIN {FS = "  - "} ; {print $2}') )
+
+type_translation_citavi=( "BOOK" )
+type_translation_bibtex=( "@book" )
+
+printf "%s\n" "${nsections}"  ## TESTING
+
+for ((i=0;i<="${nsections}"-1;i++)); do
+    printf "%s\n" "${citavi_sections[${i}]}"
+done  ## TESTING
+
+## TODO: Weg finden, um fortgesetzte Zeilen auf einer Zeile zusammenzufassen.
+
+exit 0
