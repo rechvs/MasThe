@@ -20,26 +20,26 @@
     - State "done"       from "CURRENT"    [2017-07-07 Fr 12:57]
     + article supposedly (cp. Pretzsch (2002), p. 165) deals with how knowledge of maximum stand density is used in silviculture
 *** done Read Bartelink (1997)
-    - State "done"       from "CURRENT"    [2017-07-10 Mo 09:16]
+    - State "done"       from "CURRENT"    [2017-07-10 Mo 09:16] \\
       Searched the article for “basal” and noted all relevant information.
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 *** done Read Döbbeler (2004) (cp. Vospernik & Sterba (2015), p. 388)
-    - State "done"       from "CURRENT"    [2017-07-11 Di 09:02]
+    - State "done"       from "CURRENT"    [2017-07-11 Di 09:02] \\
       Searched the thesis for “Grundfläche” and noted all relevant information.
     + Article might be of interest in terms of attempts made at modelling basal area of spruce and beech.
 *** done Read Huber et al. (2014) (cp. Vospernik & Sterba (2015), p. 388)
-    - State "done"       from "CURRENT"    [2017-07-11 Di 09:41]
+    - State "done"       from "CURRENT"    [2017-07-11 Di 09:41] \\
       Searched the article for “basal area” and “maximum” and noted all relevant information.
     + Article might be of interest in terms of different approaches for modelling potential density.
 *** done Read del Río, Montero and Bravo (2001) (cp. Vospernik & Sterba (2015), p. 386)
     - State "done"       from "CURRENT"    [2017-07-11 Di 12:42]
     + Article might be of interest in terms of Reineke’s coefficient of -1.605 not being generally applicable.
 *** done Read Franz (1965) (cp. Schütz & Zingg (2010), p. 507p2)
-    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:10]
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:10] \\
       Didn’t find any figure of the density-diameter-relationship and since the file is not searchable I would have had to at least skim through all of it, which didn’t seem worth the hassle.
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
 *** done Read Franz (1967) (cp. Schütz & Zingg (2010), p. 507p2)
-    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:15]
+    - State "done"       from "CURRENT"    [2017-07-17 Mo 10:15] \\
       Searched for “Anzahl” which didn’t produce any meaningful results.
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
 *** done Read Bergel (1985): “Douglasien-Ertragstafel für Nordwestdeutschland”
@@ -54,7 +54,9 @@
     - State "done"       from "CURRENT"    [2017-07-17 Mo 13:09]
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands of beech and spruce.
 ** CURRENT Improve understanding of Yoda’s rule
-*** CURRENT Acquire Weller (1987) (cp. Zeide (1987), p. 525)
+*** CURRENT Acquire Zeide (2010) (cp. Charru et al. (2012), p. 196)
+    + Article might be of interest in terms of self-thinning in forest stands being closer related to tree diameter than to tree biomass.
+*** CURRENT Acquire Weller (1987) (cp. Zeide (1987), p. 525; Charru et al. (2012), p. 196)
     + Article might be of interest in terms of shortcomings of the -3/2 power rule.
 *** CURRENT Acquire White & Harper (1970) (cp. Zeide (1987), p. 524)
     + Article might be of interest in terms of the exponent of the -3/2 power rule not being constant.
@@ -73,10 +75,14 @@
     - State "done"       from "CURRENT"    [2017-07-10 Mo 19:01]
     + found in the 1. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
 *** done Read Tadaki & Shidei (1959) (cp. Zeide (1985), p. 155)
-    - State "done"       from "CURRENT"    [2017-07-12 Mi 16:19]
-      Didn’t read the article (since it’s in Japanese), but made wrote an appropriate “Abstract” in its BibTeX entry.
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 16:19] \\
+      Didn’t read the article (since it’s in Japanese), but wrote an appropriate “Abstract” in its BibTeX entry.
     + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Acquire Pretzsch (2009) (cp Charru et al. (2012), p. 196)
+    + Book might be of interest in terms of how the estimation technique influences the value of the slope of the log(density)-log(diameter)-line.
+*** CURRENT Read VanderSchaaf (2008)
+    + found in the 4. set in [[file:Literature/Search_Results/history_03.ua][this WOS search]]
 *** CURRENT Search for literature at [[http://apps-1webofknowledge-1com-1u6v4q0ag007b.han.sub.uni-goettingen.de/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=N23lNVXOmwcJWiAlQ6M&preferencesSaved=][WOS]] on bias due to log-log-transformation (cp. Schütz (2008), p. 123)
 *** CURRENT Acquire Pretzsch & Schütze (2005) (cp. Schütz & Zingg (2010))
     + Article might be of interest in terms of whether the log(density)-log(diameter)-relationship of spruce and beech forms a curve or a line.
@@ -86,7 +92,7 @@
     + Article migh be of interest in terms of how Reineke’s approach might be improved by replacing diameter at breast height with diameter at crown base.
 *** CURRENT Acquire Bickford et al. (1957) (cp. Zeide (1995), p. 267)
     + Article might be of interest in terms of the shortcomings of Reineke’s approach.
-*** CURRENT Read Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80, 85)
+*** CURRENT Read Puettmann et al. (1993) (cp. del Río et al. (2001), p. 80, 85; Charru et al. (2012), p. 196)
     + Article might be of interest in terms of an improved version of Reineke’s approach.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** CURRENT Acquire Bredenkamp & Burkhart (1990) (cp. del Río et al. (2001), p. 85)
@@ -111,23 +117,30 @@
     - State "done"       from "CURRENT"    [2017-07-12 Mi 11:02]
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve being species-specific.
 *** done Read Zeide (1987) (cp. del Río et al. (2001), p. 80)
-    - State "done"       from "CURRENT"    [2017-07-12 Mi 17:47]
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 17:47] \\
       Did not read the whole article in detail, since it mainly deals with Yoda’s approach while my main focus (at the moment, at least) should probably be Reineke’s approach.
     + Article might be of interest in terms of shortcomings of Reineke’s or Yoda’s approach.
 *** done Read Meyer (1938) (cp. Zeide (1995), p. 266)
-    - State "done"       from "CURRENT"    [2017-07-12 Mi 18:56]
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 18:56] \\
       Read only the portion relevant for the topic mentioned below.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve not being constant.
 *** done Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
     - State "done"       from "CURRENT"    [2017-07-12 Mi 20:01]
     + Article might be of interest in terms of an improved version of Reineke’s approach.
 *** done Read Tang et al. (1994) (cp. del Río et al. (2001), p. 80)
-    - State "done"       from "CURRENT"    [2017-07-13 Do 10:55]
+    - State "done"       from "CURRENT"    [2017-07-13 Do 10:55] \\
       Didn’t read thoroughly, since I was unable to retrace eq. (5) and all following equations.
     + Article might be of interest in terms of an improved version of Reineke’s approach.
 *** done Read Schütz & Zingg (2010)
     - State "done"       from "CURRENT"    [2017-07-13 Do 13:49]
     + found in the 5. set in [[file:Literature/Search_Results/history_02.ua][this WOS search]]
+*** done Read Charru et al. (2012)
+    - State "done"       from "CURRENT"    [2017-07-18 Di 13:15]
+    + found in the 5. set in [[file:Literature/Search_Results/history_03.ua][this WOS search]]
+*** problem Acquire Le Goff & Ottorini (1999) (cp Charru et al. (2012), p. 196)
+    - State "problem"    from "CURRENT"    [2017-07-19 Mi 10:11] \\
+      Article seems to be unavailable (and it’s in French anyway).
+    + Article might be of interest in terms of the species-specific slope of the log(density)-log(diameter)-line for beech.
 *** on hold Acquire Smith & Hann (1984) (cp. del Río et al. (2001), p. 80)
     - State "on hold"    from "CURRENT"    [2017-07-11 Di 14:51] \\
       Not available at any member library of the GVK.
@@ -137,9 +150,6 @@
       Not available at any member library of the GVK.
     + Article might be of interest in terms of an improved version of Reineke’s approach.
 ** CURRENT improve understanding of Sterba’s approach
-*** CURRENT Acquire Ando et al. (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT Acquire Ando (1968) (cp. Sterba (1987), p. 1023)
-*** CURRENT Acquire Tadaki (1963) (cp. Sterba (1987), p. 1023)
 *** done read Sterba (1975)
    - State "done"       from "CURRENT"    [2017-05-12 Fr 13:21]
 *** done read Sterba (1981)
@@ -149,10 +159,16 @@
 *** done pick up “Journal of the Institute of Polytechnics, Osaka City University”, 1953 from SUB
     - State "done"       from "CURRENT"    [2017-05-24 Mi 12:18]
 *** done read Sterba (1987)
-    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20]
-      haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3)
+    - State "done"       from "CURRENT"    [2017-04-26 Mi 14:20] \\
+      Haven’t read the whole paper, only up to p. 1024 to be able to understand Wördehoff et al. (2014) (Gl. 1), (Gl. 2), and (Gl. 3).
 *** done Read Goulding (1972) (cp. Sterba (1987), p. 1023)
     - State "done"       from "CURRENT"    [2017-07-06 Do 11:14]
+*** done Read Tadaki (1963) (cp. Sterba (1987), p. 1023)
+    - State "done"       from "CURRENT"    [2017-07-19 Mi 09:29]
+*** done Read Ando et al. (1968) (cp. Sterba (1987), p. 1023)
+    - State "done"       from "CURRENT"    [2017-07-19 Mi 09:29]
+*** done Read Ando (1968) (cp. Sterba (1987), p. 1023)
+    - State "done"       from "CURRENT"    [2017-07-19 Mi 09:58]
 *** on hold acquire Warne (1952) (cp. Kira et al. (1953), p. 9)
     - State "on hold"    from "CURRENT"    [2017-06-13 Di 18:03] \\
       Journal of Horticultural Science 1952, vol. 27 is not available at SUB
@@ -182,11 +198,11 @@
 **** done Chapter 4
      - State "done"       from              [2017-05-31 Mi 10:18]
 **** done Chapter 6
-     - State "done"       from "CURRENT"    [2017-05-31 Mi 18:08]
-     + skipped most parts of section 6.2 “Fisher scoring for generalized linear models”
-     + skipped section 6.5 “Derivation of the local-scoring procedure”
-     + skipped section 6.6 “Convergence of the local-scoring algorithm”
-     + skipped section 6.8 “Inference”
+     - State "done"       from "CURRENT"    [2017-05-31 Mi 18:08] \\
+       + skipped most parts of section 6.2 “Fisher scoring for generalized linear models”
+       + skipped section 6.5 “Derivation of the local-scoring procedure”
+       + skipped section 6.6 “Convergence of the local-scoring algorithm”
+       + skipped section 6.8 “Inference”
 *** done read Wood (2001)
     - State "done"       from "CURRENT"    [2017-05-18 Do 16:00]
 *** done What is a “smooth function”?
@@ -210,14 +226,14 @@
     + SIG: 2013 A 17075
     + location: Freefloater Biodiversity, Macroecology and Conservation Biogeography, Büsgenweg 1
 ** done scan articles by Sterba from 1975 and 1981 (see references in Wördehoff et al. 2014);
-   - State "done"       from "CURRENT"    [2017-05-02 Di 10:38]
+   - State "done"       from "CURRENT"    [2017-05-02 Di 10:38] \\
      see “Sterba_1975.pdf“ and „Sterba_1981.pdf“ [[file:Literature/Articles/][here]]
    journal can be found at the BBF-Mag, signature: “II, 76”
 ** done interpolate mean heights not listed in Schober (1975) for moderate and heavy thinning
-   - State "done"       from "CURRENT"    [2017-05-04 Do 14:58]
+   - State "done"       from "CURRENT"    [2017-05-04 Do 14:58] \\
      see [[file:R/Scripts/Rating.R::##%20Calculate%20mean%20heights%20not%20listed%20in%20Schober%20(1975)%20for%20all%20EKLs%20for%20moderate%20thinning%20of%20spruce.][here for moderate thinning]] and [[file:R/Scripts/Rating.R::##%20Calculate%20mean%20heights%20not%20listed%20in%20Schober%20(1975)%20for%20all%20EKLs%20for%20heavy%20thinning%20of%20spruce.][here for heavy thinning]]
 ** done look for references mentioned in “help("mgcv.package")” at the SUB
-   - State "done"       from "CURRENT"    [2017-05-04 Do 15:44]
+   - State "done"       from "CURRENT"    [2017-05-04 Do 15:44] \\
      found all articles;
      book is available in library (see [[file:Literature/gbv-download.txt::73][here]]), but not lendable;
      see search results [[file:Literature/gbv-download.txt][here]] for books related to “generalized additive models”
@@ -231,6 +247,9 @@
    e.g., from “rel.ksha” to “ksha.rel”
 ** done Add clean up sections to each block in [[file:R/Scripts/DataSetCreation.R::##%20Preamble][DataSetCreation.R]] (to prevent obstruction of the workspace by objects no longer needed if the script is called from outside)
    - State "done"       from "CURRENT"    [2017-05-24 Mi 08:43]
+** CURRENT Exclude measurements from data set if they do not resemble self-thinning
+   + Find range of values in literature for the slope of the log(density)-log(diameter)-line for spruce and beech.
+   + Rewrite block [[file:R/Scripts/DataSetCreation.R::Create%20"gmax_merged_1.9.RData"%20##][Create "gmax_merged_1.9.RData"]] such that it excludes all consecutive measurements if the slope of the log(density)-log(diameter)-line lies outside the aforementioned range.
 * NOTES
 ** R Code Style Guidelines
 *** Where to find Google’s R Style Guide?
