@@ -79,6 +79,43 @@
       Didn’t read the article (since it’s in Japanese), but wrote an appropriate “Abstract” in its BibTeX entry.
     + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Acquire VanderSchaaf & Burkhart (2007) (cp. VanderSchaaf (2010), p. 328)
+    + Article might be of interest in terms of different techniques for estimating the log(density)-log(diameter)-trajectory.
+*** CURRENT Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 20:01]
+    - Article might be of interest in terms of an improved version of Reineke’s approach.
+    - Article might be of interest in terms of the 3. phase of self-thinning (cp. VanderSchaaf (2010), p. 328)
+*** CURRENT Acquire Weller (1990) (cp. VanderSchaaf (2010), p. 328)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+    + Article might be of interest in terms of a definition of a “species boundary line”.
+*** CURRENT Acquire Weiskittel et al. (2009) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+*** CURRENT Acquire Monserud et al. (2004) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+*** CURRENT Acquire Yang & Titus (2000) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+*** CURRENT Acquire Johnson (2000) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+    + Article might be of interest in terms of species-specific slopes of the log(density)-log(diamter)-line (cp. VanderSchaaf (2010), p. 331).
+*** CURRENT Read Zeide (1985) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+*** CURRENT Acquire Poage et al. (2007) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the different phases of self-thinning.
+    + Article might be of interest in terms of species-specific slopes of the log(density)-log(diamter)-line (cp. VanderSchaaf (2010), p. 331).
+*** CURRENT Read del Río et al. (2001) (cp. VanderSchaaf (2010), p. 327, p. 328)
+    + Article might be of interest in terms of the different phases of self-thinning.
+*** CURRENT Acquire Harms et al. (2000) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the 1. phase of self-thinning.
+*** CURRENT Acquire Williams (1994) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
+*** CURRENT Acquire McCarter & Long (1986) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
+*** CURRENT Acquire Drew & Flewelling (1979) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
+*** CURRENT Acquire VanderSchaaf & Burkhart (2008) (cp. VanderSchaaf (2010), p. 327)
+    + Article might be of interest in terms of using segmented regression to analyse the log(density)-log(diameter)-curve.
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+    + Article might be of interest in terms of deciding where each phase of the self-thinning stage begins and ends.
 *** CURRENT Acquire Pretzsch (2009) (cp Charru et al. (2012), p. 196)
     + Book might be of interest in terms of how the estimation technique influences the value of the slope of the log(density)-log(diameter)-line.
 *** CURRENT Read VanderSchaaf (2008)
@@ -124,9 +161,6 @@
     - State "done"       from "CURRENT"    [2017-07-12 Mi 18:56] \\
       Read only the portion relevant for the topic mentioned below.
     + Article might be of interest in terms of the slope of the log(N)-log(dg)-curve not being constant.
-*** done Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
-    - State "done"       from "CURRENT"    [2017-07-12 Mi 20:01]
-    + Article might be of interest in terms of an improved version of Reineke’s approach.
 *** done Read Tang et al. (1994) (cp. del Río et al. (2001), p. 80)
     - State "done"       from "CURRENT"    [2017-07-13 Do 10:55] \\
       Didn’t read thoroughly, since I was unable to retrace eq. (5) and all following equations.
@@ -249,7 +283,9 @@
    - State "done"       from "CURRENT"    [2017-05-24 Mi 08:43]
 ** CURRENT Exclude measurements from data set if they do not resemble self-thinning
    + Find range of values in literature for the slope of the log(density)-log(diameter)-line for spruce and beech.
-   + Rewrite block [[file:R/Scripts/DataSetCreation.R::Create%20"gmax_merged_1.9.RData"%20##][Create "gmax_merged_1.9.RData"]] such that it excludes all consecutive measurements if the slope of the log(density)-log(diameter)-line lies outside the aforementioned range.
+     + According to VanderSchaaf (2010), the log(density)-log(diameter)-trajectory can be divided into 2 stages (1. density-independent mortality, 2. self-thinning), where the 2. stage can itself be divided into 3 phases.
+     + For this approach of excluding measurements, I am mainly interested in stage 2, phase 2, since this is the only period during which a stand can be considered to be fully stocked (cp. VanderSchaaf (2010), p. 328). In this period, self-thinning occurs and the slope of the log(density)-log(diameter)-trajectory is stable (i.e., the trajectory is a line).
+   + Rewrite block [[file:R/Scripts/DataSetCreation.R::Create%20"gmax_merged_1.9.RData"%20##][Create "gmax_merged_1.9.RData"]] such that it excludes measurements if the slope of the log(density)-log(diameter)-line lies outside the aforementioned range. However, I am currently unsure about how to tell whether to exclude the current or the next measurement if the slope lies outside the range. 
 * NOTES
 ** R Code Style Guidelines
 *** Where to find Google’s R Style Guide?
@@ -377,13 +413,16 @@
       + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
 ** .bib file
    + Percentage signs must be escaped.
+   + It seems that underscores used in the “Abstract” do not have to be escaped.
+   + Authors’s first names should be abbreviated in the .bib file to ensure correcting sorting of the bibliography.
 *** Table of keyword meanings
-    | Keyword          | Meaning                                                                                   |
-    |------------------+-------------------------------------------------------------------------------------------|
-    | X-Y-relationship | relationship between independent variable X and dependent variable Y                      |
-    | X-Y-curve        | curve describing the relationship between independent variable X and dependent variable Y |
-    | X-Y-line         | line describing the relationship between independent variable X and dependent variable Y  |
-    | X-Y-plot         | plot describing the relationship between independent variable X and dependent variable Y  |
+    | Keyword          | Meaning                                                                                        |
+    |------------------+------------------------------------------------------------------------------------------------|
+    | X-Y-relationship | relationship between independent variable X and dependent variable Y                           |
+    | X-Y-trajectory   | trajectory describing the relationship between independent variable X and dependent variable Y |
+    | X-Y-curve        | curve describing the relationship between independent variable X and dependent variable Y      |
+    | X-Y-line         | line describing the relationship between independent variable X and dependent variable Y       |
+    | X-Y-plot         | plot describing the relationship between independent variable X and dependent variable Y       |
 *** How to refer to a specific portion of a reference
      “- p. PAGE1 [tab. TABLE1 [tab. TABLE1.1]|fig. FIGURE1 [fig. FIGURE1.1]][, p. PAGE2 [tab. TABLE2 [tab. TABLE2.1]|fig. FIGURE2 [fig. FIGURE2.1]]]”
      + Note the missing comma between a page number and a table or figure reference.

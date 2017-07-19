@@ -144,7 +144,7 @@ h: dominant height
 - p. 1024: according to eq. (6) and as long as a_1 > b_1, in an unmanaged stand N_Gmax has to be reduced by self-thinning with increasing h in order to maintain Gmax
 
 
-- p. 1024: the “maximum basal area, established only by natural mortality, was called “natural basal area” by Assmann (1955) and found to be a good indicator to find the “yield level,” i.e., the second index besides the site index in his yield tables for Norway spruce (Assman and Franz (1963)”
+- p. 1024: the “maximum basal area, established only by natural mortality, was called “natural basal area” by Assmann (1955) and found to be a good indicator to find the “yield level,” i.e., the second index besides the site index in his yield tables for Norway spruce (Assman and Franz (1963))”
 
 - p. 1024: solving eq. (7) for h [i.e., “expressing height as a function of mean diameter at maximum density”], one obtains:
 h = (2 b_0 d_Gmax)^(-1 / b_1);
@@ -230,11 +230,11 @@ definition of critical basal area over a period [kritische Grundflächenhaltung]
 
 - Note: for an explanation of equations see handwritten notes
 
-- p. 46: [definition of “Ertragsniveau”, taken from Assmann (1961), “Waldertragskunde”, p. 161: “die Gesamtwuchsleistung, welche bei einer bestimmten Mittelhöhe (oder Oberhöhe) erreicht wird, [charakterisiert] das Ertragsniveau eines Standortes in bezug auf die Bestandeshöhe” [Note: the term “Gesamtwuchsleistung” here means the total volume of wood at a given Oberhöhe of the stand in question]
+- p. 46: [definition of “Ertragsniveau”, taken from Assmann (1961), “Waldertragskunde”, p. 161: “die Gesamtwuchsleistung, welche bei einer bestimmten Mittelhöhe (oder Oberhöhe) erreicht wird, [charakterisiert] das Ertragsniveau eines Standortes in bezug auf die Bestandeshöhe” [Note: the term “Gesamtwuchsleistung” here means the total volume of wood at a given Oberhöhe of the stand in question]]
 
 - p. 48: [definition of “Standfläche”, taken from Assmann (1961), “Waldertragskunde”, p. 99: “Die Standfläche eines Baumes wird gebildet von seiner horizontalen Kronenprojektion [Kronenschirmfläche] zuzüglich des Anteils an der nichtüberschirmten Bestandesfläche.”]
 
-- p. 48: [definition of “allometrisch”, taken from Duden Fremdwörterbuch, p. 51: “unterschiedliche Wachstumsgeschwindigkeit zeigend im Verhältnis zur Körpergröße od. zu anderen Organen (von Gliedmaßen, Organen od. Geweben”]
+- p. 48: [definition of “allometrisch”, taken from Duden Fremdwörterbuch, p. 51: “unterschiedliche Wachstumsgeschwindigkeit zeigend im Verhältnis zur Körpergröße od. zu anderen Organen (von Gliedmaßen, Organen od. Geweben)”]
 
 - p. 51, table 1: [for an explanation of the coefficients see p. 54]
 
@@ -1574,7 +1574,7 @@ High variability of stand basal area seems to be explainable via the respective 
   timestamp = {2017.07.05},
 }
 
-@Article{VanderSchaaf:2010:0015-749X:327,
+@Article{VanderSchaaf2010,
   author        = {VanderSchaaf, Curtis L.},
   title         = {Estimating Individual Stand SizeDensity Trajectories and a Maximum SizeDensity Relationship Species Boundary Line Slope},
   journal       = {Forest Science},
@@ -1585,6 +1585,45 @@ High variability of stand basal area seems to be explainable via the respective 
   pages         = {327-335},
   issn          = {0015-749X},
   url           = {http://www.ingentaconnect.com/content/saf/fs/2010/00000056/00000004/art00001},
+  abstract      = {- whole article: {Reineke}
+
+- p. 327, p. 328 fig. 1:
+The log(density)-log(tree size)-relationship of a stand is often divided into 2 stages:
+1. “an initial stage in which mortality is independent of stand density, often referred to as the density-independent mortality stage”;
+2. “stage with competition-induced mortality, often referred to as the density-dependent mortality stage or the self-thinning stage”.
+
+- p. 327 f., p. 328 fig. 1:
+“Within the overall self-thinning stage, [3] phases of stand development are assumed”:
+1. Mortality continually increases as diameter increases, leading to a curvature of the log(density)-log(diameter)-trajectory until it reaches the maximum size-density relationship (MSDR) dynamic thinning line.
+2. The size-density-trajectory becomes linear, i.e., the mortality per diameter increment is constant. “This phase is termed the MSDR dynamic thinning line phase of stand development (Weller 1990) and is where a stand is fully stocked (del Rio et al. 2001) and Reineke’s SDI remains relatively constant [I think it’s more to the point to state that this is the only phase where the SDI is applicable.].”
+3. Residual trees are no longer able to fully occupy canopy gaps. The size-density-trajectory diverges from the MSDR dynamic thinning line.
+
+- p. 328:
+Definition of an MDSR species boundary line: “the maximum obtainable N for a particular Dq accross all stands of a species within a particular geographic region (Weller 1990).”
+
+- p. 328:
+[Short description of how to properly estimate the MSDR species boundary line from observations belonging to different plots.]
+
+- p. 329:
+[Description of the segmented regression model employed in this study for estimating the log(density)-log(diameter)-trajectory over all stages and phases.]
+
+- p. 330:
+In the case of 4 plots for which convergence criteria of the full model (eq. (2)) were met, the full model [which takes into account all 3 phases of the self-thinning stage] was better than the reduced model [which takes into account only the first 2 phases of the self-thinning stage].
+
+- p. 330:
+Higher planting densities result in a higher MSDR dynamic thinning line boundary level [which, as I understand it, is the same as the intercept of the Reineke equation].
+MSDR dynamic thinning line slope [which, as I understand it, is the same as the slope of the Reineke equation] did not vary with planting density [I’m not sure, whether this isn’t a typo, since I can’t find a reason for the variation other than planting density and on p. 331 the author quotes from VanderSchaaf & Burkhart (2008), who did find a planting density-specific variation in the slope.].
+MSDR dynamic thinning line slope ranged in value from -1.279 – -2.163.
+
+- p. 331:
+Accounting for plot-specific MSDR dynamic thinning line behavior (by using eq. (1) instead of eq. (4)) resulted in a higher [i.e., less negative] slope.
+                  
+- p. 333:
+[Judging from the “Conclusions”, the following approach was taken by the author:
+1. Determine which observations belong to the 2. phase of the self-thinning stage by using a segmented regression model (eq. (2) or (3)).
+2. Use a mixed effects model (eq. (1), instead of eq. (4)) to determine the actual slope and intercept of the log(density)-log(diamter)-line for the observations belonging to the 2. phase of the self-thinning stage.] 
+
+},
   file          = {:Articles/VanderSchaaf_2010.pdf:PDF},
   itemtype      = {ARTICLE},
   keyword       = {mixed-effects models, Reineke's stand density index, loblolly pine, Pinus taeda L},
