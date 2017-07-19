@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Set shell options.
+set -eu
+
+# Set soure and destination directories as variables.
+src_dir=~/"Downloads/"
+dest_dir=~/"laptop02_MasAr/Literature/Search_Results/"
+
+# Set remaining variables.
+file_cnt=1
+
+# Check whether all required directories exist, exit if one does not.
+if [[ ! -d "${src_dir}" ]]; then
+    printf "%s\n" "Fehler: „${src_dir}“ ist kein Verzeichnis."
+    exit 1
+elif [[ ! -d "${dest_dir}" ]]; then
+    printf "%s\n" "Fehler: „${dest_dir}“ ist kein Verzeichnis."
+    exit 1
+fi
+
+# Count "history_[0-9][0-9].ua" files in "${dest_dir}".
+for file in "${dest_dir}history_"[0-9][0-9]".ua"; do
+    file_cnt="$(( file_cnt + 1))"
+done
+
+# Pad "${file_cnt}" to 2 digits width with leading 0.
+file_cnt="$(printf %02d ${file_cnt})"
+
+# Move file "${src_dir}history.ua" to "${dest_dir}history_CNTR.ua".
+mv -vi "${src_dir}history.ua" "${dest_dir}history_${file_cnt}.ua"
+
+exit 
