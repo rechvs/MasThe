@@ -79,6 +79,10 @@
       Didn’t read the article (since it’s in Japanese), but wrote an appropriate “Abstract” in its BibTeX entry.
     + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
+*** CURRENT Acquire Monserud et al. (2005) (cp. Vacchiano et al. (2013), p. 538)
+    + Article might be of interest in terms of the slope of the log(density)-log(diameter)-line for spruce.
+*** CURRENT Acquire Drew & Flewelling (1977) (cp. Drew & Flewelling (1979), p. 521)
+    + Article might be of interest in terms of the different stages of stand development.
 *** CURRENT Acquire Zon & Graves (1911) (cp. Zeide (1985), p. 151)
     + Article might be of interest in terms of the different stages of self-thinning.
 *** CURRENT Read VanderSchaaf & Burkhart (2007) (cp. VanderSchaaf (2010), p. 328)
@@ -100,11 +104,13 @@
     + Article might be of interest in terms of species-specific slopes of the log(density)-log(diamter)-line (cp. VanderSchaaf (2010), p. 331).
 *** CURRENT Acquire Harms et al. (2000) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of the 1. phase of self-thinning.
-*** CURRENT Acquire Williams (1994) (cp. VanderSchaaf (2010), p. 327)
+*** on hold Acquire Williams (1994) (cp. VanderSchaaf (2010), p. 327)
+    - State "on hold"    from "CURRENT"    [2017-07-20 Do 15:04] \\
+      Ordered at BBF.
     + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
-*** CURRENT Acquire McCarter & Long (1986) (cp. VanderSchaaf (2010), p. 327)
-    + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
-*** CURRENT Acquire Drew & Flewelling (1979) (cp. VanderSchaaf (2010), p. 327)
+*** problem Acquire McCarter & Long (1986) (cp. VanderSchaaf (2010), p. 327)
+    - State "problem"    from "CURRENT"    [2017-07-20 Do 14:55] \\
+      Not available online. Printed version (SIG: ZB 65141) available at BBF, but relevant volume cannot be ordered online.
     + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
 *** CURRENT Read VanderSchaaf & Burkhart (2008) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of using segmented regression to analyse the log(density)-log(diameter)-curve.
@@ -180,6 +186,14 @@
     - State "done"       from "CURRENT"    [2017-07-20 Do 12:20] \\
       Searched for “stage”, “phase”, “curv“, and “full” without obtaining useful results with respect to the authors supporting the hypothesis of different stages of self-thinning.
     + Article might be of interest in terms of the different phases of self-thinning.
+*** done Read Drew & Flewelling (1979) (cp. VanderSchaaf (2010), p. 327)
+    - State "done"       from "CURRENT"    [2017-07-20 Do 14:43] \\
+      Searched for “stand devel”, and “imminent” and noted all information relating to the different stages of stand development.
+    + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
+*** done Read Vacchiano et al. (2013)
+    - State "done"       from "CURRENT"    [2017-07-20 Do 16:28] \\
+      Searched for “slope” and noted all relevant information regarding the slope of the log(density)-log(diameter)-line.
+    + Article found in the 2. set of [[file:Literature/Search_Results/history_04.ua][this WOS search]].
 *** problem Acquire Le Goff & Ottorini (1999) (cp Charru et al. (2012), p. 196)
     - State "problem"    from "CURRENT"    [2017-07-19 Mi 10:11] \\
       Article seems to be unavailable (and it’s in French anyway).
