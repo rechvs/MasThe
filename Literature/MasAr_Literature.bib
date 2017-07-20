@@ -1016,11 +1016,20 @@ Deviations from Reineke’s coefficient of -1.605 may “be explained by the spe
   url       = {http://www.sciencedirect.com/science/article/pii/0378112785900313},
   abstract  = {- Note: for an explanation of equations see handwritten notes
 
+- p. 151: {Reineke}
+Tolerance of trees [i.e., the log(density)-log(diameter)-trajectory of a species in both mixed and pure stands] may be divided into 3 stages:
+1. Tolerance decreases as the stand approaches full canopy closure.
+2. Tolerance remains fairly constant as long as the canopy is fully closed.
+3. Tolerance decreases (again) as canopy closure begins to disappear.
+
+- p. 153: {Reineke; Yoda}
+Both Reineke’s and Yoda’s equation are only applicable in the 2. stage of stand development [cp. p. 151] of full canopy closure.
+
 - p. 154: {Reineke}
 The slope of the log(density)-log(diameter)-curve is generally lower for more tolerant species, i.e., the rate of self-thinning is lower for more tolerant species.
 
 - p. 157: {Reineke; Yoda}
-The log(density)-log(diameter)-curve and the log(volume)-log(density)-curve were linear only in the middle portion of each curve, whereas the intial portion (prior to 15–25 years) and the end (after 50–70 years) of a typical curve was concave to the origin of coordinates.
+The log(density)-log(diameter)-curve and the log(volume)-log(density)-curve were linear only in the middle portion [i.e., the 2. stage (cp. p. 151)] of each curve, whereas the intial portion [i.e., the 1. stage (cp. p. 151)] (prior to 15–25 years) and the end portion [i.e., the 3. stage (cp. p. 151)] (after 50–70 years) of a typical curve was concave to the origin of coordinates.
 
 - p. 157, 158 fig. 1: {Yoda}
 The coefficient b [which, according to the -3/2 power rule, is expected to be a constant of value 1/2 (cp. eq. (3))] shows a clear relationship to species and site [i.e., it is NOT constant].
@@ -1621,9 +1630,7 @@ Accounting for plot-specific MSDR dynamic thinning line behavior (by using eq. (
 - p. 333:
 [Judging from the “Conclusions”, the following approach was taken by the author:
 1. Determine which observations belong to the 2. phase of the self-thinning stage by using a segmented regression model (eq. (2) or (3)).
-2. Use a mixed effects model (eq. (1), instead of eq. (4)) to determine the actual slope and intercept of the log(density)-log(diamter)-line for the observations belonging to the 2. phase of the self-thinning stage.] 
-
-},
+2. Use a mixed-effects model (eq. (1), instead of eq. (4)) to determine the actual slope and intercept of the log(density)-log(diamter)-line for the observations belonging to the 2. phase of the self-thinning stage.]},
   file          = {:Articles/VanderSchaaf_2010.pdf:PDF},
   itemtype      = {ARTICLE},
   keyword       = {mixed-effects models, Reineke's stand density index, loblolly pine, Pinus taeda L},
@@ -1739,6 +1746,65 @@ B = constant (depending on growth stage).},
   file         = {:Articles/Tadaki_1963.pdf:PDF;:Articles/Tadaki_1963OCR.pdf:PDF},
   owner        = {renke},
   timestamp    = {2017.07.18},
+}
+
+@Article{VanderSchaaf2007,
+  author        = {VanderSchaaf, Curtis L. and Burkhart, Harold E.},
+  title         = {Comparison of Methods to Estimate Reineke's Maximum Size-Density Relationship Species Boundary Line Slope},
+  journal       = {Forest Science},
+  year          = {2007},
+  date          = {2007-06-01T00:00:00},
+  volume        = {53},
+  number        = {3},
+  pages         = {435-442},
+  issn          = {0015-749X},
+  url           = {http://www.ingentaconnect.com/content/saf/fs/2007/00000053/00000003/art00006},
+  file          = {:Articles/VanderSchaaf_Burkhart_2007.pdf:PDF},
+  itemtype      = {ARTICLE},
+  keyword       = {Pinus taeda, stand density, loblolly pine, dynamic thinning lines},
+  owner         = {renke},
+  parent_itemid = {infobike://saf/fs},
+  publishercode = {saf},
+  timestamp     = {2017.07.20},
+}
+
+@Article{VanderSchaaf2008,
+  author        = {VanderSchaaf, Curtis L. and Burkhart, Harold E.},
+  title         = {Using Segmented Regression to Estimate Stages and Phases of Stand Development},
+  journal       = {Forest Science},
+  year          = {2008},
+  date          = {2008-04-01T00:00:00},
+  volume        = {54},
+  number        = {2},
+  pages         = {167-175},
+  issn          = {0015-749X},
+  url           = {http://www.ingentaconnect.com/content/saf/fs/2008/00000054/00000002/art00006},
+  abstract      = {-whole article: {Reineke}
+
+- p. 167:
+The log(density)-log(diameter)-relationship can be divided into 2 stages:
+1. No significant competition occurs and mortality is independent of stand density (called the “density-independent mortality stage”).
+2. Self-thinning stage during which mortality is competition-induced (called the “density-dependent mortality stage”).
+
+- p. 167:
+The self-thinning stage can be divided into 3 phases:
+1. The nonlinear size-density trajectory approaches a linear form.
+2. The size-density trajectory is linear.
+3. The size-density trajectory diverges from the linear portion.
+
+- p. 167 f.:
+[Explanation of the 3 phases of the self-thinning stage.]
+
+- p. 174:
+Results showed that for loblolly pine, “segmented regression analysis provides a reliable statistical estimate of stages and phases of stand development and more specifically when MSDR [maximum size-density relationship] dynamic thinning lines begin and terminate.”
+},
+  file          = {:Articles/VanderSchaaf_Burkhart_2008.pdf:PDF},
+  itemtype      = {ARTICLE},
+  keyword       = {self-thinning, Pinus taeda, size-density trajectories, plantations, loblolly pine},
+  owner         = {renke},
+  parent_itemid = {infobike://saf/fs},
+  publishercode = {saf},
+  timestamp     = {2017.07.20},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

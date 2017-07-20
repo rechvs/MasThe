@@ -1,4 +1,4 @@
-* TODO [7/14]
+* TODO [10/17]
 ** CURRENT Read literature for “Introduction”
 *** CURRENT Acquire Assmann (1974) (cp. Schütz & Zingg (2010), p. 507p2)
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
@@ -79,12 +79,10 @@
       Didn’t read the article (since it’s in Japanese), but wrote an appropriate “Abstract” in its BibTeX entry.
     + Article might be of interest in terms of the origin of Yoda’s rule.
 ** CURRENT Improve understanding of Reineke’s approach
-*** CURRENT Acquire VanderSchaaf & Burkhart (2007) (cp. VanderSchaaf (2010), p. 328)
+*** CURRENT Acquire Zon & Graves (1911) (cp. Zeide (1985), p. 151)
+    + Article might be of interest in terms of the different stages of self-thinning.
+*** CURRENT Read VanderSchaaf & Burkhart (2007) (cp. VanderSchaaf (2010), p. 328)
     + Article might be of interest in terms of different techniques for estimating the log(density)-log(diameter)-trajectory.
-*** CURRENT Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
-    - State "done"       from "CURRENT"    [2017-07-12 Mi 20:01]
-    - Article might be of interest in terms of an improved version of Reineke’s approach.
-    - Article might be of interest in terms of the 3. phase of self-thinning (cp. VanderSchaaf (2010), p. 328)
 *** CURRENT Acquire Weller (1990) (cp. VanderSchaaf (2010), p. 328)
     + Article might be of interest in terms of the 2. phase of self-thinning.
     + Article might be of interest in terms of a definition of a “species boundary line”.
@@ -97,13 +95,9 @@
 *** CURRENT Acquire Johnson (2000) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of the 2. phase of self-thinning.
     + Article might be of interest in terms of species-specific slopes of the log(density)-log(diamter)-line (cp. VanderSchaaf (2010), p. 331).
-*** CURRENT Read Zeide (1985) (cp. VanderSchaaf (2010), p. 327)
-    + Article might be of interest in terms of the 2. phase of self-thinning.
 *** CURRENT Acquire Poage et al. (2007) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of the different phases of self-thinning.
     + Article might be of interest in terms of species-specific slopes of the log(density)-log(diamter)-line (cp. VanderSchaaf (2010), p. 331).
-*** CURRENT Read del Río et al. (2001) (cp. VanderSchaaf (2010), p. 327, p. 328)
-    + Article might be of interest in terms of the different phases of self-thinning.
 *** CURRENT Acquire Harms et al. (2000) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of the 1. phase of self-thinning.
 *** CURRENT Acquire Williams (1994) (cp. VanderSchaaf (2010), p. 327)
@@ -112,14 +106,12 @@
     + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
 *** CURRENT Acquire Drew & Flewelling (1979) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of the different stages of stand development and their influence on the log(density)-log(diameter)-relationship.
-*** CURRENT Acquire VanderSchaaf & Burkhart (2008) (cp. VanderSchaaf (2010), p. 327)
+*** CURRENT Read VanderSchaaf & Burkhart (2008) (cp. VanderSchaaf (2010), p. 327)
     + Article might be of interest in terms of using segmented regression to analyse the log(density)-log(diameter)-curve.
     + Article might be of interest in terms of the 2. phase of self-thinning.
     + Article might be of interest in terms of deciding where each phase of the self-thinning stage begins and ends.
 *** CURRENT Acquire Pretzsch (2009) (cp Charru et al. (2012), p. 196)
     + Book might be of interest in terms of how the estimation technique influences the value of the slope of the log(density)-log(diameter)-line.
-*** CURRENT Read VanderSchaaf (2008)
-    + found in the 4. set in [[file:Literature/Search_Results/history_03.ua][this WOS search]]
 *** CURRENT Search for literature at [[http://apps-1webofknowledge-1com-1u6v4q0ag007b.han.sub.uni-goettingen.de/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=N23lNVXOmwcJWiAlQ6M&preferencesSaved=][WOS]] on bias due to log-log-transformation (cp. Schütz (2008), p. 123)
 *** CURRENT Acquire Pretzsch & Schütze (2005) (cp. Schütz & Zingg (2010))
     + Article might be of interest in terms of whether the log(density)-log(diameter)-relationship of spruce and beech forms a curve or a line.
@@ -171,6 +163,23 @@
 *** done Read Charru et al. (2012)
     - State "done"       from "CURRENT"    [2017-07-18 Di 13:15]
     + found in the 5. set in [[file:Literature/Search_Results/history_03.ua][this WOS search]]
+*** done Read VanderSchaaf (2008)
+    - State "done"       from "CURRENT"    [2017-07-19 Mi 17:49]
+    + found in the 4. set in [[file:Literature/Search_Results/history_03.ua][this WOS search]]
+*** done Read Zeide (1985) (cp. VanderSchaaf (2010), p. 327)
+    - State "done"       from "CURRENT"    [2017-07-20 Do 11:43] \\
+      Searched for “stage” and noted all relevant information.
+    + Article might be of interest in terms of the 2. phase of self-thinning.
+*** done Read Zeide (1995) (cp. del Río et al. (2001), p. 80)
+    - State "done"       from "CURRENT"    [2017-07-20 Do 11:49] \\
+      Searched for “phase”, “stage”, “middle” and “curv” without obtaining useful results regarding the different stages of self-thinning.
+    - State "done"       from "CURRENT"    [2017-07-12 Mi 20:01]
+    - Article might be of interest in terms of an improved version of Reineke’s approach.
+    - Article might be of interest in terms of the 3. phase of self-thinning (cp. VanderSchaaf (2010), p. 328)
+*** done Read del Río et al. (2001) (cp. VanderSchaaf (2010), p. 327, p. 328)
+    - State "done"       from "CURRENT"    [2017-07-20 Do 12:20] \\
+      Searched for “stage”, “phase”, “curv“, and “full” without obtaining useful results with respect to the authors supporting the hypothesis of different stages of self-thinning.
+    + Article might be of interest in terms of the different phases of self-thinning.
 *** problem Acquire Le Goff & Ottorini (1999) (cp Charru et al. (2012), p. 196)
     - State "problem"    from "CURRENT"    [2017-07-19 Mi 10:11] \\
       Article seems to be unavailable (and it’s in French anyway).
