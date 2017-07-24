@@ -1016,3 +1016,81 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+####################################
+## Create "gmax_merged_3.4.RData" ##
+####################################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 3.3.
+## In this version, an additional data frame "bart.SPECIES.clean.1.6" is created which is a subset of "bart.SPECIES.clean.1.0", excluding certain data (see below for details).
+kBaseFileVersion <- "3.3"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "3.4"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create template for "bart.SPECIES.clean.1.6".
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.6"),
+           value = data.frame(NULL))
+    ## Define slope threshold values for the current species.
+    if (cur.species.name == "beech") {
+        cur.upper.threshold <- -1.60  ## based on literature
+        cur.upper.threshold <- -0.00  ## arbitrary value
+        cur.lower.threshold <- -1.94
+    }
+    if (cur.species.name == "spruce") {
+        cur.upper.threshold <- -1.30  ## based on literature
+        cur.upper.threshold <- -0.00  ## arbitrary value
+        cur.lower.threshold <- -1.88
+    }
+    ## Create untampered source version of "bart.SPECIES.clean.1.6".
+    cur.bart.clean.untampered <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
+    ## Loop over all "edvid".
+    for (cur.edvid in levels(x = cur.bart.clean.untampered[["edvid"]])) {
+        ## Create subset of "cur.bart.clean.untampered" for the current "edvid".
+        cur.subset <- subset(x = cur.bart.clean.untampered,
+                             subset = cur.bart.clean.untampered[["edvid"]] == cur.edvid)
+        ## Drop unused levels from "cur.subset".
+        cur.subset <- droplevels(x = cur.subset)
+        ## Create template for the vector containing the row numbers to keep.
+        rows.kept.cur.subset <- rep(x = TRUE, times = nrow(cur.subset))
+        ## Mark rows for keeping, depending on the log.nha-log.dg-slope between the current and adjacent rows.
+        for (cur.row in seq_len(length.out = nrow(cur.subset))) {
+            ## Check slope between current row and next row (use a dummy value if we are at the last row).
+            if (cur.row != nrow(x = cur.subset)) {
+                cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
+            } else {
+                cur.slope.following <- cur.upper.threshold
+            }
+            ## Check slope between current row and previous row (use a dummy value if we are at the first row).
+            if (cur.row != 1) {
+                cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
+            } else {
+                cur.slope.previous <- cur.lower.threshold
+            }
+            ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
+            rows.kept.cur.subset[cur.row] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
+        }
+        ## If the cleaned subset contains more than 1 row, assign it to "bart.SPECIES.clean.1.6".
+        cur.subset.clean <- cur.subset[rows.kept.cur.subset, ]
+        if (nrow(cur.subset.clean) > 1) {
+            assign(x = paste0("bart.", cur.species.name, ".clean.1.6"),
+                   value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.6")),
+                                 droplevels(x = cur.subset.clean)))
+        }}
+    ## Add "bart.SPECIES.clean.1.6" to the vector of names of objects meant to be saved.
+    kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.6"), kgmaxObjects)
+}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
