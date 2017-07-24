@@ -5,7 +5,7 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "3.3"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
@@ -34,166 +34,159 @@ kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-## Set flag to determine whether parcels belonging to the same trial (trials being distinguishable by the first 3 digits of "edvid") should share the same color (TRUE) or whether a distinct combination of color and point character should be given to each "edvid" (FALSE).
-kColPerTrial <- TRUE
-## kColPerTrial <- FALSE
-## Create "kPointsLinesSettings".
+## Create "points.lines.settings.SPECIES".
 kLtyVec <- 1
 kLwdVec <- 2
 ## kColVecAll <- c("black", "green", "red", "purple", "cyan", "darkorange", "burlywood", "dimgray", "yellow4", "magenta", "azure", "darkkhaki", "darkslategray", "darkblue", "darksalmon", "greenyellow", "forestgreen", "maroon", "orchid", "peachpuff", "pink", "powderblue", "peru", "plum" , "wheat", "royalblue", "springgreen", "tan")
 kColVecAll <- c("#630053", "#50cb56", "#8e62e3", "#008322", "#e167e0", "#84ffbc", "#e32b4a", "#37558f", "#0263d9", "#e39305", "#01418a", "#f18022", "#029ba6", "#810012", "#ecffa2", "#ffaaff", "#6b7400", "#c5c4ff", "#945a00", "#ffadc3", "#795e55", "#ff8d94", "#442900", "#ffd584", "#6d1f00", "#c1be8f", "#685f35", "#ffaf77")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
-if (kColPerTrial) {
-    kPchVecAll <- c(21:25, 10)
-    kEdvidSubstr <- substr(x = levels(bart.spruce.clean.1.0$edvid), start = 1, stop = 3)
-    kEdvidSubstrCounts <- table(kEdvidSubstr)
-    ## n.colors <- length(x = unique(x = kEdvidSubstr))  ## Determine required number of colors (not required for script execution).
-    ## n.pchs <- max(kEdvidSubstrCounts)  ## Determine maximum number of point characters required (not required for script execution).
-    kPchVecSelection <- NULL
-    kColVecSelection <- NULL
-    for (cur.element in 1:length(kEdvidSubstrCounts)) {
-        cur.counts <- kEdvidSubstrCounts[cur.element]
-        kPchVecSelection <- c(kPchVecSelection,
-                              kPchVecAll[1:cur.counts])
-        kColVecSelection <- c(kColVecSelection,
-                              rep(x = kColVecAll[cur.element],
-                                  times = cur.counts))
+kPchVecAll <- c(21:25, 10)
+for (cur.species.name in c("beech", "spruce")) {
+    cur.edvid.substr <- substr(x = levels(x = get(x = paste0("bart.", cur.species.name, ".clean.1.0"))[["edvid"]]),
+                               start = 1,
+                               stop = 3)
+    cur.edvid.substr.counts <- table(cur.edvid.substr)
+    ## n.colors <- length(x = unique(x = cur.edvid.substr))  ## Determine required number of colors (not required for script execution).
+    ## n.pchs <- max(cur.edvid.substr.counts)  ## Determine maximum number of point characters required (not required for script execution).
+    cur.pch.vec.selection <- NULL
+    cur.col.vec.selection <- NULL
+    for (cur.element in seq_len(length.out = length(x = cur.edvid.substr.counts))) {
+        cur.counts <- cur.edvid.substr.counts[cur.element]
+        cur.pch.vec.selection <- c(cur.pch.vec.selection,
+                                   kPchVecAll[1:cur.counts])
+        cur.col.vec.selection <- c(cur.col.vec.selection,
+                                   rep(x = kColVecAll[cur.element],
+                                       times = cur.counts))
     }
-    kPointsLinesSettings <- data.frame("col" = kColVecSelection,
-                                       "pch" = kPchVecSelection,
-                                       "lty" = kLtyVec,
-                                       "lwd" = kLwdVec,
-                                       stringsAsFactors = FALSE)
-} else {
-    kPchVec <- c(21:25)
-    kColVecSelection <- c(vapply(X = kColVecAll[1:10],
-                                 FUN.VALUE = vector(mode = "character", length = length(x = kPchVec)),
-                                 FUN = function(col) { rep(x = col, times = length(kPchVec)) }))
-    kPointsLinesSettings <- data.frame("col" = kColVecSelection,
-                                       "pch" = kPchVec,
-                                       "lty" = kLtyVec,
-                                       "lwd" = kLwdVec,
-                                       stringsAsFactors = FALSE)
+    assign(x = paste0("points.lines.settings.", cur.species.name),
+           value = data.frame("col" = cur.col.vec.selection,
+                              "pch" = cur.pch.vec.selection,
+                              "lty" = kLtyVec,
+                              "lwd" = kLwdVec,
+                              stringsAsFactors = FALSE))
 }
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
 ## - "kPlotYLab": y axis label
 kPlottingInformation <- list(
-        "alt_ekl" = list("kPlotXLab" = "alt [a]",
-                         "kPlotYLab" = "ekl"),
-        "alt_gha" = list("kPlotXLab" = "alt [a]",
-                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-        "dg_gha" = list("kPlotXLab" = "dg [cm]",
-                        "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-        "alt_ghaa.cum" = list("kPlotXLab" = "alt [a]",
-                              "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
-        "alt_h100" = list("kPlotXLab" = "alt [a]",
-                          "kPlotYLab" = "h100 [m]"),
-        "alt_SI.h100" = list("kPlotXLab" = "alt [a]",
-                             "kPlotYLab" = "SI.h100 [m]"),
-        "h100_gha" = list("kPlotXLab" = "h100 [m]",
-                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-        "gha_h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                          "kPlotYLab" = "h100 [m]"),
-        "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                             "kPlotYLab" = "SI.h100 [m]"),
-        "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                             "kPlotYLab" = "SI.h100 [m]"),
-        "ln.dg_ln.nha" = list("kPlotXLab" = "ln.dg",
-                              "kPlotYLab" = "ln.nha"),
-        "log.dg_log.nha" = list("kPlotXLab" = "log.dg",
-                              "kPlotYLab" = "log.nha"),
-        "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
-                                      "kPlotYLab" = "h100.diff.EKL.I [m]"),
-        "ghaa.cum_gha" = list("kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
-                              "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
+    "alt_ekl" = list("kPlotXLab" = "alt [a]",
+                     "kPlotYLab" = "ekl"),
+    "alt_gha" = list("kPlotXLab" = "alt [a]",
+                     "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+    "dg_gha" = list("kPlotXLab" = "dg [cm]",
+                    "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+    "alt_ghaa.cum" = list("kPlotXLab" = "alt [a]",
+                          "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+    "alt_h100" = list("kPlotXLab" = "alt [a]",
+                      "kPlotYLab" = "h100 [m]"),
+    "alt_SI.h100" = list("kPlotXLab" = "alt [a]",
+                         "kPlotYLab" = "SI.h100 [m]"),
+    "h100_gha" = list("kPlotXLab" = "h100 [m]",
+                      "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+    "gha_h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                      "kPlotYLab" = "h100 [m]"),
+    "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                         "kPlotYLab" = "SI.h100 [m]"),
+    "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
+                         "kPlotYLab" = "SI.h100 [m]"),
+    "ln.dg_ln.nha" = list("kPlotXLab" = "ln.dg",
+                          "kPlotYLab" = "ln.nha"),
+    "log.dg_log.nha" = list("kPlotXLab" = "log.dg",
+                            "kPlotYLab" = "log.nha"),
+    "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
+                                  "kPlotYLab" = "h100.diff.EKL.I [m]"),
+    "ghaa.cum_gha" = list("kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
+                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
 ## for (cur.data.source in names(x = kPlottingInformation)) {
-for (cur.data.source in ls()[grepl(pattern = "bart.spruce.clean", x = ls(), fixed = TRUE)]) {
-    for (cur.list.name in names(x = kPlottingInformation)) {
-        ## Turn off graphics device.
-        graphics.off()
-        ## Extract the necessary information for the current plot from "kPlottingInformation".
-        for (cur.name in names(x = kPlottingInformation[[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
-            cur.el <- kPlottingInformation[[cur.list.name]][cur.name]
-            assign(x = names(x = cur.el),
-                   value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
-        }
-        ## Create data source.
-        data.source <- eval(expr = parse(text = cur.data.source))
-        ## Create vectors containing the actual x and y values.
-        x.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][1]
-        y.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][2]
-        x.values <- data.source[[x.column.name]]
-        y.values <- data.source[[y.column.name]]
-        ## Calculate numerical values necessary for creating the plot.
-        x.lim.low <- range(x.values, na.rm = TRUE)[1]
-        x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
-        x.lim <- c(x.lim.low, x.lim.high)
-        y.lim.low <- range(y.values, na.rm = TRUE)[1]
-        y.lim.high <- range(y.values, na.rm = TRUE)[2]
-        y.lim <- c(y.lim.low, y.lim.high)
-        ## Create file name.
-        graphics.subdir <- paste0("Graphics/measurements/", cur.data.source, "/")
-        file.name <-paste0(graphics.subdir,
-                           cur.list.name,
-                           ".pdf")
-        ## If nonexistent, create "graphics.subdir".
-        system2(command = "mkdir",
-                args = paste0("-p ", graphics.subdir))
-        ## Start graphics device driver for producing PDF graphics.
-        pdf(file = file.name,
-            width = kPdfWidth,
-            height = kPdfHeight,
-            pointsize = kPdfPointSize,
-            family = kPdfFamily)
-        ## Set plot margins.
-        par(mar = kPlotMargins)
-        ## Create empty plot.
-        plot(x = NA,
-             y = NA,
-             xlab = kPlotXLab,
-             ylab = kPlotYLab,
-             xlim = x.lim,
-             ylim = y.lim,
-             xaxs = kPlotXAxs,
-             yaxs = kPlotYAxs,
-             main = cur.data.source)
-        grid(col = kGridCol,
-             lwd = kGridLwd)
-        ## Add points to empty plot.
-        kCntr <- 1
-        for (ts in levels(data.source$edvid)) {
-            points(x = x.values[data.source$edvid == ts],
-                   y = y.values[data.source$edvid == ts],
-                   type = kPointsType,
-                   col = kPointsLinesSettings$col[kCntr],
-                   bg = kPointsLinesSettings$col[kCntr],
-                   pch = kPointsLinesSettings$pch[kCntr],
-                   lty = kPointsLinesSettings$lty[kCntr],
-                   lwd = kPointsLinesSettings$lwd[kCntr])
-            kCntr <- kCntr+1
-        }
-        ## Add legend.
-        legend(x = kLegendX,
-               legend = paste("edvid: ", levels(data.source$edvid)),
-               bg = kLegendBg,
-               col = kPointsLinesSettings$col,
-               pt.bg = kPointsLinesSettings$col,
-               pch = kPointsLinesSettings$pch,
-               lty = kPointsLinesSettings$lty,
-               lwd = kPointsLinesSettings$lwd)
-        ## Turn off graphics device.
-        graphics.off()
-        ## If desired, open .pdf file via mupdf.
-        if (kOpenPdf) {
-            system2(command = "mupdf",
-                    args = paste0("-r 64 ",
-                                  file.name),
-                    wait = FALSE)
+for (cur.species.name in c("beech", "spruce")) {
+    for (cur.data.source.name in ls()[grepl(pattern = paste0("bart.", cur.species.name, ".clean"), x = ls(), fixed = TRUE)]) {
+        for (cur.list.name in names(x = kPlottingInformation)) {
+            ## Turn off graphics device.
+            graphics.off()
+            ## Extract the necessary information for the current plot from "kPlottingInformation".
+            for (cur.object.name in names(x = kPlottingInformation[[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+                cur.el <- kPlottingInformation[[cur.list.name]][cur.object.name]
+                assign(x = names(x = cur.el),
+                       value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
+            }
+            ## Create data source.
+            data.source <- get(x = cur.data.source.name)
+            ## Create vectors containing the actual x and y values.
+            x.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][1]
+            y.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][2]
+            x.values <- data.source[[x.column.name]]
+            y.values <- data.source[[y.column.name]]
+            ## Calculate numerical values necessary for creating the plot.
+            x.lim.low <- range(x.values, na.rm = TRUE)[1]
+            x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
+            x.lim <- c(x.lim.low, x.lim.high)
+            y.lim.low <- range(y.values, na.rm = TRUE)[1]
+            y.lim.high <- range(y.values, na.rm = TRUE)[2]
+            y.lim <- c(y.lim.low, y.lim.high)
+            ## Create file name.
+            graphics.subdir <- paste0("Graphics/measurements/", cur.data.source.name, "/")
+            file.name <-paste0(graphics.subdir,
+                               cur.list.name,
+                               ".pdf")
+            ## If nonexistent, create "graphics.subdir".
+            system2(command = "mkdir",
+                    args = paste0("-p ", graphics.subdir))
+            ## Start graphics device driver for producing PDF graphics.
+            pdf(file = file.name,
+                width = kPdfWidth,
+                height = kPdfHeight,
+                pointsize = kPdfPointSize,
+                family = kPdfFamily)
+            ## Set plot margins.
+            par(mar = kPlotMargins)
+            ## Create empty plot.
+            plot(x = NA,
+                 y = NA,
+                 xlab = kPlotXLab,
+                 ylab = kPlotYLab,
+                 xlim = x.lim,
+                 ylim = y.lim,
+                 xaxs = kPlotXAxs,
+                 yaxs = kPlotYAxs,
+                 main = cur.data.source.name)
+            grid(col = kGridCol,
+                 lwd = kGridLwd)
+            ## Add points to empty plot.
+            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.species.name))
+            kCntr <- 1
+            for (ts in levels(data.source$edvid)) {
+                points(x = x.values[data.source$edvid == ts],
+                       y = y.values[data.source$edvid == ts],
+                       type = kPointsType,
+                       col = cur.points.lines.settings$col[kCntr],
+                       bg = cur.points.lines.settings$col[kCntr],
+                       pch = cur.points.lines.settings$pch[kCntr],
+                       lty = cur.points.lines.settings$lty[kCntr],
+                       lwd = cur.points.lines.settings$lwd[kCntr])
+                kCntr <- kCntr+1
+            }
+            ## Add legend.
+            legend(x = kLegendX,
+                   legend = paste("edvid: ", levels(data.source$edvid)),
+                   bg = kLegendBg,
+                   col = cur.points.lines.settings$col,
+                   pt.bg = cur.points.lines.settings$col,
+                   pch = cur.points.lines.settings$pch,
+                   lty = cur.points.lines.settings$lty,
+                   lwd = cur.points.lines.settings$lwd)
+            ## Turn off graphics device.
+            graphics.off()
+            ## If desired, open .pdf file via mupdf.
+            if (kOpenPdf) {
+                system2(command = "mupdf",
+                        args = paste0("-r 64 ",
+                                      file.name),
+                        wait = FALSE)
+            }
         }
     }
 }
