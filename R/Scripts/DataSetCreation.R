@@ -335,26 +335,6 @@ bart.spruce.clean.1.0 <- bart.spruce
 bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["art"]] == 511, ]
 ## Exclude all lines in which "bart.spruce.clean.1.0[["ksha.rel"]] < 0.7".
 bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["ksha.rel"]] >= 0.7, ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665111A"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665111A", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665112B"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665112B", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4665113B"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4665113B", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675111A"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675111A", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675112A"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675112A", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675113A"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675113A", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "4675114A"" [reason: treatment (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "4675114A", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351111"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351111", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351121"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351121", ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["edvid"]] == "J6351131"" [reason: low plant density (according to archive information)].
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] != "J6351131", ]
 ## Exclude all consecutive measurements for a given "edvid" if "bart.spruce.clean.1.0[["gha.rel.cha"]] < 0".
 names.vec <- NULL
 for (parcel in levels(bart.spruce.clean.1.0[["edvid"]])) {
@@ -392,6 +372,29 @@ bart.beech.clean.1.0 <- bart.beech
 bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["art"]] == 211, ]
 ## Exclude all lines in which "bart.beech.clean.1.0[["ksha.rel"]] < 0.7".
 bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["ksha.rel"]] >= 0.7, ]
+## Exclude all consecutive measurements for a given "edvid" if "bart.beech.clean.1.0[["gha.rel.cha"]] < 0".
+names.vec <- NULL
+for (parcel in levels(bart.beech.clean.1.0[["edvid"]])) {
+    name.cur <- paste0("obj.", as.character(parcel))
+    names.vec <- c(names.vec, name.cur)
+    parcel.subset <- bart.beech.clean.1.0[bart.beech.clean.1.0[["edvid"]] == parcel, ]
+    auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
+    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
+        auf.mark <- min(auf.vec, na.rm = TRUE)
+        parcel.subset <- parcel.subset[parcel.subset[["auf"]] < auf.mark, ]
+        assign(x = make.names(names = name.cur),
+               value = parcel.subset)
+    }
+}
+## Create new data frame from objects created by "for" loop above.
+bart.beech.clean.1.0 <- data.frame(NULL)
+for (name.cur in names.vec) {
+    bart.beech.clean.1.0 <- rbind(bart.beech.clean.1.0,
+                          eval(expr = as.name(x = name.cur)))
+}
 ## Drop unused levels.
 bart.beech.clean.1.0 <- droplevels(x = bart.beech.clean.1.0)
 ## Add "bart.beech.clean.1.0" to the vector of names of objects meant to be saved.
