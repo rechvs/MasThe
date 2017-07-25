@@ -40,29 +40,30 @@ kLwdVec <- 2
 kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
 kPchVecAll <- c(21:25, 10)
 for (cur.species.name in c("beech", "spruce")) {
-    for (cur.data.frame.name in ls()[grepl(pattern = paste0("bart.", cur.species.name, ".clean"), x = ls(), fixed = TRUE)]) {
-        cur.edvid.substr <- substr(x = levels(x = get(x = cur.data.frame.name)[["edvid"]]),
-                                   start = 1,
-                                   stop = 3)
-        cur.edvid.substr.counts <- table(cur.edvid.substr)
-        ## n.colors <- length(x = unique(x = cur.edvid.substr))  ## Determine required number of colors (not required for script execution).
-        ## n.pchs <- max(cur.edvid.substr.counts)  ## Determine maximum number of point characters required (not required for script execution).
-        cur.pch.vec.selection <- NULL
-        cur.col.vec.selection <- NULL
-        for (cur.element in seq_len(length.out = length(x = cur.edvid.substr.counts))) {
-            cur.counts <- cur.edvid.substr.counts[cur.element]
-            cur.pch.vec.selection <- c(cur.pch.vec.selection,
-                                       kPchVecAll[1:cur.counts])
-            cur.col.vec.selection <- c(cur.col.vec.selection,
-                                       rep(x = kColVecAll[cur.element],
-                                           times = cur.counts))
-        }
-        assign(x = paste0("points.lines.settings.", cur.data.frame.name),
-               value = data.frame("col" = cur.col.vec.selection,
-                                  "pch" = cur.pch.vec.selection,
-                                  "lty" = kLtyVec,
-                                  "lwd" = kLwdVec,
-                                  stringsAsFactors = FALSE))}}
+    cur.edvids <- levels(x = droplevels(x = get(x = paste0("bart.", cur.species.name, ".clean.1.0"))[["edvid"]]))
+    cur.edvids.substrs <- substr(x = cur.edvids,
+                               start = 1,
+                               stop = 3)
+    cur.edvids.substrs.counts <- table(cur.edvids.substrs)
+    ## n.colors <- length(x = unique(x = cur.edvids.substrs))  ## Determine required number of colors (not required for script execution).
+    ## n.pchs <- max(cur.edvids.substrs.counts)  ## Determine maximum number of point characters required (not required for script execution).
+    cur.pch.vec.selection <- NULL
+    cur.col.vec.selection <- NULL
+    for (cur.element in seq_len(length.out = length(x = cur.edvids.substrs.counts))) {
+        cur.counts <- cur.edvids.substrs.counts[cur.element]
+        cur.pch.vec.selection <- c(cur.pch.vec.selection,
+                                   kPchVecAll[1:cur.counts])
+        cur.col.vec.selection <- c(cur.col.vec.selection,
+                                   rep(x = kColVecAll[cur.element],
+                                       times = cur.counts))
+    }
+    assign(x = paste0("points.lines.settings.", cur.species.name),
+           value = data.frame("edvid" = cur.edvids,
+                              "col" = cur.col.vec.selection,
+                              "pch" = cur.pch.vec.selection,
+                              "lty" = kLtyVec,
+                              "lwd" = kLwdVec,
+                              stringsAsFactors = FALSE))}
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
@@ -113,12 +114,12 @@ for (cur.species.name in c("beech", "spruce")) {
                        value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
             }
             ## Create data source.
-            data.source <- get(x = cur.data.source.name)
+            cur.data.source <- get(x = cur.data.source.name)
             ## Create vectors containing the actual x and y values.
             x.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][1]
             y.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][2]
-            x.values <- data.source[[x.column.name]]
-            y.values <- data.source[[y.column.name]]
+            x.values <- cur.data.source[[x.column.name]]
+            y.values <- cur.data.source[[y.column.name]]
             ## Calculate numerical values necessary for creating the plot.
             x.lim.low <- range(x.values, na.rm = TRUE)[1]
             x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
@@ -154,12 +155,14 @@ for (cur.species.name in c("beech", "spruce")) {
                  main = cur.data.source.name)
             grid(col = kGridCol,
                  lwd = kGridLwd)
+            ## Extract plotting information from "points.lines.settings.SPECIES" relevant to the current data source.
+            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.species.name))
+            cur.points.lines.settings <- cur.points.lines.settings[cur.points.lines.settings[["edvid"]] %in% levels(x = cur.data.source[["edvid"]]), ]
             ## Add points to empty plot.
-            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.data.source.name))
             kCntr <- 1
-            for (ts in levels(data.source$edvid)) {
-                points(x = x.values[data.source$edvid == ts],
-                       y = y.values[data.source$edvid == ts],
+            for (ts in levels(cur.data.source$edvid)) {
+                points(x = x.values[cur.data.source$edvid == ts],
+                       y = y.values[cur.data.source$edvid == ts],
                        type = kPointsType,
                        col = cur.points.lines.settings$col[kCntr],
                        bg = cur.points.lines.settings$col[kCntr],
@@ -170,7 +173,7 @@ for (cur.species.name in c("beech", "spruce")) {
             }
             ## Add legend.
             legend(x = kLegendX,
-                   legend = paste("edvid: ", levels(data.source$edvid)),
+                   legend = paste("edvid: ", levels(cur.data.source$edvid)),
                    bg = kLegendBg,
                    col = cur.points.lines.settings$col,
                    pt.bg = cur.points.lines.settings$col,
