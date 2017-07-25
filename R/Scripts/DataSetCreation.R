@@ -356,7 +356,7 @@ for (parcel in levels(bart.spruce.clean.1.0[["edvid"]])) {
 bart.spruce.clean.1.0 <- data.frame(NULL)
 for (name.cur in names.vec) {
     bart.spruce.clean.1.0 <- rbind(bart.spruce.clean.1.0,
-                          eval(expr = as.name(x = name.cur)))
+                                   eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
 bart.spruce.clean.1.0 <- droplevels(x = bart.spruce.clean.1.0)
@@ -393,7 +393,7 @@ for (parcel in levels(bart.beech.clean.1.0[["edvid"]])) {
 bart.beech.clean.1.0 <- data.frame(NULL)
 for (name.cur in names.vec) {
     bart.beech.clean.1.0 <- rbind(bart.beech.clean.1.0,
-                          eval(expr = as.name(x = name.cur)))
+                                  eval(expr = as.name(x = name.cur)))
 }
 ## Drop unused levels.
 bart.beech.clean.1.0 <- droplevels(x = bart.beech.clean.1.0)
@@ -1037,12 +1037,12 @@ for (cur.species.name in c("beech", "spruce")) {
     ## Define slope threshold values for the current species.
     if (cur.species.name == "beech") {
         cur.upper.threshold <- -1.60  ## based on literature
-        cur.upper.threshold <- -0.00  ## arbitrary value
+        cur.upper.threshold <- -1.00  ## arbitrary value
         cur.lower.threshold <- -1.94
     }
     if (cur.species.name == "spruce") {
         cur.upper.threshold <- -1.30  ## based on literature
-        cur.upper.threshold <- -0.00  ## arbitrary value
+        cur.upper.threshold <- -1.00  ## arbitrary value
         cur.lower.threshold <- -1.88
     }
     ## Create untampered source version of "bart.SPECIES.clean.1.6".
@@ -1054,31 +1054,40 @@ for (cur.species.name in c("beech", "spruce")) {
                              subset = cur.bart.clean.untampered[["edvid"]] == cur.edvid)
         ## Drop unused levels from "cur.subset".
         cur.subset <- droplevels(x = cur.subset)
-        ## Create template for the vector containing the row numbers to keep.
-        rows.kept.cur.subset <- rep(x = TRUE, times = nrow(cur.subset))
-        ## Mark rows for keeping, depending on the log.nha-log.dg-slope between the current and adjacent rows.
-        for (cur.row in seq_len(length.out = nrow(cur.subset))) {
-            ## Check slope between current row and next row (use a dummy value if we are at the last row).
-            if (cur.row != nrow(x = cur.subset)) {
-                cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
-            } else {
-                cur.slope.following <- cur.upper.threshold
+        ## Create dummy version of "rows.kept.cur.subset" (the vector containing the row numbers to keep) to get the following "while" loop going.
+        rows.kept.cur.subset <- rep(x = FALSE, times = nrow(cur.subset))
+        ## Keep looping over the current subset, as long as not all rows are marked for keeping.
+        while (!all(rows.kept.cur.subset)) {
+            ## Create template for the vector containing the row numbers to keep.
+            rows.kept.cur.subset <- rep(x = TRUE, times = nrow(cur.subset))
+            ## Mark rows for keeping, depending on the log.nha-log.dg-slope between the current and adjacent rows.
+            for (cur.row in seq_len(length.out = nrow(cur.subset))) {
+                ## Check slope between current row and previous row and/or current row and next row (depending on which row we are at).
+                if (cur.row != nrow(x = cur.subset) && cur.row != 1) {
+                    ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
+                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
+                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
+                rows.kept.cur.subset[cur.row] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
+                }
+                if (cur.row == 1 && cur.row != nrow(x = cur.subset)) {
+                    ## Mark row for keeping if the slope to the following row is leq than the upper threshold (the slope to the previous row cannot be calculated, since this is the first row).
+                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
+                    rows.kept.cur.subset[cur.row] <- cur.slope.following <= cur.upper.threshold
+                }
+                if (cur.row != 1 && cur.row == nrow(x = cur.subset)) {
+                    ## Mark row for keeping if the slope to the previous row is geq than the lower threshold (the slope to the following row cannot be calculated, since this is the last row).
+                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
+                    rows.kept.cur.subset[cur.row] <- cur.slope.previous >= cur.lower.threshold
+                }
             }
-            ## Check slope between current row and previous row (use a dummy value if we are at the first row).
-            if (cur.row != 1) {
-                cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
-            } else {
-                cur.slope.previous <- cur.lower.threshold
-            }
-            ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
-            rows.kept.cur.subset[cur.row] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
+            ## Created cleaned subset.
+            cur.subset <- cur.subset[rows.kept.cur.subset, ]
         }
         ## If the cleaned subset contains more than 1 row, assign it to "bart.SPECIES.clean.1.6".
-        cur.subset.clean <- cur.subset[rows.kept.cur.subset, ]
-        if (nrow(cur.subset.clean) > 1) {
+        if (nrow(cur.subset) > 1) {
             assign(x = paste0("bart.", cur.species.name, ".clean.1.6"),
                    value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.6")),
-                                 droplevels(x = cur.subset.clean)))
+                                 droplevels(x = cur.subset)))
         }}
     ## Add "bart.SPECIES.clean.1.6" to the vector of names of objects meant to be saved.
     kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.6"), kgmaxObjects)
