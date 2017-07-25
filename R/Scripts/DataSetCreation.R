@@ -327,80 +327,53 @@ kFileVersion <- "1.9"
 kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-####################################
-## Create "bart.spruce.clean.1.0" ##
-## Create untampered source version of "bart.spruce.clean.1.0".
-bart.spruce.clean.1.0 <- bart.spruce
-## Exclude all lines in which "bart.spruce.clean.1.0[["art"]] != 511".
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["art"]] == 511, ]
-## Exclude all lines in which "bart.spruce.clean.1.0[["ksha.rel"]] < 0.7".
-bart.spruce.clean.1.0 <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["ksha.rel"]] >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.spruce.clean.1.0[["gha.rel.cha"]] < 0".
-names.vec <- NULL
-for (parcel in levels(bart.spruce.clean.1.0[["edvid"]])) {
-    name.cur <- paste0("obj.", as.character(parcel))
-    names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.spruce.clean.1.0[bart.spruce.clean.1.0[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
-    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
-        auf.mark <- min(auf.vec, na.rm = TRUE)
-        parcel.subset <- parcel.subset[parcel.subset[["auf"]] < auf.mark, ]
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create untampered source version "bart.species.clean.1.0".
+    cur.bart.species.clean.1.0 <- get(x = paste0("bart.", cur.species.name))
+    ## Exclude all lines in which "cur.bart.species.clean.1.0[["art"]] != cur.species.code".
+    if (cur.species.name == "beech") {
+        cur.species.code <- 211
     }
-}
-## Create new data frame from objects created by "for" loop above.
-bart.spruce.clean.1.0 <- data.frame(NULL)
-for (name.cur in names.vec) {
-    bart.spruce.clean.1.0 <- rbind(bart.spruce.clean.1.0,
-                                   eval(expr = as.name(x = name.cur)))
-}
-## Drop unused levels.
-bart.spruce.clean.1.0 <- droplevels(x = bart.spruce.clean.1.0)
-## Add "bart.spruce.clean.1.0" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.spruce.clean.1.0", kgmaxObjects)
-## Create "bart.spruce.clean.1.0" ##
-####################################
-###################################
-## Create "bart.beech.clean.1.0" ##
-## Create untampered source version of "bart.beech.clean.1.0".
-bart.beech.clean.1.0 <- bart.beech
-## Exclude all lines in which "bart.beech.clean.1.0[["art"]] != 211".
-bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["art"]] == 211, ]
-## Exclude all lines in which "bart.beech.clean.1.0[["ksha.rel"]] < 0.7".
-bart.beech.clean.1.0 <- bart.beech.clean.1.0[bart.beech.clean.1.0[["ksha.rel"]] >= 0.7, ]
-## Exclude all consecutive measurements for a given "edvid" if "bart.beech.clean.1.0[["gha.rel.cha"]] < 0".
-names.vec <- NULL
-for (parcel in levels(bart.beech.clean.1.0[["edvid"]])) {
-    name.cur <- paste0("obj.", as.character(parcel))
-    names.vec <- c(names.vec, name.cur)
-    parcel.subset <- bart.beech.clean.1.0[bart.beech.clean.1.0[["edvid"]] == parcel, ]
-    auf.vec <- parcel.subset[["auf"]][parcel.subset[["gha.rel.cha"]] < 0]
-    if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
-    } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
-        auf.mark <- min(auf.vec, na.rm = TRUE)
-        parcel.subset <- parcel.subset[parcel.subset[["auf"]] < auf.mark, ]
-        assign(x = make.names(names = name.cur),
-               value = parcel.subset)
+    if (cur.species.name == "spruce") {
+        cur.species.code <- 511
     }
+    cur.bart.species.clean.1.0 <- cur.bart.species.clean.1.0[cur.bart.species.clean.1.0[["art"]] == cur.species.code, ]
+    ## Exclude all lines in which "cur.bart.species.clean.1.0[["ksha.rel"]] < 0.7".
+    cur.bart.species.clean.1.0 <- cur.bart.species.clean.1.0[cur.bart.species.clean.1.0[["ksha.rel"]] >= 0.7, ]
+    ## Exclude all consecutive measurements for a given "edvid" if "bart.spruce.clean.1.0[["gha.rel.cha"]] < 0".
+    cur.names.vec <- NULL
+    for (cur.edvid in levels(cur.bart.species.clean.1.0[["edvid"]])) {
+        name.cur <- paste0("obj.", as.character(cur.edvid))
+        cur.names.vec <- c(cur.names.vec, name.cur)
+        cur.edvid.subset <- cur.bart.species.clean.1.0[cur.bart.species.clean.1.0[["edvid"]] == cur.edvid, ]
+        auf.vec <- cur.edvid.subset[["auf"]][cur.edvid.subset[["gha.rel.cha"]] < 0]
+        if (all(is.na(x = auf.vec))) {  ## If this is true it means that the current subset contains no occasion of "gha.rel.cha < 0", i.e., no exclusions are necessary.
+            assign(x = make.names(names = name.cur),
+                   value = cur.edvid.subset)
+        } else {  ## If this is true it means that the current subset contains occasions of "gha.rel.cha < 0", i.e., exclusions are necessary.
+            auf.mark <- min(auf.vec, na.rm = TRUE)
+            cur.edvid.subset <- cur.edvid.subset[cur.edvid.subset[["auf"]] < auf.mark, ]
+            assign(x = make.names(names = name.cur),
+                   value = cur.edvid.subset)
+        }
+    }
+    ## Create new data frame from objects created by "for" loop above.
+    cur.bart.species.clean.1.0 <- data.frame(NULL)
+    for (name.cur in cur.names.vec) {
+        cur.bart.species.clean.1.0 <- rbind(cur.bart.species.clean.1.0,
+                                            eval(expr = as.name(x = name.cur)))
+    }
+    ## Drop unused levels.
+    cur.bart.species.clean.1.0 <- droplevels(x = cur.bart.species.clean.1.0)
+    ## Set the name for "bart.SPECIES.clean.1.0" based on "cur.species.name".
+    cur.final.object.name <- paste0("bart.", cur.species.name, ".clean.1.0")
+    ## Assign "cur.bart.species.clean.1.0" to "bart.SPECIES.clean.1.0".
+    assign(x = cur.final.object.name,
+           value = cur.bart.species.clean.1.0)
+    ## Add "bart.SPECIES.clean.1.0" to the vector of names of objects meant to be saved.
+    kgmaxObjects <- c(cur.final.object.name, kgmaxObjects)
 }
-## Create new data frame from objects created by "for" loop above.
-bart.beech.clean.1.0 <- data.frame(NULL)
-for (name.cur in names.vec) {
-    bart.beech.clean.1.0 <- rbind(bart.beech.clean.1.0,
-                                  eval(expr = as.name(x = name.cur)))
-}
-## Drop unused levels.
-bart.beech.clean.1.0 <- droplevels(x = bart.beech.clean.1.0)
-## Add "bart.beech.clean.1.0" to the vector of names of objects meant to be saved.
-kgmaxObjects <- c("bart.beech.clean.1.0", kgmaxObjects)
-## Create "bart.beech.clean.1.0" ##
-###################################
 ## Save results.
 kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
