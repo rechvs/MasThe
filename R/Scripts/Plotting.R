@@ -34,36 +34,36 @@ kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-## Create "points.lines.settings.SPECIES".
+## Create "points.lines.settings.DFNAME".
 kLtyVec <- 1
 kLwdVec <- 2
 ## kColVecAll <- c("black", "green", "red", "purple", "cyan", "darkorange", "burlywood", "dimgray", "yellow4", "magenta", "azure", "darkkhaki", "darkslategray", "darkblue", "darksalmon", "greenyellow", "forestgreen", "maroon", "orchid", "peachpuff", "pink", "powderblue", "peru", "plum" , "wheat", "royalblue", "springgreen", "tan")
-kColVecAll <- c("#630053", "#50cb56", "#8e62e3", "#008322", "#e167e0", "#84ffbc", "#e32b4a", "#37558f", "#0263d9", "#e39305", "#01418a", "#f18022", "#029ba6", "#810012", "#ecffa2", "#ffaaff", "#6b7400", "#c5c4ff", "#945a00", "#ffadc3", "#795e55", "#ff8d94", "#442900", "#ffd584", "#6d1f00", "#c1be8f", "#685f35", "#ffaf77")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
+kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
 kPchVecAll <- c(21:25, 10)
 for (cur.species.name in c("beech", "spruce")) {
-    cur.edvid.substr <- substr(x = levels(x = get(x = paste0("bart.", cur.species.name, ".clean.1.0"))[["edvid"]]),
-                               start = 1,
-                               stop = 3)
-    cur.edvid.substr.counts <- table(cur.edvid.substr)
-    ## n.colors <- length(x = unique(x = cur.edvid.substr))  ## Determine required number of colors (not required for script execution).
-    ## n.pchs <- max(cur.edvid.substr.counts)  ## Determine maximum number of point characters required (not required for script execution).
-    cur.pch.vec.selection <- NULL
-    cur.col.vec.selection <- NULL
-    for (cur.element in seq_len(length.out = length(x = cur.edvid.substr.counts))) {
-        cur.counts <- cur.edvid.substr.counts[cur.element]
-        cur.pch.vec.selection <- c(cur.pch.vec.selection,
-                                   kPchVecAll[1:cur.counts])
-        cur.col.vec.selection <- c(cur.col.vec.selection,
-                                   rep(x = kColVecAll[cur.element],
-                                       times = cur.counts))
-    }
-    assign(x = paste0("points.lines.settings.", cur.species.name),
-           value = data.frame("col" = cur.col.vec.selection,
-                              "pch" = cur.pch.vec.selection,
-                              "lty" = kLtyVec,
-                              "lwd" = kLwdVec,
-                              stringsAsFactors = FALSE))
-}
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("bart.", cur.species.name, ".clean"), x = ls(), fixed = TRUE)]) {
+        cur.edvid.substr <- substr(x = levels(x = get(x = cur.data.frame.name)[["edvid"]]),
+                                   start = 1,
+                                   stop = 3)
+        cur.edvid.substr.counts <- table(cur.edvid.substr)
+        ## n.colors <- length(x = unique(x = cur.edvid.substr))  ## Determine required number of colors (not required for script execution).
+        ## n.pchs <- max(cur.edvid.substr.counts)  ## Determine maximum number of point characters required (not required for script execution).
+        cur.pch.vec.selection <- NULL
+        cur.col.vec.selection <- NULL
+        for (cur.element in seq_len(length.out = length(x = cur.edvid.substr.counts))) {
+            cur.counts <- cur.edvid.substr.counts[cur.element]
+            cur.pch.vec.selection <- c(cur.pch.vec.selection,
+                                       kPchVecAll[1:cur.counts])
+            cur.col.vec.selection <- c(cur.col.vec.selection,
+                                       rep(x = kColVecAll[cur.element],
+                                           times = cur.counts))
+        }
+        assign(x = paste0("points.lines.settings.", cur.data.frame.name),
+               value = data.frame("col" = cur.col.vec.selection,
+                                  "pch" = cur.pch.vec.selection,
+                                  "lty" = kLtyVec,
+                                  "lwd" = kLwdVec,
+                                  stringsAsFactors = FALSE))}}
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
@@ -103,7 +103,7 @@ kOpenPdf <- FALSE
 ## Initiate "for" loops.
 ## for (cur.data.source in names(x = kPlottingInformation)) {
 for (cur.species.name in c("beech", "spruce")) {
-    for (cur.data.source.name in ls()[grepl(pattern = paste0("bart.", cur.species.name, ".clean"), x = ls(), fixed = TRUE)]) {
+    for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
         for (cur.list.name in names(x = kPlottingInformation)) {
             ## Turn off graphics device.
             graphics.off()
@@ -156,7 +156,7 @@ for (cur.species.name in c("beech", "spruce")) {
             grid(col = kGridCol,
                  lwd = kGridLwd)
             ## Add points to empty plot.
-            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.species.name))
+            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.data.source.name))
             kCntr <- 1
             for (ts in levels(data.source$edvid)) {
                 points(x = x.values[data.source$edvid == ts],
