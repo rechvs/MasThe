@@ -315,6 +315,10 @@
     + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
 *** Which objects are constants?
     + An object is considered a constant if its value is (meant to be) hardcoded or if its value is the indirect result of functions acting only on hardcoded values.
+*** How to name objects within “for” loops?
+    + Objects which are only used within the loop should have the name prefix “cur.”.
+      This also means that such objects are always considered variables.
+    + Objects which are assigned a new value in each loop cycle but are meant to be used outside the loop are considered variables and need to be named accordingly.
 *** How to delimit blocks?
     + A “block” is a (more or less) self-contained piece of code separated from the surrounding code like this (Note the missing dot in the block header and the empty line at the end.)
      ################
@@ -333,6 +337,8 @@
       ###################
 *** How to comment multi-line function calls?
     + If a function call spans several lines, comments regarding the function call in general (and not just a specific argument) should go on the line of the opening paranthesis.
+*** Where to place a closing parenthesis/brace/bracket following a closing parenthesis/brace/bracket?
+    + A closing parenthesis/brace/bracket directly following a closing parenthesis/brace/bracket should go on the same line as the previous closing parenthesis/brace/bracket.
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
