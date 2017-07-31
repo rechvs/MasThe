@@ -1,0 +1,114 @@
+\section{Explanation of Data Frames}
+
+These explanations are valid as of commit 9563c6f69b2e4103810532bc162e5fd0a7f91b6b.
+
+\subsection{bart.SPECIES.clean.1.0}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES \end{rcode}
+\item Lines excluded individually:
+  \begin{itemize}
+  \item Beech: \begin{rcode} art != 211 \end{rcode}
+  \item Spruce: \begin{rcode} art != 511 \end{rcode}
+  \item \begin{rcode} ksha.rel < 0.7 \end{rcode}
+  \end{itemize}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} gha.rel.cha < 0 \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.1}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} ghaa > 0.20 * gha \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.2}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} ghaa > 0.15 * gha \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.3}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} ghaa > 0.10 * gha \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.4}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} ghaa > 0.05 * gha \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.5}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item Lines excluded consecutively:
+  \begin{itemize}
+  \item \begin{rcode} ghaa > 0.00 * gha \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+\subsection{bart.SPECIES.clean.1.5}
+
+\begin{itemize}
+\item Base data frame: \begin{rcode} bart.SPECIES.clean.1.0 \end{rcode}
+\item evdids excluded:
+  \begin{itemize}
+  \item \begin{rcode} nrow(EDVID.subset) == 1 \end{rcode}
+  \end{itemize}
+\item Lines excluded individually per \begin{rcode} edvid \end{rcode}:
+  \begin{itemize}
+  \item First line: \\
+    \begin{rcode} (log.nha[i + 1] - log.nha[i]) / \\ (log.dg[i + 1] - log.dg[i]) > SPECIES.upper.threshold \end{rcode}
+  \item Intermediate lines: \\
+    \begin{rcode} (log.nha[i] - log.nha[i - 1]) / \\ (log.dg[i] - log.dg[i - 1]) < SPECIES.lower.threshold  \&\& \\
+      (log.nha[i + 1] - log.nha[i]) / \\ (log.dg[i + 1] - log.dg[i]) > SPECIES.upper.threshold \end{rcode}
+  \item Last line: \\
+    \begin{rcode} (log.nha[i] - log.nha[i - 1]) / \\ (log.dg[i] - log.dg[i - 1]) < SPECIES.lower.threshold \end{rcode}
+  \end{itemize}
+\end{itemize}
+
+% NOTE: “Misplaced \cr” errors during compilation can be safely ignored.
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l L}
+      \caption{Upper and lower thresholds of the log(N) log(dg)-slope per species. \label{tab:slope_thresholds}} \\
+      \toprule
+      Species & Upper threshold & Lower threshold \\
+      \midrule
+      \endfirsthead
+      Species & Upper threshold & Lower threshold \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Beech & -1.00 & -1.94 \\
+      Spruce & -1.00 & -1.88 \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasAr_Notes"
+%%% End:
