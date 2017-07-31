@@ -21,7 +21,7 @@ titlepage]
 \definecolor{mygray}{gray}{0.8}
 \newsavebox{\mybox} %% see https://tex.stackexchange.com/questions/145812/using-fbox-in-a-newenvironment
 \newenvironment{rcode}
-{\noindent\begin{lrbox}{\mybox}\begin{minipage}{1\textwidth}\ttfamily\begin{tabbing}}
+{\noindent\begin{lrbox}{\mybox}\begin{minipage}[t]{1\textwidth}\ttfamily\begin{tabbing}}
     {\end{tabbing}\end{minipage}\end{lrbox}\colorbox{mygray}{\usebox{\mybox}}}
 
 \DeclareSIUnit\years{a}
@@ -41,6 +41,9 @@ titlepage]
 \newpage
 
 \input{Explanation_Data_Frame_Columns.tex}
+\newpage
+
+\input{Explanation_Data_Frames.tex}
 \newpage
 
 \input{Special_remarks_per_edvid.tex}
