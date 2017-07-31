@@ -1011,12 +1011,12 @@ for (cur.species.name in c("beech", "spruce")) {
     if (cur.species.name == "beech") {
         cur.upper.threshold <- -1.60  ## based on literature
         cur.upper.threshold <- -1.00  ## arbitrary value
-        cur.lower.threshold <- -1.94
+        cur.lower.threshold <- -1.94  ## based on literature
     }
     if (cur.species.name == "spruce") {
         cur.upper.threshold <- -1.30  ## based on literature
         cur.upper.threshold <- -1.00  ## arbitrary value
-        cur.lower.threshold <- -1.88
+        cur.lower.threshold <- -1.88  ## based on literature
     }
     ## Create untampered source version of "bart.SPECIES.clean.1.6".
     cur.bart.clean.untampered <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
