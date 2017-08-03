@@ -1076,3 +1076,43 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+####################################
+## Create "gmax_merged_3.5.RData" ##
+####################################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 3.4.
+## In this version, all "bart.SPECIES.clean.[0-9].[0-9]" data frames contain 2 additional columns:
+## - "h100.class", which contains the level of the respective measurement in terms of "h100" divided into 3 levels;
+## - "SI.h100.class", which contains the level of the respective measurement in terms of "SI.h100" divided into 3 levels.
+kBaseFileVersion <- "3.4"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "3.5"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Loop over all appropriate data source names.
+    for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
+        ## Assign current data source.
+        cur.data.source <- get(x = cur.data.source.name)
+        ## Calculate "h100.class".
+        cur.data.source[["h100.class"]] <- cut(x = cur.data.source[["h100"]], breaks = 3)
+        ## Calculate "SI.h100.class".
+        cur.data.source[["SI.h100.class"]] <- cut(x = cur.data.source[["SI.h100"]], breaks = 3)
+        ## Assign new version of "bart.SPECIES.clean.[0-9].[0-9]".
+        assign(x = cur.data.source.name,
+               value = cur.data.source)
+}}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
