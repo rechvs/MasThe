@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "3.4"
+kBaseFileVersion <- "3.5"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -34,36 +34,86 @@ kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-## Create "points.lines.settings.DFNAME".
+kColPchSchemes <- c("col_trial_pch_edvid",
+                    "col_h100.class",
+                    "col_SI.h100.class")
 kLtyVec <- 1
 kLwdVec <- 2
 kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
 kPchVecAll <- c(21:25, 10)
-for (cur.species.name in c("beech", "spruce")) {
-    cur.edvids <- levels(x = droplevels(x = get(x = paste0("bart.", cur.species.name, ".clean.1.0"))[["edvid"]]))
-    cur.edvids.substrs <- substr(x = cur.edvids,
-                               start = 1,
-                               stop = 3)
-    cur.edvids.substrs.counts <- table(cur.edvids.substrs)
-    ## n.colors <- length(x = unique(x = cur.edvids.substrs))  ## Determine required number of colors (not required for script execution).
-    ## n.pchs <- max(cur.edvids.substrs.counts)  ## Determine maximum number of point characters required (not required for script execution).
-    cur.pch.vec.selection <- NULL
-    cur.col.vec.selection <- NULL
-    for (cur.element in seq_len(length.out = length(x = cur.edvids.substrs.counts))) {
-        cur.counts <- cur.edvids.substrs.counts[cur.element]
-        cur.pch.vec.selection <- c(cur.pch.vec.selection,
-                                   kPchVecAll[1:cur.counts])
-        cur.col.vec.selection <- c(cur.col.vec.selection,
-                                   rep(x = kColVecAll[cur.element],
-                                       times = cur.counts))
-    }
-    assign(x = paste0("points.lines.settings.", cur.species.name),
-           value = data.frame("edvid" = cur.edvids,
-                              "col" = cur.col.vec.selection,
-                              "pch" = cur.pch.vec.selection,
-                              "lty" = kLtyVec,
-                              "lwd" = kLwdVec,
-                              stringsAsFactors = FALSE))}
+points.lines.settings <- vector(mode = "list")
+for (cur.colpch.scheme in kColPchSchemes) {
+    for (cur.species.name in c("beech", "spruce")) {
+        ## Create "points.lines.settings[["col_trial_pch_edvid"]][[SPECIES]]".
+        if (cur.colpch.scheme == "col_trial_pch_edvid") {
+            ## Assign current "bart.SPECIES.clean.1.0" to "cur.bart.species.clean.1.0". We’re using "bart.SPECIES.clean.1.0" here, because we want the points and lines setting to be the same for all data frames for color and point scheme "col_trial_pch_edvid".
+            cur.bart.species.clean.1.0 <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
+            ## Count the number each trial appears in "cur.bart.species.clean.1.0".
+            trials.counts <- table(cur.bart.species.clean.1.0[["trial"]])
+            cur.pch.vec.selection <- NULL
+            cur.col.vec.selection <- NULL
+            ## Create a template for the data frame meant to contain all information necessary for plotting.
+            nrows <- nrow(x = cur.bart.species.clean.1.0)
+            cur.points.lines.settings.df <- data.frame("trial" = rep(x = NA, times = nrows),
+                                                       "edvid" = rep(x = NA, times = nrows),
+                                                       "auf" = rep(x = NA, times = nrows),
+                                                       "col" = rep(x = NA, times = nrows),
+                                                       "pch" = rep(x = NA, times = nrows),
+                                                       "lty" = rep(x = NA, times = nrows),
+                                                       "lwd" = rep(x = NA, times = nrows),
+                                                       stringsAsFactors = FALSE)
+            ## Assign "trial", "edvid", and "auf" to data frame.
+            cur.points.lines.settings.df[["trial"]] <- cur.bart.species.clean.1.0[["trial"]]
+            cur.points.lines.settings.df[["edvid"]] <- cur.bart.species.clean.1.0[["edvid"]]
+            cur.points.lines.settings.df[["auf"]] <- cur.bart.species.clean.1.0[["auf"]]
+            ## Create a vector containing the colors (one color per "trial").
+            col.vec <- vector(mode = "character")
+            for (cur.trial.nr in seq_len(length.out = length(x = trials.counts))) {
+                col.vec <- c(col.vec,
+                             rep(x = kColVecAll[cur.trial.nr],
+                                 times = trials.counts[cur.trial.nr]))
+            }
+            ## Assign colors vector to data frame.
+            cur.points.lines.settings.df[["col"]] <- col.vec
+            ## Create a vector containing the point characters (one point character per "edvid" per "trial").
+            pch.vec <- vector(mode = "numeric")
+            for (cur.trial in names(x = trials.counts)) {
+                cur.trial.subset <- droplevels(x = cur.bart.species.clean.1.0[cur.bart.species.clean.1.0[["trial"]] == cur.trial, ])
+                cur.edvids <- cur.trial.subset[["edvid"]]
+                cur.edvids.counts <- table(cur.edvids)
+                for (cur.edvid in levels(x = cur.edvids)) {
+                    cur.edvid.nr <- which(x = levels(x  = cur.edvids) == cur.edvid)
+                    cur.pch.vec <- rep(x = kPchVecAll[cur.edvid.nr],
+                                       times = cur.edvids.counts[[cur.edvid]])
+                    pch.vec <- c(pch.vec,
+                                 cur.pch.vec)
+                }}
+            cur.points.lines.settings.df[["pch"]] <- pch.vec
+        }}}  ## TESTING
+            for (cur.element in seq_len(length.out = length(x = trials.counts))) {
+                cur.counts <- trials.counts[cur.element]
+                cur.pch.vec.selection <- c(cur.pch.vec.selection,
+                                           kPchVecAll[1:cur.counts])
+                cur.col.vec.selection <- c(cur.col.vec.selection,
+                                           rep(x = kColVecAll[cur.element],
+                                               times = cur.counts))
+            }
+            ## Assign the same values for each "bart.SPECIES.clean.[0-9].[0-9]" data frame to "points.lines.settings[[cur.colpch.scheme]][[cur.species.name]]" (in order to ease accessing the information later).
+            for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
+                points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.data.frame.name]] <- data.frame(
+                    "trial" = cur.bart.species.clean.1.0[["trial"]],
+                    "edvid" = cur.bart.species.clean.1.0[["edvid"]],
+                    "auf" = cur.bart.species.clean.1.0[["auf"]],
+                    "col" = cur.col.vec.selection,
+                    "pch" = cur.pch.vec.selection,
+                    "lty" = kLtyVec,
+                    "lwd" = kLwdVec,
+                    stringsAsFactors = FALSE)
+            }}}
+    if (cur.colpch.scheme == "col_h100.class" || cur.colpch.scheme == "col_SI.h100.class" ) {
+        
+        }}
+        
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
@@ -101,7 +151,7 @@ kPlottingInformation <- list(
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
-## for (cur.data.source in names(x = kPlottingInformation)) {
+for (cur.colpch.scheme in 
 for (cur.species.name in c("beech", "spruce")) {
     for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
         for (cur.list.name in names(x = kPlottingInformation)) {
