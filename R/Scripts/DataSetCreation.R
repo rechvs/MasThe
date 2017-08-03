@@ -1082,9 +1082,10 @@ rm(list = setdiff(x = ls(), y = objects.before))
 ####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.4.
-## In this version, all "bart.SPECIES.clean.[0-9].[0-9]" data frames contain 2 additional columns:
+## In this version, 2 columns are added to each "bart.SPECIES.clean.[0-9].[0-9]" data frames:
 ## - "h100.class", which contains the level of the respective measurement in terms of "h100" divided into 3 levels;
-## - "SI.h100.class", which contains the level of the respective measurement in terms of "SI.h100" divided into 3 levels.
+## - "SI.h100.class", which contains the level of the respective measurement in terms of "SI.h100" divided into 3 levels;
+## - "trial", which contains the trial the respective "edvid" (defined by the first 3 digits of "edvid") belongs to as a factor level.
 kBaseFileVersion <- "3.4"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "3.5"
@@ -1097,10 +1098,12 @@ for (cur.species.name in c("beech", "spruce")) {
     for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
         ## Assign current data source.
         cur.data.source <- get(x = cur.data.source.name)
-        ## Calculate "h100.class".
+        ## Calculate column "h100.class".
         cur.data.source[["h100.class"]] <- cut(x = cur.data.source[["h100"]], breaks = 3)
-        ## Calculate "SI.h100.class".
+        ## Calculate column "SI.h100.class".
         cur.data.source[["SI.h100.class"]] <- cut(x = cur.data.source[["SI.h100"]], breaks = 3)
+        ## Calculate column "trial".
+        cur.data.source[["trial"]] <- as.factor(x = substr(x = cur.data.source[["edvid"]], start = 1, stop = 3))
         ## Assign new version of "bart.SPECIES.clean.[0-9].[0-9]".
         assign(x = cur.data.source.name,
                value = cur.data.source)
