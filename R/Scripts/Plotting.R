@@ -34,9 +34,7 @@ kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-kColPchSchemes <- c("col.trial.pch.edvid",
-                    "col.h100.class",
-                    "col.SI.h100.class")
+kColPchSchemes <- c("col.trial.pch.edvid")
 kLtyVec <- 1
 kLwdVec <- 2
 kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
@@ -80,18 +78,8 @@ for (cur.colpch.scheme in kColPchSchemes) {
                     cur.pch.vec <- c(cur.pch.vec,
                                      cur.edvid.pch.vec)
                 }}
-            ## Assign the same value for each "bart.SPECIES.clean.[0-9].[0-9]" data frame to "points.lines.settings[[cur.colpch.scheme]][[cur.species.name]]" (in order to allow standardized access to the plotting information later on).
             ## Assign the appropriate subset of "cur.points.lines.settings.data.frame" to "points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.measurements.data.frame.name]]".
             for (cur.measurements.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
-                ## points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.measurements.data.frame.name]] <- data.frame(
-                ## "trial" = cur.bart.species.clean.1.0[["trial"]],
-                ## "edvid" = cur.bart.species.clean.1.0[["edvid"]],
-                ## "auf" = cur.bart.species.clean.1.0[["auf"]],
-                ## "col" = cur.col.vec,
-                ## "pch" = cur.pch.vec,
-                ## "lty" = kLtyVec,
-                ## "lwd" = kLwdVec,
-                ## stringsAsFactors = FALSE)
                 cur.measurements.data.frame <- get(x = cur.measurements.data.frame.name)
                 cur.points.lines.settings.data.frame <- data.frame("trial" = cur.bart.species.clean.1.0[["trial"]],
                                                                    "edvid" = cur.bart.species.clean.1.0[["edvid"]],
@@ -111,16 +99,6 @@ for (cur.colpch.scheme in kColPchSchemes) {
     if (cur.colpch.scheme == "col.h100.class" || cur.colpch.scheme == "col.SI.h100.class" ) {
         
     }}
-
-## BEGIN TESTING ##
-data.frame(bart.spruce.clean.1.0[, c("trial", "edvid", "auf")],
-           points.lines.settings[["col.trial.pch.edvid"]][["spruce"]][["bart.spruce.clean.1.0"]][, c("trial", "edvid", "auf")])
-str(bart.spruce.clean.1.0[, c("trial", "edvid", "auf")])
-str(points.lines.settings[["col.trial.pch.edvid"]][["spruce"]][["bart.spruce.clean.1.0"]][, c("trial", "edvid", "auf")])
-identical(bart.spruce.clean.1.0[, c("trial", "edvid", "auf")],
-          points.lines.settings[["col.trial.pch.edvid"]][["spruce"]][["bart.spruce.clean.1.0"]][, c("trial", "edvid", "auf")])
-## END TESTING ##
-        
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
@@ -158,93 +136,92 @@ kPlottingInformation <- list(
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
-for (cur.colpch.scheme in 
 for (cur.species.name in c("beech", "spruce")) {
     for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
-        for (cur.list.name in names(x = kPlottingInformation)) {
-            ## Turn off graphics device.
-            graphics.off()
-            ## Extract the necessary information for the current plot from "kPlottingInformation".
-            for (cur.object.name in names(x = kPlottingInformation[[cur.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
-                cur.el <- kPlottingInformation[[cur.list.name]][cur.object.name]
-                assign(x = names(x = cur.el),
-                       value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
-            }
-            ## Create data source.
-            cur.data.source <- get(x = cur.data.source.name)
-            ## Create vectors containing the actual x and y values.
-            x.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][1]
-            y.column.name <- strsplit(x = cur.list.name, split = "_", fixed = TRUE)[[1]][2]
-            x.values <- cur.data.source[[x.column.name]]
-            y.values <- cur.data.source[[y.column.name]]
-            ## Calculate numerical values necessary for creating the plot.
-            x.lim.low <- range(x.values, na.rm = TRUE)[1]
-            x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
-            x.lim <- c(x.lim.low, x.lim.high)
-            y.lim.low <- range(y.values, na.rm = TRUE)[1]
-            y.lim.high <- range(y.values, na.rm = TRUE)[2]
-            y.lim <- c(y.lim.low, y.lim.high)
-            ## Create file name.
-            graphics.subdir <- paste0("Graphics/measurements/", cur.data.source.name, "/")
-            file.name <-paste0(graphics.subdir,
-                               cur.list.name,
-                               ".pdf")
-            ## If nonexistent, create "graphics.subdir".
-            system2(command = "mkdir",
-                    args = paste0("-p ", graphics.subdir))
-            ## Start graphics device driver for producing PDF graphics.
-            pdf(file = file.name,
-                width = kPdfWidth,
-                height = kPdfHeight,
-                pointsize = kPdfPointSize,
-                family = kPdfFamily)
-            ## Set plot margins.
-            par(mar = kPlotMargins)
-            ## Create empty plot.
-            plot(x = NA,
-                 y = NA,
-                 xlab = kPlotXLab,
-                 ylab = kPlotYLab,
-                 xlim = x.lim,
-                 ylim = y.lim,
-                 xaxs = kPlotXAxs,
-                 yaxs = kPlotYAxs,
-                 main = cur.data.source.name)
-            grid(col = kGridCol,
-                 lwd = kGridLwd)
-            ## Extract plotting information from "points.lines.settings.SPECIES" relevant to the current data source.
-            cur.points.lines.settings <- get(x = paste0("points.lines.settings.", cur.species.name))
-            cur.points.lines.settings <- cur.points.lines.settings[cur.points.lines.settings[["edvid"]] %in% levels(x = cur.data.source[["edvid"]]), ]
-            ## Add points to empty plot.
-            kCntr <- 1
-            for (ts in levels(cur.data.source$edvid)) {
-                points(x = x.values[cur.data.source$edvid == ts],
-                       y = y.values[cur.data.source$edvid == ts],
-                       type = kPointsType,
-                       col = cur.points.lines.settings$col[kCntr],
-                       bg = cur.points.lines.settings$col[kCntr],
-                       pch = cur.points.lines.settings$pch[kCntr],
-                       lty = cur.points.lines.settings$lty[kCntr],
-                       lwd = cur.points.lines.settings$lwd[kCntr])
-                kCntr <- kCntr+1
-            }
-            ## Add legend.
-            legend(x = kLegendX,
-                   legend = paste("edvid: ", levels(cur.data.source$edvid)),
-                   bg = kLegendBg,
-                   col = cur.points.lines.settings$col,
-                   pt.bg = cur.points.lines.settings$col,
-                   pch = cur.points.lines.settings$pch,
-                   lty = cur.points.lines.settings$lty,
-                   lwd = cur.points.lines.settings$lwd)
-            ## Turn off graphics device.
-            graphics.off()
-            ## If desired, open .pdf file via mupdf.
-            if (kOpenPdf) {
-                system2(command = "mupdf",
-                        args = paste0("-r 64 ",
-                                      file.name),
-                        wait = FALSE)
+        for (cur.colpch.scheme.name in names(x = points.lines.settings)) {
+            for (cur.plotinfo.list.name in names(x = kPlottingInformation)) {
+                ## Turn off graphics device.
+                graphics.off()
+                ## Extract the necessary information for the current plot from "kPlottingInformation".
+                for (cur.plotinfo.object.name in names(x = kPlottingInformation[[cur.plotinfo.list.name]])) {  ## Need to use "for" loop here, because the "*apply" functions seem to drop the name of "X".
+                    cur.plotinfo.el <- kPlottingInformation[[cur.plotinfo.list.name]][cur.plotinfo.object.name]
+                    assign(x = names(x = cur.plotinfo.el),
+                           value = unlist(x = unname(obj = cur.plotinfo.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
+                }
+                ## Create data source.
+                cur.data.source <- get(x = cur.data.source.name)
+                ## Create vectors containing the actual x and y values.
+                x.column.name <- strsplit(x = cur.plotinfo.list.name, split = "_", fixed = TRUE)[[1]][1]
+                y.column.name <- strsplit(x = cur.plotinfo.list.name, split = "_", fixed = TRUE)[[1]][2]
+                x.values <- cur.data.source[[x.column.name]]
+                y.values <- cur.data.source[[y.column.name]]
+                ## Calculate numerical values necessary for creating the plot.
+                x.lim.low <- range(x.values, na.rm = TRUE)[1]
+                x.lim.high <- range(x.values, na.rm = TRUE)[2] + diff(x = range(x.values, na.rm = TRUE)) * 0.15  ## accounts for extra space for placing the legend.
+                x.lim <- c(x.lim.low, x.lim.high)
+                y.lim.low <- range(y.values, na.rm = TRUE)[1]
+                y.lim.high <- range(y.values, na.rm = TRUE)[2]
+                y.lim <- c(y.lim.low, y.lim.high)
+                ## Create file name.
+                graphics.subdir <- paste0("Graphics/Measurements/", cur.colpch.scheme.name, "/", cur.data.source.name, "/")
+                file.name <-paste0(graphics.subdir,
+                                   cur.plotinfo.list.name,
+                                   ".pdf")
+                ## If nonexistent, create "graphics.subdir".
+                system2(command = "mkdir",
+                        args = paste0("-p ", graphics.subdir))
+                ## Start graphics device driver for producing PDF graphics.
+                pdf(file = file.name,
+                    width = kPdfWidth,
+                    height = kPdfHeight,
+                    pointsize = kPdfPointSize,
+                    family = kPdfFamily)
+                ## Set plot margins.
+                par(mar = kPlotMargins)
+                ## Create empty plot.
+                plot(x = NA,
+                     y = NA,
+                     xlab = kPlotXLab,
+                     ylab = kPlotYLab,
+                     xlim = x.lim,
+                     ylim = y.lim,
+                     xaxs = kPlotXAxs,
+                     yaxs = kPlotYAxs,
+                     main = cur.data.source.name)
+                grid(col = kGridCol,
+                     lwd = kGridLwd)
+                ## Extract plotting information from "points.lines.settings.SPECIES" relevant to the current data source.
+                cur.points.lines.settings <- points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.data.source.name]]
+                ## Add points to empty plot.
+                for (cur.edvid in levels(x = cur.data.source[["edvid"]])) {
+                    points(x = x.values[cur.data.source[["edvid"]] == cur.edvid],
+                           y = y.values[cur.data.source[["edvid"]] == cur.edvid],
+                           type = kPointsType,
+                           col = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                           bg = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                           pch = cur.points.lines.settings[["pch"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                           lty = cur.points.lines.settings[["lty"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                           lwd = cur.points.lines.settings[["lwd"]][cur.points.lines.settings[["edvid"]] == cur.edvid])
+                }
+                ## Add legend.
+                cur.points.lines.settings.legend <- unique(x = cur.points.lines.settings[, c("trial", "edvid", "col", "pch", "lty", "lwd")])
+                legend(x = kLegendX,
+                       legend = paste0("edvid: ", cur.points.lines.settings.legend[["edvid"]]),
+                       bg = kLegendBg,
+                       col = cur.points.lines.settings.legend[["col"]],
+                       pt.bg = cur.points.lines.settings.legend[["col"]],
+                       pch = cur.points.lines.settings.legend[["pch"]],
+                       lty = cur.points.lines.settings.legend[["lty"]],
+                       lwd = cur.points.lines.settings.legend[["lwd"]])
+                ## Turn off graphics device.
+                graphics.off()
+                ## If desired, open .pdf file via mupdf.
+                if (kOpenPdf) {
+                    system2(command = "mupdf",
+                            args = paste0("-r 64 ",
+                                          file.name),
+                            wait = FALSE)
+                }
             }
         }
     }
