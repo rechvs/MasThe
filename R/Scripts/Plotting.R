@@ -34,16 +34,18 @@ kGridCol <- "black"
 kGridLwd <- 2
 kLegendX <- "topright"
 kLegendBg <- "slategray1"
-kColPchSchemes <- c("col.trial.pch.edvid")
+kColPchSchemes <- c("col.trial.pch.edvid",
+                    "col.h100.class",
+                    "col.SI.h100.class")
 kLtyVec <- 1
 kLwdVec <- 2
 kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
 kPchVecAll <- c(21:25, 10)
 points.lines.settings <- vector(mode = "list")
-for (cur.colpch.scheme in kColPchSchemes) {
+for (cur.colpch.scheme.name in kColPchSchemes) {
     for (cur.species.name in c("beech", "spruce")) {
         ## Create "points.lines.settings[["col.trial.pch.edvid"]][[SPECIES]]".
-        if (cur.colpch.scheme == "col.trial.pch.edvid") {
+        if (cur.colpch.scheme.name == "col.trial.pch.edvid") {
             ## Assign current "bart.SPECIES.clean.1.0" to "cur.bart.species.clean.1.0". We’re using "bart.SPECIES.clean.1.0" here, because we want the points and lines setting to be the same for all data frames for color and point scheme "col.trial.pch.edvid".
             cur.bart.species.clean.1.0 <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
             ## Count the number each trial appears in "cur.bart.species.clean.1.0".
@@ -78,7 +80,7 @@ for (cur.colpch.scheme in kColPchSchemes) {
                     cur.pch.vec <- c(cur.pch.vec,
                                      cur.edvid.pch.vec)
                 }}
-            ## Assign the appropriate subset of "cur.points.lines.settings.data.frame" to "points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.measurements.data.frame.name]]".
+            ## Assign the appropriate subset of "cur.points.lines.settings.data.frame" to "points.lines.settings[[cur.colpch.scheme.name]][[cur.species.name]][[cur.measurements.data.frame.name]]".
             for (cur.measurements.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
                 cur.measurements.data.frame <- get(x = cur.measurements.data.frame.name)
                 cur.points.lines.settings.data.frame <- data.frame("trial" = cur.bart.species.clean.1.0[["trial"]],
@@ -90,15 +92,51 @@ for (cur.colpch.scheme in kColPchSchemes) {
                                                                    "lwd" = kLwdVec,
                                                                    stringsAsFactors = FALSE)
                 ## Extract only those points and lines settings relevant for the measurements at hand.
-                points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.measurements.data.frame.name]] <-
+                points.lines.settings[[cur.colpch.scheme.name]][[cur.species.name]][[cur.measurements.data.frame.name]] <-
                     merge(x = cur.measurements.data.frame,
                           y = cur.points.lines.settings.data.frame,
                           by = c("trial", "edvid", "auf"),
                           sort = FALSE)[, c("trial", "edvid", "auf", "col", "pch", "lty", "lwd")]
             }}}
-    if (cur.colpch.scheme == "col.h100.class" || cur.colpch.scheme == "col.SI.h100.class" ) {
-        
-    }}
+    if (cur.colpch.scheme.name == "col.h100.class" || cur.colpch.scheme.name == "col.SI.h100.class" ) {
+        ## Loop over all species.
+        for (cur.species.name in c("beech", "spruce")) {
+            ## Extract the name of the column on which to base color selection.
+            color.selection.column.name <- substr(x = cur.colpch.scheme.name, start = 5, stop = nchar(x = cur.colpch.scheme.name))
+            ## Loop over all appropriate data frames containing measurements.
+            for (cur.measurements.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
+                ## Assign current measurements data frame.
+                cur.measurements.data.frame <- get(x = cur.measurements.data.frame.name)
+                ## Count the number each class in colum "color.selection.colum.name" occurs in "cur.measurements.data.frame".
+                class.counts <- table(cur.measurements.data.frame[[color.selection.column.name]])
+                ## Create a vector containing the colors (one color per class).
+                cur.col.vec <- rep(x = NA, times = nrow(x = cur.measurements.data.frame))
+                for (cur.class.nr in seq_len(length.out = length(x = class.counts))) {
+                    cur.class <- names(x = class.counts)[cur.class.nr]
+                    cur.col.vec[cur.measurements.data.frame[[color.selection.column.name]] == cur.class] <- kColVecAll[cur.class.nr]
+                }
+                ## Create a vector containing the point characters.
+                cur.pch.vec <- rep(x = 21,
+                                   times = nrow(x = cur.measurements.data.frame))
+                ## Assign the appropriate subset of "cur.points.lines.settings.data.frame" to "points.lines.settings[[cur.colpch.scheme.name]][[cur.species.name]][[cur.measurements.data.frame.name]]".
+                cur.points.lines.settings.data.frame <- data.frame(color.selection.column.name = cur.measurements.data.frame[[color.selection.column.name]],
+                                                                   "edvid" = cur.measurements.data.frame[["edvid"]],
+                                                                   "auf" = cur.measurements.data.frame[["auf"]],
+                                                                   "col" = cur.col.vec,
+                                                                   "pch" = cur.pch.vec,
+                                                                   "lty" = rep(x = 0,
+                                                                               times = nrow(x = cur.measurements.data.frame)),
+                                                                   "lwd" = rep(x = 0,
+                                                                               times = nrow(x = cur.measurements.data.frame)),
+                                                                   stringsAsFactors = FALSE)
+                names(x = cur.points.lines.settings.data.frame) <- c(color.selection.column.name, "edvid", "auf", "col", "pch", "lty", "lwd")
+                ## Extract only those points and lines settings relevant for the measurements at hand.
+                points.lines.settings[[cur.colpch.scheme.name]][[cur.species.name]][[cur.measurements.data.frame.name]] <-
+                    merge(x = cur.measurements.data.frame,
+                          y = cur.points.lines.settings.data.frame,
+                          by = c(color.selection.column.name, "edvid", "auf"),
+                          sort = FALSE)[, c(color.selection.column.name, "edvid", "auf", "col", "pch", "lty", "lwd")]
+            }}}}
 ## Create list containing the information necessary to create the respective plot, namely (order may be arbitrary):
 ## - list name: name of the column containing the x values and name of the column containing the y values in this format: XCOL_YCOL
 ## - "kPlotXLab": x axis label
@@ -191,28 +229,57 @@ for (cur.species.name in c("beech", "spruce")) {
                 grid(col = kGridCol,
                      lwd = kGridLwd)
                 ## Extract plotting information from "points.lines.settings.SPECIES" relevant to the current data source.
-                cur.points.lines.settings <- points.lines.settings[[cur.colpch.scheme]][[cur.species.name]][[cur.data.source.name]]
-                ## Add points to empty plot.
-                for (cur.edvid in levels(x = cur.data.source[["edvid"]])) {
-                    points(x = x.values[cur.data.source[["edvid"]] == cur.edvid],
-                           y = y.values[cur.data.source[["edvid"]] == cur.edvid],
-                           type = kPointsType,
-                           col = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
-                           bg = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
-                           pch = cur.points.lines.settings[["pch"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
-                           lty = cur.points.lines.settings[["lty"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
-                           lwd = cur.points.lines.settings[["lwd"]][cur.points.lines.settings[["edvid"]] == cur.edvid])
-                }
+                cur.points.lines.settings <- points.lines.settings[[cur.colpch.scheme.name]][[cur.species.name]][[cur.data.source.name]]
+                ## Add points to empty plot (the method depends on the color and point character scheme).
+                if (cur.colpch.scheme.name == "col.trial.pch.edvid") {
+                    for (cur.edvid in levels(x = cur.data.source[["edvid"]])) {
+                        points(x = x.values[cur.data.source[["edvid"]] == cur.edvid],
+                               y = y.values[cur.data.source[["edvid"]] == cur.edvid],
+                               type = kPointsType,
+                               col = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                               bg = cur.points.lines.settings[["col"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                               pch = cur.points.lines.settings[["pch"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                               lty = cur.points.lines.settings[["lty"]][cur.points.lines.settings[["edvid"]] == cur.edvid],
+                               lwd = cur.points.lines.settings[["lwd"]][cur.points.lines.settings[["edvid"]] == cur.edvid])
+                    }}
+                if (cur.colpch.scheme.name == "col.h100.class" ||cur.colpch.scheme.name == "col.SI.h100.class") {
+                    ## Extract the name of the column on which to base color selection.
+                    color.selection.column.name <- substr(x = cur.colpch.scheme.name, start = 5, stop = nchar(x = cur.colpch.scheme.name))
+                    for (cur.class in levels(x = cur.data.source[[color.selection.column.name]])) {
+                        points(x = x.values[cur.data.source[[color.selection.column.name]] == cur.class],
+                               y = y.values[cur.data.source[[color.selection.column.name]] == cur.class],
+                               type = kPointsType,
+                               col = cur.points.lines.settings[["col"]][cur.points.lines.settings[[color.selection.column.name]] == cur.class],
+                               bg = cur.points.lines.settings[["col"]][cur.points.lines.settings[[color.selection.column.name]] == cur.class],
+                               pch = cur.points.lines.settings[["pch"]][cur.points.lines.settings[[color.selection.column.name]] == cur.class],
+                               lty = cur.points.lines.settings[["lty"]][cur.points.lines.settings[[color.selection.column.name]] == cur.class],
+                               lwd = cur.points.lines.settings[["lwd"]][cur.points.lines.settings[[color.selection.column.name]] == cur.class])
+                    }}
                 ## Add legend.
-                cur.points.lines.settings.legend <- unique(x = cur.points.lines.settings[, c("trial", "edvid", "col", "pch", "lty", "lwd")])
-                legend(x = kLegendX,
-                       legend = paste0("edvid: ", cur.points.lines.settings.legend[["edvid"]]),
-                       bg = kLegendBg,
-                       col = cur.points.lines.settings.legend[["col"]],
-                       pt.bg = cur.points.lines.settings.legend[["col"]],
-                       pch = cur.points.lines.settings.legend[["pch"]],
-                       lty = cur.points.lines.settings.legend[["lty"]],
-                       lwd = cur.points.lines.settings.legend[["lwd"]])
+                if (cur.colpch.scheme.name == "col.trial.pch.edvid") {
+                    cur.points.lines.settings.legend <- unique(x = cur.points.lines.settings[, c("trial", "edvid", "col", "pch", "lty", "lwd")])
+                    legend(x = kLegendX,
+                           legend = paste0("edvid: ", cur.points.lines.settings.legend[["edvid"]]),
+                           bg = kLegendBg,
+                           col = cur.points.lines.settings.legend[["col"]],
+                           pt.bg = cur.points.lines.settings.legend[["col"]],
+                           pch = cur.points.lines.settings.legend[["pch"]],
+                           lty = cur.points.lines.settings.legend[["lty"]],
+                           lwd = cur.points.lines.settings.legend[["lwd"]])
+                }
+                if (cur.colpch.scheme.name == "col.h100.class" ||cur.colpch.scheme.name == "col.SI.h100.class") {
+                    ## Extract the name of the column on which to base color selection.
+                    color.selection.column.name <- substr(x = cur.colpch.scheme.name, start = 5, stop = nchar(x = cur.colpch.scheme.name))
+                    cur.points.lines.settings.legend <- unique(x = cur.points.lines.settings[, c(color.selection.column.name, "col", "pch", "lty", "lwd")])
+                    legend(x = kLegendX,
+                           legend = paste0(color.selection.column.name, ": ", cur.points.lines.settings.legend[[color.selection.column.name]]),
+                           bg = kLegendBg,
+                           col = cur.points.lines.settings.legend[["col"]],
+                           pt.bg = cur.points.lines.settings.legend[["col"]],
+                           pch = cur.points.lines.settings.legend[["pch"]],
+                           lty = cur.points.lines.settings.legend[["lty"]],
+                           lwd = cur.points.lines.settings.legend[["lwd"]])
+                }
                 ## Turn off graphics device.
                 graphics.off()
                 ## If desired, open .pdf file via mupdf.
