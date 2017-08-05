@@ -39,8 +39,6 @@ kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I")  ## Error: "NA's in the working vector or weights for parameter sigma"
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I")  ## Error: "mu must be positive"
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
@@ -103,19 +101,6 @@ kNuFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.fo
 kTauFormulas[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "~1")
 kDistFamilyToUse[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- "BCCG()"
 kColumnsToSelect[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- c("gha", "SI.h100", "ghaa.cum", "h100.EKL.I", "h100.diff.EKL.I")
-## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I".
-kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I)")
-kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_gha_SI.h100_ghaa.cum_h100.EKL.I"]] <- "()"
-kColumnsToSelect[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I"]] <- c("ksha", "SI.h100", "ghaa.cum", "h100.EKL.I")
-## Setup for model "GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I".
-kFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
-kSigmaFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
-kNuFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "ksha ~ gamlss::cs(SI.h100) + gamlss::cs(ghaa.cum) + gamlss::cs(h100.EKL.I) + gamlss::cs(h100.diff.EKL.I)")
-kTauFormulas[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- as.formula(object = "~1")
-kColumnsToSelect[["GAMLSS_ksha_SI.h100_ghaa.cum_h100.EKL.I_h100.diff.EKL.I"]] <- c("ksha", "SI.h100", "ghaa.cum", "h100.EKL.I", "h100.diff.EKL.I")
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -139,7 +124,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
-## 2017-06-15: gamlss::gamlss fails at modelling "ksha ~ ..."
+
 
 ############
 ## Sterba ##
