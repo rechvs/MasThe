@@ -391,6 +391,23 @@ for (cur.function.name in names(x = models)) {
                 ## If nonexistent, create "graphics.subdir".
                 system2(command = "mkdir",
                         args = paste0("-p ", graphics.subdir))
+                ## Create title page.
+                pdf(file = paste0(substr(x = file.name, start = 1, stop = nchar(file.name) - 3), "Titlepage", ".pdf"),
+                    width = kPdfWidth,
+                    height = kPdfHeight,
+                    pointsize = kPdfPointSize,
+                    family = kPdfFamily)
+                plot(x = 1:10,
+                     type = "n",
+                     axes = FALSE,
+                     xlab = NA,
+                     ylab = NA)
+                text(x = 5.5,
+                     y = 5.5,
+                     pos = 1,
+                     labels = cur.model.name,
+                     cex = 4)
+                graphics.off()
                 ## Start graphics device driver for producing PDF graphics.
                 pdf(file = file.name,
                     width = kPdfWidth,
@@ -398,21 +415,20 @@ for (cur.function.name in names(x = models)) {
                     pointsize = kPdfPointSize,
                     family = kPdfFamily)
                 ## Set plot margins.
-                par(mar = kPlotMargins)
-                ## Plot model.            
-                plot(x = cur.model
-                 ## ,xvar = bart.clean$h100  ## To be turned on and off as desired.
-                    ,parameters = par("mfrow" = c(2, 2),
-                                  "mar" = par("mar") + c(0, 1, 0, 0),
-                                  "col.axis" = "black",
-                                  "col" = "black",
-                                  "col.main" = "black",
-                                  "col.lab" = "black",
-                                  "pch" = 20,
-                                  "cex" = 1.00,
-                                  "cex.lab" = 1.00,
-                                  "cex.axis" = 1,
-                                  "cex.main" = 1.5)  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                par("mar" = kPlotMargins)
+                ## Plot model.
+                plot(x = cur.model,
+                     parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                                      "mar" = par("mar") + c(0, 1, 0, 0),
+                                      "col.axis" = "black",
+                                      "col" = "black",
+                                      "col.main" = "black",
+                                      "col.lab" = "black",
+                                      "pch" = 20,
+                                      "cex" = 1.00,
+                                      "cex.lab" = 1.00,
+                                      "cex.axis" = 1,
+                                      "cex.main" = 1.5)
                  )
                 ## Turn off graphics device.
                 graphics.off()
