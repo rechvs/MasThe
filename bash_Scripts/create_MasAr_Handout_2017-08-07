@@ -1,0 +1,30 @@
+#! /bin/bash
+
+## Preamble.
+cd ~/"laptop02_MasAr/Graphics/"
+
+## Store name of resulting .pdf file in variable "output".
+output="Handouts/MasAr_Handout_2017-08-07.pdf"
+
+## Create array containing the .pdf files to be concatenated.
+pdfs=( "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/gha_SI.h100.pdf"
+       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/gha_SI.h100.pdf"
+       
+       "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/h100_gha.pdf"
+       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/h100_gha.pdf"
+       
+       "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/log.dg_log.nha.pdf"
+       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/log.dg_log.nha.pdf"
+
+       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100.Titlepage.pdf"
+       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100.pdf"
+
+       
+       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100_hnn.neu.Titlepage.pdf"
+       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100_hnn.neu.pdf"
+     )
+
+## Rund "pdftk".
+pdftk "${pdfs[@]}" cat output "${output}"
+
+exit
