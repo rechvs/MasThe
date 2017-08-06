@@ -1153,3 +1153,44 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+####################################
+## Create "gmax_merged_3.7.RData" ##
+####################################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 3.6.
+## In this version, column "hnn_neu" from "parz2.SPECIES" is added to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
+kBaseFileVersion <- "3.6"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "3.7"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Assign "parz2.SPECIES2" to "cur.parz2".
+    cur.parz2 <- get(x = paste0("parz2.", cur.species.name))
+    ## Loop over all appropriate data frames
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
+        ## Assign "bart.SPECIES..." to "cur.data.frame".
+        cur.data.frame <- get(x = cur.data.frame.name)
+        ## Merge "cur.data.frame" and "cur.parz2" into "cur.data.frame.merged".
+        cur.data.frame.merged <- merge(x = cur.data.frame,
+                                       y = cur.parz2[, c("edvid", "hnn_neu")],
+                                       by = "edvid",
+                                       sort = FALSE)
+        ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
+        assign(x = cur.data.frame.name,
+               value = cur.data.frame.merged)
+        }}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
