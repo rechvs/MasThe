@@ -1174,11 +1174,13 @@ for (cur.species.name in c("beech", "spruce")) {
     for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
         ## Assign "bart.SPECIES..." to "cur.data.frame".
         cur.data.frame <- get(x = cur.data.frame.name)
-        ## Merge "cur.data.frame" and "cur.parz2" into "cur.data.frame.merged".
+        ## Merge "cur.data.frame" and "cur.parz2[, c("edvid", "hnn_neu")]" into "cur.data.frame.merged".
         cur.data.frame.merged <- merge(x = cur.data.frame,
                                        y = cur.parz2[, c("edvid", "hnn_neu")],
                                        by = "edvid",
                                        sort = FALSE)
+        ## Change column name "hnn_neu" to "hnn.neu".
+        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "hnn_neu"] <- "hnn.neu"
         ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
         assign(x = cur.data.frame.name,
                value = cur.data.frame.merged)
