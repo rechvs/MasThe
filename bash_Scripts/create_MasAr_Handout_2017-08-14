@@ -4,7 +4,7 @@
 cd ~/"laptop02_MasAr/Graphics/"
 
 ## Store name of resulting .pdf file in variable "output".
-output="Handouts/MasAr_Handout_2017-08-07.pdf"
+output="Handouts/MasAr_Handout_2017-08-14.pdf"
 
 ## Create array containing the .pdf files to be concatenated.
 pdfs=( "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/gha_SI.h100.pdf"
