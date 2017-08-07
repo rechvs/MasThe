@@ -1028,36 +1028,38 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Drop unused levels from "cur.subset".
         cur.subset <- droplevels(x = cur.subset)
         ## Create dummy version of "rows.kept.cur.subset" (the vector containing the row numbers to keep) to get the following "while" loop going.
-        rows.kept.cur.subset <- rep(x = FALSE, times = nrow(cur.subset))
+        rows.kept.cur.subset <- rep(x = FALSE, times = nrow(x = cur.subset))
         ## Keep looping over the current subset, as long as not all rows are marked for keeping.
         while (!all(rows.kept.cur.subset)) {
             ## Create template for the vector containing the row numbers to keep.
-            rows.kept.cur.subset <- rep(x = TRUE, times = nrow(cur.subset))
+            rows.kept.cur.subset <- rep(x = TRUE, times = nrow(x = cur.subset))
             ## Mark rows for keeping, depending on the log.nha-log.dg-slope between the current and adjacent rows.
-            for (cur.row in seq_len(length.out = nrow(cur.subset))) {
+            for (cur.row.number in seq_len(length.out = nrow(x = cur.subset))) {
                 ## Check slope between current row and previous row and/or current row and next row (depending on which row we are at).
-                if (cur.row != nrow(x = cur.subset) && cur.row != 1) {
-                    ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
-                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
-                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
-                rows.kept.cur.subset[cur.row] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
-                }
-                if (cur.row == 1 && cur.row != nrow(x = cur.subset)) {
+                if (cur.row.number != nrow(x = cur.subset) && cur.row.number != 1) {
+                    ## Check current row only if previous row has been marked for keeping (otherwise we might delete more rows than necessary to obtain an acceptable slope).
+                    if (rows.kept.cur.subset[cur.row.number - 1] == TRUE) {
+                        ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
+                        cur.slope.previous <- (cur.subset[["log.nha"]][cur.row.number] - cur.subset[["log.nha"]][cur.row.number - 1]) / (cur.subset[["log.dg"]][cur.row.number] - cur.subset[["log.dg"]][cur.row.number - 1])
+                        cur.slope.following <- (cur.subset[["log.nha"]][cur.row.number + 1] - cur.subset[["log.nha"]][cur.row.number]) / (cur.subset[["log.dg"]][cur.row.number + 1] - cur.subset[["log.dg"]][cur.row.number])
+                        rows.kept.cur.subset[cur.row.number] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
+                    }}
+                if (cur.row.number == 1 && cur.row.number != nrow(x = cur.subset)) {
                     ## Mark row for keeping if the slope to the following row is leq than the upper threshold (the slope to the previous row cannot be calculated, since this is the first row).
-                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row + 1] - cur.subset[["log.nha"]][cur.row]) / (cur.subset[["log.dg"]][cur.row + 1] - cur.subset[["log.dg"]][cur.row])
-                    rows.kept.cur.subset[cur.row] <- cur.slope.following <= cur.upper.threshold
+                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row.number + 1] - cur.subset[["log.nha"]][cur.row.number]) / (cur.subset[["log.dg"]][cur.row.number + 1] - cur.subset[["log.dg"]][cur.row.number])
+                    rows.kept.cur.subset[cur.row.number] <- cur.slope.following <= cur.upper.threshold
                 }
-                if (cur.row != 1 && cur.row == nrow(x = cur.subset)) {
+                if (cur.row.number != 1 && cur.row.number == nrow(x = cur.subset)) {
                     ## Mark row for keeping if the slope to the previous row is geq than the lower threshold (the slope to the following row cannot be calculated, since this is the last row).
-                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row] - cur.subset[["log.nha"]][cur.row - 1]) / (cur.subset[["log.dg"]][cur.row] - cur.subset[["log.dg"]][cur.row - 1])
-                    rows.kept.cur.subset[cur.row] <- cur.slope.previous >= cur.lower.threshold
+                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row.number] - cur.subset[["log.nha"]][cur.row.number - 1]) / (cur.subset[["log.dg"]][cur.row.number] - cur.subset[["log.dg"]][cur.row.number - 1])
+                    rows.kept.cur.subset[cur.row.number] <- cur.slope.previous >= cur.lower.threshold
                 }
             }
-            ## Created cleaned subset.
+            ## Create cleaned subset.
             cur.subset <- cur.subset[rows.kept.cur.subset, ]
         }
         ## If the cleaned subset contains more than 1 row, assign it to "bart.SPECIES.clean.1.6".
-        if (nrow(cur.subset) > 1) {
+        if (nrow(x = cur.subset) > 1) {
             assign(x = paste0("bart.", cur.species.name, ".clean.1.6"),
                    value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.6")),
                                  droplevels(x = cur.subset)))
