@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "3.6"
+kBaseFileVersion <- "3.7"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -486,61 +486,86 @@ kPlotXAxs <- "r"
 kPlotYAxs <- "r"
 kLegendBg <- "slategray1"
 kPlottingInformation <- list(
-    "h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100",
-                      "kPlotXLabel" = "h100 [m]",
-                      "kPlotYLabel" = expression("gha [m"^2*" ha"^-1*"]"),
-                      "kNPlots" = 3,
-                      "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
-                      "kXSource1" = "data.source[[\"h100\"]]",
-                      "kYSource1" = "data.source[[\"gha\"]]",
-                      "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_Gmax\"]])",
-                      "kCurveExpr2" = "pi/(16 * eval(parse(text = kCoeffsSource2))[[\"a0\"]] * eval(parse(text = kCoeffsSource2))[[\"b0\"]] * (x ^ (eval(parse(text = kCoeffsSource2))[[\"a1\"]] + eval(parse(text = kCoeffsSource2))[[\"b1\"]]))) * 10000",
-                      "kCurveExpr3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
-                      "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using coefficients from Wördehoff (2016)\")))",
-                      "kLegendX" = "topleft",
-                      "kPch" = c(1, NA, NA),
-                      "kLty" = c(NA, 1, 1),
-                      "kCol" = c("black", "red", "blue")),
-    "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg",
-                    "kPlotXLabel" = "dg [cm]",
-                    "kPlotYLabel" = expression("nha [ha"^-1*"]"),
-                    "kNPlots" = 3,
-                    "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
-                    "kXSource1" = "data.source[[\"dg\"]]",
-                    "kYSource1" = "data.source[[\"nha\"]]",
-                    "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_NGmax\"]])",
-                    "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
-                    "kCurveExpr3" = "1/x * 27000",
-                    "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"N\"[G[max]]*\"(dg\"[G[max]]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = frac(1, x)%.%\"27000\")))",
-                    "kLegendX" = "topleft",
-                    "kPch" = c(1, NA, NA),
-                    "kLty" = c(NA, 1, 1),
-                    "kCol" = c("black", "red", "blue")),
-    "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg)",
-                          "kPlotXLabel" = "ln(dg)",
-                          "kPlotYLabel" = "ln(nha)",
-                          "kNPlots" = 4,
-                          "kAppropriateNamesSource" = "names(x = models[[\"stats..lm\"]])",
-                          "kXSource1" = "data.source[[\"ln.dg\"]]",
-                          "kYSource1" = "data.source[[\"ln.nha\"]]",
-                          "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg\"]])",
-                          "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg_fixed_slope\"]])",
-                          "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"ln.dg\"]] * x",
-                          "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
-                          "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
-                          "kLegendLegend" = "c(\"Measurements\",
-                                               paste0(\"y = \",
-                                                      eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"ln.dg\"]], digits = 3))),
+    ## "h100_gha" = list("kPlotMain" = "Measurements and model predictions for gha vs. h100",
+                      ## "kPlotXLabel" = "h100 [m]",
+                      ## "kPlotYLabel" = expression("gha [m"^2*" ha"^-1*"]"),
+                      ## "kNPlots" = 3,
+                      ## "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
+                      ## "kXSource1" = "data.source[[\"h100\"]]",
+                      ## "kYSource1" = "data.source[[\"gha\"]]",
+                      ## "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_Gmax\"]])",
+                      ## "kCurveExpr2" = "pi/(16 * eval(parse(text = kCoeffsSource2))[[\"a0\"]] * eval(parse(text = kCoeffsSource2))[[\"b0\"]] * (x ^ (eval(parse(text = kCoeffsSource2))[[\"a1\"]] + eval(parse(text = kCoeffsSource2))[[\"b1\"]]))) * 10000",
+                      ## "kCurveExpr3" = "pi/(16 * 4.913256e-06 * 0.3716977 * (x ^ (0.4394706 + -0.9097641))) / 10000",
+                      ## "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = \"G\"[max]*\"(h\"[100]*\") predicted using coefficients from Wördehoff (2016)\")))",
+                      ## "kLegendX" = "topright",
+                      ## "kPch" = c(1, NA, NA),
+                      ## "kLty" = c(NA, 1, 1),
+                      ## "kCol" = c("black", "red", "blue")),
+    ## "dg_nha" = list("kPlotMain" = "Measurements and model predictions for nha vs. dg",
+                    ## "kPlotXLabel" = "dg [cm]",
+                    ## "kPlotYLabel" = expression("nha [ha"^-1*"]"),
+                    ## "kNPlots" = 3,
+                    ## "kAppropriateNamesSource" = "names(x = models[[\"nls2..nls2\"]])",
+                    ## "kXSource1" = "data.source[[\"dg\"]]",
+                    ## "kYSource1" = "data.source[[\"nha\"]]",
+                    ## "kCoeffsSource2" = "coef(object = models[[\"nls2..nls2\"]][[data.source.name]][[\"Sterba_NGmax\"]])",
+                    ## "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"a0\"]] * (2 * eval(expr = parse(text = kCoeffsSource2))[[\"b0\"]] * x) ^ (eval(expr = parse(text = kCoeffsSource2))[[\"a1\"]] / eval(expr = parse(text = kCoeffsSource2))[[\"b1\"]] - 1)",
+                    ## "kCurveExpr3" = "1/x * 27000",
+                    ## "kLegendLegend" = "c(\"Measurements\", as.expression(x = bquote(expr = \"N\"[G[max]]*\"(dg\"[G[max]]*\") predicted using estimated coefficients\")), as.expression(x = bquote(expr = frac(1, x)%.%\"27000\")))",
+                    ## "kLegendX" = "topright",
+                    ## "kPch" = c(1, NA, NA),
+                    ## "kLty" = c(NA, 1, 1),
+                    ## "kCol" = c("black", "red", "blue")),
+    ## "ln.dg_ln.nha" = list("kPlotMain" = "Measurements and model predictions for ln(nha) vs. ln(dg)",
+                          ## "kPlotXLabel" = "ln(dg)",
+                          ## "kPlotYLabel" = "ln(nha)",
+                          ## "kNPlots" = 4,
+                          ## "kAppropriateNamesSource" = "names(x = models[[\"stats..lm\"]])",
+                          ## "kXSource1" = "data.source[[\"ln.dg\"]]",
+                          ## "kYSource1" = "data.source[[\"ln.nha\"]]",
+                          ## "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg\"]])",
+                          ## "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_ln.nha_ln.dg_fixed_slope\"]])",
+                          ## "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"ln.dg\"]] * x",
+                          ## "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
+                          ## "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
+                          ## "kLegendLegend" = "c(\"Measurements\",
+                                               ## paste0(\"Curve 1 (estimated slope, estimated intercept): y = \",
+                                                      ## eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"ln.dg\"]], digits = 3))),
+                                                      ## \" x + \",
+                                                      ## eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
+                                               ## paste0(\"Curve 2 (Reinek slope, intercept from curve 1): y = -1.605 x + \",
+                                                      ## eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
+                                               ## paste0(\"Curve 3 (Reineke slope, estimated intercept): y = -1.605 x + \",
+                                                      ## eval(parse(text = round(x = eval(parse(text = kCoeffsSource4))[[\"(Intercept)\"]], digits = 3)))))",
+                          ## "kLegendX" = "topright",
+                          ## "kPch" = c(1, NA, NA, NA),
+                          ## "kLty" = c(NA, 1, 1, 1),
+                          ## "kCol" = c("black", "red", "blue", "magenta")),
+    "log.dg_log.nha" = list("kPlotMain" = "Measurements and model predictions for log(nha) vs. log(dg)",
+                            "kPlotXLabel" = "log(dg)",
+                            "kPlotYLabel" = "log(nha)",
+                            "kNPlots" = 4,
+                            "kAppropriateNamesSource" = "names(x = models[[\"stats..lm\"]])",
+                            "kXSource1" = "data.source[[\"log.dg\"]]",
+                            "kYSource1" = "data.source[[\"log.nha\"]]",
+                            "kCoeffsSource2" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_log.nha_log.dg\"]])",
+                            "kCoeffsSource4" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"LM_log.nha_log.dg_fixed_slope\"]])",
+                            "kCurveExpr2" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + eval(expr = parse(text = kCoeffsSource2))[[\"log.dg\"]] * x",
+                            "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
+                            "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
+                            "kLegendLegend" = "c(\"Measurements\",
+                                               paste0(\"Curve 1 (estimated slope, estimated intercept): y = \",
+                                                      eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"log.dg\"]], digits = 3))),
                                                       \" x + \",
                                                       eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
-                                               paste0(\"y = -1.605 x + \",
+                                               paste0(\"Curve 2 (Reinek slope, intercept from curve 1): y = -1.605 x + \",
                                                       eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
-                                               paste0(\"y = -1.605 x + \",
+                                               paste0(\"Curve 3 (Reineke slope, estimated intercept): y = -1.605 x + \",
                                                       eval(parse(text = round(x = eval(parse(text = kCoeffsSource4))[[\"(Intercept)\"]], digits = 3)))))",
-                          "kLegendX" = "topleft",
-                          "kPch" = c(1, NA, NA, NA),
-                          "kLty" = c(NA, 1, 1, 1),
-                          "kCol" = c("black", "red", "blue", "magenta")))
+                            "kLegendX" = "topright",
+                            "kPch" = c(1, NA, NA, NA),
+                            "kLty" = c(NA, 1, 1, 1),
+                            "kCol" = c("black", "red", "blue", "magenta")))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
@@ -558,7 +583,7 @@ for (cur.list.name in names(x = kPlottingInformation)) {
                    value = unlist(x = unname(obj = cur.el)))  ## Need to "unname" the object, because plot seemingly cannot handle named expressions. Need to "unlist" the object, because "plot(log = …)" cannot handle lists.
         }
         ## Create file name.
-        graphics.subdir <- paste0("Graphics/measurements_predictions/", data.source.name, "/")
+        graphics.subdir <- paste0("Graphics/Measurements_Predictions/", data.source.name, "/")
         file.name <-paste0(graphics.subdir,
                            cur.list.name,
                            ".pdf")
@@ -571,7 +596,7 @@ for (cur.list.name in names(x = kPlottingInformation)) {
             height = kPdfHeight,
             pointsize = kPdfPointSize,
             family = kPdfFamily)
-        for (plot.nr in 1:kNPlots) {
+        for (plot.nr in seq_len(length.out = kNPlots)) {
             ## Set plot margins.
             par(mar = kPlotMargins)
             if (plot.nr == 1) {  ## If this is true, it means we are plotting the base relation and need to determine all settings required for and call "plot(…)".
@@ -626,7 +651,3 @@ for (cur.list.name in names(x = kPlottingInformation)) {
         }
     }
 }
-
-## Continue here ##
-"kCoeffsSource5" = "coef(object = models[[\"stats..lm\"]][[data.source.name]][[\"Reineke_improved_quadratic\"]])",
-"kCurveExpr5" = "eval(expr = parse(text = kCoeffsSource5))[[\"a\"]] + parse(text = kCoeffsSource5))[[\"b\"]] * x + parse(text = kCoeffsSource5))[[\"c \"]] * x^2",
