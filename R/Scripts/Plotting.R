@@ -113,7 +113,13 @@ for (cur.colpch.scheme.name in kColPchSchemes) {
                 cur.col.vec <- rep(x = NA, times = nrow(x = cur.measurements.data.frame))
                 for (cur.class.nr in seq_len(length.out = length(x = class.counts))) {
                     cur.class <- names(x = class.counts)[cur.class.nr]
-                    cur.col.vec[cur.measurements.data.frame[[color.selection.column.name]] == cur.class] <- kColVecAll[cur.class.nr]
+                    ## Use different colors for different factors.
+                    if (cur.colpch.scheme.name == "col.h100.class") {
+                        cur.col.vec[cur.measurements.data.frame[[color.selection.column.name]] == cur.class] <- kColVecAll[cur.class.nr]
+                    }
+                    if (cur.colpch.scheme.name == "col.SI.h100.class") {
+                        cur.col.vec[cur.measurements.data.frame[[color.selection.column.name]] == cur.class] <- kColVecAll[cur.class.nr + 3]
+                    }
                 }
                 ## Create a vector containing the point characters.
                 cur.pch.vec <- rep(x = 21,
@@ -142,14 +148,16 @@ for (cur.colpch.scheme.name in kColPchSchemes) {
 ## - "kPlotXLab": x axis label
 ## - "kPlotYLab": y axis label
 kPlottingInformation <- list(
-    "alt_ekl" = list("kPlotXLab" = "alt [a]",
-                     "kPlotYLab" = "ekl"),
+    ## "alt_ekl" = list("kPlotXLab" = "alt [a]",
+                     ## "kPlotYLab" = "ekl"),
     "alt_gha" = list("kPlotXLab" = "alt [a]",
                      "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-    "dg_gha" = list("kPlotXLab" = "dg [cm]",
-                    "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
-    "alt_ghaa.cum" = list("kPlotXLab" = "alt [a]",
-                          "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
+    "alt_ghaa" = list("kPlotXLab" = "alt [a]",
+                     "kPlotYLab" = expression("ghaa [m"^2*" ha"^-1*"]")),
+    ## "dg_gha" = list("kPlotXLab" = "dg [cm]",
+                    ## "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
+    ## "alt_ghaa.cum" = list("kPlotXLab" = "alt [a]",
+                          ## "kPlotYLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]")),
     "alt_h100" = list("kPlotXLab" = "alt [a]",
                       "kPlotYLab" = "h100 [m]"),
     "alt_SI.h100" = list("kPlotXLab" = "alt [a]",
@@ -160,16 +168,14 @@ kPlottingInformation <- list(
                       "kPlotYLab" = "h100 [m]"),
     "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
                          "kPlotYLab" = "SI.h100 [m]"),
-    "gha_SI.h100" = list("kPlotXLab" = expression("gha [m"^2*" ha"^-1*"]"),
-                         "kPlotYLab" = "SI.h100 [m]"),
-    "ln.dg_ln.nha" = list("kPlotXLab" = "ln.dg",
-                          "kPlotYLab" = "ln.nha"),
+    "SI.h100_gha" = list("kPlotXLab" = "SI.h100 [m]",
+                         "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")),
     "log.dg_log.nha" = list("kPlotXLab" = "log.dg",
                             "kPlotYLab" = "log.nha"),
-    "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
+    "h100.EKL.I_h100.diff.EKL.I" = list("kPlotXLab" = "h100.EKL.I [m]",
                                   "kPlotYLab" = "h100.diff.EKL.I [m]"),
-    "ghaa.cum_gha" = list("kPlotXLab" = expression("ghaa.cum [m"^2*" ha"^-1*"]"),
-                          "kPlotYLab" = expression("gha [m"^2*" ha"^-1*"]")))
+    "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
+                                  "kPlotYLab" = "h100.diff.EKL.I [m]"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
