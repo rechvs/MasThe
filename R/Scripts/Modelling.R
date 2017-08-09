@@ -24,7 +24,7 @@ kStartValsVecs <- vector(mode = "list")
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid having to use "data = na.omit(DATA)".
 kDistFamilyToUse <- vector(mode = "list")
 kPrintSumries <- TRUE
-kPrintSumries <- FALSE
+## kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
@@ -42,7 +42,7 @@ kFormulasToUse <- NULL
 ## kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
 ## Create a vector containing the names of all appropriate input data sources.
 objects.present <- ls()
-names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spruce)).clean", x = objects.present, fixed = FALSE)]
+names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[06]", x = objects.present, fixed = FALSE)]
 
 #########
 ## GAM ##
@@ -65,7 +65,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
                     models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                                                                     data = input.data)
+                                                                                                         data = input.data)
                 }
             }
         }
@@ -286,8 +286,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
 ## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
 ## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
 kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg")
-kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_fixed_slope")
-## kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_h100")
+## kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_fixed_slope")
+kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_h100")
+kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_h100_ni")
 ## Setup for model "LM_ln.nha_ln.dg".
 kFormulas[["LM_ln.nha_ln.dg"]] <- as.formula(object = "ln.nha ~ ln.dg")
 ## Setup for model "LM_ln.nha_ln.dg_fixed_slope".
@@ -296,8 +297,10 @@ kFormulas[["LM_ln.nha_ln.dg_fixed_slope"]] <- as.formula(object = "ln.nha - -1.6
 kFormulas[["LM_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
 ## Setup for model "LM_log.nha_log.dg_fixed_slope".
 kFormulas[["LM_log.nha_log.dg_fixed_slope"]] <- as.formula(object = "log.nha - -1.605 * log.dg ~ 1")
-## Setup for model "LM_log.nha_log.dg".
+## Setup for model "LM_log.nha_log.dg_h100".
 kFormulas[["LM_log.nha_log.dg_h100"]] <- as.formula(object = "log.nha ~ log.dg * h100")
+## Setup for model "LM_log.nha_log.dg_h100_ni".
+kFormulas[["LM_log.nha_log.dg_h100_ni"]] <- as.formula(object = "log.nha ~ log.dg + h100")
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -324,8 +327,11 @@ for (cur.input.data.source.name in names.input.data.sources) {
 #####################
 ## Print model summaries.
 if (kPrintSumries) {
-    for (cur.model.name in names(x = models)) {
-        print(x = paste0("Model: ", cur.model.name))
-        print(x = summary(object = models[[cur.model.name]]))
-    }
-}
+    for (cur.function.name in names(x = models)) {
+        for (cur.data.frame.name in names(x = models[[cur.function.name]])) {
+            for (cur.model.name in names(x = models[[cur.function.name]][[cur.data.frame.name]])) {
+                print(x = paste0("Function: ", cur.function.name))
+                print(x = paste0("Data frame: ", cur.data.frame.name))
+                print(x = paste0("Model: ", cur.model.name))
+                print(x = summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]))
+            }}}}
