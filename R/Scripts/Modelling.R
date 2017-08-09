@@ -279,9 +279,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
     }
 }
 
-#########
-## LMs ##
-#########
+########
+## LM ##
+########
 ## Select formulas to use.
 ## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg")
 ## kFormulasToUse <- c(kFormulasToUse, "LM_ln.nha_ln.dg_fixed_slope")
@@ -318,7 +318,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
-                    
 
 #####################
 ## Print summaries ##
