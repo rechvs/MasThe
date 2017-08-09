@@ -132,7 +132,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr = 
+                    try(expr =
                             models[["gamlss..gamlss"]][[cur.input.data.source.name]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
                                                                                                                            sigma.formula = kSigmaFormulas[[cur.formula.name]],
                                                                                                                            nu.formula = kNuFormulas[[cur.formula.name]],
@@ -197,7 +197,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                 if (grepl(pattern = "Sterba_",
                           x = cur.formula.name,
                           fixed = TRUE)) {
-                    try(expr = 
+                    try(expr =
                             models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
                                                                                                                    start = kStartValsVecs[[cur.formula.name]])
@@ -214,7 +214,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr = 
+                    try(expr =
                             models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
                                                                                                                    start = kStartValsGrids[[cur.formula.name]],
@@ -234,7 +234,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr = 
+                    try(expr =
                             models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
                                                                                                                                  data = input.data,
                                                                                                                                  start = kStartValsVecs[[cur.formula.name]])
@@ -250,7 +250,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
 ######################
 ## Setup for model "Reineke_improved_quadratic".
 ## Source of model formula: Schütz (2008), eq. (1); Zeide (1995), eq. (2)
-## Source of possible start values: 
+## Source of possible start values:
 kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "ln.nha ~ a + b * ln.dg + c * (ln.dg)^2")
 kStartValsVecs[["Reineke_improved_quadratic"]] <- c("a" = 1,
                                                     "b" = 1,
@@ -268,7 +268,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                 if (grepl(pattern = "Reineke_improved_",
                           x = cur.formula.name,
                           fixed = TRUE)) {
-                    try(expr = 
+                    try(expr =
                             models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
                                                                                                                    start = kStartValsVecs[[cur.formula.name]])
