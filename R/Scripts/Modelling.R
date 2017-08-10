@@ -24,7 +24,7 @@ kStartValsVecs <- vector(mode = "list")
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid having to use "data = na.omit(DATA)".
 kDistFamilyToUse <- vector(mode = "list")
 kPrintSumries <- TRUE
-## kPrintSumries <- FALSE
+kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
@@ -75,7 +75,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
 ############
 ## GAMLSS ##
 ############
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100_hnn.neu")
@@ -335,3 +335,51 @@ if (kPrintSumries) {
                 print(x = paste0("Model: ", cur.model.name))
                 print(x = summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]))
             }}}}
+
+####################
+## Output to file ##
+####################
+## Purpose of this block: write model summaries to TXT file for inclusion in PDF file via LaTeX package "listings".
+## Set output file path.
+kOutputDir <- "R/Output/"
+kOutputFile <- paste0(kOutputDir,
+                      "Model_Summaries.txt")
+## Set the functions which should be included in the output.
+kOutputFunctionNames <- NULL
+kOutputFunctionNames <- c(kOutputFunctionNames,
+                          "stats..lm",
+                          "gamlss..gamlss")
+## Automatically select the appropriate models for output.
+output.selection <- vector(mode = "list")
+for (cur.function.name in kOutputFunctionNames) {
+    for (cur.data.frame.name in names(x = models[[cur.function.name]])) {
+        output.selection[[cur.function.name]][[cur.data.frame.name]] <- names(x = models[[cur.function.name]][[cur.data.frame.name]])
+}}
+output <- vector(mode = "character")
+for (cur.function.name in names(x = output.selection)) {
+    for (cur.data.frame.name in names(x = output.selection[[cur.function.name]])) {
+        for (cur.model.name in output.selection[[cur.function.name]][[cur.data.frame.name]]) {
+            if (cur.function.name == "gamlss..gamlss") {
+            output <- c(output,
+                        capture.output(
+                            cat("\n"),
+                            print(x = paste0("Function: ", cur.function.name)),
+                            print(x = paste0("Data Frame: ", cur.data.frame.name)),
+                            print(x = paste0("Formula: ", cur.model.name)),
+                            print(x = summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]))))
+            } else {
+                output <- c(output,
+                        capture.output(
+                            print(x = paste0("Function: ", cur.function.name)),
+                            print(x = paste0("Data Frame: ", cur.data.frame.name)),
+                            print(x = paste0("Formula: ", cur.model.name)),
+                            print(x = summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]))))
+        }}}}
+## If nonexistent, create "kOutputDir".
+system2(command = "mkdir",
+        args = paste0("-p ", kOutputDir))
+## Write "output" to file "kOutputFile".
+cat(output,
+    file = kOutputFile,
+    sep = "\n",
+    fill = FALSE)
