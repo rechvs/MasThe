@@ -439,7 +439,6 @@ for (cur.species.name in c("beech", "spruce")) {
         sep = "\n",
         fill = FALSE)
 }
-
 ## LM ##
 ########
 ############
