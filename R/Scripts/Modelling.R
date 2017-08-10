@@ -384,74 +384,108 @@ if (kPrintSumries) {
 ####################
 ## Output to file ##
 ####################
-## Purpose of this block: write model summaries to TXT file for inclusion in PDF file via LaTeX package "listings".
 ## Store file path to main output directory in "kOutputDirPath".
 kOutputDirPath <- "R/Output/"
-## Set the names of functions which should be included in the output.
-kOutputFunctionNames <- NULL
-kOutputFunctionNames <- c(kOutputFunctionNames,
-                          "stats..lm",
-                          "gamlss..gamlss")
-## Automatically select the appropriate models for output.
-output.selection <- vector(mode = "list")
-for (cur.function.name in kOutputFunctionNames) {
-    for (cur.data.frame.name in names(x = models[[cur.function.name]])) {
-        output.selection[[cur.function.name]][[cur.data.frame.name]] <- names(x = models[[cur.function.name]][[cur.data.frame.name]])
-    }}
-if (FALSE) {
-    for (cur.function.name in names(x = output.selection)) {
-        for (cur.data.frame.name in names(x = output.selection[[cur.function.name]])) {
-            ## Generate path for current data frame and store it in "cur.output.dir.path".
-            cur.output.dir.path <- paste0(kOutputDirPath,
-                                          cur.data.frame.name,
-                                          "/")
-            ## If nonexistent, make directory "cur.output.dir.path".
-            system2(command = "mkdir",
-                    args = paste0("-p ", cur.output.dir.path))
-            for (cur.model.name in output.selection[[cur.function.name]][[cur.data.frame.name]]) {
-                ## Store summary of current model in "cur.summary".
-                cur.summary <- summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]])
-                ## Store summary of current model in "cur.output".
-                cur.output <- capture.output(print(x = cur.summary))
-                ## Generate file name for current model and store it in "cur.output.file.name".
-                cur.output.file.name <- paste0(cur.output.dir.path,
-                                               cur.model.name,
-                                               ".txt")
-                ## Write "cur.output" to file "cur.output.file.name".
-                cat(cur.output,
-                    file = cur.output.file.name,
-                    sep = "\n",
-                    fill = FALSE)
-            }}}
+########
+## LM ##
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create template data frame in which to store R-squared and Adjusted R-Squared of all model for the current species.
+    cur.species.r.squared.df <- data.frame("Model" = vector(mode = "character"),
+                                           "r.squared" = vector(mode = "numeric"),
+                                           "adj.r.squared" = vector(mode = "numeric"))
+    ## Generate a vector of appropriate data frame names for the current species.
+    cur.possible.data.frame.names <- names(x = models[["stats..lm"]])[grepl(pattern = cur.species.name,
+                                                                            x = names(x = models[["stats..lm"]]))]
+    for (cur.data.frame.name in cur.possible.data.frame.names) {
+        for (cur.model.name in names(x = models[["stats..lm"]][[cur.data.frame.name]])) {
+            ## Store current model in "cur.model".
+            cur.model <- models[["stats..lm"]][[cur.data.frame.name]][[cur.model.name]]
+            ## Store summary of current model in "cur.summary".
+            cur.summary <- summary(object = cur.model)
+            ## Store "cur.summary[["r.squared"]]" in "cur.r.squared".
+            cur.r.squared <- cur.summary[["r.squared"]]
+            ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
+            cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
+            ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.r.squared.df". 
+            cur.r.squared.df <- data.frame("Model" = paste0(cur.data.frame.name,
+                                                            ":",
+                                                            cur.model.name),
+                                           "r.squared" = cur.r.squared,
+                                           "adj.r.squared" = cur.adj.r.squared)
+            ## Give an appropriate row name to "cur.r.squared.df".
+            ## rownames(x = cur.r.squared.df) <- paste0(cur.data.frame.name,
+                                                     ## ":",
+                                                     ## cur.model.name)
+            ## Append "cur.r.squared" and "cur.adj.r.squared" to "cur.species.r.squared.df".
+            cur.species.r.squared.df <- rbind(cur.species.r.squared.df,
+                                              cur.r.squared.df)
+        }}
+    ## Order "cur.species.r.squared.df".
+    cur.species.r.squared.df <- cur.species.r.squared.df[order(cur.species.r.squared.df[["r.squared"]],
+                                                               cur.species.r.squared.df[["adj.r.squared"]],
+                                                               decreasing = TRUE), ]
+    ## Create the name of the file for outputting "cur.species.r.squared.df".
+    cur.output.file.name <- paste0(kOutputDirPath,
+                                   cur.species.name,
+                                   "_LM_R-squared.txt")
+    ## Store printing of "cur.species.r.squared.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
+    cur.output <- capture.output(print(x = format(x = cur.species.r.squared.df,
+                                                  justify="left"),
+                                       row.names = FALSE))
+    ## Write "cur.output" to "cur.output.file.name".
+    cat(cur.output,
+        file = cur.output.file.name,
+        sep = "\n",
+        fill = FALSE)
 }
 
-if (FALSE) {
-    GAMLSS.AICs.beech <- AIC(models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCG_gha_h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCG_gha_psh100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCG_gha_SI.h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCG_gha_SI.h100_hnn.neu,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCG_gha_h100.diff.EKL.I,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCGo_gha_h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCGo_gha_psh100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCGo_gha_SI.h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCGo_gha_SI.h100_hnn.neu,
-                             models$gamlss..gamlss$bart.beech.clean.1.0$GAMLSS_BCCGo_gha_h100.diff.EKL.I,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCG_gha_h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCG_gha_psh100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCG_gha_SI.h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCG_gha_SI.h100_hnn.neu,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCG_gha_h100.diff.EKL.I,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCGo_gha_h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCGo_gha_psh100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCGo_gha_SI.h100,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCGo_gha_SI.h100_hnn.neu,
-                             models$gamlss..gamlss$bart.beech.clean.1.6$GAMLSS_BCCGo_gha_h100.diff.EKL.I)
-    for (cur.row in seq_len(length.out = nrow(GAMLSS.AICs.beech))) {
-        cur.row.name.old <- dimnames(GAMLSS.AICs.beech)[[1]][cur.row]
-        cur.row.name.new <- substr(x = cur.row.name.old, start = 23, stop = nchar(x = cur.row.name.old))
-        cur.row.name.new <- gsub(pattern = "GAMLSS_", replacement = "", x = cur.row.name.new)
-        cur.row.name.new <- gsub(pattern = "\\$", replacement = ":", x = cur.row.name.new)
-        dimnames(GAMLSS.AICs.beech)[[1]][cur.row] <- cur.row.name.new
+## LM ##
+########
+############
+## GAMLSS ##
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    cur.species.AICs <- vector(mode = "numeric")
+    ## Generate a vector of appropriate data frame names for the current species.
+    cur.possible.data.frame.names <- names(x = models[["gamlss..gamlss"]])[grepl(pattern = cur.species.name,
+                                                                                 x = names(x = models[["gamlss..gamlss"]]))]
+    ## Loop over all appropriate data frames.
+    for (cur.data.frame.name in cur.possible.data.frame.names) {
+        cur.data.frame.AICs <- vector(mode = "numeric")
+        ## Store the AICs of all GAMLSS for the current data frame in vector "cur.data.frame.AICs".
+        cur.data.frame.AICs <- sapply(X = models[["gamlss..gamlss"]][[cur.data.frame.name]],
+                                      FUN = AIC)
+        ## Prepend "cur.data.frame.name" to the names of "cur.data.frame.AICs".
+        names(x = cur.data.frame.AICs) <- paste0(cur.data.frame.name,
+                                                 ":",
+                                                 names(x = cur.data.frame.AICs))
+        ## Combine "cur.species.AICs" and "cur.data.frame.AICs".
+        cur.species.AICs <- c(cur.species.AICs,
+                              cur.data.frame.AICs)
     }
-    GAMLSS.AICs.beech
+    ## Sort "cur.species.AICs".
+    cur.species.AICs <- sort(x = cur.species.AICs)
+    ## Transform "cur.species.AICs" into a data frame without row names.
+    cur.species.AICs <- data.frame("Model" = names(x = cur.species.AICs),
+                                   "AIC" = unname(obj = cur.species.AICs),
+                                   stringsAsFactors = FALSE)
+    ## Create the name of the file for outputting "cur.species.AICs".
+    cur.output.file.name <- paste0(kOutputDirPath,
+                                   cur.species.name,
+                                   "_GAMLSS_AICs.txt")
+    ## Store printing of "cur.species.AICs" in "cur.output", while left justifying output and suppressing row numbers and row names.
+    cur.output <- capture.output(print(x = format(x = cur.species.AICs,
+                                                  justify="left"),
+                                       row.names = FALSE))
+    ## Write "cur.output" to "cur.output.file.name".
+    cat(cur.output,
+        file = cur.output.file.name,
+        sep = "\n",
+        fill = FALSE)
+    assign(x = paste0(cur.species.name,
+                      "_GAMLSS_AICs"),
+           value = cur.species.AICs)
 }
+## GAMLSS ##
+############
