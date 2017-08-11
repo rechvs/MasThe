@@ -397,7 +397,9 @@ for (cur.species.name in c("beech", "spruce")) {
     ## Generate a vector of appropriate data frame names for the current species.
     cur.possible.data.frame.names <- names(x = models[["stats..lm"]])[grepl(pattern = cur.species.name,
                                                                             x = names(x = models[["stats..lm"]]))]
+    ## Loop over all appropriate data frames.
     for (cur.data.frame.name in cur.possible.data.frame.names) {
+        ## Loop over all models.
         for (cur.model.name in names(x = models[["stats..lm"]][[cur.data.frame.name]])) {
             ## Store current model in "cur.model".
             cur.model <- models[["stats..lm"]][[cur.data.frame.name]][[cur.model.name]]
@@ -409,12 +411,12 @@ for (cur.species.name in c("beech", "spruce")) {
             cur.r.squared <- cur.summary[["r.squared"]]
             ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
             cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
-            ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.r.squared.df". 
+            ## Store "cur.formula", "cur.data.frame.name", "cur.r.squared", and "cur.adj.r.squared" in a 1 row data frame "cur.r.squared.df". 
             cur.r.squared.df <- data.frame("formula" = cur.formula,
                                            "data.frame" = cur.data.frame.name,
                                            "r.squared" = cur.r.squared,
                                            "adj.r.squared" = cur.adj.r.squared)
-            ## Append "cur.r.squared" and "cur.adj.r.squared" to "cur.species.r.squared.df".
+            ## Append "cur.r.squared.df" to "cur.species.r.squared.df".
             cur.species.r.squared.df <- rbind(cur.species.r.squared.df,
                                               cur.r.squared.df)
         }}
@@ -450,7 +452,9 @@ for (cur.species.name in c("beech", "spruce")) {
     ## Generate a vector of appropriate data frame names for the current species.
     cur.possible.data.frame.names <- names(x = models[["mgcv..gam"]])[grepl(pattern = cur.species.name,
                                                                             x = names(x = models[["mgcv..gam"]]))]
+    ## Loop over all appropriate data frames.
     for (cur.data.frame.name in cur.possible.data.frame.names) {
+        ## Loop over all models.
         for (cur.model.name in names(x = models[["mgcv..gam"]][[cur.data.frame.name]])) {
             ## Store current model in "cur.model".
             cur.model <- models[["mgcv..gam"]][[cur.data.frame.name]][[cur.model.name]]
@@ -458,11 +462,11 @@ for (cur.species.name in c("beech", "spruce")) {
             cur.formula <- format(x = kFormulas[[cur.model.name]])
             ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
             cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
-            ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.gcv.df". 
+            ## Store "cur.formula", "cur.data.frame.name", and "cur.gcv" in a 1 row data frame "cur.gcv.df". 
             cur.gcv.df <- data.frame("formula" = cur.formula,
                                      "data.frame" = cur.data.frame.name,
                                      "GCV" = cur.gcv)
-            ## Append "cur.gcv" and "cur.gcv" to "cur.species.gcv.df".
+            ## Append "cur.gcv.df" to "cur.species.gcv.df".
             cur.species.gcv.df <- rbind(cur.species.gcv.df,
                                               cur.gcv.df)
         }}
@@ -489,36 +493,39 @@ for (cur.species.name in c("beech", "spruce")) {
 ## GAMLSS ##
 ## Loop over all species.
 for (cur.species.name in c("beech", "spruce")) {
-    cur.species.AICs <- vector(mode = "numeric")
+    ## Create template data frame in which to store the AIC of all models for the current species.
+    cur.species.aic.df <- data.frame("formula" = vector(mode = "character"),
+                                     "data.frame" = vector(mode = "character"),
+                                     "AIC" = vector(mode = "numeric"))
     ## Generate a vector of appropriate data frame names for the current species.
     cur.possible.data.frame.names <- names(x = models[["gamlss..gamlss"]])[grepl(pattern = cur.species.name,
                                                                                  x = names(x = models[["gamlss..gamlss"]]))]
     ## Loop over all appropriate data frames.
     for (cur.data.frame.name in cur.possible.data.frame.names) {
-        cur.data.frame.AICs <- vector(mode = "numeric")
-        ## Store the AICs of all GAMLSS for the current data frame in vector "cur.data.frame.AICs".
-        cur.data.frame.AICs <- sapply(X = models[["gamlss..gamlss"]][[cur.data.frame.name]],
-                                      FUN = AIC)
-        ## Prepend "cur.data.frame.name" to the names of "cur.data.frame.AICs".
-        names(x = cur.data.frame.AICs) <- paste0(cur.data.frame.name,
-                                                 ":",
-                                                 names(x = cur.data.frame.AICs))
-        ## Combine "cur.species.AICs" and "cur.data.frame.AICs".
-        cur.species.AICs <- c(cur.species.AICs,
-                              cur.data.frame.AICs)
-    }
-    ## Sort "cur.species.AICs".
-    cur.species.AICs <- sort(x = cur.species.AICs)
-    ## Transform "cur.species.AICs" into a data frame without row names.
-    cur.species.AICs <- data.frame("Model" = names(x = cur.species.AICs),
-                                   "AIC" = unname(obj = cur.species.AICs),
-                                   stringsAsFactors = FALSE)
-    ## Create the name of the file for outputting "cur.species.AICs".
+        ## Loop over all models.
+        for (cur.model.name in names(x = models[["gamlss..gamlss"]][[cur.data.frame.name]])) {
+            ## Store current model in "cur.model".
+            cur.model <- models[["gamlss..gamlss"]][[cur.data.frame.name]][[cur.model.name]]
+            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
+            cur.formula <- format(x = kFormulas[[cur.model.name]])
+            ## Store "cur.model[["aic"]]" in "cur.aic".
+            cur.aic <- cur.model[["aic"]]
+            ## Store "cur.formula", "cur.data.frame.name", and "cur.aic" in a 1 row data frame "cur.aic.df".
+            cur.aic.df <- data.frame("formula" = cur.formula,
+                                     "data.frame" = cur.data.frame.name,
+                                     "AIC" = cur.aic)
+            ## Append "cur.aic.df" to "cur.species.aic.df".
+            cur.species.aic.df <- rbind(cur.species.aic.df,
+                                              cur.aic.df)
+    }}
+    ## Order "cur.species.aic.df" based on column "AIC".
+    cur.species.aic.df <- cur.species.aic.df[order(cur.species.aic.df[["AIC"]]), ]
+    ## Create the name of the file for outputting "cur.species.aic.df".
     cur.output.file.name <- paste0(kOutputDirPath,
                                    cur.species.name,
-                                   "_GAMLSS_AICs.txt")
+                                   "_GAMLSS_AIC.txt")
     ## Store printing of "cur.species.AICs" in "cur.output", while left justifying output and suppressing row numbers and row names.
-    cur.output <- capture.output(print(x = format(x = cur.species.AICs,
+    cur.output <- capture.output(print(x = format(x = cur.species.aic.df,
                                                   justify="left"),
                                        row.names = FALSE))
     ## Write "cur.output" to "cur.output.file.name".
@@ -526,9 +533,6 @@ for (cur.species.name in c("beech", "spruce")) {
         file = cur.output.file.name,
         sep = "\n",
         fill = FALSE)
-    assign(x = paste0(cur.species.name,
-                      "_GAMLSS_AICs"),
-           value = cur.species.AICs)
 }
 ## GAMLSS ##
 ############
