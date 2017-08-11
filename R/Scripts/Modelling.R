@@ -390,11 +390,10 @@ kOutputDirPath <- "R/Output/"
 ## Loop over all species.
 for (cur.species.name in c("beech", "spruce")) {
     ## Create template data frame in which to store R-squared and Adjusted R-Squared of all model for the current species.
-    cur.species.r.squared.df <- data.frame(
-        "formula" = vector(mode = "character"),
-        "data.frame" = vector(mode = "character"),
-        "r.squared" = vector(mode = "numeric"),
-        "adj.r.squared" = vector(mode = "numeric"))
+    cur.species.r.squared.df <- data.frame("formula" = vector(mode = "character"),
+                                           "data.frame" = vector(mode = "character"),
+                                           "r.squared" = vector(mode = "numeric"),
+                                           "adj.r.squared" = vector(mode = "numeric"))
     ## Generate a vector of appropriate data frame names for the current species.
     cur.possible.data.frame.names <- names(x = models[["stats..lm"]])[grepl(pattern = cur.species.name,
                                                                             x = names(x = models[["stats..lm"]]))]
@@ -402,7 +401,7 @@ for (cur.species.name in c("beech", "spruce")) {
         for (cur.model.name in names(x = models[["stats..lm"]][[cur.data.frame.name]])) {
             ## Store current model in "cur.model".
             cur.model <- models[["stats..lm"]][[cur.data.frame.name]][[cur.model.name]]
-            ## Store "kFormulas[[cur.model.name]]" in "cur.formula".
+            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
             cur.formula <- format(x = kFormulas[[cur.model.name]])
             ## Store summary of current model in "cur.summary".
             cur.summary <- summary(object = cur.model)
@@ -411,11 +410,10 @@ for (cur.species.name in c("beech", "spruce")) {
             ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
             cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
             ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.r.squared.df". 
-            cur.r.squared.df <- data.frame(
-                "formula" = cur.formula,
-                "data.frame" = cur.data.frame.name,
-                "r.squared" = cur.r.squared,
-                "adj.r.squared" = cur.adj.r.squared)
+            cur.r.squared.df <- data.frame("formula" = cur.formula,
+                                           "data.frame" = cur.data.frame.name,
+                                           "r.squared" = cur.r.squared,
+                                           "adj.r.squared" = cur.adj.r.squared)
             ## Append "cur.r.squared" and "cur.adj.r.squared" to "cur.species.r.squared.df".
             cur.species.r.squared.df <- rbind(cur.species.r.squared.df,
                                               cur.r.squared.df)
@@ -446,8 +444,9 @@ for (cur.species.name in c("beech", "spruce")) {
 ## Loop over all species.
 for (cur.species.name in c("beech", "spruce")) {
     ## Create template data frame in which to store the GCV score of all models for the current species.
-    cur.species.gcv.df <- data.frame("Model" = vector(mode = "character"),
-                                           "GCV" = vector(mode = "numeric"))
+    cur.species.gcv.df <- data.frame("formula" = vector(mode = "character"),
+                                     "data.frame" = vector(mode = "character"),
+                                     "GCV" = vector(mode = "numeric"))
     ## Generate a vector of appropriate data frame names for the current species.
     cur.possible.data.frame.names <- names(x = models[["mgcv..gam"]])[grepl(pattern = cur.species.name,
                                                                             x = names(x = models[["mgcv..gam"]]))]
@@ -455,12 +454,13 @@ for (cur.species.name in c("beech", "spruce")) {
         for (cur.model.name in names(x = models[["mgcv..gam"]][[cur.data.frame.name]])) {
             ## Store current model in "cur.model".
             cur.model <- models[["mgcv..gam"]][[cur.data.frame.name]][[cur.model.name]]
+            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
+            cur.formula <- format(x = kFormulas[[cur.model.name]])
             ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
             cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
             ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.gcv.df". 
-            cur.gcv.df <- data.frame("Model" = paste0(cur.data.frame.name,
-                                                      ":",
-                                                      cur.model.name),
+            cur.gcv.df <- data.frame("formula" = cur.formula,
+                                     "data.frame" = cur.data.frame.name,
                                      "GCV" = cur.gcv)
             ## Append "cur.gcv" and "cur.gcv" to "cur.species.gcv.df".
             cur.species.gcv.df <- rbind(cur.species.gcv.df,
