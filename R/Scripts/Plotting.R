@@ -5,9 +5,9 @@ rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
-## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "3.7"
+kBaseFileVersion <- "3.8"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -329,7 +329,7 @@ for (cur.function.name in names(x = models)) {
                                              cur.model.name,
                                              ".pdf"))
                 ## Create file name.
-                graphics.subdir <- paste0("Graphics/models/GAM/", cur.input.data.source.name, "/")
+                graphics.subdir <- paste0("Graphics/Models/GAM/", cur.input.data.source.name, "/")
                 file.name <-paste0(graphics.subdir,
                                    cur.model.name,
                                    ".pdf")
@@ -409,9 +409,9 @@ for (cur.function.name in names(x = models)) {
                      xlab = NA,
                      ylab = NA)
                 text(x = 5.5,
-                     y = 5.5,
+                     y = 7.5,
                      pos = 1,
-                     labels = cur.model.name,
+                     labels = paste0(format(x = formula(x = cur.model)), "\n\n", family(object = cur.model)[1], "\n\n", cur.input.data.source.name),
                      cex = 4)
                 graphics.off()
                 ## Start graphics device driver for producing PDF graphics.
