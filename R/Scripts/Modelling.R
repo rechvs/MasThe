@@ -16,12 +16,8 @@ models[["stats..nls"]] <- vector(mode = "list")
 models[["nls2..nls2"]] <- vector(mode = "list")
 models[["minpack.lm..nlsLM"]] <- vector(mode = "list")
 kFormulas <- vector(mode = "list")
-kSigmaFormulas <- vector(mode = "list")
-kNuFormulas <- vector(mode = "list")
-kTauFormulas <- vector(mode = "list")
 kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
-kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid having to use "data = na.omit(DATA)".
 kDistFamilyToUse <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
@@ -29,25 +25,21 @@ kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
-## kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
-## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
+kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-## kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
 ## Create a vector containing the names of all appropriate input data sources.
-objects.present <- ls()
-names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[06]", x = objects.present, fixed = FALSE)]
+names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[06]", x = ls(), fixed = FALSE)]
+objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
 #########
 ## GAM ##
 #########
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
 ## Setup for model "GAM_gha_sh100".
 kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 ## Setup for model "GAM_gha_sh100.EKL.I".
@@ -76,20 +68,28 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 ############
 ## GAMLSS ##
 ############
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_psh100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100_hnn.neu")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100.diff.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psh100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100_hnn.neu")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100.diff.EKL.I")
+## Preamble.
+kSigmaFormulas <- vector(mode = "list")
+kNuFormulas <- vector(mode = "list")
+kTauFormulas <- vector(mode = "list")
+kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_psh100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100_hnn.neu")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100.diff.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psh100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100_hnn.neu")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100.diff.EKL.I")
 
 ## Setup for model "GAMLSS_BCCG_gha_h100".
 kFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "gha ~ h100")
@@ -195,10 +195,17 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 ############
 ## Sterba ##
 ############
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## Setup for model "Sterba_dgGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
 ## Source of possible start values: Sterba (1987), tab. 2.
@@ -294,10 +301,15 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 ######################
 ## Reineke improved ##
 ######################
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
 ## Setup for model "Reineke_improved_quadratic".
 ## Source of model formula: Schütz (2008), eq. (1); Zeide (1995), eq. (2)
 ## Source of possible start values:
@@ -328,6 +340,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 ########
 ## LM ##
@@ -365,6 +380,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
         }
     }
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 #####################
 ## Print summaries ##
@@ -379,6 +397,9 @@ if (kPrintSumries) {
                 print(x = paste0("Model: ", cur.model.name))
                 print(x = summary(object = models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]))
             }}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 ####################
 ## Output to file ##
@@ -387,7 +408,6 @@ if (kPrintSumries) {
 kOutputDirPath <- "R/Output/"
 ## Loop over all modelling functions.
 for (cur.function.name in names(x = models)) {
-    objects.at.start <- ls()  ## Necessary for cleaning up workspace.
     ## Loop over all species.
     for (cur.species.name in c("beech", "spruce")) {
         ## Create template data frame in which to store the relevant benchmarks of function...
@@ -498,9 +518,7 @@ for (cur.function.name in names(x = models)) {
                         sep = "\n",
                         fill = FALSE)
                 }}}}
-    objects.at.end <- ls()  ## Necessary for cleaning up workspace.
-    ## Clean up workspace.
-    rm(list = c(setdiff(x = objects.at.end,
-                        y = objects.at.start),
-                "objects.at.end"))
 }
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
