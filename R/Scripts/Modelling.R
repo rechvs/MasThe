@@ -6,7 +6,7 @@ setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
-kFileVersion <- "3.7"
+kFileVersion <- "3.8"
 kFileName <- paste0(kDataDir, "gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
@@ -30,22 +30,22 @@ kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
 ## Create a vector containing the names of all appropriate input data sources.
-names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[06]", x = ls(), fixed = FALSE)]
+names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[067]", x = ls(), fixed = FALSE)]
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
 #########
 ## GAM ##
 #########
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
 ## Setup for model "GAM_gha_sh100".
-kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
+kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100)")
 ## Setup for model "GAM_gha_sh100.EKL.I".
-kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 5)")
+kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I)")
 ## Setup for model ""GAM_gha_sSI.h100"".
-kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
+kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100)")
 ## Setup for model "GAM_log.nha_h100_sh100_by_log.dg".
 kFormulas[["GAM_log.nha_h100_sh100_by_log.dg"]] <- as.formula(object = "log.nha ~ 1 + h100 + s(h100, by = log.dg)")
 ## Setup for model "GAM_log.nha_h100".
@@ -61,8 +61,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
-                    models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                                                                         data = input.data)
+                    try(expr = 
+                            models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
+                                                                                                                 data = input.data))
                 }
             }
         }
@@ -80,16 +81,16 @@ kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_psh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100_hnn.neu")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100.diff.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100_hnn.neu")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_psh100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100_hnn.neu")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psh100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_SI.h100_hnn.neu")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100.diff.EKL.I")
 
 ## Setup for model "GAMLSS_BCCG_gha_h100".
 kFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "gha ~ h100")
