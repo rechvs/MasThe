@@ -18,7 +18,7 @@ models[["minpack.lm..nlsLM"]] <- vector(mode = "list")
 kFormulas <- vector(mode = "list")
 kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
-kDistFamilyToUse <- vector(mode = "list")
+kDistFamilies <- vector(mode = "list")
 kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
@@ -97,7 +97,7 @@ kFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "gha ~ h100")
 kSigmaFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "gha ~ h100")
 kNuFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCG_gha_h100"]] <- "gamlss.dist::BCCG()"
+kDistFamilies[["GAMLSS_BCCG_gha_h100"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_h100"]] <- c("gha", "h100")
 
 ## Setup for model "GAMLSS_BCCG_gha_psh100".
@@ -105,7 +105,7 @@ kFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x
 kSigmaFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
 kNuFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCG_gha_psh100"]] <- "gamlss.dist::BCCG()"
+kDistFamilies[["GAMLSS_BCCG_gha_psh100"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_psh100"]] <- c("gha", "h100")
 
 ## Setup for model "GAMLSS_BCCG_gha_SI.h100".
@@ -113,7 +113,7 @@ kFormulas[["GAMLSS_BCCG_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
 kSigmaFormulas[["GAMLSS_BCCG_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
 kNuFormulas[["GAMLSS_BCCG_gha_SI.h100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_SI.h100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCG_gha_SI.h100"]] <- "gamlss.dist::BCCG()"
+kDistFamilies[["GAMLSS_BCCG_gha_SI.h100"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_SI.h100"]] <- c("gha", "SI.h100")
 
 ## Setup for model "GAMLSS_BCCG_gha_SI.h100_hnn.neu".
@@ -121,7 +121,7 @@ kFormulas[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI.
 kSigmaFormulas[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI.h100 * hnn.neu")
 kNuFormulas[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCG()"
+kDistFamilies[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_SI.h100_hnn.neu"]] <- c("gha", "SI.h100", "hnn.neu")
 
 ## Setup for model "GAMLSS_BCCG_gha_h100.diff.EKL.I".
@@ -129,7 +129,7 @@ kFormulas[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h10
 kSigmaFormulas[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h100.diff.EKL.I")
 kNuFormulas[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- "gamlss.dist::BCCG()"
+kDistFamilies[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_h100.diff.EKL.I"]] <- c("gha", "h100.diff.EKL.I")
 
 ## Setup for model "GAMLSS_BCCGo_gha_h100".
@@ -137,7 +137,7 @@ kFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "gha ~ h100")
 kSigmaFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "gha ~ h100")
 kNuFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCGo_gha_h100"]] <- "gamlss.dist::BCCGo()"
+kDistFamilies[["GAMLSS_BCCGo_gha_h100"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_h100"]] <- c("gha", "h100")
 
 ## Setup for model "GAMLSS_BCCGo_gha_psh100".
@@ -145,7 +145,7 @@ kFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(
 kSigmaFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
 kNuFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCGo_gha_psh100"]] <- "gamlss.dist::BCCGo()"
+kDistFamilies[["GAMLSS_BCCGo_gha_psh100"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_psh100"]] <- c("gha", "h100")
 
 ## Setup for model "GAMLSS_BCCGo_gha_SI.h100".
@@ -153,7 +153,7 @@ kFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
 kSigmaFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
 kNuFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCGo_gha_SI.h100"]] <- "gamlss.dist::BCCGo()"
+kDistFamilies[["GAMLSS_BCCGo_gha_SI.h100"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_SI.h100"]] <- c("gha", "SI.h100")
 
 ## Setup for model "GAMLSS_BCCGo_gha_SI.h100_hnn.neu".
@@ -161,7 +161,7 @@ kFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI
 kSigmaFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI.h100 * hnn.neu")
 kNuFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCGo()"
+kDistFamilies[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- c("gha", "SI.h100", "hnn.neu")
 
 ## Setup for model "GAMLSS_BCCGo_gha_h100.diff.EKL.I".
@@ -169,7 +169,7 @@ kFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h1
 kSigmaFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h100.diff.EKL.I")
 kNuFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
-kDistFamilyToUse[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- "gamlss.dist::BCCGo()"
+kDistFamilies[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- c("gha", "h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
@@ -188,7 +188,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                                                                                                            sigma.formula = kSigmaFormulas[[cur.formula.name]],
                                                                                                                            nu.formula = kNuFormulas[[cur.formula.name]],
                                                                                                                            tau.formula = kTauFormulas[[cur.formula.name]],
-                                                                                                                           family = eval(expr = parse(text = kDistFamilyToUse[[cur.formula.name]])),
+                                                                                                                           family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
                                                                                                                            data = na.omit(object = subset(x = input.data, select = kColumnsToSelect[[cur.formula.name]])),
                                                                                                                            method = RS(1000)))
                 }
@@ -346,6 +346,36 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
+#########
+## GLM ##
+#########
+## Select formulas to use.
+kFormulasToUse <- c(kFormulasToUse, "GLM_log.nha_1_log.dg")
+## Setup for model "GLM_log.nha_1_log.dg".
+kFormulas[["GLM_log.nha_1_log.dg"]] <- as.formula(object = "log.nha ~ 1 + log.dg")
+kDistFamilies[["GLM_log.nha_1_log.dg"]] <- "Gamma(link = log)"
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models.
+    kFunction <- "stats..lm"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "GLM_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr =
+                            models[["stats..glm"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::glm(formula = kFormulas[[cur.formula.name]],
+                                                                                                                  family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                                                                                                  data = input.data,
+                                                                                                                  na.action = na.omit))
+                }
+            }
+        }
+    }
+}
+
 #####################
 ## Print summaries ##
 #####################
@@ -384,7 +414,7 @@ for (cur.function.name in names(x = models)) {
                                                             "data.frame" = vector(mode = "character"),
                                                             "GCV" = vector(mode = "numeric"))
         }
-        if (cur.function.name == "gamlss..gamlss") {  ## ..."gamlss::gamlss".
+        if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {  ## ..."gamlss::gamlss" or "stats::glm".
             cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
                                                             "distribution" = vector(mode = "character"),
                                                             "data.frame" = vector(mode = "character"),
@@ -447,11 +477,11 @@ for (cur.function.name in names(x = models)) {
                                                    "_GAM_GCV.txt")
                 }
                 ## ..."gamlss::gamlss".
-                if (cur.function.name == "gamlss..gamlss") {
+                if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {
                     ## Store "cur.model[["aic"]]" in "cur.aic".
                     cur.aic <- cur.model[["aic"]]
-                    ## Store "kDistFamilyToUse[[cur.model.name]]" in "cur.dist.family".
-                    cur.dist.family <- kDistFamilyToUse[[cur.model.name]]
+                    ## Store "kDistFamilies[[cur.model.name]]" in "cur.dist.family".
+                    cur.dist.family <- kDistFamilies[[cur.model.name]]
                     ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
                     cur.model.benchmark.df <- data.frame("formula" = cur.formula.data.frame.name.df[, 1],
                                                          "distribution" = cur.dist.family,
@@ -462,10 +492,16 @@ for (cur.function.name in names(x = models)) {
                                                                cur.model.benchmark.df)
                     ## Order "cur.function.species.benchmark.df" based on column "AIC".
                     cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["AIC"]]), ]
-                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
+                    ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "gamlss..gamlss" and for "stats..glm").
+                    if (cur.function.name == "gamlss..gamlss") {
+                        cur.file.suffix <- "_GAMLSS_AIC.txt"
+                    }
+                    if (cur.function.name == "stats..glm") {
+                        cur.file.suffix <- "_GLM.AIC.txt"
+                    }
                     cur.output.file.name <- paste0(kOutputDirPath,
                                                    cur.species.name,
-                                                   "_GAMLSS_AIC.txt")
+                                                   cur.file.suffix)
                 }
                 ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists
                 if (exists(x = "cur.function.species.benchmark.df")) {
