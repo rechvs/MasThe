@@ -497,7 +497,7 @@ for (cur.function.name in names(x = models)) {
                         cur.file.suffix <- "_GAMLSS_AIC.txt"
                     }
                     if (cur.function.name == "stats..glm") {
-                        cur.file.suffix <- "_GLM.AIC.txt"
+                        cur.file.suffix <- "_GLM_AIC.txt"
                     }
                     cur.output.file.name <- paste0(kOutputDirPath,
                                                    cur.species.name,
