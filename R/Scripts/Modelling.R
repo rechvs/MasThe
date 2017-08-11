@@ -306,45 +306,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
-######################
-## Reineke improved ##
-######################
-## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
-## Setup for model "Reineke_improved_quadratic".
-## Source of model formula: Schütz (2008), eq. (1); Zeide (1995), eq. (2)
-## Source of possible start values:
-kFormulas[["Reineke_improved_quadratic"]] <- as.formula(object = "ln.nha ~ a + b * ln.dg + c * (ln.dg)^2")
-kStartValsVecs[["Reineke_improved_quadratic"]] <- c("a" = 1,
-                                                    "b" = 1,
-                                                    "c" = 1)
-## Initiate "for" loop (for looping over all names of input data sources).
-for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models fitted with "stats::nls".
-    kFunction <- "stats..nls"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "Reineke_improved_",
-                          x = cur.formula.name,
-                          fixed = TRUE)) {
-                    try(expr =
-                            models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
-                                                                                                                   data = input.data,
-                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
-                        )
-                }
-            }
-        }
-    }
-}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
 ########
 ## LM ##
 ########
