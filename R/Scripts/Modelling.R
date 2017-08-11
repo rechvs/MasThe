@@ -29,11 +29,11 @@ kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
-kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
-kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+## kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
+## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Reineke_improved_quadratic")
@@ -385,154 +385,122 @@ if (kPrintSumries) {
 ####################
 ## Store file path to main output directory in "kOutputDirPath".
 kOutputDirPath <- "R/Output/"
-########
-## LM ##
-## Loop over all species.
-for (cur.species.name in c("beech", "spruce")) {
-    ## Create template data frame in which to store R-squared and Adjusted R-Squared of all model for the current species.
-    cur.species.r.squared.df <- data.frame("formula" = vector(mode = "character"),
-                                           "data.frame" = vector(mode = "character"),
-                                           "r.squared" = vector(mode = "numeric"),
-                                           "adj.r.squared" = vector(mode = "numeric"))
-    ## Generate a vector of appropriate data frame names for the current species.
-    cur.possible.data.frame.names <- names(x = models[["stats..lm"]])[grepl(pattern = cur.species.name,
-                                                                            x = names(x = models[["stats..lm"]]))]
-    ## Loop over all appropriate data frames.
-    for (cur.data.frame.name in cur.possible.data.frame.names) {
-        ## Loop over all models.
-        for (cur.model.name in names(x = models[["stats..lm"]][[cur.data.frame.name]])) {
-            ## Store current model in "cur.model".
-            cur.model <- models[["stats..lm"]][[cur.data.frame.name]][[cur.model.name]]
-            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
-            cur.formula <- format(x = kFormulas[[cur.model.name]])
-            ## Store summary of current model in "cur.summary".
-            cur.summary <- summary(object = cur.model)
-            ## Store "cur.summary[["r.squared"]]" in "cur.r.squared".
-            cur.r.squared <- cur.summary[["r.squared"]]
-            ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
-            cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
-            ## Store "cur.formula", "cur.data.frame.name", "cur.r.squared", and "cur.adj.r.squared" in a 1 row data frame "cur.r.squared.df". 
-            cur.r.squared.df <- data.frame("formula" = cur.formula,
-                                           "data.frame" = cur.data.frame.name,
-                                           "r.squared" = cur.r.squared,
-                                           "adj.r.squared" = cur.adj.r.squared)
-            ## Append "cur.r.squared.df" to "cur.species.r.squared.df".
-            cur.species.r.squared.df <- rbind(cur.species.r.squared.df,
-                                              cur.r.squared.df)
-        }}
-    ## Order "cur.species.r.squared.df".
-    cur.species.r.squared.df <- cur.species.r.squared.df[order(cur.species.r.squared.df[["r.squared"]],
-                                                               cur.species.r.squared.df[["adj.r.squared"]],
-                                                               decreasing = TRUE), ]
-    ## Create the name of the file for outputting "cur.species.r.squared.df".
-    cur.output.file.name <- paste0(kOutputDirPath,
-                                   cur.species.name,
-                                   "_LM_R-squared.txt")
-    ## Store printing of "cur.species.r.squared.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
-    cur.output <- capture.output(print(x = format(x = cur.species.r.squared.df,
-                                                  justify="left"),
-                                       row.names = FALSE))
-    ## Write "cur.output" to "cur.output.file.name".
-    cat(cur.output,
-        file = cur.output.file.name,
-        sep = "\n",
-        fill = FALSE)
+## Loop over all modelling functions.
+for (cur.function.name in names(x = models)) {
+    objects.at.start <- ls()  ## Necessary for cleaning up workspace.
+    ## Loop over all species.
+    for (cur.species.name in c("beech", "spruce")) {
+        ## Create template data frame in which to store the relevant benchmarks of function...
+        if (cur.function.name == "stats..lm") {  ## ..."stats::lm".
+            cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
+                                                            "data.frame" = vector(mode = "character"),
+                                                            "r.squared" = vector(mode = "numeric"),
+                                                            "adj.r.squared" = vector(mode = "numeric"))
+        }
+        if (cur.function.name == "mgcv..gam") {  ## ..."mgcv::gam".
+            cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
+                                                            "data.frame" = vector(mode = "character"),
+                                                            "GCV" = vector(mode = "numeric"))
+        }
+        if (cur.function.name == "gamlss..gamlss") {  ## ..."gamlss::gamlss".
+            cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
+                                                            "distribution" = vector(mode = "character"),
+                                                            "data.frame" = vector(mode = "character"),
+                                                            "AIC" = vector(mode = "numeric"))
+        }
+        ## Generate a vector of appropriate data frame names based on the current species.
+        cur.possible.data.frame.names <- names(x = models[[cur.function.name]])[grepl(pattern = cur.species.name,
+                                                                                      x = names(x = models[[cur.function.name]]))]
+        ## Loop over all appropriate data frames.
+        for (cur.data.frame.name in cur.possible.data.frame.names) {
+            ## Loop over all models.
+            for (cur.model.name in names(x = models[[cur.function.name]][[cur.data.frame.name]])) {
+                ## Store current model in "cur.model".
+                cur.model <- models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]
+                ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
+                cur.formula <- format(x = kFormulas[[cur.model.name]])
+                ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
+                cur.formula.data.frame.name.df <- data.frame("formula" = cur.formula,
+                                                             "data.frame" = cur.data.frame.name)
+                ## Store benchmarks of function...
+                ## ..."stats::lm".
+                if (cur.function.name == "stats..lm") {
+                    ## Store current model summary in "cur.summary".
+                    cur.summary <- summary(object = cur.model)
+                    ## Store "cur.summary[["r.squared"]]" in "cur.r.squared".
+                    cur.r.squared <- cur.summary[["r.squared"]]
+                    ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
+                    cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
+                    ## Store "cur.formula.data.frame.name.df", "cur.r.squared", and "cur.adj.r.squared" in a 1 row data frame "cur.model.benchmark.df". 
+                    cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
+                                                         "r.squared" = cur.r.squared,
+                                                         "adj.r.squared" = cur.adj.r.squared)
+                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
+                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
+                                                               cur.model.benchmark.df)
+                    ## Order "cur.function.species.benchmark.df".
+                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["r.squared"]],
+                                                                                                 cur.function.species.benchmark.df[["adj.r.squared"]],
+                                                                                                 decreasing = TRUE), ]
+                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
+                    cur.output.file.name <- paste0(kOutputDirPath,
+                                                   cur.species.name,
+                                                   "_LM_R-squared.txt")
+                }
+                ## ..."mgcv::gam".
+                if (cur.function.name == "mgcv..gam") {
+                    ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
+                    cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
+                    ## Store "cur.formula.data.frame.name.df", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
+                    cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
+                                                         "GCV" = cur.gcv)
+                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
+                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
+                                                               cur.model.benchmark.df)
+                    ## Order "cur.function.species.benchmark.df" based on column "GCV".
+                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["GCV"]]), ]
+                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
+                    cur.output.file.name <- paste0(kOutputDirPath,
+                                                   cur.species.name,
+                                                   "_GAM_GCV.txt")
+                }
+                ## ..."gamlss::gamlss".
+                if (cur.function.name == "gamlss..gamlss") {
+                    ## Store "cur.model[["aic"]]" in "cur.aic".
+                    cur.aic <- cur.model[["aic"]]
+                    ## Store "kDistFamilyToUse[[cur.model.name]]" in "cur.dist.family".
+                    cur.dist.family <- kDistFamilyToUse[[cur.model.name]]
+                    ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
+                    cur.model.benchmark.df <- data.frame("formula" = cur.formula.data.frame.name.df[, 1],
+                                                         "distribution" = cur.dist.family,
+                                                         "data.frame" = cur.formula.data.frame.name.df[, 2],
+                                                         "AIC" = cur.aic)
+                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
+                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
+                                                               cur.model.benchmark.df)
+                    ## Order "cur.function.species.benchmark.df" based on column "AIC".
+                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["AIC"]]), ]
+                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
+                    cur.output.file.name <- paste0(kOutputDirPath,
+                                                   cur.species.name,
+                                                   "_GAMLSS_AIC.txt")
+                }
+                ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists
+                if (exists(x = "cur.function.species.benchmark.df")) {
+                    ## Store printing of "cur.function.species.benchmark.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
+                    cur.output <- capture.output(print(x = format(x = cur.function.species.benchmark.df,
+                                                                  justify="left",
+                                                                  scientific = FALSE),
+                                                       row.names = FALSE))
+                    ## Write "cur.output" to "cur.output.file.name".
+                    cat(cur.output,
+                        file = cur.output.file.name,
+                        sep = "\n",
+                        fill = FALSE)
+                }}}}
+    objects.at.end <- ls()  ## Necessary for cleaning up workspace.
+    ## Clean up workspace.
+    rm(list = c(setdiff(x = objects.at.end,
+                        y = objects.at.start),
+                "objects.at.end"))
 }
-## LM ##
-########
-
-#########
-## GAM ##
-## Loop over all species.
-for (cur.species.name in c("beech", "spruce")) {
-    ## Create template data frame in which to store the GCV score of all models for the current species.
-    cur.species.gcv.df <- data.frame("formula" = vector(mode = "character"),
-                                     "data.frame" = vector(mode = "character"),
-                                     "GCV" = vector(mode = "numeric"))
-    ## Generate a vector of appropriate data frame names for the current species.
-    cur.possible.data.frame.names <- names(x = models[["mgcv..gam"]])[grepl(pattern = cur.species.name,
-                                                                            x = names(x = models[["mgcv..gam"]]))]
-    ## Loop over all appropriate data frames.
-    for (cur.data.frame.name in cur.possible.data.frame.names) {
-        ## Loop over all models.
-        for (cur.model.name in names(x = models[["mgcv..gam"]][[cur.data.frame.name]])) {
-            ## Store current model in "cur.model".
-            cur.model <- models[["mgcv..gam"]][[cur.data.frame.name]][[cur.model.name]]
-            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
-            cur.formula <- format(x = kFormulas[[cur.model.name]])
-            ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
-            cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
-            ## Store "cur.formula", "cur.data.frame.name", and "cur.gcv" in a 1 row data frame "cur.gcv.df". 
-            cur.gcv.df <- data.frame("formula" = cur.formula,
-                                     "data.frame" = cur.data.frame.name,
-                                     "GCV" = cur.gcv)
-            ## Append "cur.gcv.df" to "cur.species.gcv.df".
-            cur.species.gcv.df <- rbind(cur.species.gcv.df,
-                                              cur.gcv.df)
-        }}
-    ## Order "cur.species.gcv.df" based on column "GCV".
-    cur.species.gcv.df <- cur.species.gcv.df[order(cur.species.gcv.df[["GCV"]]), ]
-    ## Create the name of the file for outputting "cur.species.gcv.df".
-    cur.output.file.name <- paste0(kOutputDirPath,
-                                   cur.species.name,
-                                   "_GAM_GCV.txt")
-    ## Store printing of "cur.species.gcv.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
-    cur.output <- capture.output(print(x = format(x = cur.species.gcv.df,
-                                                  justify="left"),
-                                       row.names = FALSE))
-    ## Write "cur.output" to "cur.output.file.name".
-    cat(cur.output,
-        file = cur.output.file.name,
-        sep = "\n",
-        fill = FALSE)
-}
-## GAM ##
-#########
-
-############
-## GAMLSS ##
-## Loop over all species.
-for (cur.species.name in c("beech", "spruce")) {
-    ## Create template data frame in which to store the AIC of all models for the current species.
-    cur.species.aic.df <- data.frame("formula" = vector(mode = "character"),
-                                     "data.frame" = vector(mode = "character"),
-                                     "AIC" = vector(mode = "numeric"))
-    ## Generate a vector of appropriate data frame names for the current species.
-    cur.possible.data.frame.names <- names(x = models[["gamlss..gamlss"]])[grepl(pattern = cur.species.name,
-                                                                                 x = names(x = models[["gamlss..gamlss"]]))]
-    ## Loop over all appropriate data frames.
-    for (cur.data.frame.name in cur.possible.data.frame.names) {
-        ## Loop over all models.
-        for (cur.model.name in names(x = models[["gamlss..gamlss"]][[cur.data.frame.name]])) {
-            ## Store current model in "cur.model".
-            cur.model <- models[["gamlss..gamlss"]][[cur.data.frame.name]][[cur.model.name]]
-            ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
-            cur.formula <- format(x = kFormulas[[cur.model.name]])
-            ## Store "cur.model[["aic"]]" in "cur.aic".
-            cur.aic <- cur.model[["aic"]]
-            ## Store "cur.formula", "cur.data.frame.name", and "cur.aic" in a 1 row data frame "cur.aic.df".
-            cur.aic.df <- data.frame("formula" = cur.formula,
-                                     "data.frame" = cur.data.frame.name,
-                                     "AIC" = cur.aic)
-            ## Append "cur.aic.df" to "cur.species.aic.df".
-            cur.species.aic.df <- rbind(cur.species.aic.df,
-                                              cur.aic.df)
-    }}
-    ## Order "cur.species.aic.df" based on column "AIC".
-    cur.species.aic.df <- cur.species.aic.df[order(cur.species.aic.df[["AIC"]]), ]
-    ## Create the name of the file for outputting "cur.species.aic.df".
-    cur.output.file.name <- paste0(kOutputDirPath,
-                                   cur.species.name,
-                                   "_GAMLSS_AIC.txt")
-    ## Store printing of "cur.species.AICs" in "cur.output", while left justifying output and suppressing row numbers and row names.
-    cur.output <- capture.output(print(x = format(x = cur.species.aic.df,
-                                                  justify="left"),
-                                       row.names = FALSE))
-    ## Write "cur.output" to "cur.output.file.name".
-    cat(cur.output,
-        file = cur.output.file.name,
-        sep = "\n",
-        fill = FALSE)
-}
-## GAMLSS ##
-############
