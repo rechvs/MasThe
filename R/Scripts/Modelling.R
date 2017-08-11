@@ -33,9 +33,6 @@ kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFormulasToUse <- NULL
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
@@ -47,12 +44,20 @@ names.input.data.sources <- objects.present[grepl(pattern = "bart.((beech)|(spru
 #########
 ## GAM ##
 #########
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
 ## Setup for model "GAM_gha_sh100".
 kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 ## Setup for model "GAM_gha_sh100.EKL.I".
 kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 5)")
 ## Setup for model ""GAM_gha_sSI.h100"".
 kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100, k = 26)")
+## Setup for model "GAM_log.nha_h100_sh100_by_log.dg".
+kFormulas[["GAM_log.nha_h100_sh100_by_log.dg"]] <- as.formula(object = "log.nha ~ 1 + h100 + s(h100, by = log.dg)")
+## Setup for model "GAM_log.nha_h100".
+kFormulas[["GAM_log.nha_h100"]] <- as.formula(object = "log.nha ~ 1 + h100")
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -441,6 +446,49 @@ for (cur.species.name in c("beech", "spruce")) {
 }
 ## LM ##
 ########
+#########
+## GAM ##
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create template data frame in which to store the GCV score of all models for the current species.
+    cur.species.gcv.df <- data.frame("Model" = vector(mode = "character"),
+                                           "GCV" = vector(mode = "numeric"))
+    ## Generate a vector of appropriate data frame names for the current species.
+    cur.possible.data.frame.names <- names(x = models[["mgcv..gam"]])[grepl(pattern = cur.species.name,
+                                                                            x = names(x = models[["mgcv..gam"]]))]
+    for (cur.data.frame.name in cur.possible.data.frame.names) {
+        for (cur.model.name in names(x = models[["mgcv..gam"]][[cur.data.frame.name]])) {
+            ## Store current model in "cur.model".
+            cur.model <- models[["mgcv..gam"]][[cur.data.frame.name]][[cur.model.name]]
+            ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
+            cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
+            ## Store the string identifying the current model data frame-combination, the R-squared and the Adjusted R-squared of the current model in a 1 row data frame "cur.gcv.df". 
+            cur.gcv.df <- data.frame("Model" = paste0(cur.data.frame.name,
+                                                      ":",
+                                                      cur.model.name),
+                                     "GCV" = cur.gcv)
+            ## Append "cur.gcv" and "cur.gcv" to "cur.species.gcv.df".
+            cur.species.gcv.df <- rbind(cur.species.gcv.df,
+                                              cur.gcv.df)
+        }}
+    ## Order "cur.species.gcv.df" based on column "GCV".
+    cur.species.gcv.df <- cur.species.gcv.df[order(cur.species.gcv.df[["GCV"]]), ]
+    ## Create the name of the file for outputting "cur.species.gcv.df".
+    cur.output.file.name <- paste0(kOutputDirPath,
+                                   cur.species.name,
+                                   "_GAM_GCV.txt")
+    ## Store printing of "cur.species.gcv.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
+    cur.output <- capture.output(print(x = format(x = cur.species.gcv.df,
+                                                  justify="left"),
+                                       row.names = FALSE))
+    ## Write "cur.output" to "cur.output.file.name".
+    cat(cur.output,
+        file = cur.output.file.name,
+        sep = "\n",
+        fill = FALSE)
+}
+## GAM ##
+#########
 ############
 ## GAMLSS ##
 ## Loop over all species.
