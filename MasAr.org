@@ -339,6 +339,9 @@
     + If a function call spans several lines, comments regarding the function call in general (and not just a specific argument) should go on the line of the opening paranthesis.
 *** Where to place a closing parenthesis/brace/bracket following a closing parenthesis/brace/bracket?
     + A closing glyph (i.e., a “)”, “]”, or “}”) directly following a closing glyph should go on the same line as the previous closing glyph of the same type.
+*** Which code belongs into block “Preamble” and which to specific blocks?
+    + Code required for more than 1 block belongs in block “Preamble”.
+    + Code required only for 1 block belongs into the respective block (optionally segregated into subblock “Preamble”).
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
