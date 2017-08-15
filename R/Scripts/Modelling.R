@@ -6,13 +6,14 @@ setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
-kFileVersion <- "3.8"
+kFileVersion <- "4.0"
 kFileName <- paste0(kDataDir, "gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
 models[["mgcv..gam"]] <- vector(mode = "list")
 models[["gamlss..gamlss"]] <- vector(mode = "list")
 models[["stats..nls"]] <- vector(mode = "list")
+models[["stats..glm"]] <- vector(mode = "list")
 models[["nls2..nls2"]] <- vector(mode = "list")
 models[["minpack.lm..nlsLM"]] <- vector(mode = "list")
 kFormulas <- vector(mode = "list")
@@ -28,10 +29,106 @@ kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
 kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
+kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
 kFormulasToUse <- NULL
 ## Create a vector containing the names of all appropriate input data sources.
-names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.[067]", x = ls(), fixed = FALSE)]
+names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.8", x = ls(), fixed = FALSE)]
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
+
+#########
+## GLM ##
+#########
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "GLM_Gamma_log.nha_log.dg") ## Model has higher AIC than its gaussian counterpart for both data sets.
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_ALL_ni")
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg")
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100")
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100_ni")
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_hnn.neu")
+kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_minus1.605_log.dg")
+
+## Setup for model "GLM_Gamma_log.nha_log.dg".
+kFormulas[["GLM_Gamma_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
+kDistFamilies[["GLM_Gamma_log.nha_log.dg"]] <- "Gamma(link = \"log\")"
+
+## Setup for model "GLM_gaussian_log.nha_ALL_ni".
+kFormulas[["GLM_gaussian_log.nha_ALL_ni"]] <- as.formula(object = "log.nha ~ h100 + h100.class + h100.diff.EKL.I + h100.EKL.I + hnn.neu + log.dg + SI.h100 + SI.h100.class + WGS_EAST + WGS_NORTH")
+kDistFamilies[["GLM_gaussian_log.nha_ALL_ni"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg".
+kFormulas[["GLM_gaussian_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_h100".
+kFormulas[["GLM_gaussian_log.nha_log.dg_h100"]] <- as.formula(object = "log.nha ~ log.dg * h100")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_h100_ni".
+kFormulas[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- as.formula(object = "log.nha ~ log.dg + h100")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_hnn.neu".
+kFormulas[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- as.formula(object = "log.nha ~ log.dg * hnn.neu")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_minus1.605_log.dg".
+kFormulas[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- as.formula(object = "log.nha - -1.605 * log.dg ~ 1")
+kDistFamilies[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- "gaussian"
+
+## Check, whether the function needed for this block is meant to be executed.
+kFunction <- "stats..glm"
+if (any(grepl(pattern = kFunction,
+              x = kFunctionsToUse))) {
+    ## Loop over all appropriate input data sources.
+    for (cur.input.data.name in names.input.data.sources) {
+        ## Loop over all formulas.
+        for (cur.formula.name in names(x = kFormulas)) {
+            ## Check whether the current formula is selected for evaluation.
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                ## Check whether the current formula names contains the string "GLM_", continue only if it does.
+                if (grepl(pattern = "GLM_", x = cur.formula.name, fixed = TRUE)) {
+                    ## Get untampered version of input data.
+                    cur.input.data <- get(x = cur.input.data.name)
+                    ## Extract names of columns needed for current formula.
+                    cur.formula <- kFormulas[[cur.formula.name]]
+                    cur.formula.col.names <- strsplit(x = paste0(as.character(x = cur.formula)[2],
+                                                                 as.character(x = cur.formula)[1],
+                                                                 as.character(x = cur.formula)[3],
+                                                                 collapse=""),
+                                                      split = "[*+~-]")[[1]]
+                    cur.formula.col.names <- cur.formula.col.names[grepl(pattern = "[a-zA-Z]", x = cur.formula.col.names)]
+                    cur.formula.col.names <- gsub(pattern = " ", replacement = "", x = cur.formula.col.names, fixed = TRUE)
+                    ## Subset "cur.input.data" to the column names in "cur.formula.col.names".
+                    cur.input.data.col.subset <- subset(x = cur.input.data,
+                                                        select = cur.formula.col.names)
+                    ## Remove missing values from "cur.input.data.col.subset".
+                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                    ## Extract formula for maximal model.
+                    cur.max.formula <- kFormulas[[cur.formula.name]]
+                    ## Create formual for minimal model, based on formula for maximal model.
+                    cur.min.formula <- as.formula(object = paste0(as.character(x = cur.max.formula)[2], " ~ 1"))
+                    ## Create models.
+                    cur.max.model <- glm(formula = cur.max.formula,
+                                         data = cur.input.data.col.subset.na.omitted,
+                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                         na.action = na.omit)
+                    cur.min.model <- glm(formula = cur.min.formula,
+                                         data = cur.input.data.col.subset.na.omitted,
+                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                         na.action = na.omit)
+                    ## Evaluate models (while sinking output).
+                    sink(file = "/dev/null")
+                    try(expr =
+                            models[["stats..glm"]][[cur.input.data.name]][[cur.formula.name]] <- MASS::stepAIC(object = cur.max.model,
+                                                                                                               scope = list(upper = cur.max.model,
+                                                                                                                            lower = cur.min.model,
+                                                                                                                            direction = "both")))
+                    sink(file = NULL)
+                }}}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
 
 #########
 ## GAM ##
@@ -39,6 +136,7 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100")
 kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
 ## Setup for model "GAM_gha_sh100".
 kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100)")
@@ -46,10 +144,10 @@ kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100)")
 kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I)")
 ## Setup for model ""GAM_gha_sSI.h100"".
 kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100)")
-## Setup for model "GAM_log.nha_h100_sh100_by_log.dg".
-kFormulas[["GAM_log.nha_h100_sh100_by_log.dg"]] <- as.formula(object = "log.nha ~ 1 + h100 + s(h100, by = log.dg)")
 ## Setup for model "GAM_log.nha_h100".
-kFormulas[["GAM_log.nha_h100"]] <- as.formula(object = "log.nha ~ 1 + h100")
+kFormulas[["GAM_log.nha_h100"]] <- as.formula(object = "log.nha ~ h100")
+## Setup for model "GAM_log.nha_h100_sh100_by_log.dg".
+kFormulas[["GAM_log.nha_h100_sh100_by_log.dg"]] <- as.formula(object = "log.nha ~ h100 + s(h100, by = log.dg)")
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -82,6 +180,9 @@ kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100_hnn.neu")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100_SI.h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_psh100")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCG_gha_SI.h100_hnn.neu")
@@ -100,9 +201,33 @@ kTauFormulas[["GAMLSS_BCCG_gha_h100"]] <- as.formula(object = "~1")
 kDistFamilies[["GAMLSS_BCCG_gha_h100"]] <- "gamlss.dist::BCCG()"
 kColumnsToSelect[["GAMLSS_BCCG_gha_h100"]] <- c("gha", "h100")
 
+## Setup for model "GAMLSS_BCCG_gha_h100_hnn.neu".
+kFormulas[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- as.formula(object = "gha ~ h100 * hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- as.formula(object = "gha ~ h100 * hnn.neu")
+kNuFormulas[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- as.formula(object = "~1")
+kTauFormulas[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- as.formula(object = "~1")
+kDistFamilies[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- "gamlss.dist::BCCG()"
+kColumnsToSelect[["GAMLSS_BCCG_gha_h100_hnn.neu"]] <- c("gha", "h100", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCG_gha_h100_SI.h100".
+kFormulas[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- as.formula(object = "gha ~ h100 * SI.h100")
+kSigmaFormulas[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- as.formula(object = "gha ~ h100 * SI.h100")
+kNuFormulas[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- as.formula(object = "~1")
+kTauFormulas[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- as.formula(object = "~1")
+kDistFamilies[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- "gamlss.dist::BCCG()"
+kColumnsToSelect[["GAMLSS_BCCG_gha_h100_SI.h100"]] <- c("gha", "h100", "SI.h100")
+
+## Setup for model "GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu".
+kFormulas[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ h100 * SI.h100 * hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ h100 * SI.h100 * hnn.neu")
+kNuFormulas[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
+kTauFormulas[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
+kDistFamilies[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCG()"
+kColumnsToSelect[["GAMLSS_BCCG_gha_h100_SI.h100_hnn.neu"]] <- c("gha", "h100", "SI.h100", "hnn.neu")
+
 ## Setup for model "GAMLSS_BCCG_gha_psh100".
-kFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
-kSigmaFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
+kFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100)")
+kSigmaFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100)")
 kNuFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCG_gha_psh100"]] <- as.formula(object = "~1")
 kDistFamilies[["GAMLSS_BCCG_gha_psh100"]] <- "gamlss.dist::BCCG()"
@@ -139,38 +264,6 @@ kNuFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~1")
 kTauFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~1")
 kDistFamilies[["GAMLSS_BCCGo_gha_h100"]] <- "gamlss.dist::BCCGo()"
 kColumnsToSelect[["GAMLSS_BCCGo_gha_h100"]] <- c("gha", "h100")
-
-## Setup for model "GAMLSS_BCCGo_gha_psh100".
-kFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "gha ~ gamlss::ps(x = h100, df = 2)")
-kNuFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "~1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psh100"]] <- as.formula(object = "~1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psh100"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psh100"]] <- c("gha", "h100")
-
-## Setup for model "GAMLSS_BCCGo_gha_SI.h100".
-kFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "gha ~ SI.h100")
-kNuFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "~1")
-kTauFormulas[["GAMLSS_BCCGo_gha_SI.h100"]] <- as.formula(object = "~1")
-kDistFamilies[["GAMLSS_BCCGo_gha_SI.h100"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_SI.h100"]] <- c("gha", "SI.h100")
-
-## Setup for model "GAMLSS_BCCGo_gha_SI.h100_hnn.neu".
-kFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI.h100 * hnn.neu")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "gha ~ SI.h100 * hnn.neu")
-kNuFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
-kTauFormulas[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- as.formula(object = "~1")
-kDistFamilies[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_SI.h100_hnn.neu"]] <- c("gha", "SI.h100", "hnn.neu")
-
-## Setup for model "GAMLSS_BCCGo_gha_h100.diff.EKL.I".
-kFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h100.diff.EKL.I")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "gha ~ h100.diff.EKL.I")
-kNuFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
-kTauFormulas[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- as.formula(object = "~1")
-kDistFamilies[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_h100.diff.EKL.I"]] <- c("gha", "h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -306,76 +399,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
-########
-## LM ##
-########
-## Select formulas to use.
-kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg")
-kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_fixed_slope")
-kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_h100")
-kFormulasToUse <- c(kFormulasToUse, "LM_log.nha_log.dg_h100_ni")
-## Setup for model "LM_log.nha_log.dg".
-kFormulas[["LM_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
-## Setup for model "LM_log.nha_log.dg_fixed_slope".
-kFormulas[["LM_log.nha_log.dg_fixed_slope"]] <- as.formula(object = "log.nha - -1.605 * log.dg ~ 1")
-## Setup for model "LM_log.nha_log.dg_h100".
-kFormulas[["LM_log.nha_log.dg_h100"]] <- as.formula(object = "log.nha ~ log.dg * h100")
-## Setup for model "LM_log.nha_log.dg_h100_ni".
-kFormulas[["LM_log.nha_log.dg_h100_ni"]] <- as.formula(object = "log.nha ~ log.dg + h100")
-## Initiate "for" loop (for looping over all names of input data sources).
-for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models.
-    kFunction <- "stats..lm"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "LM_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr =
-                            models[["stats..lm"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::lm(formula = kFormulas[[cur.formula.name]],
-                                                                                                                 data = input.data,
-                                                                                                                 na.action = na.omit))
-                }
-            }
-        }
-    }
-}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
-#########
-## GLM ##
-#########
-## Select formulas to use.
-kFormulasToUse <- c(kFormulasToUse, "GLM_log.nha_1_log.dg")
-## Setup for model "GLM_log.nha_1_log.dg".
-kFormulas[["GLM_log.nha_1_log.dg"]] <- as.formula(object = "log.nha ~ 1 + log.dg")
-kDistFamilies[["GLM_log.nha_1_log.dg"]] <- "Gamma(link = log)"
-## Initiate "for" loop (for looping over all names of input data sources).
-for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models.
-    kFunction <- "stats..lm"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "GLM_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr =
-                            models[["stats..glm"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::glm(formula = kFormulas[[cur.formula.name]],
-                                                                                                                  family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
-                                                                                                                  data = input.data,
-                                                                                                                  na.action = na.omit))
-                }
-            }
-        }
-    }
-}
-
 #####################
 ## Print summaries ##
 #####################
@@ -429,10 +452,19 @@ for (cur.function.name in names(x = models)) {
             for (cur.model.name in names(x = models[[cur.function.name]][[cur.data.frame.name]])) {
                 ## Store current model in "cur.model".
                 cur.model <- models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]
-                ## Store "kFormulas[[cur.model.name]]" as a string in "cur.formula".
-                cur.formula <- format(x = kFormulas[[cur.model.name]])
+                ## Store formula of "cur.model" as a string in "cur.formula".
+                cur.formula.string <- paste(as.character(x = formula(x = cur.model))[2],
+                                     as.character(x = formula(x = cur.model))[1],
+                                     as.character(x = formula(x = cur.model))[3])
+                ## Truncate "cur.formula.string" if it is longer than 51 characters.
+                if (nchar(x = cur.formula.string) > 51) {
+                    cur.formula.string <- paste0(substr(x = cur.formula.string,
+                                                        start = 1,
+                                                        stop = 50),
+                                                 "...")
+                }
                 ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
-                cur.formula.data.frame.name.df <- data.frame("formula" = cur.formula,
+                cur.formula.data.frame.name.df <- data.frame("formula" = cur.formula.string,
                                                              "data.frame" = cur.data.frame.name)
                 ## Store benchmarks of function...
                 ## ..."stats::lm".
@@ -476,7 +508,7 @@ for (cur.function.name in names(x = models)) {
                                                    cur.species.name,
                                                    "_GAM_GCV.txt")
                 }
-                ## ..."gamlss::gamlss".
+                ## ..."gamlss::gamlss" or "stats..glm"..
                 if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {
                     ## Store "cur.model[["aic"]]" in "cur.aic".
                     cur.aic <- cur.model[["aic"]]
@@ -503,8 +535,10 @@ for (cur.function.name in names(x = models)) {
                                                    cur.species.name,
                                                    cur.file.suffix)
                 }
-                ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists
+                ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists.
                 if (exists(x = "cur.function.species.benchmark.df")) {
+                    ## Set options for printing.
+                    op.saved <- options("width" = 10^3)
                     ## Store printing of "cur.function.species.benchmark.df" in "cur.output", while left justifying output and suppressing row numbers and row names.
                     cur.output <- capture.output(print(x = format(x = cur.function.species.benchmark.df,
                                                                   justify="left",
@@ -515,6 +549,8 @@ for (cur.function.name in names(x = models)) {
                         file = cur.output.file.name,
                         sep = "\n",
                         fill = FALSE)
+                    ## Reset options.
+                    options(op.saved)
                 }}}}
 }
 ## Clean up workspace.
