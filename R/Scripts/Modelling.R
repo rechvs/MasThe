@@ -28,7 +28,6 @@ kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
 kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
-kFunctionsToUse <- c(kFunctionsToUse, "stats..lm")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
 kFormulasToUse <- NULL
 ## Create a vector containing the names of all appropriate input data sources.
@@ -514,12 +513,6 @@ for (cur.function.name in names(x = models)) {
     ## Loop over all species.
     for (cur.species.name in c("beech", "spruce")) {
         ## Create template data frame in which to store the relevant benchmarks of function...
-        if (cur.function.name == "stats..lm") {  ## ..."stats::lm".
-            cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
-                                                            "data.frame" = vector(mode = "character"),
-                                                            "r.squared" = vector(mode = "numeric"),
-                                                            "adj.r.squared" = vector(mode = "numeric"))
-        }
         if (cur.function.name == "mgcv..gam") {  ## ..."mgcv::gam".
             cur.function.species.benchmark.df <- data.frame("formula" = vector(mode = "character"),
                                                             "data.frame" = vector(mode = "character"),
@@ -554,31 +547,7 @@ for (cur.function.name in names(x = models)) {
                 ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
                 cur.formula.data.frame.name.df <- data.frame("formula" = cur.formula.string,
                                                              "data.frame" = cur.data.frame.name)
-                ## Store benchmarks of function...
-                ## ..."stats::lm".
-                if (cur.function.name == "stats..lm") {
-                    ## Store current model summary in "cur.summary".
-                    cur.summary <- summary(object = cur.model)
-                    ## Store "cur.summary[["r.squared"]]" in "cur.r.squared".
-                    cur.r.squared <- cur.summary[["r.squared"]]
-                    ## Store "cur.summary[["adj.r.squared"]]" in "cur.adj.r.squared".
-                    cur.adj.r.squared <- cur.summary[["adj.r.squared"]]
-                    ## Store "cur.formula.data.frame.name.df", "cur.r.squared", and "cur.adj.r.squared" in a 1 row data frame "cur.model.benchmark.df". 
-                    cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
-                                                         "r.squared" = cur.r.squared,
-                                                         "adj.r.squared" = cur.adj.r.squared)
-                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
-                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
-                                                               cur.model.benchmark.df)
-                    ## Order "cur.function.species.benchmark.df".
-                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["r.squared"]],
-                                                                                                 cur.function.species.benchmark.df[["adj.r.squared"]],
-                                                                                                 decreasing = TRUE), ]
-                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
-                    cur.output.file.name <- paste0(kOutputDirPath,
-                                                   cur.species.name,
-                                                   "_LM_R-squared.txt")
-                }
+                ## Prepare storing benchmarks of function...
                 ## ..."mgcv::gam".
                 if (cur.function.name == "mgcv..gam") {
                     ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
