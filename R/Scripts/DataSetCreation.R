@@ -636,7 +636,7 @@ for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "age.class".
-    cur.object[["age.class"]] <- cut(x = cur.object[["alt"]], breaks = 7, include.lowest = TRUE)
+    cur.object[["age.class"]] <- cut(x = cur.object[["alt"]], breaks = 7, ordered_result = TRUE)
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -1062,6 +1062,19 @@ for (cur.species.name in c("beech", "spruce")) {
                    value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.6")),
                                  droplevels(x = cur.subset)))
         }}
+    ## Recalculate columns "age.class", "h100.class", and "SI.h100.class".
+    cur.species.bart.clean.1.6 <- get(x = paste0("bart.", cur.species.name, ".clean.1.6"))
+    cur.species.bart.clean.1.6[["age.class"]] <- cut(x = cur.species.bart.clean.1.6[["alt"]],
+                                                     breaks = 3,
+                                                     ordered_result = TRUE)
+    cur.species.bart.clean.1.6[["h100.class"]] <- cut(x = cur.species.bart.clean.1.6[["h100"]],
+                                                      breaks = 3,
+                                                      ordered_result = TRUE)
+    cur.species.bart.clean.1.6[["SI.h100.class"]] <- cut(x = cur.species.bart.clean.1.6[["SI.h100"]],
+                                                         breaks = 3,
+                                                         ordered_result = TRUE)
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.6"),
+           value = cur.species.bart.clean.1.6)
     ## Add "bart.SPECIES.clean.1.6" to the vector of names of objects meant to be saved.
     kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.6"), kgmaxObjects)
 }
@@ -1082,7 +1095,7 @@ rm(list = setdiff(x = ls(), y = objects.before))
 ####################################
 objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.4.
-## In this version, 2 columns are added to each "bart.SPECIES.clean.[0-9].[0-9]" data frames:
+## In this version, 2 columns are added to each "bart.SPECIES.clean.[0-9].[0-9]" data frame:
 ## - "h100.class", which contains the level of the respective measurement in terms of "h100" divided into 3 levels;
 ## - "SI.h100.class", which contains the level of the respective measurement in terms of "SI.h100" divided into 3 levels;
 ## - "trial", which contains the trial the respective "edvid" (defined by the first 3 digits of "edvid") belongs to as a factor level.
@@ -1099,9 +1112,9 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Assign current data source.
         cur.data.source <- get(x = cur.data.source.name)
         ## Calculate column "h100.class".
-        cur.data.source[["h100.class"]] <- cut(x = cur.data.source[["h100"]], breaks = 3)
+        cur.data.source[["h100.class"]] <- cut(x = cur.data.source[["h100"]], breaks = 3, ordered_result = TRUE)
         ## Calculate column "SI.h100.class".
-        cur.data.source[["SI.h100.class"]] <- cut(x = cur.data.source[["SI.h100"]], breaks = 3)
+        cur.data.source[["SI.h100.class"]] <- cut(x = cur.data.source[["SI.h100"]], breaks = 3, ordered_result = TRUE)
         ## Calculate column "trial".
         cur.data.source[["trial"]] <- as.factor(x = substr(x = cur.data.source[["edvid"]], start = 1, stop = 3))
         ## Assign new version of "bart.SPECIES.clean.[0-9].[0-9]".
@@ -1269,6 +1282,19 @@ for (cur.species.name in c("beech", "spruce")) {
                    value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.7")),
                                  droplevels(x = cur.subset)))
         }}
+    ## Recalculate columns "age.class", "h100.class", and "SI.h100.class".
+    cur.species.bart.clean.1.7 <- get(x = paste0("bart.", cur.species.name, ".clean.1.7"))
+    cur.species.bart.clean.1.7[["age.class"]] <- cut(x = cur.species.bart.clean.1.7[["alt"]],
+                                                     breaks = 3,
+                                                     ordered_result = TRUE)
+    cur.species.bart.clean.1.7[["h100.class"]] <- cut(x = cur.species.bart.clean.1.7[["h100"]],
+                                                      breaks = 3,
+                                                      ordered_result = TRUE)
+    cur.species.bart.clean.1.7[["SI.h100.class"]] <- cut(x = cur.species.bart.clean.1.7[["SI.h100"]],
+                                                         breaks = 3,
+                                                         ordered_result = TRUE)
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.7"),
+           value = cur.species.bart.clean.1.7)
     ## Add "bart.SPECIES.clean.1.7" to the vector of names of objects meant to be saved.
     kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.7"), kgmaxObjects)
 }
@@ -1356,6 +1382,19 @@ for (cur.species.name in c("beech", "spruce")) {
                    value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
                                  droplevels(x = cur.subset)))
         }}
+    ## Recalculate columns "age.class", "h100.class", and "SI.h100.class".
+    cur.species.bart.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+    cur.species.bart.clean.1.8[["age.class"]] <- cut(x = cur.species.bart.clean.1.8[["alt"]],
+                                                     breaks = 3,
+                                                     ordered_result = TRUE)
+    cur.species.bart.clean.1.8[["h100.class"]] <- cut(x = cur.species.bart.clean.1.8[["h100"]],
+                                                      breaks = 3,
+                                                      ordered_result = TRUE)
+    cur.species.bart.clean.1.8[["SI.h100.class"]] <- cut(x = cur.species.bart.clean.1.8[["SI.h100"]],
+                                                         breaks = 3,
+                                                         ordered_result = TRUE)
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.8"),
+           value = cur.species.bart.clean.1.8)
     ## Add "bart.SPECIES.clean.1.8" to the vector of names of objects meant to be saved.
     kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.8"), kgmaxObjects)
 }
