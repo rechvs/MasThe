@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "3.9"
+kBaseFileVersion <- "4.0"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -374,63 +374,99 @@ kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions o
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
-## Initiate "for" loops.
+## Loop over all functions.
 for (cur.function.name in names(x = models)) {
+    ## Loop over all input data sources.
     for (cur.input.data.source.name in names(x = models[[cur.function.name]])) {
-        for (cur.model.name in names(x = models[[cur.function.name]][[cur.input.data.source.name]])) {
+        ## Store path to graphics subdirectory for current input data source in "cur.graphics.subdir".
+        cur.graphics.subdir <- paste0("Graphics/Models/GAMLSS/", cur.input.data.source.name, "/")
+        ## If nonexistent, create "cur.graphics.subdir".
+        system2(command = "mkdir",
+                args = paste0("-p ", cur.graphics.subdir))
+        ## Loop over all models.
+        for (cur.model.name in names(x =  models[[cur.function.name]][[cur.input.data.source.name]])) {
             if (grepl(pattern = "GAMLSS_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a GAMLSS and we can continue with this block.
                 ## Extract current model.
                 cur.model <- models[[cur.function.name]][[cur.input.data.source.name]][[cur.model.name]]
                 ## Turn off graphics device.
                 graphics.off()
-                ## Create file name.
-                file.name <- gsub(pattern = "[$]",
-                                  replacement = ".",
-                                  x = paste0("Graphics/",
+                ## Plot title page. ##
+                ## Create filename.
+                file.name.titlepage <-paste0(cur.graphics.subdir,
                                              cur.model.name,
-                                             ".pdf"))
-                ## Create file name.
-                graphics.subdir <- paste0("Graphics/Models/GAMLSS/", cur.input.data.source.name, "/")
-                file.name <-paste0(graphics.subdir,
-                                   cur.model.name,
-                                   ".pdf")
-                ## If nonexistent, create "graphics.subdir".
-                system2(command = "mkdir",
-                        args = paste0("-p ", graphics.subdir))
-                ## Create title page.
-                pdf(file = paste0(substr(x = file.name, start = 1, stop = nchar(file.name) - 3), "Titlepage", ".pdf"),
+                                             "_TitlePage.pdf")
+                ## Start graphics device driver for producing PDF graphics.
+                pdf(file = file.name.titlepage,
                     width = kPdfWidth,
                     height = kPdfHeight,
                     pointsize = kPdfPointSize,
                     family = kPdfFamily)
+                ## Create empty plot.
                 plot(x = 1:10,
                      type = "n",
                      axes = FALSE,
                      xlab = NA,
                      ylab = NA)
+                ## Convert model formula to a properly typeset string. 
                 cur.formula.string.elements.unsorted <- as.character(x = formula(x = cur.model))
                 cur.formula.string <- paste0(cur.formula.string.elements.unsorted[2],
                                              " ",
                                              cur.formula.string.elements.unsorted[1],
                                              " ",
                                              cur.formula.string.elements.unsorted[3])
-                ## cur.formula.string <- gsub(pattern = "(.{20,}?)\\s", replacement = "\\1\n", x = cur.formula.string)
-                cur.formula.string <- gsub(pattern = "([*+])\\s", replacement = "\n\\1", x = cur.formula.string)
+                cur.formula.string <- gsub(pattern = "\\s([*+])", replacement = "\n\\1", x = cur.formula.string)
+                ## Add text to plot.
                 text(x = 5.5,
                      y = 7.5,
                      pos = 1,
                      labels = paste0(cur.formula.string, "\n", family(object = cur.model)[1], "\n", cur.input.data.source.name),
                      cex = 4)
+                ## Turn off graphics device.
                 graphics.off()
+                ## Plot regression terms. ##
+                ## Create filename.
+                file.name.terms.plot <- paste0(cur.graphics.subdir,
+                                               cur.model.name,
+                                               "_Terms.pdf")
                 ## Start graphics device driver for producing PDF graphics.
-                pdf(file = file.name,
+                pdf(file = file.name.terms.plot,
                     width = kPdfWidth,
                     height = kPdfHeight,
                     pointsize = kPdfPointSize,
                     family = kPdfFamily)
                 ## Set plot margins.
                 par("mar" = kPlotMargins)
-                ## Plot model.
+                ## Store current input data in "cur.input.data".
+                cur.input.data <- get(x = cur.input.data.source.name)
+                ## Subset "cur.input.data" to the column names in "kColumnsToSelect[[cur.model.name]]".
+                cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.model.name]]]
+                ## Remove missing values from "cur.input.data.col.subset".
+                cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                ## Create plots.
+                gamlss::term.plot(object = cur.model,
+                                  se = TRUE,
+                                  partial.resid = FALSE,
+                                  what = "mu",
+                                  main = "mu",
+                                  pages = 1,
+                                  ask = FALSE,
+                                  data = cur.input.data)
+                ## Turn off graphics device.
+                graphics.off()
+                ## Plot model overview. ##
+                ## Create filename.
+                file.name.overview.plot <- paste0(cur.graphics.subdir,
+                                               cur.model.name,
+                                               "_Overview.pdf")
+                ## Start graphics device driver for producing PDF graphics.
+                pdf(file = file.name.overview.plot,
+                    width = kPdfWidth,
+                    height = kPdfHeight,
+                    pointsize = kPdfPointSize,
+                    family = kPdfFamily)
+                ## Set plot margins.
+                par("mar" = kPlotMargins)
+                ## Create plots.
                 plot(x = cur.model,
                      parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
                                       "mar" = par("mar") + c(0, 1, 0, 0),
@@ -442,8 +478,7 @@ for (cur.function.name in names(x = models)) {
                                       "cex" = 1.00,
                                       "cex.lab" = 1.00,
                                       "cex.axis" = 1,
-                                      "cex.main" = 1.5)
-                 )
+                                      "cex.main" = 1.5))
                 ## Turn off graphics device.
                 graphics.off()
                 ## If desired, open .pdf file via mupdf.
