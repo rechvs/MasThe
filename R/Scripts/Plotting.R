@@ -408,10 +408,18 @@ for (cur.function.name in names(x = models)) {
                      axes = FALSE,
                      xlab = NA,
                      ylab = NA)
+                cur.formula.string.elements.unsorted <- as.character(x = formula(x = cur.model))
+                cur.formula.string <- paste0(cur.formula.string.elements.unsorted[2],
+                                             " ",
+                                             cur.formula.string.elements.unsorted[1],
+                                             " ",
+                                             cur.formula.string.elements.unsorted[3])
+                ## cur.formula.string <- gsub(pattern = "(.{20,}?)\\s", replacement = "\\1\n", x = cur.formula.string)
+                cur.formula.string <- gsub(pattern = "([*+])\\s", replacement = "\n\\1", x = cur.formula.string)
                 text(x = 5.5,
                      y = 7.5,
                      pos = 1,
-                     labels = paste0(format(x = formula(x = cur.model)), "\n\n", family(object = cur.model)[1], "\n\n", cur.input.data.source.name),
+                     labels = paste0(cur.formula.string, "\n", family(object = cur.model)[1], "\n", cur.input.data.source.name),
                      cex = 4)
                 graphics.off()
                 ## Start graphics device driver for producing PDF graphics.
