@@ -1,0 +1,3 @@
+                           model.name      AIC
+1 GAMLSS_BCCGo_gha_psALL_woClasses    620.6488
+2 GAMLSS_BCCGo_gha_psALL_woClasses_ni 622.7923
