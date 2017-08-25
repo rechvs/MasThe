@@ -175,13 +175,15 @@ kPlottingInformation <- list(
     "h100.EKL.I_h100.diff.EKL.I" = list("kPlotXLab" = "h100.EKL.I [m]",
                                   "kPlotYLab" = "h100.diff.EKL.I [m]"),
     "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
-                                  "kPlotYLab" = "h100.diff.EKL.I [m]"))
+                                  "kPlotYLab" = "h100.diff.EKL.I [m]"),
+    "h100_h100.EKL.I" = list("kPlotXLab" = "h100 [m]",
+                             "kPlotYLab" = "h100.EKL.I [m]"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
 ## Initiate "for" loops.
 for (cur.species.name in c("beech", "spruce")) {
-    for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, ".clean"), x = ls(), fixed = FALSE)]) {
+    for (cur.data.source.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name, "[.]clean[.]1[.][0678]"), x = ls(), fixed = FALSE)]) {
         for (cur.colpch.scheme.name in names(x = points.lines.settings)) {
             for (cur.plotinfo.list.name in names(x = kPlottingInformation)) {
                 ## Turn off graphics device.
