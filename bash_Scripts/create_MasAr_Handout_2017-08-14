@@ -3,28 +3,68 @@
 ## Preamble.
 cd ~/"laptop02_MasAr/Graphics/"
 
-## Store name of resulting .pdf file in variable "output".
-output="Handouts/MasAr_Handout_2017-08-14.pdf"
+## Store name of resulting .pdf file in variable "output_final".
+output_final="Handouts/MasAr_Handout_2017-08-14.pdf"
+
+## Store name of temporary output file in variable "output_temp".
+output_temp="Handouts/MasAr_Handout_2017-08-14_temp.pdf"
 
 ## Create array containing the .pdf files to be concatenated.
-pdfs=( "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/gha_SI.h100.pdf"
-       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/gha_SI.h100.pdf"
-       
-       "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/h100_gha.pdf"
-       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/h100_gha.pdf"
-       
+pdfs=( "Measurements/col.trial.pch.edvid/bart.beech.clean.1.0/log.dg_log.nha.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/log.dg_log.nha.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.7/log.dg_log.nha.pdf"
+
+       "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.0/log.dg_log.nha.pdf"
        "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.6/log.dg_log.nha.pdf"
-       "Measurements/col.SI.h100.class/bart.spruce.clean.1.6/log.dg_log.nha.pdf"
+       "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.7/log.dg_log.nha.pdf"
 
-       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100.Titlepage.pdf"
-       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/SI.h100_gha.pdf"
+       "Measurements/col.SI.h100.class/bart.beech.clean.1.6/SI.h100_gha.pdf"
+       "Measurements/col.h100.class/bart.beech.clean.1.6/SI.h100_gha.pdf"
 
-       
-       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100_hnn.neu.Titlepage.pdf"
-       "Models/GAMLSS/bart.spruce.clean.1.6/GAMLSS_gha_SI.h100_hnn.neu.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/h100_gha.pdf"
+       "Measurements/col.SI.h100.class/bart.beech.clean.1.6/h100_gha.pdf"
+       "Measurements/col.h100.class/bart.beech.clean.1.6/h100_gha.pdf"
+
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/log.dg_log.nha.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/alt_gha.pdf"
+       "Measurements/col.trial.pch.edvid/bart.beech.clean.1.6/alt_ghaa.pdf"
+
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100.Titlepage.pdf"
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100.pdf"
+
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100_hnn.neu.Titlepage.pdf"
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100_hnn.neu.pdf"
+
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100_SI.h100.Titlepage.pdf"
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_h100_SI.h100.pdf"
+
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_SI.h100.Titlepage.pdf"
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_SI.h100.pdf"
+
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_SI.h100_hnn.neu.Titlepage.pdf"
+       "Models/GAMLSS/bart.beech.clean.1.6/GAMLSS_BCCG_gha_SI.h100_hnn.neu.pdf"
+
+       "../LaTeX/Notes/MasAr_Notes.pdf"
      )
 
 ## Rund "pdftk".
-pdftk "${pdfs[@]}" cat output "${output}"
+for (( cur_index=0; cur_index < "${#pdfs[@]}"; cur_index++ )); do
+    cur_input_file="${pdfs[cur_index]}"
+    if [[ "${cur_index}" == 0 ]]; then
+        pdftk "${cur_input_file}" cat output "${output_temp}"  ## Create file "output_temp" to allow its utilization later on.
+    elif [[ "${cur_input_file}" == "../LaTeX/Notes/MasAr_Notes.pdf" ]]; then
+        cur_output_temp="Handouts/MasAr_Handout_2017-08-14_temp_${cur_index}.pdf"  ## We need a temporary temporary output file, since pdftk cannot read from and write to the same file.
+        pdftk A="${output_temp}" B="${cur_input_file}" cat A B17-22 output "${cur_output_temp}"  ## We only want pages 17-22 of MasAr_Notes.pdf.
+        mv -v "${cur_output_temp}" "${output_temp}"  ## Delete the temporary temporary output file.
+    else
+        cur_output_temp="Handouts/MasAr_Handout_2017-08-14_temp_${cur_index}.pdf"  ## We need a temporary temporary output file, since pdftk cannot read from and write to the same file.
+        pdftk "${output_temp}" "${cur_input_file}" cat output "${cur_output_temp}"
+        mv -v "${cur_output_temp}" "${output_temp}"  ## Delete the temporary temporary output file.
+    fi
+done
+
+## Make the resulting PDF file final.
+mv -v "${output_temp}" "${output_final}"
 
 exit
