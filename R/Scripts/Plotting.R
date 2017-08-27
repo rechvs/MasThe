@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "4.0"
+kBaseFileVersion <- "4.1"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -177,7 +177,11 @@ kPlottingInformation <- list(
     "h100_h100.diff.EKL.I" = list("kPlotXLab" = "h100 [m]",
                                   "kPlotYLab" = "h100.diff.EKL.I [m]"),
     "h100_h100.EKL.I" = list("kPlotXLab" = "h100 [m]",
-                             "kPlotYLab" = "h100.EKL.I [m]"))
+                             "kPlotYLab" = "h100.EKL.I [m]"),
+    "h100_WGS.EAST" = list("kPlotXLab" = "h100 [m]",
+                             "kPlotYLab" = "WGS.EAST"),
+    "h100_WGS.NORTH" = list("kPlotXLab" = "h100 [m]",
+                             "kPlotYLab" = "WGS.NORTH"))
 ## Set flag to determine whether the newly created .pdf file should be opened.
 kOpenPdf <- FALSE
 ## kOpenPdf <- TRUE
