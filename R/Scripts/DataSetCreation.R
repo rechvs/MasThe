@@ -1120,7 +1120,7 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Assign new version of "bart.SPECIES.clean.[0-9].[0-9]".
         assign(x = cur.data.source.name,
                value = cur.data.source)
-}}
+    }}
 ## Save results.
 kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
@@ -1197,7 +1197,7 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
         assign(x = cur.data.frame.name,
                value = cur.data.frame.merged)
-        }}
+    }}
 ## Save results.
 kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
@@ -1440,7 +1440,7 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
         assign(x = cur.data.frame.name,
                value = cur.data.frame.merged)
-        }}
+    }}
 ## Save results.
 kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
@@ -1452,3 +1452,45 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
+
+####################################
+## Create "gmax_merged_4.1.RData" ##
+####################################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 4.0.
+## In this version, columns "WGS_EAST", and "WGS_NORTH" are renamed to "WGS.EAST" and "WGS.NORTH", respectively in all "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" data frames.
+kBaseFileVersion <- "4.0"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.1"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Loop over all appropriate data frames
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
+        ## Assign "bart.SPECIES..." to "cur.data.frame".
+        cur.data.frame <- get(x = cur.data.frame.name)
+        ## Extract column names of "cur.data.frame".
+        cur.col.names <- colnames(x = cur.data.frame)
+        ## Replace "_" with "." in "WGS_EAST" and "WGS_NORTH".
+        cur.col.names[cur.col.names == "WGS_EAST"] <- "WGS.EAST"
+        cur.col.names[cur.col.names == "WGS_NORTH"] <- "WGS.NORTH"
+        ## Assign corrected column names.
+        colnames(x = cur.data.frame) <- cur.col.names
+        ## Assign corrected version of "cur.data.frame" to the original data frame.
+        assign(x = cur.data.frame.name,
+               value = cur.data.frame)
+    }}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
+
