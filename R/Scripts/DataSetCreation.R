@@ -221,11 +221,17 @@ kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Loop over all relevant objects.
 for (cur.object.name in c("bart.beech", "bart.spruce")) {
+    ## Assign species-specific value for "SI.h100.EKL.I".
+    if (grepl(pattern = "beech", x = cur.object.name)) {
+        SI.h100.EKL.I <- 32.4  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of beech, moderate thinning (source: Schober (1995)).
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name)) {
+        SI.h100.EKL.I <- 35.1  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
+    }
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
     ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-    SI.h100.EKL.I <- 35.1  ##  This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
     cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = cur.object[["alt"]])) - 49.872 + 7.3309 * log(x = cur.object[["alt"]]) + 0.77338 * (log(x = cur.object[["alt"]]))^2
     ## Assign new version of current object.
     assign(x = cur.object.name,
@@ -1551,12 +1557,12 @@ kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Loop over species.
 for (cur.species.name in c("beech", "spruce")) {
-    ## Assign species-dependent value for "SI.h100.EKL.I"
+    ## Assign species-specific value for "SI.h100.EKL.I".
     if (cur.species.name == "beech") {
-        SI.h100.EKL.I <- 35.1 ## TESTING (needs to be corrected based on literature value)
+        SI.h100.EKL.I <- 32.4  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of beech, moderate thinning (source: Schober (1995)).
     }
     if (cur.species.name == "spruce") {
-        SI.h100.EKL.I <- 35.1 ## taken from literature
+        SI.h100.EKL.I <- 35.1  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
     }
     ## Loop over all appropriate data frames
     for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
