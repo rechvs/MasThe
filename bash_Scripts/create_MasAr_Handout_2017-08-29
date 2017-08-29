@@ -1,0 +1,37 @@
+#! /bin/bash
+
+## Preamble.
+cd ~/"laptop02_MasAr/Graphics/"
+
+## Store name of resulting .pdf file in variable "output_final".
+output="Handouts/MasAr_Handout_2017-08-29.pdf"
+
+## Create array containing the .pdf files to be concatenated.
+pdfs=(
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_TitlePage.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_Overview.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_Terms.pdf"
+
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/log.dg_log.nha.pdf"
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/h100_gha.pdf"
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/h100_h100.diff.EKL.I.pdf"
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/h100_h100.EKL.I.pdf"
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/h100_WGS.EAST.pdf"
+    "Measurements/col.trial.pch.edvid/bart.beech.clean.1.8/h100_WGS.NORTH.pdf"
+
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_TitlePage.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_Overview.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_Terms.pdf"
+
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/log.dg_log.nha.pdf"
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/h100_gha.pdf"
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/h100_h100.diff.EKL.I.pdf"
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/h100_h100.EKL.I.pdf"
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/h100_WGS.EAST.pdf"
+    "Measurements/col.trial.pch.edvid/bart.spruce.clean.1.8/h100_WGS.NORTH.pdf"
+)
+
+## Rund "pdftk".
+pdftk "${pdfs[@]}" cat output "${output}"
+
+exit
