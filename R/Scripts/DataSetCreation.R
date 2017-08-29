@@ -1400,13 +1400,11 @@ for (cur.species.name in c("beech", "spruce")) {
     for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
         ## Assign "bart.SPECIES..." to "cur.data.frame".
         cur.data.frame <- get(x = cur.data.frame.name)
-        ## Merge "cur.data.frame" and "cur.parz2[, c("edvid", "hnn_neu")]" into "cur.data.frame.merged".
+        ## Merge "cur.data.frame" and "cur.parz2[, c("edvid", "WGS_EAST", "WGS_NORTH")]" into "cur.data.frame.merged".
         cur.data.frame.merged <- merge(x = cur.data.frame,
                                        y = cur.parz2[, c("edvid", "WGS_EAST", "WGS_NORTH")],
                                        by = "edvid",
                                        sort = FALSE)
-        ## Change column name "hnn_neu" to "hnn.neu".
-        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "hnn_neu"] <- "hnn.neu"
         ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
         assign(x = cur.data.frame.name,
                value = cur.data.frame.merged)
@@ -1495,3 +1493,36 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_4.3.RData" ##
+####################################
+## Based on version 4.2.
+## In this version, columns "WGS_EAST", and "WGS_NORTH" from "parz2.UTM.SPECIES" are added (as "WGS.EAST.UTM" and "WGS.NORTH.UTM", respectively) to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
+kBaseFileVersion <- "4.2"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.3"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Assign "parz2.UTM.SPECIES2" to "cur.parz2.UTM".
+    cur.parz2.UTM <- get(x = paste0("parz2.UTM.", cur.species.name))
+    ## Loop over all appropriate data frames
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
+        ## Assign "bart.SPECIES..." to "cur.data.frame".
+        cur.data.frame <- get(x = cur.data.frame.name)
+        ## Merge "cur.data.frame" and "cur.parz2.UTM[, c("edvid", "hnn_neu")]" into "cur.data.frame.merged".
+        cur.data.frame.merged <- merge(x = cur.data.frame,
+                                       y = cur.parz2.UTM[, c("edvid", "WGS_EAST", "WGS_NORTH")],
+                                       by = "edvid",
+                                       sort = FALSE)
+        ## Change column name "WGS_EAST" to "WGS.EAST.UTM".
+        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "WGS_EAST"] <- "WGS.EAST.UTM"
+        ## Change column name "WGS_NORTH" to "WGS.NORTH.UTM".
+        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "WGS_NORTH"] <- "WGS.NORTH.UTM"
+        ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
+        assign(x = cur.data.frame.name,
+               value = cur.data.frame.merged)
+    }}
