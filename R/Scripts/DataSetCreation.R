@@ -1494,3 +1494,36 @@ save(list = kgmaxObjects,
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.before))
 
+####################################
+## Create "gmax_merged_4.2.RData" ##
+####################################
+objects.before <- ls()  ## Required for clean up.
+## Based on version 4.1.
+## In this version, the contents of "gmax_koords_UTM.RData" and "gmax_koords_bu_UTM.RData" are added to the resulting data set "gmax_merged_4.2.RData".
+kBaseFileVersion <- "4.1"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.2"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Load "gmax_koords_UTM.RData".
+kSpruceNewObjects <- load(file = paste0(kDataDir, "Spruce/", "gmax_koords_UTM.RData"), verbose = TRUE)
+## Assign object "parz2" to "parz2.UTM.spruce".
+parz2.UTM.spruce <- parz2
+## Load "gmax_koords_bu_UTM.RData".
+kSpruceNewObjects <- load(file = paste0(kDataDir, "Beech/", "gmax_koords_bu_UTM.RData"), verbose = TRUE)
+## Assign object "parz2" to "parz2.UTM.beech".
+parz2.UTM.beech <- parz2
+## Add "parz2.UTM.beech" and "parz2.UTM.spruce" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("parz2.UTM.beech", "parz2.UTM.spruce", kgmaxObjects)
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.before))
