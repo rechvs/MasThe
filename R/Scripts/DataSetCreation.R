@@ -4,11 +4,11 @@
 rm(list = ls())
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
+objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
 ####################################
 ## Create "gmax_merged_1.0.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## This version serves as the base version consisting of untampered but renamed versions of the objects contained in "gmax.RData" (see email by Matthias Schmidt from 2017-04-27) and in "gmax_bu.RData". The resulting data set contains the following objects:
 ## - auf.beech
 ## - bart.beech
@@ -52,12 +52,11 @@ save(list = kObjectsToSave,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.1.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.0.
 ## In this version, "bart.SPECIES" contains an additional column "ksha.sum.edvid.auf" holding the sum of "ksha" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.0"
@@ -91,12 +90,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.2.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.1.
 ## In this version, "bart.SPECIES" contains an additional column "ksha.rel" holding the relative portion of "ksha" of each combination of "edvid", "auf", and "art" based on "ksha.sum.edvid.auf" for each combination of "edvid" and "auf".
 kBaseFileVersion <- "1.1"
@@ -120,12 +118,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.3.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.2.
 ## In this version, "bart.SPECIES" contains an additional column "nhaa.rel" = "nhaa" / "nha".
 kBaseFileVersion <- "1.2"
@@ -149,12 +146,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.4.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.3.
 ## In this version, the following columns of "bart.SPECIES" are transformed into factors:
 ## - edvid
@@ -181,12 +177,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.5.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.4.
 ## In this version, "bart.SPECIES" contains an additional column "SI.h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
 kBaseFileVersion <- "1.4"
@@ -211,12 +206,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.6.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.5.
 ## In this version, "bart.SPECIES" contains an additional column "h100.EKL.I" which holds h100 for a given age if the stand were EKL I.
 kBaseFileVersion <- "1.5"
@@ -242,12 +236,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.7.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.6.
 ## In this version, "bart.SPECIES" contains an additional column "gha.diff" which holds the difference in "gha" between the current and the previous measurement, calculated separately for each combination of "edvid" and "art".
 kBaseFileVersion <- "1.6"
@@ -276,12 +269,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.8.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.7.
 ## In this version, "bart.SPECIES" contains an additional 27. column "gha.rel.cha" which holds the relative change of "gha" between the previous and the current measurement relative to previous measurement, calculated separately for each combination of "edvid" and "art".
 kBaseFileVersion <- "1.7"
@@ -313,12 +305,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_1.9.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.8.
 ## In this version, 2 additional data frames "bart.SPECIES.clean.1.0" are created, both of which are subsets of the respective "bart.SPECIES" data frame, excluding certain data (see below for details).
 kBaseFileVersion <- "1.8"
@@ -384,12 +375,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.0.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 1.9.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "h100.diff.EKL.I = h100.EKL.I - h100".
 kBaseFileVersion <- "1.9"
@@ -413,12 +403,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.1.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.0.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ln.nha = log(x = nha, base = exp(x = 1))" and an additional column "ln.dh = log(x = dg, base = exp(x = 1))".
 kBaseFileVersion <- "2.0"
@@ -444,12 +433,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.2.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.1.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "log.nha = log10(x = nha)" and an additional column "log.dh = log10(x = dg)".
 kBaseFileVersion <- "2.1"
@@ -475,12 +463,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.3.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.2.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ksha.diff" which holds the difference in "ksha" between the current and the previous measurement.
 kBaseFileVersion <- "2.2"
@@ -507,12 +494,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.4.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.3.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ksha.rel.cha" which holds the relative change of "ksha" between the previous and the current measurement relative to previous measurement.
 kBaseFileVersion <- "2.3"
@@ -542,12 +528,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.5.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.4.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "jahr" which holds the value of "auf$jahr" for the given combination of "edvid" and "auf".
 kBaseFileVersion <- "2.4"
@@ -581,12 +566,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.6.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.5.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "ghaa.cum" which holds the cumulative sum of "ghaa" for the respective "edvid".
 kBaseFileVersion <- "2.5"
@@ -617,12 +601,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.7.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.6.
 ## In this version, "bart.SPECIES.clean.1.0" contains an additional column "age.class" which holds the age class (with a total of 7 age classes) of the given row.
 kBaseFileVersion <- "2.6"
@@ -646,12 +629,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.8.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.7.
 ## In this version, an additional data frame "edvid.archive.suppl.info" is created which contains all levels of "bart.spruce.clean.1.0[["edvid"]]" and the corresponding values of "vers[["forstamt"]]" and "vers[["abt"]]" and "parz[["BESONDERHEITEN"]]".
 kBaseFileVersion <- "2.7"
@@ -693,12 +675,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_2.9.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.8.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.1" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.SPECIES.clean.1.0[["ghaa"]] > 0.20 * bart.SPECIES.clean.1.0[["gha"]]".
 kBaseFileVersion <- "2.8"
@@ -752,12 +733,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.0.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 2.9.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.2" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.SPECIES.clean.1.2[["ghaa"]] > 0.15 * bart.SPECIES.clean.1.2[["gha"]]".
 kBaseFileVersion <- "2.9"
@@ -811,12 +791,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.1.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.0.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.3" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.SPECIES.clean.1.3[["ghaa"]] > 0.10 * bart.SPECIES.clean.1.3[["gha"]]".
 kBaseFileVersion <- "3.0"
@@ -870,12 +849,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.2.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.1.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.4" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.SPECIES.clean.1.4[["ghaa"]] > 0.05 * bart.SPECIES.clean.1.4[["gha"]]".
 kBaseFileVersion <- "3.1"
@@ -929,12 +907,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.3.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.2.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.5" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all consecutive measurements for a given "edvid" if "bart.SPECIES.clean.1.5[["ghaa"]] > 0.00 * bart.SPECIES.clean.1.5[["gha"]]".
 kBaseFileVersion <- "3.2"
@@ -988,12 +965,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.4.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.3.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.6" is created which is a subset of "bart.SPECIES.clean.1.0", excluding certain data (see below for details).
 kBaseFileVersion <- "3.3"
@@ -1088,12 +1064,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.5.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.4.
 ## In this version, 2 columns are added to each "bart.SPECIES.clean.[0-9].[0-9]" data frame:
 ## - "h100.class", which contains the level of the respective measurement in terms of "h100" divided into 3 levels;
@@ -1131,12 +1106,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.6.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.5.
 ## In this version, the contents of "gmax_koords.RData" and "gmax_koords_bu.RData" are added to the resulting data set "gmax_merged_3.6.RData".
 kBaseFileVersion <- "3.5"
@@ -1165,12 +1139,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.7.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.6.
 ## In this version, column "hnn_neu" from "parz2.SPECIES" is added to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
 kBaseFileVersion <- "3.6"
@@ -1208,12 +1181,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.8.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.7.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.7" is created which is a subset of "bart.SPECIES.clean.1.0", excluding certain data (see below for details).
 kBaseFileVersion <- "3.7"
@@ -1308,12 +1280,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_3.9.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.8.
 ## In this version, an additional data frame "bart.SPECIES.clean.1.8" is created which is a subset of "bart.SPECIES.clean.1.0", excluding certain data (see below for details).
 kBaseFileVersion <- "3.8"
@@ -1408,12 +1379,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_4.0.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 3.9.
 ## In this version, columns "WGS_EAST", and "WGS_NORTH" from "parz2.SPECIES" is added to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
 kBaseFileVersion <- "3.9"
@@ -1451,12 +1421,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_4.1.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 4.0.
 ## In this version, columns "WGS_EAST", and "WGS_NORTH" are renamed to "WGS.EAST" and "WGS.NORTH", respectively in all "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" data frames.
 kBaseFileVersion <- "4.0"
@@ -1492,12 +1461,11 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
 
 ####################################
 ## Create "gmax_merged_4.2.RData" ##
 ####################################
-objects.before <- ls()  ## Required for clean up.
 ## Based on version 4.1.
 ## In this version, the contents of "gmax_koords_UTM.RData" and "gmax_koords_bu_UTM.RData" are added to the resulting data set "gmax_merged_4.2.RData".
 kBaseFileVersion <- "4.1"
@@ -1526,4 +1494,4 @@ save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.before))
+rm(list = setdiff(x = ls(), y = objects.at.start))
