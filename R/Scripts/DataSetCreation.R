@@ -1585,3 +1585,33 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_4.5.RData" ##
+####################################
+## Based on version 4.4.
+## In this version, objects "bld_utm", "brd_utm", "krs_utm", "nds_utm", and "rbz_utm" from file "vg250_ebenen_shp_UTM.RData" are added to the data set.
+kBaseFileVersion <- "4.4"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.5"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Load file "vg250_ebenen_shp_UTM.RData".
+load(file = paste0(kDataDir, "Supplementary_Information/vg250_ebenen_shp_UTM.RData"),
+     verbose = TRUE)
+## Add "bld_utm", "brd_utm", "krs_utm", "nds_utm", and "rbz_utm" to the vector of names of objects meant to be saved.
+kgmaxObjects <- c("bld_utm", "brd_utm", "krs_utm", "nds_utm", "rbz_utm", kgmaxObjects)
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
