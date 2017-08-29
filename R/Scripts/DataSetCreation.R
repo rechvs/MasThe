@@ -1431,7 +1431,7 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ## Create "gmax_merged_4.1.RData" ##
 ####################################
 ## Based on version 4.0.
-## In this version, columns "WGS_EAST", and "WGS_NORTH" are renamed to "WGS.EAST" and "WGS.NORTH", respectively in all "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" data frames.
+## In this version, columns "WGS_EAST", and "WGS_NORTH" are renamed to "EAST.WGS" and "NORTH.WGS", respectively in all "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" data frames.
 kBaseFileVersion <- "4.0"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "4.1"
@@ -1447,8 +1447,8 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Extract column names of "cur.data.frame".
         cur.col.names <- colnames(x = cur.data.frame)
         ## Replace "_" with "." in "WGS_EAST" and "WGS_NORTH".
-        cur.col.names[cur.col.names == "WGS_EAST"] <- "WGS.EAST"
-        cur.col.names[cur.col.names == "WGS_NORTH"] <- "WGS.NORTH"
+        cur.col.names[cur.col.names == "WGS_EAST"] <- "EAST.WGS"
+        cur.col.names[cur.col.names == "WGS_NORTH"] <- "NORTH.WGS"
         ## Assign corrected column names.
         colnames(x = cur.data.frame) <- cur.col.names
         ## Assign corrected version of "cur.data.frame" to the original data frame.
@@ -1504,7 +1504,7 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ## Create "gmax_merged_4.3.RData" ##
 ####################################
 ## Based on version 4.2.
-## In this version, columns "WGS_EAST", and "WGS_NORTH" from "parz2.UTM.SPECIES" are added (as "WGS.EAST.UTM" and "WGS.NORTH.UTM", respectively) to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
+## In this version, columns "UTM_lon", and "UTM_lat" from "parz2.UTM.SPECIES" are added (as "EAST.UTM" and "NORTH.UTM", respectively) to "bart.SPECIES", and "bart.SPECIES.clean.[0-9].[0-9]".
 kBaseFileVersion <- "4.2"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "4.3"
@@ -1521,13 +1521,13 @@ for (cur.species.name in c("beech", "spruce")) {
         cur.data.frame <- get(x = cur.data.frame.name)
         ## Merge "cur.data.frame" and "cur.parz2.UTM[, c("edvid", "hnn_neu")]" into "cur.data.frame.merged".
         cur.data.frame.merged <- merge(x = cur.data.frame,
-                                       y = cur.parz2.UTM[, c("edvid", "WGS_EAST", "WGS_NORTH")],
+                                       y = cur.parz2.UTM[, c("edvid", "UTM_lon", "UTM_lat")],
                                        by = "edvid",
                                        sort = FALSE)
-        ## Change column name "WGS_EAST" to "WGS.EAST.UTM".
-        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "WGS_EAST"] <- "WGS.EAST.UTM"
-        ## Change column name "WGS_NORTH" to "WGS.NORTH.UTM".
-        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "WGS_NORTH"] <- "WGS.NORTH.UTM"
+        ## Change column name "UTM_lon" to "EAST.UTM".
+        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "UTM_lon"] <- "EAST.UTM"
+        ## Change column name "UTM_lat" to "NORTH.UTM".
+        names(x = cur.data.frame.merged)[names(x = cur.data.frame.merged) == "UTM_lat"] <- "NORTH.UTM"
         ## Assing value of "cur.data.frame.merged" to "cur.data.frame.name".
         assign(x = cur.data.frame.name,
                value = cur.data.frame.merged)
