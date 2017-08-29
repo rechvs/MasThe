@@ -399,7 +399,7 @@ for (cur.object.name in c("bart.beech.clean.1.0", "bart.spruce.clean.1.0")) {
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "h100.diff.EKL.I".
-    cur.object[["h100.diff.EKL.I"]] <- cur.object[["h100.EKL.I"]] - cur.object[["h100"]]
+    cur.object[["h100.diff.EKL.I"]] <- cur.object[["h100"]] - cur.object[["h100.EKL.I"]]
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
