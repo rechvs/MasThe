@@ -1537,3 +1537,45 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_4.4.RData" ##
+####################################
+## Based on version 4.3.
+## In this version, "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" contain an additional column "SI.h100.diff.EKL.I = SI.h100 - SI.h100.EKL.I".
+kBaseFileVersion <- "4.3"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.4"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Assign species-dependent value for "SI.h100.EKL.I"
+    if (cur.species.name == "beech") {
+        SI.h100.EKL.I <- 35.1 ## TESTING (needs to be corrected based on literature value)
+    }
+    if (cur.species.name == "spruce") {
+        SI.h100.EKL.I <- 35.1 ## taken from literature
+    }
+    ## Loop over all appropriate data frames
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
+        ## Assign current data frame.
+        cur.data.frame <- get(x = cur.data.frame.name)
+        ## Calculate "h100.diff.EKL.I".
+        cur.data.frame[["SI.h100.diff.EKL.I"]] <- cur.data.frame[["SI.h100"]] - SI.h100.EKL.I
+        ## Assign new version of current object.
+        assign(x = cur.data.frame.name,
+               value = cur.data.frame)
+    }}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
