@@ -560,6 +560,8 @@ for (cur.function.name in names(x = models)) {
                                                                cur.model.benchmark.df)
                     ## Order "cur.function.species.benchmark.df" based on column "GCV".
                     cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["GCV"]]), ]
+                    ## Reset row numbers of "cur.function.species.benchmark.df".
+                    rownames(x = cur.function.species.benchmark.df) <- NULL
                     ## Create the name of the file for outputting "cur.function.species.benchmark.df".
                     cur.output.file.name <- paste0(kOutputDirPath,
                                                    cur.species.name,
