@@ -133,21 +133,21 @@ rm(list = setdiff(x = ls(),
 #########
 ## GAM ##
 #########
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_log.nha_h100_sh100_by_log.dg")
-## Setup for model "GAM_gha_sh100".
-kFormulas[["GAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100)")
-## Setup for model "GAM_gha_sh100.EKL.I".
-kFormulas[["GAM_gha_sh100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I)")
-## Setup for model ""GAM_gha_sSI.h100"".
-kFormulas[["GAM_gha_sSI.h100"]] <- as.formula(object = "gha ~ s(SI.h100)")
-## Setup for model "GAM_log.nha_h100".
-kFormulas[["GAM_log.nha_h100"]] <- as.formula(object = "log.nha ~ h100")
-## Setup for model "GAM_log.nha_h100_sh100_by_log.dg".
-kFormulas[["GAM_log.nha_h100_sh100_by_log.dg"]] <- as.formula(object = "log.nha ~ h100 + s(h100, by = log.dg)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
+## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_ni".
+kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I)")
+## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni".
+kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I)")
+## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
+kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
+kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
+## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni".
+kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM) + s(EAST.UTM)")
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -493,8 +493,7 @@ rm(list = setdiff(x = ls(),
 ## Store file path to main output directory in "kOutputDirPath".
 kOutputDirPath <- "R/Output/"
 ## Loop over all modelling functions.
-## for (cur.function.name in names(x = models)) {
-    for (cur.function.name in "gamlss..gamlss") {
+for (cur.function.name in names(x = models)) {
     ## Loop over all species.
     for (cur.species.name in c("beech", "spruce")) {
         ## Create template data frame in which to store the relevant benchmarks of function...
@@ -613,8 +612,7 @@ kOutputDirPath <- "R/Output/"
                         fill = FALSE)
                     ## Reset options.
                     options(op.saved)
-                }}}}
-}
+                }}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
