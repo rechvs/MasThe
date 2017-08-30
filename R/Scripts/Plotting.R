@@ -1,10 +1,11 @@
 ##############
 ## Preamble ##
 ##############
-rm(list = ls())
+objects.to.keep <- c("models")
+rm(list = setdiff(x = ls(), y = objects.to.keep))
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
-## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
+## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "4.5"
@@ -376,7 +377,7 @@ for (cur.species.name in c("beech", "spruce")) {
         ## Turn off graphics device.
         graphics.off()
         }}
-    
+
 ##############
 ## Plot GAM ##
 ##############
@@ -419,11 +420,30 @@ for (cur.function.name in names(x = models)) {
                     height = kPdfHeight,
                     pointsize = kPdfPointSize,
                     family = kPdfFamily)
+                ## Set plot layout, depending on number of independent variables.
+                nr.independent.vars <- length(x = all.vars(expr = formula(x = cur.model))[-1])
+                if (nr.independent.vars == 1) {
+                    mfrow <- c(1, 1)
+                }
+                if (nr.independent.vars == 2) {
+                    mfrow <- c(2, 1)
+                }
+                if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                    mfrow <- c(2, 2)
+                }
+                if (nr.independent.vars >= 5) {
+                    mfrow <- c(3, 2)
+                }
+                par(mfrow = mfrow)
                 ## Set plot margins.
                 par(mar = kPlotMargins)
-                ## Plot model.
+                ## Plot model term effects.
                 mgcv::plot.gam(x = cur.model,
-                               main = as.character(as.expression(x = formula(x = cur.model))))
+                               main = paste0(as.character(x = as.expression(x = formula(x = cur.model))),
+                                             ", ", cur.input.data.source.name))
+                ## Plot model diagnostics.
+                mgcv::gam.check(b = cur.model,
+                                type = "response")
                 ## Turn off graphics device.
                 graphics.off()
                 ## If desired, open .pdf file via mupdf.
