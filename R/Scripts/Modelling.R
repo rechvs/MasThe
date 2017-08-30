@@ -499,15 +499,15 @@ for (cur.function.name in names(x = models)) {
         ## Create template data frame in which to store the relevant benchmarks of function...
         if (cur.function.name == "mgcv..gam") {  ## ..."mgcv::gam".
             cur.function.species.benchmark.df <- data.frame(
-                ## "formula" = vector(mode = "character"),
-                "model.name" = vector(mode = "character"),
+                "formula" = vector(mode = "character"),
+                ## "model.name" = vector(mode = "character"),
                 ## "data.frame" = vector(mode = "character"),
                 "GCV" = vector(mode = "numeric"))
         }
         if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {  ## ..."gamlss::gamlss" or "stats::glm".
             cur.function.species.benchmark.df <- data.frame(
-                ## "formula" = vector(mode = "character"),
-                "model.name" = vector(mode = "character"),
+                "formula" = vector(mode = "character"),
+                ## "model.name" = vector(mode = "character"),
                 ## "distribution" = vector(mode = "character"),
                 ## "data.frame" = vector(mode = "character"),
                 "AIC" = vector(mode = "numeric"))
@@ -543,8 +543,8 @@ for (cur.function.name in names(x = models)) {
                 }
                 ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
                 cur.formula.data.frame.name.df <- data.frame(
-                    ## "formula" = cur.formula.string,
-                    "model.name" = cur.model.name
+                    "formula" = cur.formula.string
+                    ## ,"model.name" = cur.model.name
                    ## ,"data.frame" = cur.data.frame.name
                 )
                 ## Prepare storing benchmarks of function...
@@ -573,8 +573,8 @@ for (cur.function.name in names(x = models)) {
                     cur.dist.family <- kDistFamilies[[cur.model.name]]
                     ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
                     cur.model.benchmark.df <- data.frame(
-                        ## "formula" = cur.formula.data.frame.name.df[, "formula"],
-                        "model.name" = cur.model.name,
+                        "formula" = cur.formula.data.frame.name.df[, "formula"],
+                        ## "model.name" = cur.model.name,
                         ## "distribution" = cur.dist.family,
                         ## "data.frame" = cur.formula.data.frame.name.df[, "data.frame"],
                         "AIC" = cur.aic)
