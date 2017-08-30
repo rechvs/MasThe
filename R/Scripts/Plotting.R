@@ -7,7 +7,7 @@ kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
-kBaseFileVersion <- "4.1"
+kBaseFileVersion <- "4.5"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Tree species according to Wördehoff (2016).
@@ -306,6 +306,77 @@ for (cur.species.name in c("beech", "spruce")) {
     }
 }
 
+####################
+## Plot locations ##
+####################
+## Plotting preamble.
+kLocationsGraphicsDir <- "Graphics/Locations/"
+## kColVecAll <- c("#92de6b", "#543090", "#d2c440", "#b75fc3", "#4ca23a", "#d14b8f", "#64e99e", "#ce465a", "#6ee9d9", "#c95730", "#4fb9d2", "#e19a3a", "#7175d2", "#cae176", "#402c63", "#86993b", "#80325d", "#5fb574", "#d090c4", "#365a1e", "#638dc8", "#ae8039", "#55bea0", "#7a3126", "#b0d89d", "#d88674", "#42845a", "#d9c481", "#716026")  ## Generated at "http://tools.medialab.sciences-po.fr/iwanthue/" with "H 0 360", "C 25 75", and "L 0 100".
+kColVecAll <- "black"
+kPchVecAll <- c(21:25, 10)
+kPchVecAll <- 20
+kPdfHeight <- 20
+kPdfWidth <- kPdfHeight * 0.625
+kPdfPointSize <- 19
+kPdfFamily <- "Times"
+## kPlotMargins <- c(0, 0, 1.5, 0)  ## As small as possible using fractions of lines.
+kPlotMargins <- c(0, 0, 0, 0)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Loop over all data frames.
+    for (cur.data.frame.name in ls()[grepl(pattern = paste0("^bart.", cur.species.name), x = ls(), fixed = FALSE)]) {
+        ## Assign "bart.SPECIES.clean.1.8".
+        cur.data.frame <- get(x = cur.data.frame.name)
+        ## Condense "cur.data.frame" to the unique values of columns "edvid", "EAST.UTM", and "NORTH.UTM".
+        cur.data.frame <- unique(x = cur.data.frame[, c("edvid", "EAST.UTM", "NORTH.UTM")])
+        ## Extract easting and northing.
+        easting <- cur.data.frame[["EAST.UTM"]]
+        northing <- cur.data.frame[["NORTH.UTM"]]
+        ## Calculate plot axis limits.
+        x.lim.low <- range(easting, na.rm = TRUE)[1]
+        x.lim.high <- range(easting, na.rm = TRUE)[2]
+        y.lim.low <- range(northing, na.rm = TRUE)[1]
+        y.lim.high <- range(northing, na.rm = TRUE)[2]
+        x.lim <- c(x.lim.low, x.lim.high)
+        y.lim <- c(y.lim.low, y.lim.high)
+        ## Create file name.
+        file.name <-paste0(kLocationsGraphicsDir, "Locations_", cur.data.frame.name, ".pdf")
+        ## If nonexistent, create "kLocationsGraphicsDir".
+        system2(command = "mkdir",
+                args = paste0("-p ", kLocationsGraphicsDir))
+        ## Turn off graphics device.
+        graphics.off()
+        ## Start graphics device driver for producing PDF graphics.
+        pdf(file = file.name,
+            width = kPdfWidth,
+            height = kPdfHeight,
+            pointsize = kPdfPointSize,
+            family = kPdfFamily)
+        ## Set plot margins.
+        par(mar = kPlotMargins)
+        ## Plot national and federal state boundaries.
+        library("sp")
+        plot(x = bld_utm,
+             add = FALSE,
+             ## xlim = x.lim,
+             ## ylim = y.lim
+             )
+        ## Add plot title (we’re using "title(...)" because the normal placement via "plot(main = ...)" wastes too much space).
+        title(main = cur.data.frame.name,
+              outer = FALSE,
+              line = -4)
+        ## Add locations.
+        points(x = easting,
+               y = northing,
+               xlab = "Easting",
+               ylab = "Northing",
+               bg = kColVecAll,
+               col = kColVecAll,
+               pch = kPchVecAll)
+        ## Turn off graphics device.
+        graphics.off()
+        }}
+    
 ##############
 ## Plot GAM ##
 ##############
