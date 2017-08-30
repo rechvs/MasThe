@@ -1,3 +1,6 @@
-                           model.name      AIC
-1 GAMLSS_BCCGo_gha_psALL_woClasses    324.1496
-2 GAMLSS_BCCGo_gha_psALL_woClasses_ni 342.7012
+                                                                           formula      AIC
+1 gha~ps(SI.h100.diff.EKL.I)+ps(h100.EKL.I)+ps(hnn.neu)+ps(NORTH.UTM)              352.9213
+2 gha~ps(SI.h100.diff.EKL.I)+ps(h100.EKL.I)+ps(hnn.neu)+ps(NORTH.UTM)+ps(EAST.UTM) 354.6791
+3 gha~ps(SI.h100.diff.EKL.I)+ps(h100.EKL.I)+ps(hnn.neu)                            375.4030
+4 gha~ps(SI.h100.diff.EKL.I)+ps(h100.EKL.I)                                        382.4714
+5 gha~ps(SI.h100.diff.EKL.I)                                                       420.9205

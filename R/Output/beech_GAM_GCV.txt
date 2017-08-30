@@ -1,0 +1,6 @@
+                                                                       formula       GCV
+12 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)              4.000985
+13 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)+s(EAST.UTM)  4.014785
+11 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)                          26.489899
+2  gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)                                     35.338383
+1  gha~s(SI.h100.diff.EKL.I)                                                   46.946860
