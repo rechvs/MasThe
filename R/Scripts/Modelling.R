@@ -6,7 +6,7 @@ setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets  while suppressing output.
 ## Load data set.
-kFileVersion <- "4.0"
+kFileVersion <- "4.5"
 kFileName <- paste0(kDataDir, "gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kFileName, verbose = TRUE)
 models <- vector(mode = "list")
@@ -175,74 +175,70 @@ rm(list = setdiff(x = ls(),
 ## GAMLSS ##
 ############
 ## Preamble.
-kUseStepGAIC <- FALSE
-kUseStepGAIC <- TRUE
+library("gamlss")
+kUseStepGAIC <- vector(mode = "list")
 kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses"); library("gamlss")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"); library("gamlss")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"); library("gamlss")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni"); library("gamlss")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"); library("gamlss")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"); library("gamlss")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC") ## leads to error because of NAs in the working directory or weights of parameter mu
 
-## Setup for model "GAMLSS_BCCGo_gha_h100".
-kFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "gha ~ h100")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_h100"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_h100"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_h100"]] <- c("gha", "h100")
+## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC".
+kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- as.formula(object = "gha ~ ps(h100) + ps(ekl) + ps(h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(SI.h100) + ps(WGS_EAST) + ps(WGS_NORTH)")
+kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+kUseStepGAIC[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- TRUE
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- as.formula(object = "gha ~ (ps(h100) + ps(ekl) + ps(h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(SI.h100) + ps(WGS_EAST) + ps(WGS_NORTH))^2")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kNuFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kTauFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I")
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- as.formula(object = "gha ~ ps(WGS_EAST) + ps(h100) + ps(h100.diff.EKL.I) + ps(WGS_NORTH) + ps(WGS_EAST):ps(h100) + ps(h100):ps(WGS_NORTH) + ps(h100.diff.EKL.I):ps(WGS_NORTH)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_beech_selected_model_mu"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kNuFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kTauFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "~ 1")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- as.formula(object = "gha ~ ps(h100) + ps(WGS_NORTH) + ps(WGS_EAST) + ps(h100.diff.EKL.I) + ps(h100):ps(WGS_NORTH)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_spruce_selected_model_mu"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu)")
+kSigmaFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "~ 1")
+kNuFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "~ 1")
+kTauFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "~ 1")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- as.formula(object = "gha ~ ps(h100) + ps(ekl) + ps(h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(SI.h100) + ps(WGS_EAST) + ps(WGS_NORTH)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(NORTH.UTM)")
+kSigmaFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- as.formula(object = "~ 1")
+kNuFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- as.formula(object = "~ 1")
+kTauFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- as.formula(object = "~ 1")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "NORTH.UTM")
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- as.formula(object = "gha ~ ps(WGS_EAST) + ps(h100) + ps(h100.diff.EKL.I)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_beech_selected_model_mu"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(NORTH.UTM) + ps(EAST.UTM)")
+kSigmaFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- as.formula(object = "~ 1")
+kNuFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- as.formula(object = "~ 1")
+kTauFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- as.formula(object = "~ 1")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "NORTH.UTM", "EAST.UTM")
 
-## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- as.formula(object = "gha ~ ps(h100) + ps(WGS_NORTH) + ps(WGS_EAST) + ps(h100.diff.EKL.I)")
-kSigmaFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kNuFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kTauFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- as.formula(object = "~ 1")
-kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_spruce_selected_model_mu"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC".
+kFormulas[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(NORTH.UTM) + ps(EAST.UTM)")
+kDistFamilies[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "NORTH.UTM", "EAST.UTM")
+kUseStepGAIC[["GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC"]] <- TRUE
 
 ## Check whether the function needed for this block is selected for execution.
 kFunction <- "gamlss..gamlss"
@@ -267,13 +263,20 @@ if (any(grepl(pattern = kFunction,
                         cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.formula.name]]]
                         ## Remove missing values from "cur.input.data.col.subset".
                         cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
-                        sink(file = "/dev/null")
                         ## Determine the distribution parameters for the current distribution.
                         cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
-                        cur.dist.parameters <- names(x = cur.dist[["parameters"]])
-                        ## Fit model, either directly or stepwise, depending on "kUseStepGAIC".
-                        if (!kUseStepGAIC) {
-                            ## Evaluate model (while sinking output).
+                        cur.dist.parameters.names <- names(x = cur.dist[["parameters"]])
+                        ## Start sinking output.
+                        sink(file = "/dev/null")
+                        ## If "kUseStepGAIC" contains a value for the current formula, use that to determine whether or not to use "gamlss::stepGAIC". Otherwise, do not use "gamlss::stepGAIC".
+                        if (cur.formula.name %in% names(x = kUseStepGAIC)) {
+                            use.step.gaic <- kUseStepGAIC[[cur.formula.name]]
+                        } else {
+                            use.step.gaic <- FALSE
+                        }
+                        ## Fit model, either directly or stepwise, depending on "use.step.gaic".
+                        if (!use.step.gaic) {
+                            ## Evaluate model.
                             try(expr =
                                     models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]] <- gamlss::gamlss(formula = kFormulas[[cur.formula.name]],
                                                                                                                             sigma.formula = kSigmaFormulas[[cur.formula.name]],
@@ -284,63 +287,79 @@ if (any(grepl(pattern = kFunction,
                                                                                                                             method = RS(1000)))
                         } else {
                             ## Loop over all distribution parameters.
-                            for (cur.dist.parameter in cur.dist.parameters) {
+                            for (cur.dist.parameter.name in cur.dist.parameters.names) {
                                 ## Determine name of dependent variable.
                                 cur.dependent.variable.name <- as.character(x = kFormulas[[cur.formula.name]])[2]
-                                ## Create model name.
-                                cur.model.name <- paste0(cur.formula.name, "_", cur.species.name, "_selected_model_", cur.dist.parameter)
                                 ## Create default maximal model formulas for all distribution parameters.
                                 cur.mu.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.sigma.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.nu.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.tau.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
+                                ## If currently modelling parameter sigma, nu, or tau, create a maximal model formula for parameter mu from previously selected model.
+                                if (grepl(pattern = "sigma|nu|tau", x = cur.dist.parameter.name)) {
+                                    prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
+                                    cur.mu.max.formula <- formula(x = prev.selected.model,
+                                                                  what = "mu")
+                                }
+                                ## If currently modelling parameter nu or tau, create a maximal model formula for parameter sigma from previously selected model.
+                                if (grepl(pattern = "nu|tau", x = cur.dist.parameter.name)) {
+                                    prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
+                                    cur.sigma.max.formula <- formula(x = prev.selected.model,
+                                                                     what = "sigma")
+                                }
+                                ## If currently modelling parameter tau, create a maximal model formula for parameter nu from previously selected model.
+                                if (grepl(pattern = "nu|tau", x = cur.dist.parameter.name)) {
+                                    prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
+                                    cur.nu.max.formula <- formula(x = prev.selected.model,
+                                                                  what = "nu")
+                                }
                                 ## Create maximal model formula for current distribution parameter.
-                                assign(x = paste0("cur.", cur.dist.parameter, ".max.formula"),
+                                assign(x = paste0("cur.", cur.dist.parameter.name, ".max.formula"),
                                        value = kFormulas[[cur.formula.name]])
                                 ## Create model from maximal model formulas.
-                                try(expr = 
-                                        cur.max.model <- gamlss::gamlss(formula = cur.mu.max.formula,
-                                                                        sigma.formula = cur.sigma.max.formula,
-                                                                        nu.formula = cur.nu.max.formula,
-                                                                        tau.formula = cur.tau.max.formula,
-                                                                        family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
-                                                                        data = cur.input.data.col.subset.na.omitted,
-                                                                        method = RS(1000)))
+                                cur.max.model <- gamlss::gamlss(formula = cur.mu.max.formula,
+                                                                sigma.formula = cur.sigma.max.formula,
+                                                                nu.formula = cur.nu.max.formula,
+                                                                tau.formula = cur.tau.max.formula,
+                                                                family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                                                data = cur.input.data.col.subset.na.omitted,
+                                                                method = RS(1000))
                                 ## Create default minimal model formulas for all distribution parameters.
                                 cur.mu.min.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.sigma.min.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.nu.min.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.tau.min.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 ## Create minimal model formula for current distribution parameter.
-                                assign(x = paste0("cur.", cur.dist.parameter, ".min.formula"),
+                                assign(x = paste0("cur.", cur.dist.parameter.name, ".min.formula"),
                                        value = as.formula(object = paste0(cur.dependent.variable.name, "~ 1")))
                                 ## Create model from minimal model formulas.
-                                try(expr = 
-                                        cur.min.model <- gamlss::gamlss(formula = cur.mu.min.formula,
-                                                                        sigma.formula = cur.sigma.min.formula,
-                                                                        nu.formula = cur.nu.min.formula,
-                                                                        tau.formula = cur.tau.min.formula,
-                                                                        family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
-                                                                        data = cur.input.data.col.subset.na.omitted,
-                                                                        method = RS(1000))
-                                        )
+                                cur.min.model <- gamlss::gamlss(formula = cur.mu.min.formula,
+                                                                sigma.formula = cur.sigma.min.formula,
+                                                                nu.formula = cur.nu.min.formula,
+                                                                tau.formula = cur.tau.min.formula,
+                                                                family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                                                data = cur.input.data.col.subset.na.omitted,
+                                                                method = RS(1000))
                                 ## Store model selected via "stepGAIC" in "cur.selected.model".
-                                try(expr =
-                                        cur.selected.model <- gamlss::stepGAIC(object = cur.min.model,
-                                                                               scope = list(upper = cur.max.model,
-                                                                                            lower = cur.min.model),
-                                                                               direction = "both",
-                                                                               trace = TRUE,
-                                                                               keep = NULL,
-                                                                               steps = 1000,
-                                                                               what = cur.dist.parameter,
-                                                                               parallel = "no"))
-                                sink(file = NULL)
+                                cur.selected.model <- gamlss::stepGAIC(object = cur.max.model,
+                                                                       scope = list(upper = cur.max.model,
+                                                                                    lower = cur.min.model),
+                                                                       direction = "both",
+                                                                       trace = TRUE,
+                                                                       keep = NULL,
+                                                                       steps = 1000,
+                                                                       ## k = 2,  ## Base model selection on AIC.
+                                                                       k = log(x = nrow(x = cur.input.data.col.subset.na.omitted), base = 10),  ## Base model selection on BIC.
+                                                                       what = cur.dist.parameter.name,
+                                                                       parallel = "no")
                                 ## Store "cur.selected.model" in "models".
-                                try(expr = 
-                                        models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.model.name]] <- cur.selected.model
-                                    )
-                            }}}}}}}}
+                                models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]] <- cur.selected.model
+                                ## Remove all objects from workspace that could erroneously be reused in following cycle.
+                                rm(list = c("cur.max.model", "cur.min.model", "cur.selected.model"))
+                            }}
+                        ## Stop sinking output.
+                        sink(file = NULL)
+                    }}}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
@@ -599,15 +618,3 @@ kOutputDirPath <- "R/Output/"
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
-## BEGIN TESTING ##
-optns <- options("digits.secs"  = 0)
-timestamp <- gsub(pattern = " ",
-                  replacement = "_",
-                  x = Sys.time())
-save.image(file = paste0("R/Output/",
-                         timestamp,
-                         "_Modelling_Run.RData"))
-options(optns)
-system2(command = "systemctl",
-        args = "suspend")
-## END TESTING ##
