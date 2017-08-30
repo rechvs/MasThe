@@ -1,6 +1,6 @@
-                                                                       formula       GCV
-13 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)+s(EAST.UTM)  37.97253
-12 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)              46.24707
-11 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)                           48.24013
-2  gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)                                      71.86356
-1  gha~s(SI.h100.diff.EKL.I)                                                   120.06217
+                                                                      formula       GCV
+1 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)+s(EAST.UTM)  37.97253
+2 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)+s(NORTH.UTM)              46.24707
+3 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)                           48.24013
+4 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)                                      71.86356
+5 gha~s(SI.h100.diff.EKL.I)                                                   120.06217
