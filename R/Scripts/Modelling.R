@@ -36,101 +36,6 @@ names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
 #########
-## GLM ##
-#########
-## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "GLM_Gamma_log.nha_log.dg") ## Model has higher AIC than its gaussian counterpart for both data sets.
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_ALL_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg")
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100")
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_hnn.neu")
-## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_minus1.605_log.dg")
-
-## Setup for model "GLM_Gamma_log.nha_log.dg".
-kFormulas[["GLM_Gamma_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
-kDistFamilies[["GLM_Gamma_log.nha_log.dg"]] <- "Gamma(link = \"log\")"
-
-## Setup for model "GLM_gaussian_log.nha_ALL_ni".
-kFormulas[["GLM_gaussian_log.nha_ALL_ni"]] <- as.formula(object = "log.nha ~ h100 + h100.class + h100.diff.EKL.I + h100.EKL.I + hnn.neu + log.dg + SI.h100 + SI.h100.class + WGS_EAST + WGS_NORTH")
-kDistFamilies[["GLM_gaussian_log.nha_ALL_ni"]] <- "gaussian"
-
-## Setup for model "GLM_gaussian_log.nha_log.dg".
-kFormulas[["GLM_gaussian_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
-kDistFamilies[["GLM_gaussian_log.nha_log.dg"]] <- "gaussian"
-
-## Setup for model "GLM_gaussian_log.nha_log.dg_h100".
-kFormulas[["GLM_gaussian_log.nha_log.dg_h100"]] <- as.formula(object = "log.nha ~ log.dg * h100")
-kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100"]] <- "gaussian"
-
-## Setup for model "GLM_gaussian_log.nha_log.dg_h100_ni".
-kFormulas[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- as.formula(object = "log.nha ~ log.dg + h100")
-kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- "gaussian"
-
-## Setup for model "GLM_gaussian_log.nha_log.dg_hnn.neu".
-kFormulas[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- as.formula(object = "log.nha ~ log.dg * hnn.neu")
-kDistFamilies[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- "gaussian"
-
-## Setup for model "GLM_gaussian_log.nha_minus1.605_log.dg".
-kFormulas[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- as.formula(object = "log.nha - -1.605 * log.dg ~ 1")
-kDistFamilies[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- "gaussian"
-
-## Check whether the function needed for this block is selected for execution.
-kFunction <- "stats..glm"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    ## Loop over all appropriate input data names.
-    for (cur.input.data.name in names.input.data.sources) {
-        ## Get untampered version of input data.
-        cur.input.data <- get(x = cur.input.data.name)
-        ## Loop over all formulas.
-        for (cur.formula.name in names(x = kFormulas)) {
-            ## Check whether the current formula is selected for evaluation.
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                ## Check whether the current formula name contains the string "GLM_", continue only if it does.
-                if (grepl(pattern = "GLM_", x = cur.formula.name, fixed = TRUE)) {
-                    ## Extract names of columns needed for current formula.
-                    cur.formula <- kFormulas[[cur.formula.name]]
-                    cur.formula.col.names <- strsplit(x = paste0(as.character(x = cur.formula)[2],
-                                                                 as.character(x = cur.formula)[1],
-                                                                 as.character(x = cur.formula)[3],
-                                                                 collapse=""),
-                                                      split = "[*+~-]")[[1]]
-                    cur.formula.col.names <- cur.formula.col.names[grepl(pattern = "[a-zA-Z]", x = cur.formula.col.names)]
-                    cur.formula.col.names <- gsub(pattern = " ", replacement = "", x = cur.formula.col.names, fixed = TRUE)
-                    ## Subset "cur.input.data" to the column names in "cur.formula.col.names".
-                    cur.input.data.col.subset <- subset(x = cur.input.data,
-                                                        select = cur.formula.col.names)
-                    ## Remove missing values from "cur.input.data.col.subset".
-                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
-                    ## Extract formula for maximal model.
-                    cur.max.formula <- kFormulas[[cur.formula.name]]
-                    ## Create formual for minimal model, based on formula for maximal model.
-                    cur.min.formula <- as.formula(object = paste0(as.character(x = cur.max.formula)[2], " ~ 1"))
-                    ## Create models.
-                    cur.max.model <- glm(formula = cur.max.formula,
-                                         data = cur.input.data.col.subset.na.omitted,
-                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
-                                         na.action = na.omit)
-                    cur.min.model <- glm(formula = cur.min.formula,
-                                         data = cur.input.data.col.subset.na.omitted,
-                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
-                                         na.action = na.omit)
-                    ## Evaluate models (while sinking output).
-                    sink(file = "/dev/null")
-                    try(expr =
-                            models[["stats..glm"]][[cur.input.data.name]][[cur.formula.name]] <- MASS::stepAIC(object = cur.max.model,
-                                                                                                               scope = list(upper = cur.max.model,
-                                                                                                                            lower = cur.min.model,
-                                                                                                                            direction = "both")))
-                    sink(file = NULL)
-                }}}}}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
-#########
 ## GAM ##
 #########
 ## Preamble.
@@ -361,6 +266,101 @@ if (any(grepl(pattern = kFunction,
                         ## Stop sinking output.
                         sink(file = NULL)
                     }}}}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
+
+#########
+## GLM ##
+#########
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "GLM_Gamma_log.nha_log.dg") ## Model has higher AIC than its gaussian counterpart for both data sets.
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_ALL_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg")
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100")
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_h100_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_log.dg_hnn.neu")
+## kFormulasToUse <- c(kFormulasToUse, "GLM_gaussian_log.nha_minus1.605_log.dg")
+
+## Setup for model "GLM_Gamma_log.nha_log.dg".
+kFormulas[["GLM_Gamma_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
+kDistFamilies[["GLM_Gamma_log.nha_log.dg"]] <- "Gamma(link = \"log\")"
+
+## Setup for model "GLM_gaussian_log.nha_ALL_ni".
+kFormulas[["GLM_gaussian_log.nha_ALL_ni"]] <- as.formula(object = "log.nha ~ h100 + h100.class + h100.diff.EKL.I + h100.EKL.I + hnn.neu + log.dg + SI.h100 + SI.h100.class + WGS_EAST + WGS_NORTH")
+kDistFamilies[["GLM_gaussian_log.nha_ALL_ni"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg".
+kFormulas[["GLM_gaussian_log.nha_log.dg"]] <- as.formula(object = "log.nha ~ log.dg")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_h100".
+kFormulas[["GLM_gaussian_log.nha_log.dg_h100"]] <- as.formula(object = "log.nha ~ log.dg * h100")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_h100_ni".
+kFormulas[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- as.formula(object = "log.nha ~ log.dg + h100")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_h100_ni"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_log.dg_hnn.neu".
+kFormulas[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- as.formula(object = "log.nha ~ log.dg * hnn.neu")
+kDistFamilies[["GLM_gaussian_log.nha_log.dg_hnn.neu"]] <- "gaussian"
+
+## Setup for model "GLM_gaussian_log.nha_minus1.605_log.dg".
+kFormulas[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- as.formula(object = "log.nha - -1.605 * log.dg ~ 1")
+kDistFamilies[["GLM_gaussian_log.nha_minus1.605_log.dg"]] <- "gaussian"
+
+## Check whether the function needed for this block is selected for execution.
+kFunction <- "stats..glm"
+if (any(grepl(pattern = kFunction,
+              x = kFunctionsToUse))) {
+    ## Loop over all appropriate input data names.
+    for (cur.input.data.name in names.input.data.sources) {
+        ## Get untampered version of input data.
+        cur.input.data <- get(x = cur.input.data.name)
+        ## Loop over all formulas.
+        for (cur.formula.name in names(x = kFormulas)) {
+            ## Check whether the current formula is selected for evaluation.
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                ## Check whether the current formula name contains the string "GLM_", continue only if it does.
+                if (grepl(pattern = "GLM_", x = cur.formula.name, fixed = TRUE)) {
+                    ## Extract names of columns needed for current formula.
+                    cur.formula <- kFormulas[[cur.formula.name]]
+                    cur.formula.col.names <- strsplit(x = paste0(as.character(x = cur.formula)[2],
+                                                                 as.character(x = cur.formula)[1],
+                                                                 as.character(x = cur.formula)[3],
+                                                                 collapse=""),
+                                                      split = "[*+~-]")[[1]]
+                    cur.formula.col.names <- cur.formula.col.names[grepl(pattern = "[a-zA-Z]", x = cur.formula.col.names)]
+                    cur.formula.col.names <- gsub(pattern = " ", replacement = "", x = cur.formula.col.names, fixed = TRUE)
+                    ## Subset "cur.input.data" to the column names in "cur.formula.col.names".
+                    cur.input.data.col.subset <- subset(x = cur.input.data,
+                                                        select = cur.formula.col.names)
+                    ## Remove missing values from "cur.input.data.col.subset".
+                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                    ## Extract formula for maximal model.
+                    cur.max.formula <- kFormulas[[cur.formula.name]]
+                    ## Create formual for minimal model, based on formula for maximal model.
+                    cur.min.formula <- as.formula(object = paste0(as.character(x = cur.max.formula)[2], " ~ 1"))
+                    ## Create models.
+                    cur.max.model <- glm(formula = cur.max.formula,
+                                         data = cur.input.data.col.subset.na.omitted,
+                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                         na.action = na.omit)
+                    cur.min.model <- glm(formula = cur.min.formula,
+                                         data = cur.input.data.col.subset.na.omitted,
+                                         family = eval(expr = parse(text = kDistFamilies[[cur.formula.name]])),
+                                         na.action = na.omit)
+                    ## Evaluate models (while sinking output).
+                    sink(file = "/dev/null")
+                    try(expr =
+                            models[["stats..glm"]][[cur.input.data.name]][[cur.formula.name]] <- MASS::stepAIC(object = cur.max.model,
+                                                                                                               scope = list(upper = cur.max.model,
+                                                                                                                            lower = cur.min.model,
+                                                                                                                            direction = "both")))
+                    sink(file = NULL)
+                }}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
