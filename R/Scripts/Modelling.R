@@ -133,8 +133,9 @@ rm(list = setdiff(x = ls(),
 #########
 ## GAM ##
 #########
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni")
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
@@ -181,17 +182,17 @@ kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC") ## leads to error because of NAs in the working directory or weights of parameter mu
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC") ## leads to error because of NAs in the working directory or weights of parameter mu when fitting sigma
 
 ## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC".
-kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- as.formula(object = "gha ~ ps(h100) + ps(ekl) + ps(h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(SI.h100) + ps(WGS_EAST) + ps(WGS_NORTH)")
+kFormulas[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- as.formula(object = "gha ~ ps(h100) + ps(ekl) + ps(h100.diff.EKL.I) + ps(h100.EKL.I) + ps(hnn.neu) + ps(SI.h100) + ps(EAST.UTM) + ps(NORTH.UTM)")
 kDistFamilies[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- "gamlss.dist::BCCGo()"
-kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "WGS_EAST", "WGS_NORTH")
+kColumnsToSelect[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- c("gha", "ekl", "h100", "h100.diff.EKL.I", "h100.EKL.I", "hnn.neu", "SI.h100", "EAST.UTM", "NORTH.UTM")
 kUseStepGAIC[["GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC"]] <- TRUE
 
 ## Setup for model "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni".
@@ -295,19 +296,19 @@ if (any(grepl(pattern = kFunction,
                                 cur.sigma.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.nu.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
                                 cur.tau.max.formula <- as.formula(object = paste0(cur.dependent.variable.name, " ~ 1"))
-                                ## If currently modelling parameter sigma, nu, or tau, create a maximal model formula for parameter mu from previously selected model.
+                                ## If currently modelling parameter sigma, nu, or tau (i.e., after modelling mu), create a maximal model formula for parameter mu from previously selected model.
                                 if (grepl(pattern = "sigma|nu|tau", x = cur.dist.parameter.name)) {
                                     prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
                                     cur.mu.max.formula <- formula(x = prev.selected.model,
                                                                   what = "mu")
                                 }
-                                ## If currently modelling parameter nu or tau, create a maximal model formula for parameter sigma from previously selected model.
+                                ## If currently modelling parameter nu or tau (i.e., after modelling sigma), create a maximal model formula for parameter sigma from previously selected model.
                                 if (grepl(pattern = "nu|tau", x = cur.dist.parameter.name)) {
                                     prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
                                     cur.sigma.max.formula <- formula(x = prev.selected.model,
                                                                      what = "sigma")
                                 }
-                                ## If currently modelling parameter tau, create a maximal model formula for parameter nu from previously selected model.
+                                ## If currently modelling parameter tau (i.e., after modelling nu), create a maximal model formula for parameter nu from previously selected model.
                                 if (grepl(pattern = "nu|tau", x = cur.dist.parameter.name)) {
                                     prev.selected.model <- models[["gamlss..gamlss"]][[cur.input.data.name]][[cur.formula.name]]
                                     cur.nu.max.formula <- formula(x = prev.selected.model,
