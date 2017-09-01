@@ -1,0 +1,70 @@
+#! /bin/bash
+
+## Preamble.
+cd ~/"laptop02_MasAr/Graphics/"
+
+## Store name of resulting .pdf file in variable "output_final".
+output_final="Handouts/MasAr_Handout_2017-08-31.pdf"
+
+## Store name of temporary output file in variable "output_temp".
+output_temp="Handouts/MasAr_Handout_2017-08-31_temp.pdf"
+
+## Create array containing the .pdf files to be concatenated.
+pdfs=(
+
+    ## Beech models (from simple to complex).
+    "Models/GAM/bart.beech.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni.pdf"
+    ## "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_Terms.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_Overview.pdf"
+
+    "Models/GAM/bart.beech.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni.pdf"
+    ## "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_Terms.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_Overview.pdf"
+
+    "Models/GAM/bart.beech.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni.pdf"
+    ## "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_Terms.pdf"
+    "Models/GAMLSS/bart.beech.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_Overview.pdf"
+
+    ## Spruce models (from simple to complex).
+    "Models/GAM/bart.spruce.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni.pdf"
+    ## "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_Terms.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni_Overview.pdf"
+
+    "Models/GAM/bart.spruce.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni.pdf"
+    ## "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_Terms.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni_Overview.pdf"
+
+    "Models/GAM/bart.spruce.clean.1.8/GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni.pdf"
+    ## "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_TitlePage.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_Terms.pdf"
+    "Models/GAMLSS/bart.spruce.clean.1.8/GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_Overview.pdf"
+
+    "../LaTeX/Notes/MasAr_Notes.pdf"
+
+)
+
+## Rund "pdftk".
+for (( cur_index=0; cur_index < "${#pdfs[@]}"; cur_index++ )); do
+    cur_input_file="${pdfs[cur_index]}"
+    if [[ "${cur_index}" == 0 ]]; then
+        pdftk "${cur_input_file}" cat output "${output_temp}"  ## Create file "output_temp" to allow its utilization later on.
+    elif [[ "${cur_input_file}" == "../LaTeX/Notes/MasAr_Notes.pdf" ]]; then
+        cur_output_temp="Handouts/MasAr_Handout_2017-08-14_temp_${cur_index}.pdf"  ## We need a temporary temporary output file, since pdftk cannot read from and write to the same file.
+        pdftk A="${output_temp}" B="${cur_input_file}" cat A B5-6 output "${cur_output_temp}"  ## We only want pages 5 and 6 of MasAr_Notes.pdf.
+        mv -v "${cur_output_temp}" "${output_temp}"  ## Delete the temporary temporary output file.
+    else
+        cur_output_temp="Handouts/MasAr_Handout_2017-08-14_temp_${cur_index}.pdf"  ## We need a temporary temporary output file, since pdftk cannot read from and write to the same file.
+        pdftk "${output_temp}" "${cur_input_file}" cat output "${cur_output_temp}"
+        mv -v "${cur_output_temp}" "${output_temp}"  ## Delete the temporary temporary output file.
+    fi
+done
+
+## Make the resulting PDF file final.
+mv -v "${output_temp}" "${output_final}"
+
+exit
