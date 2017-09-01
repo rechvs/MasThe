@@ -39,21 +39,34 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## GAM ##
 #########
 ## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
-## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_ni".
-kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I)")
-## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni".
-kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I)")
+
+## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
+kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- "Gamma(link = \"log\")"
+
+## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
+kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
+kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- "Gamma(link = \"log\")"
+
+## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni".
+kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM) + s(EAST.UTM)")
+kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- "Gamma(link = \"log\")"
+
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
+
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM) + s(EAST.UTM)")
+
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
@@ -65,9 +78,16 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
+                    ## If a distribution family was specified, used that for model fitting. Otherwise, use "gaussian()".
+                    if (cur.formula.name %in% names(x = kDistFamilies)) {
+                        cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
+                    } else {
+                        cur.dist <- gaussian()
+                    }
                     try(expr = 
                             models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                                                                                 data = input.data))
+                                                                                                                 data = input.data,
+                                                                                                                 family = cur.dist))
                 }
             }
         }
@@ -89,9 +109,9 @@ kTauFormulas <- vector(mode = "list")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_ni")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni_stepGAIC") ## leads to error because of NAs in the working directory or weights of parameter mu when fitting sigma
 
 ## Setup for model "GAMLSS_BCCGo_gha_psALL_woClasses_ni_stepGAIC".
