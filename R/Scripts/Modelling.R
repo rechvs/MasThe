@@ -39,18 +39,8 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## GAM ##
 #########
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
-
-## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
-kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
-kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- "Gamma(link = \"log\")"
-
-## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
-kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
-kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- "Gamma(link = \"log\")"
 
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
@@ -69,11 +59,11 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "GAM_", x = cur.formula.name, fixed = TRUE)) {
-                    ## If a distribution family was specified, used that for model fitting. Otherwise, use "gaussian()".
+                    ## If a distribution family was specified, used that for model fitting. Otherwise, use "Gamma(link = "log")".
                     if (cur.formula.name %in% names(x = kDistFamilies)) {
                         cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
                     } else {
-                        cur.dist <- gaussian()
+                        cur.dist <- Gamma(link = "log")
                     }
                     try(expr = 
                             models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
