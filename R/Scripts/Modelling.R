@@ -97,7 +97,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
-t1 <- Sys.time()  ## TESTING
 ############
 ## GAMLSS ##
 ############
@@ -329,8 +328,7 @@ kFunction <- "gamlss..gamlss"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
     ## Loop over all appropriate of input data names.
-    ## for (cur.input.data.name in names.input.data.sources) {  TESTING
-    for (cur.input.data.name in names.input.data.sources[2]) {  ## TESTING
+    for (cur.input.data.name in names.input.data.sources) {
         ## Extract current species name.
         cur.species.name <- strsplit(x = cur.input.data.name, split = ".", fixed = TRUE)[[1]][2]
         ## Get untampered version of input data.
@@ -445,8 +443,6 @@ if (any(grepl(pattern = kFunction,
                         ## Stop sinking output.
                         sink(file = NULL)
                     }}}}}}
-t2 <- Sys.time()  ## TESTING
-difftime(time1 = t2, time2 = t1, units = "secs")  ## TESTING
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
