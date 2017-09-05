@@ -386,6 +386,94 @@ if ("locations" %in% kBlocksToExecute) {
         }}}
 
 ##############
+## Plot SCAM ##
+##############
+## Proceed only if the current block is meant to be executed.
+if ("SCAM" %in% kBlocksToExecute) {
+    ## Plotting preamble.
+    kPdfWidth <- 30
+    kPdfHeight <- kPdfWidth * 0.625
+    kPdfPointSize <- 19
+    kPdfFamily <- "Times"
+    kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+    ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+    ## Set flag to determine whether the newly created .pdf file should be opened.
+    kOpenPdf <- FALSE
+    ## kOpenPdf <- TRUE
+    ## Loop over all modelling function names.
+    for (cur.function.name in names(x = models)) {
+        ## Proceed only if "cur.function.name == "scam..scam"".
+        if (cur.function.name == "scam..scam") {
+            ## Loop over all input data source names.
+            for (cur.input.data.source.name in names(x = models[[cur.function.name]])) {
+                ## Loop over all model names.
+                for (cur.model.name in names(x = models[[cur.function.name]][[cur.input.data.source.name]])) {
+                    if (grepl(pattern = "SCAM_", x = cur.model.name, fixe = TRUE)) {  ## If this is true, it means the current model is a SCAM and we can continue with this block.
+                        ## Extract current model.
+                        cur.model <- models[[cur.function.name]][[cur.input.data.source.name]][[cur.model.name]]
+                        ## Extract current model formula.
+                        cur.formula <- cur.model[["formula"]]
+                        ## Store current model formula as a string.
+                        cur.formula.string <- Reduce(f = paste,
+                                                     x = deparse(expr = cur.formula))
+                        ## Remove whitespace from "cur.formula.string".
+                        cur.formula.string <- gsub(pattern = " ", replacement = "", x = cur.formula.string)
+                        ## Turn off graphics device.
+                        graphics.off()
+                        ## Create file name.
+                        file.name <- gsub(pattern = "[$]",
+                                          replacement = ".",
+                                          x = paste0("Graphics/",
+                                                     cur.model.name,
+                                                     ".pdf"))
+                        ## Create file name.
+                        graphics.subdir <- paste0("Graphics/Models/SCAM/", cur.input.data.source.name, "/")
+                        file.name <-paste0(graphics.subdir,
+                                           cur.model.name,
+                                           ".pdf")
+                        ## If nonexistent, create "graphics.subdir".
+                        system2(command = "mkdir",
+                                args = paste0("-p ", graphics.subdir))
+                        ## Start graphics device driver for producing PDF graphics.
+                        pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
+                        ## Set plot layout, depending on number of independent variables.
+                        nr.independent.vars <- length(x = all.vars(expr = cur.formula)[-1])
+                        if (nr.independent.vars == 1) {
+                            mfrow <- c(1, 1)
+                        }
+                        if (nr.independent.vars == 2) {
+                            mfrow <- c(2, 1)
+                        }
+                        if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                            mfrow <- c(2, 2)
+                        }
+                        if (nr.independent.vars >= 5) {
+                            mfrow <- c(3, 2)
+                        }
+                        par(mfrow = mfrow)
+                        ## Set plot margins.
+                        par(mar = kPlotMargins)
+                        ## Plot model term effects.
+                        scam::plot.scam(x = cur.model,
+                                       main = paste0(cur.formula.string,
+                                                     ", ", cur.input.data.source.name))
+                        ## Plot model diagnostics.
+                        scam::scam.check(b = cur.model)
+                        ## Turn off graphics device.
+                        graphics.off()
+                        ## If desired, open .pdf file via mupdf.
+                        if (kOpenPdf) {
+                            system2(command = "mupdf",
+                                    args = paste0("-r 64 ",
+                                                  file.name),
+                                    wait = FALSE)
+                        }}}}}}}
+
+##############
 ## Plot GAM ##
 ##############
 ## Proceed only if the current block is meant to be executed.
