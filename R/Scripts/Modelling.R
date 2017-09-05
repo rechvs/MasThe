@@ -25,10 +25,10 @@ kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
-## kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
+kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
 kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
-## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
-## kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
+kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
 kFormulasToUse <- NULL
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
 ## Create a vector containing the names of all appropriate input data sources.
@@ -39,12 +39,10 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## GAM ##
 #########
 ## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
 
 ## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
@@ -54,18 +52,11 @@ kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]]
 kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
 kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- "Gamma(link = \"log\")"
 
-## Setup for model "GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni".
-kFormulas[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM) + s(EAST.UTM)")
-kDistFamilies[["GAM_Gamma_log_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- "Gamma(link = \"log\")"
-
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
 
 ## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
 kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
-
-## Setup for model "GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni".
-kFormulas[["GAM_gha_sSi.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_sEAST.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM) + s(EAST.UTM)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
