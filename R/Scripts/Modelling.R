@@ -39,7 +39,7 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## Sterba ##
 ############
 ## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## Setup for model "Sterba_dgGmax".
@@ -54,6 +54,7 @@ kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
                                        "a1" = 0,
                                        "b0" = 2,
                                        "b1" = -2)
+kColumnsToSelect[["Sterba_dgGmax"]] <- c("dg", "h100", "nha")
 ## ## Setup for model "Sterba_NGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 2) or Sterba (1981), eq. (11).
 kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
@@ -65,6 +66,7 @@ kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
                                       "a1" = -2,
                                       "b0" = 0,
                                       "b1" = 1)
+kColumnsToSelect[["Sterba_NGmax"]] <- c("nha", "dg")
 ## Setup for model "Sterba_Gmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 3) or Sterba (1975), eq. (10).
 ## Source of possible start values: Wördehoff (2016), tab. 3.6.
@@ -77,66 +79,83 @@ kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
                                      "a1" = 0.1,
                                      "b0" = 0.1,
                                      "b1" = -1)
-## Initiate "for" loop (for looping over all names of input data sources).
+kColumnsToSelect[["Sterba_Gmax"]] <- c("gha", "h100")
+## Loop over all input data source names.
 for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models fitted with "stats::nls".
+    ## Get original input data.
+    input.data <- get(x = cur.input.data.source.name)
+    ## Set modelling function needed for this section.
     kFunction <- "stats..nls"
+    ## Proceed only if the needed modelling function is meant to be executed.
     if (any(grepl(pattern = kFunction,
                   x = kFunctionsToUse))) {
+        ## Loop over all model formulas.
         for (cur.formula.name in names(x = kFormulas)) {
+            ## Proceed only if the current model formula is meant to be evaluated.
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
+                ## Proceed only if the current model formula belongs to this block.
                 if (grepl(pattern = "Sterba_",
                           x = cur.formula.name,
                           fixed = TRUE)) {
+                    ## Restrict input data to the columns needed for the current model formula.
+                    input.data <- input.data[, kColumnsToSelect[[cur.formula.name]]]
+                    ## Evaluate and store models fitted with "stats::nls".
                     try(expr =
                             models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
-                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
-                        )
-                }
-            }
-        }
-    }
-    ## Evaluate and store models fitted with "nls2::nls2"
+                                                                                                                   start = kStartValsVecs[[cur.formula.name]],
+                                                                                                                   na.action = na.omit))
+                }}}}
+    ## Set modelling function needed for this section.
     kFunction <- "nls2..nls2"
+    ## Proceed only if the needed modelling function is meant to be executed.
     if (any(grepl(pattern = kFunction,
                   x = kFunctionsToUse))) {
+        ## Loop over all model formulas.
         for (cur.formula.name in names(x = kFormulas)) {
+            ## Proceed only if the current model formula is meant to be evaluated.
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
-                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                ## Proceed only if the current model formula belongs to this block.
+                if (grepl(pattern = "Sterba_",
+                          x = cur.formula.name,
+                          fixed = TRUE)) {
+                    ## Restrict input data to the columns needed for the current model formula.
+                    input.data <- input.data[, kColumnsToSelect[[cur.formula.name]]]
+                    ## Evaluate and store models fitted with "nls2::nls2".
                     try(expr =
                             models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
                                                                                                                    start = kStartValsGrids[[cur.formula.name]],
                                                                                                                    algorithm = "random-search",
                                                                                                                    control = (stats::nls.control(maxiter = 100,
-                                                                                                                                                 minFactor = 10 ^ -10)))
-                        )
-                }
-            }
-        }
-    }
-    ## Evaluate and store models fitted with "minpack.lm::nlsLM"
+                                                                                                                                                 minFactor = 10 ^ -10)),
+                                                                                                                   na.action = na.omit))
+                }}}}
+    ## Set modelling function needed for this section.
     kFunction <- "minpack.lm..nlsLM"
+    ## Proceed only if the needed modelling function is meant to be executed.
     if (any(grepl(pattern = kFunction,
                   x = kFunctionsToUse))) {
+        ## Loop over all model formulas.
         for (cur.formula.name in names(x = kFormulas)) {
+            ## Proceed only if the current model formula is meant to be evaluated.
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
-                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                ## Proceed only if the current model formula belongs to this block.
+                if (grepl(pattern = "Sterba_",
+                          x = cur.formula.name,
+                          fixed = TRUE)) {
+                    ## Restrict input data to the columns needed for the current model formula.
+                    input.data <- input.data[, kColumnsToSelect[[cur.formula.name]]]
+                    ## Evaluate and store models fitted with "minpack.lm::nlsLM"
                     try(expr =
                             models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
                                                                                                                                  data = input.data,
-                                                                                                                                 start = kStartValsVecs[[cur.formula.name]])
-                        )
-                }
-            }
-        }
-    }
-}
+                                                                                                                                 start = kStartValsVecs[[cur.formula.name]],
+                                                                                                                                 na.action = na.omit))
+                }}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
