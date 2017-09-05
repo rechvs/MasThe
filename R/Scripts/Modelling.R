@@ -26,8 +26,8 @@ kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
-kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
-kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
+## kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
+## kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
 kFormulasToUse <- NULL
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
@@ -39,9 +39,9 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## Sterba ##
 ############
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax") ## stats::nls: succeeds; 
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax") ## stats::nls: fails; 
+kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## Setup for model "Sterba_dgGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
 ## Source of possible start values: Sterba (1987), tab. 2.
@@ -105,7 +105,8 @@ for (cur.input.data.source.name in names.input.data.sources) {
                             models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
                                                                                                                    start = kStartValsVecs[[cur.formula.name]],
-                                                                                                                   na.action = na.omit))
+                                                                                                                   na.action = na.omit,
+                                                                                                                   control = stats::nls.control(maxiter = 1000)))
                 }}}}
     ## Set modelling function needed for this section.
     kFunction <- "nls2..nls2"
