@@ -35,6 +35,112 @@ kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)"
 names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.8", x = ls(), fixed = FALSE)]
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
+############
+## Sterba ##
+############
+## Preamble.
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+## Setup for model "Sterba_dgGmax".
+## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
+## Source of possible start values: Sterba (1987), tab. 2.
+kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
+kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = seq(from = 1.260e-6, to =1.261e-6, by = 1e-10),
+                                                  "a1" = seq(from = 0.840, to = 0.841, by = 1e-4),
+                                                  "b0" = seq(from = 2.0135, to = 2.0145, by = 1e-4),
+                                                  "b1" = seq(from = -1.3615, to = -1.3625, by = -1e-4))
+kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
+                                       "a1" = 0,
+                                       "b0" = 2,
+                                       "b1" = -2)
+## ## Setup for model "Sterba_NGmax".
+## Source of model formula: Wördehoff et al. (2014), (Gl. 2) or Sterba (1981), eq. (11).
+kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
+kStartValsGrids[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
+                                                 "a1" = c(-2:2),
+                                                 "b0" = c(-2:2),
+                                                 "b1" = c(-2:2))
+kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
+                                      "a1" = -2,
+                                      "b0" = 0,
+                                      "b1" = 1)
+## Setup for model "Sterba_Gmax".
+## Source of model formula: Wördehoff et al. (2014), (Gl. 3) or Sterba (1975), eq. (10).
+## Source of possible start values: Wördehoff (2016), tab. 3.6.
+kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
+kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
+                                                "a1" = c(0, 1),
+                                                "b0" = c(0, 1),
+                                                "b1" = c(-2, 2))
+kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
+                                     "a1" = 0.1,
+                                     "b0" = 0.1,
+                                     "b1" = -1)
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models fitted with "stats::nls".
+    kFunction <- "stats..nls"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_",
+                          x = cur.formula.name,
+                          fixed = TRUE)) {
+                    try(expr =
+                            models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
+                        )
+                }
+            }
+        }
+    }
+    ## Evaluate and store models fitted with "nls2::nls2"
+    kFunction <- "nls2..nls2"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr =
+                            models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   start = kStartValsGrids[[cur.formula.name]],
+                                                                                                                   algorithm = "random-search",
+                                                                                                                   control = (stats::nls.control(maxiter = 100,
+                                                                                                                                                 minFactor = 10 ^ -10)))
+                        )
+                }
+            }
+        }
+    }
+    ## Evaluate and store models fitted with "minpack.lm::nlsLM"
+    kFunction <- "minpack.lm..nlsLM"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
+                    try(expr =
+                            models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
+                                                                                                                                 data = input.data,
+                                                                                                                                 start = kStartValsVecs[[cur.formula.name]])
+                        )
+                }
+            }
+        }
+    }
+}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
+
 #########
 ## GAM ##
 #########
@@ -542,112 +648,6 @@ if (any(grepl(pattern = kFunction,
                                                                                                                             direction = "both")))
                     sink(file = NULL)
                 }}}}}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
-############
-## Sterba ##
-############
-## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
-## Setup for model "Sterba_dgGmax".
-## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
-## Source of possible start values: Sterba (1987), tab. 2.
-kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
-kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = seq(from = 1.260e-6, to =1.261e-6, by = 1e-10),
-                                                  "a1" = seq(from = 0.840, to = 0.841, by = 1e-4),
-                                                  "b0" = seq(from = 2.0135, to = 2.0145, by = 1e-4),
-                                                  "b1" = seq(from = -1.3615, to = -1.3625, by = -1e-4))
-kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
-                                       "a1" = 0,
-                                       "b0" = 2,
-                                       "b1" = -2)
-## ## Setup for model "Sterba_NGmax".
-## Source of model formula: Wördehoff et al. (2014), (Gl. 2) or Sterba (1981), eq. (11).
-kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
-kStartValsGrids[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
-                                                 "a1" = c(-2:2),
-                                                 "b0" = c(-2:2),
-                                                 "b1" = c(-2:2))
-kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
-                                      "a1" = -2,
-                                      "b0" = 0,
-                                      "b1" = 1)
-## Setup for model "Sterba_Gmax".
-## Source of model formula: Wördehoff et al. (2014), (Gl. 3) or Sterba (1975), eq. (10).
-## Source of possible start values: Wördehoff (2016), tab. 3.6.
-kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
-kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
-                                                "a1" = c(0, 1),
-                                                "b0" = c(0, 1),
-                                                "b1" = c(-2, 2))
-kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
-                                     "a1" = 0.1,
-                                     "b0" = 0.1,
-                                     "b1" = -1)
-## Initiate "for" loop (for looping over all names of input data sources).
-for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models fitted with "stats::nls".
-    kFunction <- "stats..nls"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "Sterba_",
-                          x = cur.formula.name,
-                          fixed = TRUE)) {
-                    try(expr =
-                            models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
-                                                                                                                   data = input.data,
-                                                                                                                   start = kStartValsVecs[[cur.formula.name]])
-                        )
-                }
-            }
-        }
-    }
-    ## Evaluate and store models fitted with "nls2::nls2"
-    kFunction <- "nls2..nls2"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr =
-                            models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
-                                                                                                                   data = input.data,
-                                                                                                                   start = kStartValsGrids[[cur.formula.name]],
-                                                                                                                   algorithm = "random-search",
-                                                                                                                   control = (stats::nls.control(maxiter = 100,
-                                                                                                                                                 minFactor = 10 ^ -10)))
-                        )
-                }
-            }
-        }
-    }
-    ## Evaluate and store models fitted with "minpack.lm::nlsLM"
-    kFunction <- "minpack.lm..nlsLM"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "Sterba_", x = cur.formula.name, fixed = TRUE)) {
-                    try(expr =
-                            models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
-                                                                                                                                 data = input.data,
-                                                                                                                                 start = kStartValsVecs[[cur.formula.name]])
-                        )
-                }
-            }
-        }
-    }
-}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
