@@ -16,6 +16,7 @@ models[["stats..nls"]] <- vector(mode = "list")
 models[["stats..glm"]] <- vector(mode = "list")
 models[["nls2..nls2"]] <- vector(mode = "list")
 models[["minpack.lm..nlsLM"]] <- vector(mode = "list")
+models[["scam..scam"]] <- vector(mode = "list")
 kFormulas <- vector(mode = "list")
 kStartValsGrids <- vector(mode = "list")
 kStartValsVecs <- vector(mode = "list")
@@ -29,18 +30,66 @@ kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
 kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
+kFunctionsToUse <- c(kFunctionsToUse, "scam..scam")
 kFormulasToUse <- NULL
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
 ## Create a vector containing the names of all appropriate input data sources.
 names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.8", x = ls(), fixed = FALSE)]
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
+##########
+## SCAM ##
+##########
+## Preamble.
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+
+## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
+
+## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I) + s(hnn.neu)")
+
+## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
+
+## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate and store models.
+    kFunction <- "scam..scam"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "SCAM_", x = cur.formula.name, fixed = TRUE)) {
+                    ## If a distribution family was specified, used that for model fitting. Otherwise, use "Gamma(link = "log")".
+                    if (cur.formula.name %in% names(x = kDistFamilies)) {
+                        cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
+                    } else {
+                        cur.dist <- Gamma(link = "log")
+                    }
+                    try(expr = 
+                            models[["scam..scam"]][[cur.input.data.source.name]][[cur.formula.name]] <- scam::scam(formula = kFormulas[[cur.formula.name]],
+                                                                                                                   data = input.data,
+                                                                                                                   family = cur.dist))
+                }}}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
+
 #########
 ## GAM ##
 #########
 ## Preamble.
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
 
 ## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
@@ -87,30 +136,30 @@ kUseStepGAIC <- vector(mode = "list")
 kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_psEAST.UTM_sigma_gha_psh100.EKL.I_ni")
 
 ## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni".
 kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\") + ps(hnn.neu)")
@@ -434,7 +483,7 @@ rm(list = setdiff(x = ls(),
 ## Preamble.
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_dgGmax")
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_NGmax")
-kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
+## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## Setup for model "Sterba_dgGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
 ## Source of possible start values: Sterba (1987), tab. 2.
@@ -676,7 +725,7 @@ for (cur.function.name in names(x = models)) {
     ## Loop over all species.
     for (cur.species.name in c("beech", "spruce")) {
         ## Create template data frame in which to store the relevant benchmarks of function...
-        if (cur.function.name == "mgcv..gam") {  ## ..."mgcv::gam".
+        if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {  ## ..."mgcv::gam" or "scam::scam".
             cur.function.species.benchmark.df <- data.frame(
                 "formula" = vector(mode = "character"),
                 ## "model.name" = vector(mode = "character"),
@@ -701,9 +750,8 @@ for (cur.function.name in names(x = models)) {
                 ## Store current model in "cur.model".
                 cur.model <- models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]
                 ## Store formula of "cur.model" as a string in "cur.formula.string".
-                cur.formula.string <- paste(as.character(x = formula(x = cur.model))[2],
-                                     as.character(x = formula(x = cur.model))[1],
-                                     as.character(x = formula(x = cur.model))[3])
+                cur.formula.string <- Reduce(f = paste,
+                                             x = deparse(expr = cur.model[["formula"]]))
                 ## Remove all whitespace in "cur.formula.string".
                 cur.formula.string <- gsub(pattern = " ", replacement = "", x = cur.formula.string)
                 ## Truncate "cur.formula.string" if it is longer than 51 characters.
@@ -727,8 +775,8 @@ for (cur.function.name in names(x = models)) {
                    ## ,"data.frame" = cur.data.frame.name
                 )
                 ## Prepare storing benchmarks of function...
-                ## ..."mgcv::gam".
-                if (cur.function.name == "mgcv..gam") {
+                ## ..."mgcv::gam" or "scam::scam".
+                if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {
                     ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
                     cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
                     ## Store "cur.formula.data.frame.name.df", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
@@ -741,10 +789,16 @@ for (cur.function.name in names(x = models)) {
                     cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["GCV"]]), ]
                     ## Reset row numbers of "cur.function.species.benchmark.df".
                     rownames(x = cur.function.species.benchmark.df) <- NULL
-                    ## Create the name of the file for outputting "cur.function.species.benchmark.df".
+                    ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "mgcv..gam" and for "scam..scam").
+                    if (cur.function.name == "mgcv..gam") {
+                        cur.file.suffix <- "_GAM_GCV.txt"
+                    }
+                    if (cur.function.name == "scam..scam") {
+                        cur.file.suffix <- "_SCAM_GCV.txt"
+                    }
                     cur.output.file.name <- paste0(kOutputDirPath,
                                                    cur.species.name,
-                                                   "_GAM_GCV.txt")
+                                                   cur.file.suffix)
                 }
                 ## ..."gamlss::gamlss" or "stats..glm"..
                 if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {
