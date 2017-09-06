@@ -461,8 +461,14 @@ if ("SCAM" %in% kBlocksToExecute) {
                         scam::plot.scam(x = cur.model,
                                        main = paste0(cur.formula.string,
                                                      ", ", cur.input.data.source.name))
-                        ## Plot model diagnostics.
-                        scam::scam.check(b = cur.model)
+                        ## Plot model diagnostics (which currently requires to define and use a custom version of "scam::scam.check" in order to be able to set argument "pch" to a user defined value).
+                        my.scam.check.string <- deparse(expr = scam::scam.check)
+                        my.scam.check.string[1] <- paste0("my.scam.check <- ", my.scam.check.string[1])
+                        my.scam.check.string <- paste0(my.scam.check.string, collapse = "\n")
+                        my.scam.check.string <- gsub(pattern = ", pch = \".\"", fixed = TRUE, replacement = "", x = my.scam.check.string)
+                        eval(expr = parse(text = my.scam.check.string))
+                        my.scam.check(b = cur.model,
+                                      pch = 19)
                         ## Turn off graphics device.
                         graphics.off()
                         ## If desired, open .pdf file via mupdf.
@@ -544,7 +550,8 @@ if ("GAM" %in% kBlocksToExecute) {
                                                      ", ", cur.input.data.source.name))
                         ## Plot model diagnostics.
                         mgcv::gam.check(b = cur.model,
-                                        type = "response")
+                                        type = "response",
+                                        pch = 19)
                         ## Turn off graphics device.
                         graphics.off()
                         ## If desired, open .pdf file via mupdf.
