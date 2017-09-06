@@ -41,22 +41,42 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## SCAM ##
 ##########
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni")  ## high GCV; MY FAVORITE
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## intermediate GCV for beech; high GCV for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni")  ## high GCV
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV for beech; intermediate GCV for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## high GCV
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; high GCV for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; nonsensical effect of "hnn.neu" for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+
+## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni".
+kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\")")
 
 ## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
 kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
 
+## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + h100.EKL.I + s(hnn.neu)")
+
 ## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I) + s(hnn.neu)")
+
+## Setup for model "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
 
 ## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
 kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
 
+## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni".
+kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu) + s(NORTH.UTM)")
+
 ## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+
+## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
+kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -88,8 +108,26 @@ rm(list = setdiff(x = ls(),
 ## GAM ##
 #########
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; nonsensical effect of "SI.h100.diff.EKL.I" for spruce; high GCV
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV 
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+## 2017-09-06 CONTINUE HERE testing additional models
+
+
+## Setup for model "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni".
+kFormulas[["GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + h100.EKL.I + hnn.neu  + NORTH.UTM")
+
+## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni".
+kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + hnn.neu")
+
+## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni".
+kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + hnn.neu  + NORTH.UTM")
+
+## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni".
+kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I)")
 
 ## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
 kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
@@ -117,7 +155,8 @@ for (cur.input.data.source.name in names.input.data.sources) {
                     try(expr = 
                             models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
                                                                                                                  data = input.data,
-                                                                                                                 family = cur.dist))
+                                                                                                                 family = cur.dist,
+                                                                                                                 na.action = na.omit))
                 }
             }
         }
@@ -357,7 +396,7 @@ kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu
 kFunction <- "gamlss..gamlss"
 if (any(grepl(pattern = kFunction,
               x = kFunctionsToUse))) {
-    ## Loop over all appropriate of input data names.
+    ## Loop over all appropriate input data names.
     for (cur.input.data.name in names.input.data.sources) {
         ## Extract current species name.
         cur.species.name <- strsplit(x = cur.input.data.name, split = ".", fixed = TRUE)[[1]][2]
