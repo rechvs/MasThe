@@ -190,7 +190,151 @@ kTauFormulas <- vector(mode = "list")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")
 ## 2017-09-07 CONTINUE HERE testing additional models
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + pbm(h100.EKL.I, mono = \"up\") + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + ps(h100.EKL.I) + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + pbm(h100.EKL.I, mono = \"up\")")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + ps(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + pbm(h100.EKL.I, mono = \"up\") + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + ps(h100.EKL.I) + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + pbm(h100.EKL.I, mono = \"up\")")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, mono = \"up\") + ps(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\") + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\")")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\") + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I) + hnn.neu")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\")")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
+
+## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni".
+kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kNuFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I", "hnn.neu")
 
 ## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni".
 kFormulas[["GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I, mono = \"up\") + ps(hnn.neu)")
