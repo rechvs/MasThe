@@ -6,7 +6,7 @@ rm(list = setdiff(x = ls(), y = objects.to.keep))
 setwd(dir = "~/laptop02_MasAr")
 kDataDir <- "Data/"
 ## {sink(file = "/dev/null"); source(file = "R/Scripts/DataSetCreation.R"); sink()}  ## Create up-to-date data sets while suppressing output.
-## {sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
+{sink(file = "/dev/null"); source(file = "R/Scripts/Modelling.R"); sink()}  ## Evaluate models. The models should end up in list "models" (see "~/laptop02_MasAr/R/Scripts/Modelling.R").
 ## Load data set.
 kBaseFileVersion <- "4.5"
 kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
@@ -21,8 +21,8 @@ kBlocksToExecute <- vector(mode = "character")
 ## kBlocksToExecute <- c(kBlocksToExecute, "relations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "locations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAM")
-kBlocksToExecute <- c(kBlocksToExecute, "SCAM")
-## kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
+## kBlocksToExecute <- c(kBlocksToExecute, "SCAM")
+kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
 ## kBlocksToExecute <- c(kBlocksToExecute, "predictions")
 
 ####################
@@ -385,9 +385,9 @@ if ("locations" %in% kBlocksToExecute) {
             graphics.off()
         }}}
 
-##############
+###############
 ## Plot SCAM ##
-##############
+###############
 ## Proceed only if the current block is meant to be executed.
 if ("SCAM" %in% kBlocksToExecute) {
     ## Plotting preamble.
@@ -459,8 +459,9 @@ if ("SCAM" %in% kBlocksToExecute) {
                         par(mar = kPlotMargins)
                         ## Plot model term effects.
                         scam::plot.scam(x = cur.model,
-                                       main = paste0(cur.formula.string,
-                                                     ", ", cur.input.data.source.name))
+                                        all.terms = TRUE,
+                                        main = paste0(cur.formula.string,
+                                                      ", ", cur.input.data.source.name))
                         ## Plot model diagnostics (which currently requires to define and use a custom version of "scam::scam.check" in order to be able to set argument "pch" to a user defined value).
                         my.scam.check.string <- deparse(expr = scam::scam.check)
                         my.scam.check.string[1] <- paste0("my.scam.check <- ", my.scam.check.string[1])
@@ -546,6 +547,7 @@ if ("GAM" %in% kBlocksToExecute) {
                         par(mar = kPlotMargins)
                         ## Plot model term effects.
                         mgcv::plot.gam(x = cur.model,
+                                       all.terms = TRUE,
                                        main = paste0(as.character(x = as.expression(x = formula(x = cur.model))),
                                                      ", ", cur.input.data.source.name))
                         ## Plot model diagnostics.
