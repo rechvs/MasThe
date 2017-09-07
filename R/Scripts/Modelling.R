@@ -41,7 +41,7 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## SCAM ##
 ##########
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni")  ## high GCV; MY FAVORITE
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni")  ## high GCV; MY FAVORITE
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## intermediate GCV for beech; high GCV for spruce
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni")  ## high GCV
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV for beech; intermediate GCV for spruce
@@ -111,7 +111,7 @@ rm(list = setdiff(x = ls(),
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; nonsensical effect of "SI.h100.diff.EKL.I" for spruce; high GCV
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV 
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
 
@@ -174,22 +174,22 @@ kUseStepGAIC <- vector(mode = "list")
 kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of “NORTH.UTM” on mu for beech; nonsensical effect of “NORTH.UTM” on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and “NORTH.UTM” on mu for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu, nonensical effect of "h100.EKL.I" on sigma for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for spruce
 ## 2017-09-07 CONTINUE HERE testing additional models
 
 ## Setup for model "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni".
@@ -694,15 +694,15 @@ for (cur.function.name in names(x = models)) {
         ## Create template data frame in which to store the relevant benchmarks of function...
         if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {  ## ..."mgcv::gam" or "scam::scam".
             cur.function.species.benchmark.df <- data.frame(
-                "formula" = vector(mode = "character"),
-                ## "model.name" = vector(mode = "character"),
+                ## "formula" = vector(mode = "character"),
+                "model.name" = vector(mode = "character"),
                 ## "data.frame" = vector(mode = "character"),
                 "GCV" = vector(mode = "numeric"))
         }
         if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {  ## ..."gamlss::gamlss" or "stats::glm".
             cur.function.species.benchmark.df <- data.frame(
-                "formula" = vector(mode = "character"),
-                ## "model.name" = vector(mode = "character"),
+                ## "formula" = vector(mode = "character"),
+                "model.name" = vector(mode = "character"),
                 ## "distribution" = vector(mode = "character"),
                 ## "data.frame" = vector(mode = "character"),
                 "AIC" = vector(mode = "numeric"))
@@ -721,24 +721,24 @@ for (cur.function.name in names(x = models)) {
                                              x = deparse(expr = cur.model[["formula"]]))
                 ## Remove all whitespace in "cur.formula.string".
                 cur.formula.string <- gsub(pattern = " ", replacement = "", x = cur.formula.string)
-                ## Truncate "cur.formula.string" if it is longer than 51 characters.
-                if (nchar(x = cur.formula.string) > 85) {
+                ## Truncate "cur.formula.string" if it is longer than 110 characters.
+                if (nchar(x = cur.formula.string) > 110) {
                     cur.formula.string <- paste0(substr(x = cur.formula.string,
                                                         start = 1,
-                                                        stop = 85),
+                                                        stop = 110),
                                                  "...")
                 }
-                ## Truncate "cur.model.name" if it is longer than 51 characters.
-                if (nchar(x = cur.model.name) > 85) {
+                ## Truncate "cur.model.name" if it is longer than 110 characters.
+                if (nchar(x = cur.model.name) > 110) {
                     cur.model.name <- paste0(substr(x = cur.model.name,
                                                         start = 1,
-                                                        stop = 85),
+                                                        stop = 110),
                                                  "...")
                 }
                 ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
                 cur.formula.data.frame.name.df <- data.frame(
-                    "formula" = cur.formula.string
-                    ## ,"model.name" = cur.model.name
+                    "model.name" = cur.model.name
+                    ## "formula" = cur.formula.string
                    ## ,"data.frame" = cur.data.frame.name
                 )
                 ## Prepare storing benchmarks of function...
@@ -775,8 +775,8 @@ for (cur.function.name in names(x = models)) {
                     cur.dist.family <- kDistFamilies[[cur.model.name]]
                     ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
                     cur.model.benchmark.df <- data.frame(
-                        "formula" = cur.formula.data.frame.name.df[, "formula"],
-                        ## "model.name" = cur.model.name,
+                        ## "formula" = cur.formula.data.frame.name.df[, "formula"],
+                        "model.name" = cur.model.name,
                         ## "distribution" = cur.dist.family,
                         ## "data.frame" = cur.formula.data.frame.name.df[, "data.frame"],
                         "AIC" = cur.aic)
