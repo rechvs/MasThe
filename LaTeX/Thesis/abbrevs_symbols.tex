@@ -1,0 +1,35 @@
+\pagestyle{abbrevs_symbols}
+
+{
+  \renewcommand{\MakeUppercase}[1]{#1} % http://tex.stackexchange.com/questions/179966/fancyhdr-chaptermark-and-table-of-contents
+
+  \newcommand{\mysectiontitle}{Table of abbreviations and symbols} % set section title as a custom macro to ease mutlitple usage (necessary when using a starred sectioning macro)
+  
+  \section*{\mysectiontitle{}}
+  
+  \markboth{\mysectiontitle{}}{} % http://tex.stackexchange.com/questions/89914/chapter-name-in-the-header-with-chapter
+  \addcontentsline{toc}{section}{\mysectiontitle{}} % http://tex.stackexchange.com/questions/35433/creating-unnumbered-chapters-sections-plus-adding-them-to-the-toc-and-or-header
+  
+  % \begin{table}[H]
+  %   \centering
+  \begin{longtabu}{l l l}
+    \toprule
+    Symbol & Description & Unit \\
+    \midrule
+    \endfirsthead
+    Symbol & Description & Unit \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+    \(D\) & average diameter (by basal area) & \si{\centi\meter} \\
+    \(k\) & constant (varying with species) & \\
+    \(N\) & stand density & \si{\per\hectare} \\
+  \end{longtabu}
+  % \end{table}
+}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasAr_Thesis.tex"
+%%% End:

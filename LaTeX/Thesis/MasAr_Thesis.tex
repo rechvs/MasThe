@@ -1,0 +1,49 @@
+\documentclass[
+oneside,
+a4paper,
+12pt,
+titlepage]
+{article}
+\usepackage[english]{babel}
+
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/packages.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings_article.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings_bibliography.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/hyphenation_english.tex}
+
+\addbibresource[location=local]{../../Literature/MasAr_Literature.bib} % s. S. 71 f. biblatex-Dokumentation
+
+%% Define custom SI units.
+\DeclareSIUnit\years{a}
+
+%% Define custom commands.
+\newcommand{\beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
+\newcommand{\spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
+\newcommand{\refeq}[1]{equation~(\ref{#1})}  %% To make this command known to AUCTeX so autocompletion is possible, eval the following expression: (TeX-add-symbols '("refeq" TeX-arg-ref)). However, you also have to make sure that "refeq" is not already contained in variable "TeX-symbol-list". Note: I tried to get a local style file working (see "./style/"), but to no avail.
+
+\begin{document}
+
+\input{titlepage.tex}
+\newpage
+
+\input{TOC.tex}
+\newpage
+
+\pagestyle{standard}
+\pagenumbering{arabic}
+
+\input{abbrevs_symbols.tex}
+\newpage
+
+\input{Data_Selection.tex}
+\newpage
+
+\input{Bibliography.tex}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
