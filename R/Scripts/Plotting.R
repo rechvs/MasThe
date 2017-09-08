@@ -599,6 +599,16 @@ if ("GAMLSS" %in% kBlocksToExecute) {
                         dist.params.names <- cur.model[["parameters"]]
                         ## Turn off graphics device.
                         graphics.off()
+                        ## Create filename.
+                        file.name <- paste0(cur.graphics.subdir,
+                                            cur.model.name,
+                                            ".pdf")
+                        ## Start graphics device driver for producing PDF graphics.
+                        pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
                         ## Plot regression terms. ##
                         ## Loop over all distribution parameters.
                         for (cur.dist.parameter.name in dist.params.names) {
@@ -612,23 +622,6 @@ if ("GAMLSS" %in% kBlocksToExecute) {
                                    value = formula(x = cur.model, what = cur.dist.parameter.name))
                             ## If "cur.formula != as.formula("~ 1"), continue, else, skip over to the next parameter.
                             if (cur.formula != as.formula(object = "gha ~ 1")) {
-                                ## Create filename.
-                                file.name.terms.plot <- paste0(cur.graphics.subdir,
-                                                               cur.model.name,
-                                                               "_",
-                                                               paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                                         start = 1,
-                                                                                         stop = 1)),
-                                                                      substr(x = cur.dist.parameter.name,
-                                                                             start = 2,
-                                                                             stop = nchar(x = cur.dist.parameter.name))),
-                                                               ".pdf")
-                                ## Start graphics device driver for producing PDF graphics.
-                                pdf(file = file.name.terms.plot,
-                                    width = kPdfWidth,
-                                    height = kPdfHeight,
-                                    pointsize = kPdfPointSize,
-                                    family = kPdfFamily)
                                 ## Set plot margins.
                                 par("mar" = kPlotMargins)
                                 ## Store current input data in "cur.input.data".
@@ -663,42 +656,20 @@ if ("GAMLSS" %in% kBlocksToExecute) {
                                                   data = cur.input.data.col.subset.na.omitted,
                                                   rug = TRUE)
                                 ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
-                                title(main = paste0(toupper(x = substr(x = dist.params.names[1],
+                                title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
                                                                        start = 1,
                                                                        stop = 1)),
-                                                    substr(x = dist.params.names[1],
+                                                    substr(x = cur.dist.parameter.name,
                                                            start = 2,
-                                                           stop = nchar(x = dist.params.names[1])),
+                                                           stop = nchar(x = cur.dist.parameter.name)),
                                                     ": ",
                                                     as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                               what = dist.params.names[1]))),
-                                                    "\n",
-                                                    toupper(x = substr(x = dist.params.names[2],
-                                                                       start = 1,
-                                                                       stop = 1)),
-                                                    substr(x = dist.params.names[2],
-                                                           start = 2,
-                                                           stop = nchar(x = dist.params.names[2])),
-                                                    ": ",
-                                                    as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                               what = dist.params.names[2]))),
+                                                                                               what = cur.dist.parameter.name))),
                                                     ", ",
                                                     cur.input.data.source.name),
-                                      line = -1)
-                                ## Turn off graphics device.
-                                graphics.off()
+                                      line = 0.25)
                             }}
                         ## Plot model overview. ##
-                        ## Create filename.
-                        file.name.overview.plot <- paste0(cur.graphics.subdir,
-                                                          cur.model.name,
-                                                          "_Overview.pdf")
-                        ## Start graphics device driver for producing PDF graphics.
-                        pdf(file = file.name.overview.plot,
-                            width = kPdfWidth,
-                            height = kPdfHeight,
-                            pointsize = kPdfPointSize,
-                            family = kPdfFamily)
                         ## Set plot margins.
                         par("mar" = kPlotMargins)
                         ## Create plots.
