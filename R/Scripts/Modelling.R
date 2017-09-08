@@ -222,26 +222,53 @@ kTauFormulas <- vector(mode = "list")
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps18SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps19SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps20SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## further increase in df has no effect, nonsensical effect of "SI.h100.diff.EKL.I" on mu, contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm2SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm4SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm5SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm6SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm8SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm9SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm10SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm11SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm12SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm13SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm14SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm15SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm16SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm17SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm18SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm19SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-## 2017-09-08 CONTINUE HERE testing additional models
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm2SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm4SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm5SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm6SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm8SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm9SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm10SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm11SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm12SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm13SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm14SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm15SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm16SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm17SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm18SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm19SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for spruce
+rhs <- function (x, c) {
+    return(ifelse(test = x > c,
+                  yes = x-c,
+                  no = 0))
+}
+lhs <- function (x, c) {
+    return(ifelse(test = x <= c,
+                  yes = c-x,
+                  no = 0))
+}
+
+## Setup for model "GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni".
+kFormulas[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni".
+kFormulas[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I)")
+kSigmaFormulas[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kNuFormulas[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kTauFormulas[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ 1")
+kDistFamilies[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- "gamlss.dist::BCCGo()"
+kColumnsToSelect[["GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
 ## Setup for model "GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni".
 kFormulas[["GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 1) + pbm(h100.EKL.I)")
