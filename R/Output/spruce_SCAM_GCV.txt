@@ -1,5 +1,2 @@
-                                                               formula        GCV
-1 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I)+s(hnn.neu)                   0.01770082
-2 gha~s(SI.h100.diff.EKL.I,bs="mpi")+s(h100.EKL.I)+s(hnn.neu)          0.01779578
-3 gha~s(SI.h100.diff.EKL.I)+s(h100.EKL.I,bs="mpi")+s(hnn.neu)          0.01797021
-4 gha~s(SI.h100.diff.EKL.I,bs="mpi")+s(h100.EKL.I,bs="mpi")+s(hnn.neu) 0.01848539
+                                                    formula       GCV
+1 gha~s(SI.h100.diff.EKL.I,bs="mpi")+s(h100.EKL.I,bs="mpi") 0.0311497
