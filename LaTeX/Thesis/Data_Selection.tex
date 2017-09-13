@@ -2,14 +2,41 @@
 
 \subsection{Maximum basal area and self-thinning}
 
-In his definition of ``maximum basal area'', \textcite{Assmann1970} points out that maximum basal area is only achieved in stands which have not actively been thinned.  In this context, ``active thinning'' means a reduction of stand density exceeding natural density dependent mortality, also known as ``natural thinning'' \parencite{SAF1958} or ``self-thinning'' \parencite{Roehrig1992}.  While self-thinning, by definition, is a naturally occurring phenomenon, the actual cause of thinning, be it inter-plant competition or human influence, is of no relevance to the study at hand as long as the extent of thinning does not exceed natural rates.  Thus, data selection was based on the following rationale: a stand is considered to have maximum basal area, as long as its thinning rate is roughly equal to the self-thinning rate of a stand of the same species.  This, however, requires knowledge of the self-thinning rates of beech and spruce.
+In his definition of ``maximum basal area'', \textcite{Assmann1970} points out that maximum basal area is only achieved in stands which have not actively been thinned.  In this context, ``active thinning'' means a reduction of stand density exceeding natural density dependent mortality, also known as ``natural thinning'' \parencite{SAF1958} or ``self-thinning'' \parencite{Roehrig1992}.  While self-thinning, by definition, is a naturally occurring phenomenon, the actual cause of thinning, be it inter-plant competition or human influence, is of no relevance to the study at hand as long as the extent of thinning does not exceed natural rates.  Thus, data selection was based on the following rationale: a stand is considered to have maximum basal area, as long as its thinning rate is roughly equal to the self-thinning rate of a stand of the same species.  This, however, requires knowledge of the self-thinning rates of \beech{} and \spruce{}.
 
-The behavior of tree species with respect to self-thinning has benn a subject of research for quite some time.  \textcite{Reineke1933} proposed that every forest stand, regardless of tree species, is subject to the same self-thinning rate given by the equation
+\textcite{Reineke1933} proposed that every forest stand, regardless of tree species and stand development, is subject to the same self-thinning rate given by the equation
 \begin{equation}
   \label{eq:reineke}
   \log N = -1.605 \log D + k ~.
 \end{equation}
-According to \refeq{eq:reineke}, every increase in the logarithm of mean diameter leads to a 1.605-fold decrease in the logarithm of stand density.
+According to \refeq{eq:reineke}, every increase in the logarithm of mean diameter leads to a \num{1.605}-fold decrease in the logarithm of stand density.
+
+However, the universal applicability of \refeq{eq:reineke} has been called into question.  Several studies have hinted at its slope being species-specific \parencites{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987}.  See \reftab{tab:SpeciesSpecificReinekeSlopes} for an overview of species-specific slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass-relations.  Other studies have contested that \refeq{eq:reineke} is equally applicable at every developmental stage of a stand 
+
+\newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{L r r}
+      \caption{Species-specific slopes of \refeq{eq:reineke} for \beech{} and \spruce{} as reported in the literature.  \label{tab:SpeciesSpecificReinekeSlopes}} \\
+      \toprule
+      Source & beech & spruce \\
+      \midrule
+      \endfirsthead
+      \caption{(continued)} \\
+      % Source & beech & spruce \\
+      % \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      \textcite{Charru2012} & \num{-1.941} & \num{-1.878} \\
+      \textcite{Río2001} & \numrange{-1.873}{-1.723} & \numrange{-1.669}{-1.607} \\
+      \textcite{Pretzsch2005} & \num{-1.789} & \num{-1.664} \\
+      \textcite{Sterba1987} & & \num{-1.737} \\
+      \textcite{Vacchiano2013} & & \num{-1.497} \\
+      \textcite{Vospernik2015} & \num{-1.941} & \num{-1.753} \\
+    \end{longtabu}
+  }
+\end{singlespace}
 
 %%% Local Variables:
 %%% mode: latex
