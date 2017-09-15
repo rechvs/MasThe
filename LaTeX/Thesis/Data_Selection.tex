@@ -11,7 +11,87 @@ In his definition of ``maximum basal area'', \textcite{Assmann1970} points out t
 \end{equation}
 According to \refeq{eq:reineke}, every increase in the logarithm of mean diameter leads to a \num{1.605}-fold decrease in the logarithm of stand density.
 
-However, the universal applicability of \refeq{eq:reineke} has been called into question.  Several studies have hinted at its slope being species-specific \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  See \reftab{tab:SpeciesSpecificReinekeSlopes} for an overview of species-specific slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.  Other studies have come forward with suggesting alternatives to \refeq{eq:reineke} in order to quantify the effect of self-thinning.  \textcite{Charru2012} proposed the use of a quadratic, rather than a linear logarithmic diameter term in the right hand side of \refeq{eq:reineke}. A similar approach is taken by \textcite{Schuetz2008,Schuetz2010,Zeide1995}, whose results suggested to add a quadratic logarithmic diameter term to the right hand side of \refeq{eq:reineke}.  \textcite{Meyer1938} found that for \ponderosa{} the line reported by \textcite{Reineke1933} had to be changed to a slightly concave curve in order to fit observations.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \refeq{eq:reineke} is valid, but only during a specific phase of stand development.  \textcite{Zeide1985} also suggested that \refeq{eq:reineke}, while a stand goes through stages of both full and not-full canopy closure, \refeq{eq:reineke} is only applicable during stages of full canopy closure.
+However, the universal applicability of \refeq{eq:reineke} has been called into question.  As an alternative approach, \textcite{Charru2012} proposed the use of a quadratic, rather than a linear logarithmic diameter term in the right hand side of \refeq{eq:reineke}. A similar approach is taken by \textcite{Schuetz2008,Schuetz2010,Zeide1995}, whose results suggested to add a quadratic logarithmic diameter term to the right hand side of \refeq{eq:reineke}.  \textcite{Meyer1938} found that for \ponderosa{}, the line reported by \textcite{Reineke1933} had to be changed to a slightly concave curve in order to fit observations.  
+
+Despite the apparent shortcomings of \refeq{eq:reineke}, its general form has been upheld by other studies.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \refeq{eq:reineke} is valid, but only during a specific phase of stand development.  Similarly, \textcite{Zeide1985} suggested that \refeq{eq:reineke} \refeq{eq:reineke} is only applicable during the stage of full canopy closure.  A different approach encountered in the literature is to use a species-specific slope rather than the constant of \num{-1.605} of \refeq{eq:reineke} \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  See \reftab{tab:SpeciesSpecificReinekeSlopes} for an overview of slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.
+
+Considering the current state of research on the topic of self-thinning rates of \beech{} and \spruce{}, an intermediate approach was taken in the present study.  While the general form of \refeq{eq:reineke} was utilized, species-specific slopes were incorporated in order to test whether a stand was subject to self-thinning and thus could be considered to be at maximum stand density.
+
+\newpage{}
+\begin{landscape}
+\begin{figure}[h]
+  {
+    % \tiny
+    \footnotesize
+    % \small
+    \begin{tikzpicture}[>=stealth]
+      %% Start.
+      \node (Start1-1) at(0, 0) [DataSelectionFlowChartStart] {Start loop at first \\ observation.};
+      %% Questions.
+      \node (Question1-1) at(7.5, 0) [DataSelectionFlowChartQuestion] {At which observation \\ are we~?};
+      \node (Question2-1) at(5, -3.5) [DataSelectionFlowChartQuestion] {Is \(s_f \leq s_u\)~?};
+      \node (Question2-2) at(10, -3.5) [DataSelectionFlowChartQuestion] {Is \(s_l \leq s_p\) \\ AND \(s_f \leq s_u\)~?};
+      \node (Question2-3) at(15, -3.5) [DataSelectionFlowChartQuestion] {Is \(s_l \leq s_p\)~?};
+      %% Actions.
+      \node (Action1-1) at(0,-7) [DataSelectionFlowChartAction] {delete \\ observation};
+      \node (Action1-2) at(6,-7) [DataSelectionFlowChartAction] {delete \\ observation};
+      \node (Action1-3) at(11,-7) [DataSelectionFlowChartAction] {delete \\ observation};
+      \node (Action1-4) at(16,-7) [DataSelectionFlowChartAction] {delete \\ observation};
+      \node (Action2-1) at(7.5, -9) [DataSelectionFlowChartAction] {move to \\ following observation};
+      %% Results (drawn last because they should cover any lines with which they overlap).
+      \node (Result1-1) at(0, -1.9) [DataSelectionFlowChartResult] {first, which is also the last};
+      \node (Result1-2) at(5, -1.9) [DataSelectionFlowChartResult] {first, but not last};
+      \node (Result1-3) at(10, -1.9) [DataSelectionFlowChartResult] {intermediate};
+      \node (Result1-4) at(15, -1.9) [DataSelectionFlowChartResult] {last, but not first};
+      \node (Result2-1) at(3.5, -5.5) [DataSelectionFlowChartResult] {TRUE};
+      \node (Result2-2) at(6, -5.5) [DataSelectionFlowChartResult] {FALSE};
+      \node (Result2-3) at(8.5, -5.5) [DataSelectionFlowChartResult] {TRUE};
+      \node (Result2-4) at(11, -5.5) [DataSelectionFlowChartResult] {FALSE};
+      \node (Result2-5) at(13.5, -5.5) [DataSelectionFlowChartResult] {TRUE};
+      \node (Result2-6) at(16, -5.5) [DataSelectionFlowChartResult] {FALSE};
+      %% End.
+      \node (End1-1) at(0, -9) [DataSelectionFlowChartEnd] {Exit loop.};
+      %% Horizontal lines and arrows.
+      \draw [DataSelectionFlowChartArrow] (Start1-1.east) -- (Question1-1.west); \draw [DataSelectionFlowChartArrow] (19, 0) -- (Question1-1.east);
+      \draw [DataSelectionFlowChartLine] (3.5, -8) -- (11, -8); \draw [DataSelectionFlowChartLine] (13.5, -8) -- (16, -8);
+      \draw [DataSelectionFlowChartLine] (Action2-1.east) -- (19, -9);
+      \draw [DataSelectionFlowChartLine] (13.5, -10.25) -- (0, -10.25);
+      %% Vertical lines.
+      \draw [DataSelectionFlowChartArrow] (Result1-1.south) -- (Action1-1.north); \draw [DataSelectionFlowChartArrow] (Action1-1.south) -- (End1-1.north); \draw [DataSelectionFlowChartArrow] (0, -10.25) -- (End1-1.south); 
+      \draw [DataSelectionFlowChartArrow] (Result1-2.south) -- (Question2-1.north);
+      \draw [DataSelectionFlowChartArrow] (Result1-3.south) -- (Question2-2.north);
+
+      \draw [DataSelectionFlowChartArrow] (7.5, -8) -- (Action2-1.north);
+
+      \draw [DataSelectionFlowChartArrow] (Result1-4.south) -- (Question2-3.north);
+      
+      \draw [DataSelectionFlowChartLine] (Result2-1.south) -- (3.5, -8);
+      \draw [DataSelectionFlowChartArrow] (Result2-2.south) -- (Action1-2.north); \draw [DataSelectionFlowChartLine] (Action1-2.south) -- (6, -8);
+
+      \draw [DataSelectionFlowChartLine] (Result2-3.south) -- (8.5, -8);
+      \draw [DataSelectionFlowChartArrow] (Result2-4.south) -- (Action1-3.north); \draw [DataSelectionFlowChartLine] (Action1-3.south) -- (11, -8);
+
+      \draw [DataSelectionFlowChartLine] (Result2-5.south) -- (13.5, -8.9); \draw [thick] (13.5, -8.9) arc [start angle = 90, end angle = 270, radius = 0.1]; \draw [DataSelectionFlowChartLine] (13.5, -9.1) -- (13.5, -10.25);
+
+      \draw [DataSelectionFlowChartArrow] (Result2-6.south) -- (Action1-4.north); \draw [DataSelectionFlowChartLine] (Action1-4.south) -- (16, -8);
+      
+      \draw [DataSelectionFlowChartLine] (19, -9) -- (19, 0);
+      %% Slanted lines.
+      \draw [DataSelectionFlowChartLine] (Question1-1.south) -- (Result1-1.north);
+      \draw [DataSelectionFlowChartLine] (Question1-1.south) -- (Result1-2.north);
+      \draw [DataSelectionFlowChartLine] (Question1-1.south) -- (Result1-3.north);
+      \draw [DataSelectionFlowChartLine] (Question1-1.south) -- (Result1-4.north);
+
+      \draw [DataSelectionFlowChartLine] (Question2-1.south) -- (Result2-1.north);
+      \draw [DataSelectionFlowChartLine] (Question2-1.south) -- (Result2-2.north);
+      \draw [DataSelectionFlowChartLine] (Question2-2.south) -- (Result2-3.north);
+      \draw [DataSelectionFlowChartLine] (Question2-2.south) -- (Result2-4.north);
+      \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-5.north);
+      \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-6.north);
+      %% Legend.
+    \end{tikzpicture}}
+\end{figure}
+\end{landscape}
 
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
@@ -29,7 +109,7 @@ However, the universal applicability of \refeq{eq:reineke} has been called into 
       \bottomrule
       \endlastfoot
       \textcite{Charru2012} & \num{-1.941} & \num{-1.878} \\
-      \textcite{Río2001} & \numrange{-1.873}{-1.723} & \numrange{-1.669}{-1.607} \\
+      \textcite{Pretzsch2006} & \numrange{-1.873}{-1.723} & \numrange{-1.669}{-1.607} \\
       \textcite{Pretzsch2005} & \num{-1.789} & \num{-1.664} \\
       \textcite{Sterba1987} & & \num{-1.737} \\
       \textcite{Vacchiano2013} & & \num{-1.497} \\

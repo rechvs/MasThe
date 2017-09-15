@@ -12,6 +12,57 @@ titlepage]
 \input{/home/renke/Uni/Formatvorlagen/LaTeX/settings_bibliography.tex}
 \input{/home/renke/Uni/Formatvorlagen/LaTeX/hyphenation_english.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TikZ settings specific to this document. %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Load TikZ libraries.
+\usetikzlibrary[shapes.geometric,intersections]
+%% Set drawing options for figures.
+\tikzset{DataSelectionFlowChartStart/.style = {
+    draw,
+    shape = circle,
+    top color = white,
+    bottom color = green!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartAction/.style = {
+    draw,
+    shape = trapezium,
+    top color = white,
+    bottom color = violet!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartQuestion/.style = {
+    draw,
+    rounded corners,
+    shape=diamond,
+    top color = white,
+    bottom color = violet!30,
+    line width = 0cm,
+    aspect=2,
+    align = center}}
+\tikzset{DataSelectionFlowChartResult/.style = {
+    draw,
+    shape = rectangle,
+    fill = white,
+    line width = 0cm,
+    align = center}}
+\tikzset{DataSelectionFlowChartEnd/.style = {
+    draw,
+    shape = circle,
+    top color = white,
+    bottom color = red!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartArrow/.style = {
+    ->,
+    thick}}
+\tikzset{DataSelectionFlowChartLine/.style = {
+    thick}}
+
 \addbibresource[location=local]{../../Literature/MasAr_Literature.bib} % s. S. 71 f. biblatex-Dokumentation
 
 %% AUCTeX style file: ./style/MasAr_Thesis.el
@@ -24,7 +75,8 @@ titlepage]
 \newcommand{\spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\ponderosa}[0]{Ponderosa pine (\emph{Pinus ponderosa} \textsc{Douglas})}
 \newcommand{\refeq}[1]{equation~(\ref{#1})}
-\newcommand{\reftab}[1]{table~\ref{#1}}
+\newcommand{\reftab}[1]{Table~\ref{#1}}
+\newcommand{\reffig}[1]{Figure~\ref{#1}}
 
 \begin{document}
 
