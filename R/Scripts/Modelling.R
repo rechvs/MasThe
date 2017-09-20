@@ -35,7 +35,6 @@ kFormulasToUse <- NULL
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
 ## Create a vector containing the names of all appropriate input data sources.
 names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.8", x = ls(), fixed = FALSE)]
-objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 ## Plotting preamble.
 kPdfWidth <- 30
 kPdfHeight <- kPdfWidth * 0.625
@@ -54,6 +53,7 @@ lhs <- function (x, c) {
                   yes = c-x,
                   no = 0))
 }
+objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
 ##########
 ## SCAM ##
@@ -136,7 +136,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                                               x = deparse(expr = cur.formula)))
                         ## Turn off graphics device.
                         graphics.off()
-                        ## If nonexistent, create subdirectory in which to store SCAM graphics.
+                        ## If nonexistent, create subdirectory in which to store graphics.
                         graphics.subdir <- paste0("Graphics/Models/SCAM/", cur.input.data.source.name, "/")
                         system2(command = "mkdir",
                                 args = paste0("-p ", graphics.subdir))
@@ -188,30 +188,18 @@ rm(list = setdiff(x = ls(),
 ## GAM ##
 #########
 ## Preamble.
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; nonsensical effect of "SI.h100.diff.EKL.I" for spruce; high GCV
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV 
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1h100")
 
-## Setup for model "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni".
-kFormulas[["GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + h100.EKL.I + hnn.neu  + NORTH.UTM")
+## Setup for model "GAM_gha_h100".
+kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni".
-kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + hnn.neu")
+## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
+kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
 
-## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni".
-kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + hnn.neu  + NORTH.UTM")
-
-## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni".
-kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I)")
-
-## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
-kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
-
-## Setup for model "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
-kFormulas[["GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
+## Setup for model "GAM_gha_s1h100".
+kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 1)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -230,16 +218,67 @@ for (cur.input.data.source.name in names.input.data.sources) {
                     } else {
                         cur.dist <- Gamma(link = "log")
                     }
-                    try(expr = 
-                            models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- mgcv::gam(formula = kFormulas[[cur.formula.name]],
-                                                                                                                 data = input.data,
-                                                                                                                 family = cur.dist,
-                                                                                                                 na.action = na.omit))
-                }
-            }
-        }
-    }
-}
+                    ## Try to fit model.
+                    cur.model <- try(expr = mgcv::gam(formula = kFormulas[[cur.formula.name]],
+                                                      data = input.data,
+                                                      family = cur.dist,
+                                                      na.action = na.omit))
+                    ## Continue only if model fit was successful.
+                    if (!inherits(x = cur.model, what = "try-error")) {
+                        ## Store model in object "models".
+                        models[["mgcv..gam"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
+                        ## Plot model ##
+                        ################
+                        ## Extract current model formula.
+                        cur.formula <- cur.model[["formula"]]
+                        ## Store current model formula as a string and remove any whitespace from it.
+                        cur.formula.string <- gsub(pattern = " ",
+                                                   replacement = "",
+                                                   x = Reduce(f = paste,
+                                                              x = deparse(expr = cur.formula)))
+                        ## Turn off graphics device.
+                        graphics.off()
+                        ## If nonexistent, create subdirectory in which to store graphics.
+                        graphics.subdir <- paste0("Graphics/Models/GAM/", cur.input.data.source.name, "/")
+                        system2(command = "mkdir",
+                                args = paste0("-p ", graphics.subdir))
+                        ## Create file name.
+                        file.name <-paste0(graphics.subdir,
+                                           cur.formula.name,
+                                           ".pdf")
+                        ## Start graphics device driver for producing PDF graphics.
+                        pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
+                        ## Set plot layout, depending on number of independent variables.
+                        nr.independent.vars <- length(x = all.vars(expr = cur.formula)[-1])
+                        if (nr.independent.vars == 1) {
+                            mfrow <- c(1, 1)
+                        }
+                        if (nr.independent.vars == 2) {
+                            mfrow <- c(2, 1)
+                        }
+                        if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                            mfrow <- c(2, 2)
+                        }
+                        par(mfrow = mfrow)
+                        ## Set plot margins.
+                        par(mar = kPlotMargins)
+                        ## Plot model term effects.
+                        mgcv::plot.gam(x = cur.model,
+                                       all.terms = TRUE,
+                                       main = paste0(cur.formula.string,
+                                                     ", ",
+                                                     cur.input.data.source.name))
+                        ## Plot model diagnostics.
+                        mgcv::gam.check(b = cur.model,
+                                        type = "response",
+                                        pch = 19)
+                        ## Turn off graphics device.
+                        graphics.off()
+                    }}}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
