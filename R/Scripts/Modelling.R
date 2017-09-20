@@ -36,52 +36,74 @@ kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)"
 ## Create a vector containing the names of all appropriate input data sources.
 names.input.data.sources <- ls()[grepl(pattern = "bart.((beech)|(spruce)).clean.1.8", x = ls(), fixed = FALSE)]
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
+## Plotting preamble.
+kPdfWidth <- 30
+kPdfHeight <- kPdfWidth * 0.625
+kPdfPointSize <- 19
+kPdfFamily <- "Times"
+kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+## Define segmented functions.
+rhs <- function (x, c) {
+    return(ifelse(test = x > c,
+                  yes = x-c,
+                  no = 0))
+}
+lhs <- function (x, c) {
+    return(ifelse(test = x <= c,
+                  yes = c-x,
+                  no = 0))
+}
 
 ##########
 ## SCAM ##
 ##########
 ## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni")  ## high GCV; MY FAVORITE
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## intermediate GCV for beech; high GCV for spruce
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni")  ## high GCV
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV for beech; intermediate GCV for spruce
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## high GCV
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; high GCV for spruce
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; nonsensical effect of "hnn.neu" for spruce
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100")  ## Model does not work due to "subscript out of bounds" error.
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpih100")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: better fit than unrestrained "SI.h100.diff.EKL.I", since it does not have a nonsensical effect. Spruce: no improvement compared to unrestrained "SI.h100.diff.EKL.I".
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: best model fit with respect to different values of "k" (but still includes a nonsensical effect of "SI.h100.diff.EKL.I").
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")  ## Beech: nonsensical effect of "h100.EKL.I" which is not improved when chaning "k". Spruce: best model fit with respect to different values of "k".
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Spruce: best model fit with respect to different values of "k".
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sh100")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I")
 
-## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni".
-kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\")")
+## Setup for model "SCAM_gha_h100".
+kFormulas[["SCAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
+## Setup for model "SCAM_gha_mpih100".
+kFormulas[["SCAM_gha_mpih100"]] <- as.formula(object = "gha ~ s(h100, k = 15, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_h100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + h100.EKL.I + s(hnn.neu)")
+## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I) + s(hnn.neu)")
+## Setup for model "SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
+## Setup for model "SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
+kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
 
-## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu)")
+## Setup for model "SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni".
-kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_mpih100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I, bs = \"mpi\") + s(hnn.neu) + s(NORTH.UTM)")
+## Setup for model "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni".
-kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu)")
+## Setup for model "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni".
-kFormulas[["SCAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I) + s(h100.EKL.I) + s(hnn.neu) + s(NORTH.UTM)")
+## Setup for model "SCAM_gha_sh100".
+kFormulas[["SCAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 15)")
+
+## Setup for model "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I".
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, bs = \"mpi\")")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate and store models.
+    ## Evaluate, store and plot models.
     kFunction <- "scam..scam"
     if (any(grepl(pattern = kFunction,
                   x = kFunctionsToUse))) {
@@ -89,17 +111,75 @@ for (cur.input.data.source.name in names.input.data.sources) {
             if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
                           x = kFormulasToUse))) {
                 if (grepl(pattern = "SCAM_", x = cur.formula.name, fixed = TRUE)) {
-                    ## If a distribution family was specified, used that for model fitting. Otherwise, use "Gamma(link = "log")".
+                    ## If a distribution family was specified, use that for model fitting. Otherwise, use "Gamma(link = "log")".
                     if (cur.formula.name %in% names(x = kDistFamilies)) {
                         cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
                     } else {
                         cur.dist <- Gamma(link = "log")
                     }
-                    try(expr = 
-                            models[["scam..scam"]][[cur.input.data.source.name]][[cur.formula.name]] <- scam::scam(formula = kFormulas[[cur.formula.name]],
-                                                                                                                   data = input.data,
-                                                                                                                   family = cur.dist))
-                }}}}}
+                    ## Try to fit model.
+                    cur.model <- try(expr = scam::scam(formula = kFormulas[[cur.formula.name]],
+                                                       data = input.data,
+                                                       family = cur.dist))
+                    ## Continue only if model fit was successful.
+                    if (!inherits(x = cur.model, what = "try-error")) {
+                        ## Store model in object "models".
+                        models[["scam..scam"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
+                        ## Plot model ##
+                        ################
+                        ## Extract current model formula.
+                        cur.formula <- cur.model[["formula"]]
+                        ## Store current model formula as a string and remove any whitespace from it.
+                        cur.formula.string <- gsub(pattern = " ",
+                                                   replacement = "",
+                                                   x = Reduce(f = paste,
+                                                              x = deparse(expr = cur.formula)))
+                        ## Turn off graphics device.
+                        graphics.off()
+                        ## If nonexistent, create subdirectory in which to store SCAM graphics.
+                        graphics.subdir <- paste0("Graphics/Models/SCAM/", cur.input.data.source.name, "/")
+                        system2(command = "mkdir",
+                                args = paste0("-p ", graphics.subdir))
+                        ## Create file name.
+                        file.name <-paste0(graphics.subdir,
+                                           cur.formula.name,
+                                           ".pdf")
+                        ## Start graphics device driver for producing PDF graphics.
+                        pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
+                        ## Set plot layout, depending on number of independent variables.
+                        nr.independent.vars <- length(x = all.vars(expr = cur.formula)[-1])
+                        if (nr.independent.vars == 1) {
+                            mfrow <- c(1, 1)
+                        }
+                        if (nr.independent.vars == 2) {
+                            mfrow <- c(2, 1)
+                        }
+                        if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                            mfrow <- c(2, 2)
+                        }
+                        par(mfrow = mfrow)
+                        ## Set plot margins.
+                        par(mar = kPlotMargins)
+                        ## Plot model term effects.
+                        scam::plot.scam(x = cur.model,
+                                        all.terms = TRUE,
+                                        main = paste0(cur.formula.string,
+                                                      ", ", cur.input.data.source.name))
+                        ## Plot model diagnostics (which currently requires to define and use a custom version of "scam::scam.check" in order to be able to set argument "pch" to a user defined value).
+                        my.scam.check.string <- deparse(expr = scam::scam.check)
+                        my.scam.check.string[1] <- paste0("my.scam.check <- ", my.scam.check.string[1])
+                        my.scam.check.string <- paste0(my.scam.check.string, collapse = "\n")
+                        my.scam.check.string <- gsub(pattern = ", pch = \".\"", fixed = TRUE, replacement = "", x = my.scam.check.string)
+                        eval(expr = parse(text = my.scam.check.string))
+                        my.scam.check(b = cur.model,
+                                      pch = 19)
+                        ## Turn off graphics device.
+                        graphics.off()
+                    }}}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
@@ -108,13 +188,12 @@ rm(list = setdiff(x = ls(),
 ## GAM ##
 #########
 ## Preamble.
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; nonsensical effect of "SI.h100.diff.EKL.I" for spruce; high GCV
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
-
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "hnn.neu" for beech; nonsensical effect of "SI.h100.diff.EKL.I" for spruce; high GCV
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_hnn.neu_NORTH.UTM_ni")  ## high GCV 
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_ni")  ## high GCV; MY FAVORITE
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_ni")  ## high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" for beech; high GCV, nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sSI.h100.diff.EKL.I_sh100.EKL.I_shnn.neu_sNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" for spruce
 
 ## Setup for model "GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni".
 kFormulas[["GAM_gha_SI.h100.diff.EKL.I_h100.EKL.I_hnn.neu_NORTH.UTM_ni"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + h100.EKL.I + hnn.neu  + NORTH.UTM")
@@ -174,73 +253,73 @@ kUseStepGAIC <- vector(mode = "list")
 kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of “NORTH.UTM” on mu for beech; nonsensical effect of “NORTH.UTM” on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and “NORTH.UTM” on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu, nonensical effect of "h100.EKL.I" on sigma for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")  ## high AIC
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; high AIC, small effect of "hnn.neu" on mu for beech; small effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I", small effect of "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu, high AIC for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; small effect of "hnn.neu" on mu, high AIC for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species, high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I", small effect of "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps1SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps2SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps3SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps4SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps5SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps10SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## high AIC, contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps11SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps12SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps13SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps14SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps15SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps16SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps17SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps18SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps19SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps20SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## further increase in df has no effect, nonsensical effect of "SI.h100.diff.EKL.I" on mu, contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm2SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm4SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm5SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm6SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm8SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm9SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm10SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm11SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm12SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm13SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm14SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm15SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm16SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm17SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm18SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm19SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of “NORTH.UTM” on mu for beech; nonsensical effect of “NORTH.UTM” on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and “NORTH.UTM” on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu, nonensical effect of "h100.EKL.I" on sigma for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_psNORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for beech; nonsensical effect of "hnn.neu" on mu, nonsensical effect "h100.EKL.I" on sigma for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "hnn.neu" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu for spruce; nonsensical effect of "hnn.neu" and "NORTH.UTM" on mu for spruce; high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu, nonsensical effect of "h100.EKL.I" on sigma for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" and "NORTH.UTM" on mu, nonsensical effect of "h100.EKL.I" on sigma for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_SI.h100.diff.EKL.I_psh100.EKL.I_pshnn.neu_NORTH.UTM_sigma_gha_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")  ## high AIC
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; high AIC, small effect of "hnn.neu" on mu for beech; small effect of "SI.h100.diff.EKL.I" and "hnn.neu" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I", small effect of "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_ni")  ## nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_pbmSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I", small effect of "hnn.neu" on mu, high AIC for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; small effect of "hnn.neu" on mu, high AIC for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species, high AIC; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I", small effect of "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_hnn.neu_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" and "hnn.neu" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_ni")  ## nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_BCCGo_mu_gha_psSI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu, high AIC for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps1SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps2SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps3SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps4SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps5SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech; small effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps10SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## high AIC, contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps11SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps12SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps13SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps14SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps15SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps16SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps17SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps18SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps19SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## contradictory effect of "h100.EKL.I" on sigma between species;  nonsensical effect of "SI.h100.diff.EKL.I" and "h100.EKL.I" on mu for beech; nonsensical effect of "SI.h100.diff.EKL.I" on mu for spruce
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_ps20SI.h100.diff.EKL.I_psh100.EKL.I_sigma_h100.EKL.I_ni")  ## further increase in df has no effect, nonsensical effect of "SI.h100.diff.EKL.I" on mu, contradictory effect of "h100.EKL.I" on sigma between species; nonsensical effect of "h100.EKL.I" on mu for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm1SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm2SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm4SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm5SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm6SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm8SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm9SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm10SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm11SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm12SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm13SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm14SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm15SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm16SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm17SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm18SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_pbm19SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for beech
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_mu_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I_ni")  ## high AIC for spruce
 rhs <- function (x, c) {
