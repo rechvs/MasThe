@@ -171,45 +171,58 @@ rm(list = setdiff(x = ls(),
 ##########
 ## Preamble.
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100")  ## Model does not work due to "subscript out of bounds" error.
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpih100")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: better fit than unrestrained "SI.h100.diff.EKL.I", since it does not have a nonsensical effect. Spruce: no improvement compared to unrestrained "SI.h100.diff.EKL.I".
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: best model fit with respect to different values of "k" (but still includes a nonsensical effect of "SI.h100.diff.EKL.I").
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")  ## Beech: nonsensical effect of "h100.EKL.I" which is not improved when chaning "k". Spruce: best model fit with respect to different values of "k".
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Spruce: best model fit with respect to different values of "k".
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sh100")
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I")
+## kFormulas[["SCAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## Setup for model "SCAM_gha_h100".
-kFormulas[["SCAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100.EKL.I")
+## kFormulas[["SCAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
-## Setup for model "SCAM_gha_mpih100".
-kFormulas[["SCAM_gha_mpih100"]] <- as.formula(object = "gha ~ s(h100, k = 15, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100")  ## Spruce: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi13h100"]] <- as.formula(object = "gha ~ s(h100, k = 13, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
-kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100.EKL.I")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+kFormulas[["SCAM_gha_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100.EKL.I")  ## Spruce: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi13h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 13, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14h100.EKL.I")  ## Beech: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 14, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
+kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_sh100".
-kFormulas[["SCAM_gha_sh100"]] <- as.formula(object = "gha ~ s(h100, k = 15)")
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: better fit than unrestrained "SI.h100.diff.EKL.I", since it does not have a nonsensical effect. Spruce: no improvement compared to unrestrained "SI.h100.diff.EKL.I".
+## kFormulas[["SCAM_gha_mpiSI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, bs = \"mpi\") + s(h100.EKL.I, bs = \"mpi\")")
 
-## Setup for model "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I".
-kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, bs = \"mpi\")")
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Beech: best model fit with respect to different values of "k" (but still includes a nonsensical effect of "SI.h100.diff.EKL.I").
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")  ## Beech: nonsensical effect of "h100.EKL.I" which is not improved when chaning "k". Spruce: best model fit with respect to different values of "k".
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I")  ## Spruce: best model fit with respect to different values of "k".
+## kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I")
+## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I")
+## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s15h100")
+## kFormulas[["SCAM_gha_s15h100"]] <- as.formula(object = "gha ~ s(h100, k = 15)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s15h100.EKL.I")
+## kFormulas[["SCAM_gha_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I")
+## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, bs = \"mpi\")")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
