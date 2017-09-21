@@ -60,17 +60,29 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")
 
 ## Setup for model "GAM_gha_h100".
 kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
-kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
+## Setup for model "GAM_gha_h100.EKL.I".
+kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
 ## Setup for model "GAM_gha_s1h100".
 kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 1)")
+
+## Setup for model "GAM_gha_s1h100.EKL.I".
+kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 1)")
+
+## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I".
+kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + h100.EKL.I")
+
+## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
+kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
