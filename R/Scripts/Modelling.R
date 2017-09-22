@@ -69,23 +69,44 @@ kTauFormulas <- vector(mode = "list")
 ## kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
 ## kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
 
-n <- 30
-for (h100.df.value in -1:n) {
-    formula.name <- paste0("GAMLSS_gha_ps",
-                           h100.df.value,
-                           "h100")
-    kFormulasToUse <- c(kFormulasToUse, formula.name)
-    kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ ps(h100, df = ", h100.df.value,")"))
-    kColumnsToSelect[[formula.name]] <- c("gha", "h100")
-}
+## n <- 30
+## for (h100.df.value in -1:n) {
+    ## formula.name <- paste0("GAMLSS_gha_ps",
+                           ## h100.df.value,
+                           ## "h100")
+    ## kFormulasToUse <- c(kFormulasToUse, formula.name)
+    ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ ps(h100, df = ", h100.df.value,")"))
+    ## kColumnsToSelect[[formula.name]] <- c("gha", "h100")
+## }
 
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100")  ## Beech AND Spruce: compared to higher df-values, smoothest fit; compared to lower df-values, same fit. Beech: compared to higher df-values, lowest AIC; compared to lower df-values, same AIC.
-kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 1)")
-kColumnsToSelect[["GAMLSS_gha_psxh100"]] <- c("gha", "h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100")  ## Beech AND Spruce: compared to higher df-values, smoothest fit; compared to lower df-values, same fit. Beech: compared to higher df-values, lowest AIC; compared to lower df-values, same AIC.
+## kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 1)")
+## kColumnsToSelect[["GAMLSS_gha_psxh100"]] <- c("gha", "h100")
 
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps15h100")  ## Spruce: compared to other df-values, lowest AIC.
-kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 15)")
-kColumnsToSelect[["GAMLSS_gha_ps15h100"]] <- c("gha", "h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps15h100")  ## Spruce: compared to other df-values, lowest AIC.
+## kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 15)")
+## kColumnsToSelect[["GAMLSS_gha_ps15h100"]] <- c("gha", "h100")
+
+n <- 15
+for (SI.h100.diff.EKL.I.df.value in -1:n) {
+    for (h100.EKL.I.df.value in -1:n) {
+        formula.name <- paste0("GAMLSS_gha_pbm",
+                               SI.h100.diff.EKL.I.df.value,
+                               "SI.h100.diff.EKL.I_pbm",
+                               h100.EKL.I.df.value,
+                               "h100.EKL.I")
+        kFormulasToUse <- c(kFormulasToUse, formula.name)
+        kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ pbm(SI.h100.diff.EKL.I, df = ", SI.h100.diff.EKL.I.df.value, ") + pbm(h100.EKL.I, df = ", h100.EKL.I.df.value, ")"))
+        kColumnsToSelect[[formula.name]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+    }}
+
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
+## kFormulas[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 8) + pbm(h100.EKL.I, df = 4)")
+## kColumnsToSelect[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
+## kFormulas[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 10) + pbm(h100.EKL.I, df = 1)")
+## kColumnsToSelect[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I")
 ## kFormulas[["GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I) + pbm(h100.EKL.I)")
@@ -174,6 +195,7 @@ if (any(grepl(pattern = kFunction,
                         } else {
                             cur.tau.formula <- as.formula(object = "gha ~ 1")
                         }
+                        print(paste0("current formula: ", cur.formula.name))  ## TESTING
                         ## Start sinking output.
                         sink(file = "/dev/null")
                         ## Try to fit model.
@@ -203,11 +225,11 @@ if (any(grepl(pattern = kFunction,
                                                 cur.formula.name,
                                                 ".pdf")
                             ## Start graphics device driver for producing PDF graphics.
-                            pdf(file = file.name,
-                                width = kPdfWidth,
-                                height = kPdfHeight,
-                                pointsize = kPdfPointSize,
-                                family = kPdfFamily)
+                            ## pdf(file = file.name,
+                                ## width = kPdfWidth,
+                                ## height = kPdfHeight,
+                                ## pointsize = kPdfPointSize,
+                                ## family = kPdfFamily)
                             ## Loop over all distribution parameters.
                             for (cur.dist.parameter.name in dist.params.names) {
                                 ## Set default model formulas for all distribution parameters.
@@ -242,41 +264,41 @@ if (any(grepl(pattern = kFunction,
                                     }
                                     par(mfrow = mfrow)
                                     ## Plot regression terms for current distribution parameter.
-                                    gamlss::term.plot(object = cur.model,
-                                                      se = TRUE,
-                                                      partial.resid = FALSE,
-                                                      what = cur.dist.parameter.name,
-                                                      pages = 0,
-                                                      ask = FALSE,
-                                                      data = cur.input.data.col.subset.na.omitted,
-                                                      rug = TRUE)
+                                    ## gamlss::term.plot(object = cur.model,
+                                                      ## se = TRUE,
+                                                      ## partial.resid = FALSE,
+                                                      ## what = cur.dist.parameter.name,
+                                                      ## pages = 0,
+                                                      ## ask = FALSE,
+                                                      ## data = cur.input.data.col.subset.na.omitted,
+                                                      ## rug = TRUE)
                                     ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
-                                    title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                           start = 1,
-                                                                           stop = 1)),
-                                                        substr(x = cur.dist.parameter.name,
-                                                               start = 2,
-                                                               stop = nchar(x = cur.dist.parameter.name)),
-                                                        ": ",
-                                                        as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                                   what = cur.dist.parameter.name))),
-                                                        ", ",
-                                                        cur.input.data.source.name),
-                                          line = 0.25)
+                                    ## title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                                                           ## start = 1,
+                                                                           ## stop = 1)),
+                                                        ## substr(x = cur.dist.parameter.name,
+                                                               ## start = 2,
+                                                               ## stop = nchar(x = cur.dist.parameter.name)),
+                                                        ## ": ",
+                                                        ## as.character(x = as.expression(x = formula(x = cur.model,
+                                                                                                   ## what = cur.dist.parameter.name))),
+                                                        ## ", ",
+                                                        ## cur.input.data.source.name),
+                                          ## line = 0.25)
                                 }}
                             ## Plot model overview.
-                            plot(x = cur.model,
-                                 parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
-                                                  "mar" = par("mar") + c(0, 1, 0, 0),
-                                                  "col.axis" = "black",
-                                                  "col" = "black",
-                                                  "col.main" = "black",
-                                                  "col.lab" = "black",
-                                                  "pch" = 20,
-                                                  "cex" = 1.00,
-                                                  "cex.lab" = 1.00,
-                                                  "cex.axis" = 1,
-                                                  "cex.main" = 1.5))
+                            ## plot(x = cur.model,
+                                 ## parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                                                  ## "mar" = par("mar") + c(0, 1, 0, 0),
+                                                  ## "col.axis" = "black",
+                                                  ## "col" = "black",
+                                                  ## "col.main" = "black",
+                                                  ## "col.lab" = "black",
+                                                  ## "pch" = 20,
+                                                  ## "cex" = 1.00,
+                                                  ## "cex.lab" = 1.00,
+                                                  ## "cex.axis" = 1,
+                                                  ## "cex.main" = 1.5))
                             ## Turn off graphics device.
                             graphics.off()
                         }}}}}}}
