@@ -55,286 +55,6 @@ lhs <- function (x, c) {
 }
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
-##########
-## SCAM ##
-##########
-## Preamble.
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100")  ## Model does not work due to "subscript out of bounds" error.
-## kFormulas[["SCAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100.EKL.I")
-## kFormulas[["SCAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
-## kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100")  ## Spruce: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi13h100"]] <- as.formula(object = "gha ~ s(h100, k = 13, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100.EKL.I")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
-## kFormulas[["SCAM_gha_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100.EKL.I")  ## Spruce: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi13h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 13, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14h100.EKL.I")  ## Beech: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 14, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
-## kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
-
-## n <- 30
-## for (SI.h100.diff.EKL.I.k.value in -1:n) {
-    ## for (h100.EKL.I.k.value in -1:n) {
-        ## formula.name <- paste0("SCAM_gha_mpi",
-                               ## SI.h100.diff.EKL.I.k.value,
-                               ## "SI.h100.diff.EKL.I_mpi",
-                               ## h100.EKL.I.k.value,
-                               ## "h100.EKL.I")
-        ## kFormulasToUse <- c(kFormulasToUse,
-                            ## formula.name)
-        ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ s(SI.h100.diff.EKL.I, k = ", SI.h100.diff.EKL.I.k.value,", bs = \"mpi\") + s(h100.EKL.I, k = ", h100.EKL.I.k.value,", bs = \"mpi\")"))
-    ## }}
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
-## kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 14, bs = \"mpi\") + s(h100.EKL.I, k = 9, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 27, bs = \"mpi\") + s(h100.EKL.I, k = 18, bs = \"mpi\")")
-
-## n <- 30
-## for (SI.h100.diff.EKL.I.k.value in -1:n) {
-    ## for (h100.EKL.I.k.value in -1:n) {
-        ## formula.name <- paste0("SCAM_gha_s",
-                               ## SI.h100.diff.EKL.I.k.value,
-                               ## "SI.h100.diff.EKL.I_mpi",
-                               ## h100.EKL.I.k.value,
-                               ## "h100.EKL.I")
-        ## kFormulasToUse <- c(kFormulasToUse,
-                            ## formula.name)
-        ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ s(SI.h100.diff.EKL.I, k = ", SI.h100.diff.EKL.I.k.value,") + s(h100.EKL.I, k = ", h100.EKL.I.k.value,", bs = \"mpi\")"))
-    ## }}
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s21SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 21) + s(h100.EKL.I, k = 18, bs = \"mpi\")")
-
-## n <- 30
-## for (SI.h100.diff.EKL.I.k.value in -1:n) {
-    ## for (h100.EKL.I.k.value in -1:n) {
-        ## formula.name <- paste0("SCAM_gha_s",
-                               ## SI.h100.diff.EKL.I.k.value,
-                               ## "SI.h100.diff.EKL.I_s",
-                               ## h100.EKL.I.k.value,
-                               ## "h100.EKL.I")
-        ## kFormulasToUse <- c(kFormulasToUse,
-                            ## formula.name)
-        ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ s(SI.h100.diff.EKL.I, k = ", SI.h100.diff.EKL.I.k.value,") + s(h100.EKL.I, k = ", h100.EKL.I.k.value,")"))
-    ## }}
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_s0h100.EKL.I")  ## Beech AND Spruced: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s0h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 0)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other combinations of k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other combinations of k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
-
-## n <- 30
-## for (h100.EKL.I.k.value in -1:n) {
-    ## formula.name <- paste0("SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi",
-                           ## h100.EKL.I.k.value,
-                           ## "h100.EKL.I")
-    ## kFormulasToUse <- c(kFormulasToUse,
-                        ## formula.name)
-    ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = ", h100.EKL.I.k.value,", bs = \"mpi\")"))
-## }
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
-
-## n <- 30
-## for (h100.EKL.I.k.value in -1:n) {
-    ## formula.name <- paste0("SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi",
-                           ## h100.EKL.I.k.value,
-                           ## "h100.EKL.I")
-    ## kFormulasToUse <- c(kFormulasToUse,
-                        ## formula.name)
-    ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = ", h100.EKL.I.k.value,", bs = \"mpi\")"))
-## }
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 14, bs = \"mpi\")")
-
-## n <- 30
-## for (h100.k.value in -1:n) {
-    ## formula.name <- paste0("SCAM_gha_s",
-                           ## h100.k.value,
-                           ## "h100")
-    ## kFormulasToUse <- c(kFormulasToUse,
-                        ## formula.name)
-    ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~  s(h100, k = ", h100.k.value,")"))
-## }
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100")  ## Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s3h100"]] <- as.formula(object = "gha ~ s(h100, k = 3)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4h100")  ## Beech: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
-
-## n <- 30
-## for (h100.EKL.I.k.value in -1:n) {
-    ## formula.name <- paste0("SCAM_gha_s",
-                           ## h100.EKL.I.k.value,
-                           ## "h100.EKL.I")
-    ## kFormulasToUse <- c(kFormulasToUse,
-                        ## formula.name)
-    ## kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~  s(h100.EKL.I, k = ", h100.EKL.I.k.value,")"))
-## }
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100.EKL.I")  ## Beech AND Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s3h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s28h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s28h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 28)")
-
-n <- 30
-for (h100.EKL.I.k.value in -1:n) {
-    formula.name <- paste0("SCAM_gha_SI.h100.diff.EKL.I_mpi",
-                           h100.EKL.I.k.value,
-                           "h100.EKL.I")
-    kFormulasToUse <- c(kFormulasToUse,
-                        formula.name)
-    kFormulas[[formula.name]] <- as.formula(object = paste0("gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = ", h100.EKL.I.k.value,", bs = \"mpi\")"))
-}
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 4, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 5, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 9, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 14, bs = \"mpi\")")
-
-## Initiate "for" loop (for looping over all names of input data sources).
-for (cur.input.data.source.name in names.input.data.sources) {
-    input.data <- eval(expr = parse(text = cur.input.data.source.name))
-    ## Evaluate, store and plot models.
-    kFunction <- "scam..scam"
-    if (any(grepl(pattern = kFunction,
-                  x = kFunctionsToUse))) {
-        for (cur.formula.name in names(x = kFormulas)) {
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                if (grepl(pattern = "SCAM_", x = cur.formula.name, fixed = TRUE)) {
-                    ## If a distribution family was specified, use that for model fitting. Otherwise, use "Gamma(link = "log")".
-                    if (cur.formula.name %in% names(x = kDistFamilies)) {
-                        cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
-                    } else {
-                        cur.dist <- Gamma(link = "log")
-                    }
-                    ## Try to fit model.
-                    cur.model <- try(expr = scam::scam(formula = kFormulas[[cur.formula.name]],
-                                                       data = input.data,
-                                                       family = cur.dist))
-                    ## Continue only if model fit was successful.
-                    if (!inherits(x = cur.model, what = "try-error")) {
-                        ## Store model in object "models".
-                        models[["scam..scam"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
-                        ## Plot model ##
-                        ################
-                        ## Extract current model formula.
-                        cur.formula <- cur.model[["formula"]]
-                        ## Store current model formula as a string and remove any whitespace from it.
-                        cur.formula.string <- gsub(pattern = " ",
-                                                   replacement = "",
-                                                   x = Reduce(f = paste,
-                                                              x = deparse(expr = cur.formula)))
-                        ## Turn off graphics device.
-                        graphics.off()
-                        ## If nonexistent, create subdirectory in which to store graphics.
-                        graphics.subdir <- paste0("Graphics/Models/SCAM/", cur.input.data.source.name, "/")
-                        system2(command = "mkdir",
-                                args = paste0("-p ", graphics.subdir))
-                        ## Create file name.
-                        file.name <-paste0(graphics.subdir,
-                                           cur.formula.name,
-                                           ".pdf")
-                        ## Start graphics device driver for producing PDF graphics.
-                        pdf(file = file.name,
-                            width = kPdfWidth,
-                            height = kPdfHeight,
-                            pointsize = kPdfPointSize,
-                            family = kPdfFamily)
-                        ## Set plot layout, depending on number of independent variables.
-                        nr.independent.vars <- length(x = all.vars(expr = cur.formula)[-1])
-                        if (nr.independent.vars == 1) {
-                            mfrow <- c(1, 1)
-                        }
-                        if (nr.independent.vars == 2) {
-                            mfrow <- c(2, 1)
-                        }
-                        if (nr.independent.vars == 3 || nr.independent.vars == 4) {
-                            mfrow <- c(2, 2)
-                        }
-                        par(mfrow = mfrow)
-                        ## Set plot margins.
-                        par(mar = kPlotMargins)
-                        ## Plot model term effects.
-                        scam::plot.scam(x = cur.model,
-                                        all.terms = TRUE,
-                                        main = paste0(cur.formula.string,
-                                                      ", ", cur.input.data.source.name))
-                        ## Plot model diagnostics (which currently requires to define and use a custom version of "scam::scam.check" in order to be able to set argument "pch" to a user defined value).
-                        my.scam.check.string <- deparse(expr = scam::scam.check)
-                        my.scam.check.string[1] <- paste0("my.scam.check <- ", my.scam.check.string[1])
-                        my.scam.check.string <- paste0(my.scam.check.string, collapse = "\n")
-                        my.scam.check.string <- gsub(pattern = ", pch = \".\"", fixed = TRUE, replacement = "", x = my.scam.check.string)
-                        eval(expr = parse(text = my.scam.check.string))
-                        my.scam.check(b = cur.model,
-                                      pch = 19)
-                        ## Turn off graphics device.
-                        graphics.off()
-                    }}}}}}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
 #########
 ## GAM ##
 #########
@@ -439,6 +159,197 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         mgcv::gam.check(b = cur.model,
                                         type = "response",
                                         pch = 19)
+                        ## Turn off graphics device.
+                        graphics.off()
+                    }}}}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
+
+##########
+## SCAM ##
+##########
+## Preamble.
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100")  ## Model does not work due to "subscript out of bounds" error.
+## kFormulas[["SCAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100.EKL.I")
+## kFormulas[["SCAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+## kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
+## kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100")  ## Spruce: lowest GCV score compared to other k-values.
+## kFormulas[["SCAM_gha_mpi13h100"]] <- as.formula(object = "gha ~ s(h100, k = 13, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100.EKL.I")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+## kFormulas[["SCAM_gha_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100.EKL.I")  ## Spruce: lowest GCV score compared to other k-values.
+## kFormulas[["SCAM_gha_mpi13h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 13, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14h100.EKL.I")  ## Beech: lowest GCV score compared to other k-values.
+## kFormulas[["SCAM_gha_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 14, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
+## kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
+## kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
+## kFormulas[["SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 14, bs = \"mpi\") + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
+## kFormulas[["SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 27, bs = \"mpi\") + s(h100.EKL.I, k = 18, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other combinations of k-values, appears to be the smoothest fit.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other combinations of k-values, appears to be the smoothest fit.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s21SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 21) + s(h100.EKL.I, k = 18, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_s0h100.EKL.I")  ## Beech AND Spruced: compared to other combinations of k-values, appears to be the smoothest fit.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s0h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 0)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other combinations of k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other combinations of k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
+## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
+## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 14, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100")  ## Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+## kFormulas[["SCAM_gha_s3h100"]] <- as.formula(object = "gha ~ s(h100, k = 3)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4h100")  ## Beech: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+## kFormulas[["SCAM_gha_s4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100.EKL.I")  ## Beech AND Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+## kFormulas[["SCAM_gha_s3h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s28h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_s28h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 28)")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
+## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
+## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 5, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpih100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 14, bs = \"mpi\")")
+
+## Initiate "for" loop (for looping over all names of input data sources).
+for (cur.input.data.source.name in names.input.data.sources) {
+    input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Evaluate, store and plot models.
+    kFunction <- "scam..scam"
+    if (any(grepl(pattern = kFunction,
+                  x = kFunctionsToUse))) {
+        for (cur.formula.name in names(x = kFormulas)) {
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                if (grepl(pattern = "SCAM_", x = cur.formula.name, fixed = TRUE)) {
+                    ## If a distribution family was specified, use that for model fitting. Otherwise, use "Gamma(link = "log")".
+                    if (cur.formula.name %in% names(x = kDistFamilies)) {
+                        cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
+                    } else {
+                        cur.dist <- Gamma(link = "log")
+                    }
+                    ## Try to fit model.
+                    cur.model <- try(expr = scam::scam(formula = kFormulas[[cur.formula.name]],
+                                                       data = input.data,
+                                                       family = cur.dist))
+                    ## Continue only if model fit was successful.
+                    if (!inherits(x = cur.model, what = "try-error")) {
+                        ## Store model in object "models".
+                        models[["scam..scam"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
+                        ## Plot model ##
+                        ################
+                        ## Extract current model formula.
+                        cur.formula <- cur.model[["formula"]]
+                        ## Store current model formula as a string and remove any whitespace from it.
+                        cur.formula.string <- gsub(pattern = " ",
+                                                   replacement = "",
+                                                   x = Reduce(f = paste,
+                                                              x = deparse(expr = cur.formula)))
+                        ## Turn off graphics device.
+                        graphics.off()
+                        ## If nonexistent, create subdirectory in which to store graphics.
+                        graphics.subdir <- paste0("Graphics/Models/SCAM/", cur.input.data.source.name, "/")
+                        system2(command = "mkdir",
+                                args = paste0("-p ", graphics.subdir))
+                        ## Create file name.
+                        file.name <-paste0(graphics.subdir,
+                                           cur.formula.name,
+                                           ".pdf")
+                        ## Start graphics device driver for producing PDF graphics.
+                        pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
+                        ## Set plot layout, depending on number of independent variables.
+                        nr.independent.vars <- length(x = all.vars(expr = cur.formula)[-1])
+                        if (nr.independent.vars == 1) {
+                            mfrow <- c(1, 1)
+                        }
+                        if (nr.independent.vars == 2) {
+                            mfrow <- c(2, 1)
+                        }
+                        if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                            mfrow <- c(2, 2)
+                        }
+                        par(mfrow = mfrow)
+                        ## Set plot margins.
+                        par(mar = kPlotMargins)
+                        ## Plot model term effects.
+                        scam::plot.scam(x = cur.model,
+                                        all.terms = TRUE,
+                                        main = paste0(cur.formula.string,
+                                                      ", ", cur.input.data.source.name))
+                        ## Plot model diagnostics (which currently requires to define and use a custom version of "scam::scam.check" in order to be able to set argument "pch" to a user defined value).
+                        my.scam.check.string <- deparse(expr = scam::scam.check)
+                        my.scam.check.string[1] <- paste0("my.scam.check <- ", my.scam.check.string[1])
+                        my.scam.check.string <- paste0(my.scam.check.string, collapse = "\n")
+                        my.scam.check.string <- gsub(pattern = ", pch = \".\"", fixed = TRUE, replacement = "", x = my.scam.check.string)
+                        eval(expr = parse(text = my.scam.check.string))
+                        my.scam.check(b = cur.model,
+                                      pch = 19)
                         ## Turn off graphics device.
                         graphics.off()
                     }}}}}}
