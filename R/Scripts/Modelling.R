@@ -55,6 +55,231 @@ lhs <- function (x, c) {
 }
 objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for cleaning up workspace after each block.
 
+############
+## GAMLSS ##
+############
+## Preamble.
+library("gamlss")
+kUseStepGAIC <- vector(mode = "list")
+kSigmaFormulas <- vector(mode = "list")
+kNuFormulas <- vector(mode = "list")
+kTauFormulas <- vector(mode = "list")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I")
+
+## Setup for model "GAMLSS_gha_h100".
+kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
+kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
+
+## Setup for model "GAMLSS_gha_psh100".
+kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100)")
+kColumnsToSelect[["GAMLSS_gha_psh100"]] <- c("gha", "h100")
+
+## Setup for model "GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I".
+kFormulas[["GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I) + pbm(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I".
+kFormulas[["GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I".
+kFormulas[["GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I".
+kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I".
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I".
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I".
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Setup for model "GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I".
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+
+## Check whether the function needed for this block is selected for execution.
+kFunction <- "gamlss..gamlss"
+if (any(grepl(pattern = kFunction,
+              x = kFunctionsToUse))) {
+    ## Loop over all appropriate input data names.
+    for (cur.input.data.source.name in names.input.data.sources) {
+        ## Extract current species name.
+        cur.species.name <- strsplit(x = cur.input.data.source.name, split = ".", fixed = TRUE)[[1]][2]
+        ## Get untampered version of input data.
+        cur.input.data <- get(x = cur.input.data.source.name)
+        ## Loop over all formulas.
+        for (cur.formula.name in names(x = kFormulas)) {
+            ## Check whether the current formula is selected for evaluation.
+            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
+                          x = kFormulasToUse))) {
+                ## Check whether the current formula name contains the string "GAMLSS_", continue only if it does.
+                if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
+                    ## Check whether the current formula is suited for the current species.
+                    if (grepl(pattern = cur.species.name, x = cur.formula.name, fixed = TRUE) || (!grepl(pattern = "(spruce)|(beech)", x = cur.formula.name))) {
+                        ## Subset "cur.input.data" to the column names in "kColumnsToSelect[[cur.formula.name]]".
+                        cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.formula.name]]]
+                        ## Remove missing values from "cur.input.data.col.subset".
+                        cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                        ## If a distribution family was specified, use that for model fitting. Otherwise, use "BCCGo()".
+                        if (cur.formula.name %in% names(x = kDistFamilies)) {
+                            cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
+                        } else {
+                            cur.dist <- gamlss.dist::BCCGo()
+                        }
+                        ## Determine the distribution parameters for the current distribution.
+                        cur.dist.parameters.names <- names(x = cur.dist[["parameters"]])
+                        ## If a formula for parameter "mu" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
+                        if (cur.formula.name %in% names(x = kFormulas)) {
+                            cur.mu.formula <- kFormulas[[cur.formula.name]]
+                        } else {
+                            cur.mu.formula <- as.formula(object = "gha ~ 1")
+                        }
+                        ## If a formula for parameter "sigma" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
+                        if (cur.formula.name %in% names(x = kSigmaFormulas)) {
+                            cur.sigma.formula <- kSigmaFormulas[[cur.formula.name]]
+                        } else {
+                            cur.sigma.formula <- as.formula(object = "gha ~ 1")
+                        }
+                        ## If a formula for parameter "nu" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
+                        if (cur.formula.name %in% names(x = kNuFormulas)) {
+                            cur.nu.formula <- kNuFormulas[[cur.formula.name]]
+                        } else {
+                            cur.nu.formula <- as.formula(object = "gha ~ 1")
+                        }
+                        ## If a formula for parameter "tau" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
+                        if (cur.formula.name %in% names(x = kTauFormulas)) {
+                            cur.tau.formula <- kTauFormulas[[cur.formula.name]]
+                        } else {
+                            cur.tau.formula <- as.formula(object = "gha ~ 1")
+                        }
+                        ## Start sinking output.
+                        sink(file = "/dev/null")
+                        ## Try to fit model.
+                        cur.model <- try(expr = gamlss::gamlss(formula = cur.mu.formula,
+                                                               sigma.formula = cur.sigma.formula,
+                                                               nu.formula = cur.nu.formula,
+                                                               tau.formula = cur.tau.formula,
+                                                               family = cur.dist,
+                                                               data = cur.input.data.col.subset.na.omitted,
+                                                               method = RS(1000)))
+                        ## Stop sinking output.
+                        sink(file = NULL)
+                        ## Continue only if model fit was successful.
+                        if (!inherits(x = cur.model, what = "try-error")) {
+                            ## Store model in object "models".
+                            models[["gamlss..gamlss"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
+                            ## Extract distribution parameter names.
+                            dist.params.names <- cur.model[["parameters"]]
+                            ## Turn off graphics device.
+                            graphics.off()
+                            ## If nonexistent, create subdirectory in which to store graphics.
+                            graphics.subdir <- paste0("Graphics/Models/GAMLSS/", cur.input.data.source.name, "/")
+                            system2(command = "mkdir",
+                                    args = paste0("-p ", graphics.subdir))
+                            ## Create filename.
+                            file.name <- paste0(graphics.subdir,
+                                                cur.formula.name,
+                                                ".pdf")
+                            ## Start graphics device driver for producing PDF graphics.
+                            pdf(file = file.name,
+                                width = kPdfWidth,
+                                height = kPdfHeight,
+                                pointsize = kPdfPointSize,
+                                family = kPdfFamily)
+                            ## Loop over all distribution parameters.
+                            for (cur.dist.parameter.name in dist.params.names) {
+                                ## Set default model formulas for all distribution parameters.
+                                mu.formula <- vector(mode = "character")
+                                sigma.formula <- vector(mode = "character")
+                                nu.formula <- vector(mode = "character")
+                                tau.formula <- vector(mode = "character")
+                                ## Extract actual model formula for current distribution parameter and store it in "cur.formula".
+                                assign(x = "cur.formula",
+                                       value = formula(x = cur.model, what = cur.dist.parameter.name))
+                                ## If "cur.formula != as.formula("~ 1"), continue, else, skip over to the next parameter.
+                                if (cur.formula != as.formula(object = "gha ~ 1")) {
+                                    ## Set plot margins.
+                                    par("mar" = kPlotMargins)
+                                    ## Store current input data in "cur.input.data".
+                                    cur.input.data <- get(x = cur.input.data.source.name)
+                                    ## Subset "cur.input.data" to the column names in "kColumnsToSelect[[cur.formula.name]]".
+                                    cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.formula.name]]]
+                                    ## Remove missing values from "cur.input.data.col.subset".
+                                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                                    ## Set plot layout, depending on number of independent variables.
+                                    nr.independent.vars <- length(x = all.vars(expr = formula(x = cur.model,
+                                                                                              what = cur.dist.parameter.name))[-1])
+                                    if (nr.independent.vars == 1) {
+                                        mfrow <- c(1, 1)
+                                    }
+                                    if (nr.independent.vars == 2) {
+                                        mfrow <- c(2, 1)
+                                    }
+                                    if (nr.independent.vars == 3 || nr.independent.vars == 4) {
+                                        mfrow <- c(2, 2)
+                                    }
+                                    par(mfrow = mfrow)
+                                    ## Plot regression terms for current distribution parameter.
+                                    gamlss::term.plot(object = cur.model,
+                                                      se = TRUE,
+                                                      partial.resid = FALSE,
+                                                      what = cur.dist.parameter.name,
+                                                      pages = 0,
+                                                      ask = FALSE,
+                                                      data = cur.input.data.col.subset.na.omitted,
+                                                      rug = TRUE)
+                                    ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
+                                    title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                                                           start = 1,
+                                                                           stop = 1)),
+                                                        substr(x = cur.dist.parameter.name,
+                                                               start = 2,
+                                                               stop = nchar(x = cur.dist.parameter.name)),
+                                                        ": ",
+                                                        as.character(x = as.expression(x = formula(x = cur.model,
+                                                                                                   what = cur.dist.parameter.name))),
+                                                        ", ",
+                                                        cur.input.data.source.name),
+                                          line = 0.25)
+                                }}
+                            ## Plot model overview.
+                            plot(x = cur.model,
+                                 parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                                                  "mar" = par("mar") + c(0, 1, 0, 0),
+                                                  "col.axis" = "black",
+                                                  "col" = "black",
+                                                  "col.main" = "black",
+                                                  "col.lab" = "black",
+                                                  "pch" = 20,
+                                                  "cex" = 1.00,
+                                                  "cex.lab" = 1.00,
+                                                  "cex.axis" = 1,
+                                                  "cex.main" = 1.5))
+                            ## Turn off graphics device.
+                            graphics.off()
+                        }}}}}}}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.start))
+
 #########
 ## GAM ##
 #########
@@ -353,231 +578,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         ## Turn off graphics device.
                         graphics.off()
                     }}}}}}
-## Clean up workspace.
-rm(list = setdiff(x = ls(),
-                  y = objects.at.start))
-
-############
-## GAMLSS ##
-############
-## Preamble.
-library("gamlss")
-kUseStepGAIC <- vector(mode = "list")
-kSigmaFormulas <- vector(mode = "list")
-kNuFormulas <- vector(mode = "list")
-kTauFormulas <- vector(mode = "list")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I")
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I")
-
-## Setup for model "GAMLSS_gha_h100".
-kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
-kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
-
-## Setup for model "GAMLSS_gha_psh100".
-kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100)")
-kColumnsToSelect[["GAMLSS_gha_psh100"]] <- c("gha", "h100")
-
-## Setup for model "GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I".
-kFormulas[["GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I) + pbm(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_pbmSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I".
-kFormulas[["GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + pbm(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_psSI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I".
-kFormulas[["GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I".
-kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I".
-kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I".
-kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I".
-kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbmh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Setup for model "GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I".
-kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I)")
-kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_psh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
-
-## Check whether the function needed for this block is selected for execution.
-kFunction <- "gamlss..gamlss"
-if (any(grepl(pattern = kFunction,
-              x = kFunctionsToUse))) {
-    ## Loop over all appropriate input data names.
-    for (cur.input.data.source.name in names.input.data.sources) {
-        ## Extract current species name.
-        cur.species.name <- strsplit(x = cur.input.data.source.name, split = ".", fixed = TRUE)[[1]][2]
-        ## Get untampered version of input data.
-        cur.input.data <- get(x = cur.input.data.source.name)
-        ## Loop over all formulas.
-        for (cur.formula.name in names(x = kFormulas)) {
-            ## Check whether the current formula is selected for evaluation.
-            if (any(grepl(pattern = paste0("^", cur.formula.name, "$"),
-                          x = kFormulasToUse))) {
-                ## Check whether the current formula name contains the string "GAMLSS_", continue only if it does.
-                if (grepl(pattern = "GAMLSS_", x = cur.formula.name, fixed = TRUE)) {
-                    ## Check whether the current formula is suited for the current species.
-                    if (grepl(pattern = cur.species.name, x = cur.formula.name, fixed = TRUE) || (!grepl(pattern = "(spruce)|(beech)", x = cur.formula.name))) {
-                        ## Subset "cur.input.data" to the column names in "kColumnsToSelect[[cur.formula.name]]".
-                        cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.formula.name]]]
-                        ## Remove missing values from "cur.input.data.col.subset".
-                        cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
-                        ## If a distribution family was specified, use that for model fitting. Otherwise, use "BCCGo()".
-                        if (cur.formula.name %in% names(x = kDistFamilies)) {
-                            cur.dist <- eval(expr = parse(text = kDistFamilies[[cur.formula.name]]))
-                        } else {
-                            cur.dist <- gamlss.dist::BCCGo()
-                        }
-                        ## Determine the distribution parameters for the current distribution.
-                        cur.dist.parameters.names <- names(x = cur.dist[["parameters"]])
-                        ## If a formula for parameter "mu" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
-                        if (cur.formula.name %in% names(x = kFormulas)) {
-                            cur.mu.formula <- kFormulas[[cur.formula.name]]
-                        } else {
-                            cur.mu.formula <- as.formula(object = "gha ~ 1")
-                        }
-                        ## If a formula for parameter "sigma" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
-                        if (cur.formula.name %in% names(x = kSigmaFormulas)) {
-                            cur.sigma.formula <- kSigmaFormulas[[cur.formula.name]]
-                        } else {
-                            cur.sigma.formula <- as.formula(object = "gha ~ 1")
-                        }
-                        ## If a formula for parameter "nu" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
-                        if (cur.formula.name %in% names(x = kNuFormulas)) {
-                            cur.nu.formula <- kNuFormulas[[cur.formula.name]]
-                        } else {
-                            cur.nu.formula <- as.formula(object = "gha ~ 1")
-                        }
-                        ## If a formula for parameter "tau" was specified, use that for model fitting. Otherwise, use "gha ~ 1".
-                        if (cur.formula.name %in% names(x = kTauFormulas)) {
-                            cur.tau.formula <- kTauFormulas[[cur.formula.name]]
-                        } else {
-                            cur.tau.formula <- as.formula(object = "gha ~ 1")
-                        }
-                        ## Start sinking output.
-                        sink(file = "/dev/null")
-                        ## Try to fit model.
-                        cur.model <- try(expr = gamlss::gamlss(formula = cur.mu.formula,
-                                                               sigma.formula = cur.sigma.formula,
-                                                               nu.formula = cur.nu.formula,
-                                                               tau.formula = cur.tau.formula,
-                                                               family = cur.dist,
-                                                               data = cur.input.data.col.subset.na.omitted,
-                                                               method = RS(1000)))
-                        ## Stop sinking output.
-                        sink(file = NULL)
-                        ## Continue only if model fit was successful.
-                        if (!inherits(x = cur.model, what = "try-error")) {
-                            ## Store model in object "models".
-                            models[["gamlss..gamlss"]][[cur.input.data.source.name]][[cur.formula.name]] <- cur.model
-                            ## Extract distribution parameter names.
-                            dist.params.names <- cur.model[["parameters"]]
-                            ## Turn off graphics device.
-                            graphics.off()
-                            ## If nonexistent, create subdirectory in which to store graphics.
-                            graphics.subdir <- paste0("Graphics/Models/GAMLSS/", cur.input.data.source.name, "/")
-                            system2(command = "mkdir",
-                                    args = paste0("-p ", graphics.subdir))
-                            ## Create filename.
-                            file.name <- paste0(graphics.subdir,
-                                                cur.formula.name,
-                                                ".pdf")
-                            ## Start graphics device driver for producing PDF graphics.
-                            pdf(file = file.name,
-                                width = kPdfWidth,
-                                height = kPdfHeight,
-                                pointsize = kPdfPointSize,
-                                family = kPdfFamily)
-                            ## Loop over all distribution parameters.
-                            for (cur.dist.parameter.name in dist.params.names) {
-                                ## Set default model formulas for all distribution parameters.
-                                mu.formula <- vector(mode = "character")
-                                sigma.formula <- vector(mode = "character")
-                                nu.formula <- vector(mode = "character")
-                                tau.formula <- vector(mode = "character")
-                                ## Extract actual model formula for current distribution parameter and store it in "cur.formula".
-                                assign(x = "cur.formula",
-                                       value = formula(x = cur.model, what = cur.dist.parameter.name))
-                                ## If "cur.formula != as.formula("~ 1"), continue, else, skip over to the next parameter.
-                                if (cur.formula != as.formula(object = "gha ~ 1")) {
-                                    ## Set plot margins.
-                                    par("mar" = kPlotMargins)
-                                    ## Store current input data in "cur.input.data".
-                                    cur.input.data <- get(x = cur.input.data.source.name)
-                                    ## Subset "cur.input.data" to the column names in "kColumnsToSelect[[cur.formula.name]]".
-                                    cur.input.data.col.subset <- cur.input.data[, kColumnsToSelect[[cur.formula.name]]]
-                                    ## Remove missing values from "cur.input.data.col.subset".
-                                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
-                                    ## Set plot layout, depending on number of independent variables.
-                                    nr.independent.vars <- length(x = all.vars(expr = formula(x = cur.model,
-                                                                                              what = cur.dist.parameter.name))[-1])
-                                    if (nr.independent.vars == 1) {
-                                        mfrow <- c(1, 1)
-                                    }
-                                    if (nr.independent.vars == 2) {
-                                        mfrow <- c(2, 1)
-                                    }
-                                    if (nr.independent.vars == 3 || nr.independent.vars == 4) {
-                                        mfrow <- c(2, 2)
-                                    }
-                                    par(mfrow = mfrow)
-                                    ## Plot regression terms for current distribution parameter.
-                                    gamlss::term.plot(object = cur.model,
-                                                      se = TRUE,
-                                                      partial.resid = FALSE,
-                                                      what = cur.dist.parameter.name,
-                                                      pages = 0,
-                                                      ask = FALSE,
-                                                      data = cur.input.data.col.subset.na.omitted,
-                                                      rug = TRUE)
-                                    ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
-                                    title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                           start = 1,
-                                                                           stop = 1)),
-                                                        substr(x = cur.dist.parameter.name,
-                                                               start = 2,
-                                                               stop = nchar(x = cur.dist.parameter.name)),
-                                                        ": ",
-                                                        as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                                   what = cur.dist.parameter.name))),
-                                                        ", ",
-                                                        cur.input.data.source.name),
-                                          line = 0.25)
-                                }}
-                            ## Plot model overview.
-                            plot(x = cur.model,
-                                 parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
-                                                  "mar" = par("mar") + c(0, 1, 0, 0),
-                                                  "col.axis" = "black",
-                                                  "col" = "black",
-                                                  "col.main" = "black",
-                                                  "col.lab" = "black",
-                                                  "pch" = 20,
-                                                  "cex" = 1.00,
-                                                  "cex.lab" = 1.00,
-                                                  "cex.axis" = 1,
-                                                  "cex.main" = 1.5))
-                            ## Turn off graphics device.
-                            graphics.off()
-                        }}}}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
