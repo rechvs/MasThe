@@ -1624,7 +1624,7 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ## - a column "age",
 ## - a column "h100", and
 ## - a column "yield.class".
-## The contained values are taken from Schober (1995) for beech at intermediate thinning.
+## The contained values are taken from Schober (1995) for beech at moderate thinning.
 kBaseFileVersion <- "4.5"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "4.6"
@@ -1708,7 +1708,7 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ## - a column "age",
 ## - a column "h100", and
 ## - a column "yield.class".
-## The contained values are taken from Schober (1995) for spruce at intermediate thinning.
+## The contained values are taken from Schober (1995) for spruce at moderate thinning.
 kBaseFileVersion <- "4.6"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "4.7"
