@@ -1832,3 +1832,31 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_4.9.RData" ##
+####################################
+## Based on version 4.8.
+## In this version, "schober.SPECIES" contains an additional column "h100.diff.EKL.I = h100.EKL.I - h100".
+kBaseFileVersion <- "4.8"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.9"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all relevant objects.
+for (cur.object.name in c("schober.beech", "schober.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "h100.diff.EKL.I".
+    cur.object[["h100.diff.EKL.I"]] <- cur.object[["h100"]] - cur.object[["h100.EKL.I"]]
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
