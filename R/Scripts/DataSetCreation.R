@@ -1796,3 +1796,39 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_4.8.RData" ##
+####################################
+## Based on version 4.7.
+## In this version, "schober.SPECIES" contains an additional column "h100.EKL.I" which holds h100 for a given age if the stand were EKL I.
+kBaseFileVersion <- "4.7"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "4.8"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all relevant objects.
+for (cur.object.name in c("schober.beech", "schober.spruce")) {
+    ## Assign species-specific value for "SI.h100.EKL.I".
+    if (grepl(pattern = "beech", x = cur.object.name)) {
+        SI.h100.EKL.I <- 32.4  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of beech, moderate thinning (source: Schober (1995)).
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name)) {
+        SI.h100.EKL.I <- 35.1  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
+    }
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
+    ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
+    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = cur.object[["age"]])) - 49.872 + 7.3309 * log(x = cur.object[["age"]]) + 0.77338 * (log(x = cur.object[["age"]]))^2
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
