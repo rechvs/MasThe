@@ -1860,3 +1860,32 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.0.RData" ##
+####################################
+## Based on version 4.9.
+## In this version, "schober.SPECIES" contains an additional column "SI.h100" which holds the stand index calculated with the function by Nagel (see email by Matthias Schmidt from 2017-04-27 12:06).
+kBaseFileVersion <- "4.9"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.0"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all relevant objects.
+for (cur.object.name in c("schober.beech", "schober.spruce")) {
+    ## Assign current object.
+    cur.object <- get(x = cur.object.name)
+    ## Calculate "SI_h100".
+    ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
+    cur.object[["SI.h100"]] <- (cur.object[["h100"]] + 49.87200 - 7.33090 * log(x = cur.object[["age"]]) - 0.77338 * ((log(x = cur.object[["age"]])) ^ 2.0)) / (0.52684 + 0.10542 * log(x = cur.object[["age"]]))
+    ## Assign new version of current object.
+    assign(x = cur.object.name,
+           value = cur.object)
+}
+## Save results.
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
