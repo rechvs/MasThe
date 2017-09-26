@@ -1631,7 +1631,6 @@ kFileVersion <- "4.6"
 kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 ## Load base file.
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-
 ## Create vector for age of I. yield class.
 age.yield.class.I <- seq(from = 30,
                          to = 150,
@@ -1644,7 +1643,6 @@ yield.class.yield.class.I <- as.factor(x = rep(x = 1, times = length(x = h100.yi
 df.yield.class.I <- data.frame("age" = age.yield.class.I,
                                "h100" = h100.yield.class.I,
                                "yield.class" = yield.class.yield.class.I)
-
 ## Create vector for age of II. yield class.
 age.yield.class.II <- seq(from = 30,
                           to = 150,
@@ -1657,7 +1655,6 @@ yield.class.yield.class.II <- as.factor(x = rep(x = 2, times = length(x = h100.y
 df.yield.class.II <- data.frame("age" = age.yield.class.II,
                                "h100" = h100.yield.class.II,
                                "yield.class" = yield.class.yield.class.II)
-
 ## Create vector for age of III. yield class.
 age.yield.class.III <- seq(from = 30,
                            to = 150,
@@ -1670,7 +1667,6 @@ yield.class.yield.class.III <- as.factor(x = rep(x = 3, times = length(x = h100.
 df.yield.class.III <- data.frame("age" = age.yield.class.III,
                                "h100" = h100.yield.class.III,
                                "yield.class" = yield.class.yield.class.III)
-
 ## Create vector for age of IV. yield class.
 age.yield.class.IV <- seq(from = 30,
                           to = 150,
@@ -1683,13 +1679,11 @@ yield.class.yield.class.IV <- as.factor(x = rep(x = 4, times = length(x = h100.y
 df.yield.class.IV <- data.frame("age" = age.yield.class.IV,
                                "h100" = h100.yield.class.IV,
                                "yield.class" = yield.class.yield.class.IV)
-
 ## Create final data frame containing all yield classes.
 schober.beech <- rbind(df.yield.class.I,
                        df.yield.class.II,
                        df.yield.class.III,
                        df.yield.class.IV)
-
 ## Add "schober.beech" to the vector of names of objects meant to be saved.
 kgmaxObjects <- c("schober.beech", kgmaxObjects)
 ## Save results.
