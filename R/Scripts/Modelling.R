@@ -108,9 +108,9 @@ kTauFormulas <- vector(mode = "list")
 ## kFormulas[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 10) + pbm(h100.EKL.I, df = 1)")
 ## kColumnsToSelect[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-n <- 15
-for (SI.h100.diff.EKL.I.df.value in 7:n) {
-    for (h100.EKL.I.df.value in -1:n) {
+n <- 20
+for (SI.h100.diff.EKL.I.df.value in -1:n) {
+    for (h100.EKL.I.df.value in -1:5) {
         formula.name <- paste0("GAMLSS_gha_ps",
                                SI.h100.diff.EKL.I.df.value,
                                "SI.h100.diff.EKL.I_pbm",
@@ -125,11 +125,9 @@ for (SI.h100.diff.EKL.I.df.value in 7:n) {
 ## kFormulas[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 7) + pbm(h100.EKL.I, df = 4)")
 ## kColumnsToSelect[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## Spruce: lowest AIC sofar (ps: -1 to 6, pbm: -1 to 15): GAMLSS_gha_ps6SI.h100.diff.EKL.I_pbm1h100.EKL.I 691.9121 
-
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psxSI.h100.diff.EKL.I_pbmyh100.EKL.I")
-## kFormulas[["GAMLSS_gha_psxSI.h100.diff.EKL.I_pbmyh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = x) + pbm(h100.EKL.I, df = y)")
-## kColumnsToSelect[["GAMLSS_gha_psxSI.h100.diff.EKL.I_pbmyh100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
+## kFormulas[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 17) + pbm(h100.EKL.I, df = 0)")
+## kColumnsToSelect[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I")
 ## kFormulas[["GAMLSS_gha_psSI.h100.diff.EKL.I_psh100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I) + ps(h100.EKL.I)")
