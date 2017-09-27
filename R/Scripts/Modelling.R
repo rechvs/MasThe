@@ -172,12 +172,6 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
-test.beech <- sapply(X = models$mgcv..gam$bart.beech.clean.1.8, FUN = function (x) {return(unname(obj = x$gcv.ubre))});
-test.beech <- test.beech[order(test.beech)];
-test.spruce <- sapply(X = models$mgcv..gam$bart.spruce.clean.1.8, FUN = function (x) {return(unname(obj = x$gcv.ubre))});
-test.spruce <- test.spruce[order(test.spruce)];
-print(paste0("lowest GCV score for beech: ", names(x = test.beech[1])));
-print(paste0("lowest GCV score for spruce: ", names(x = test.spruce[1])));
 ##########
 ## SCAM ##
 ##########
