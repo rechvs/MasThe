@@ -60,39 +60,43 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
-## kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
+kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
-## kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
+kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech AND Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
-
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
+    ## Extract current species name.
+    if (grepl(pattern = "spruce", x = cur.input.data.source.name)) {
+        cur.species.name <- "spruce"
+    }
+    if (grepl(pattern = "beech", x = cur.input.data.source.name)) {
+        cur.species.name <- "beech"
+    }
     ## Evaluate and store models.
     kFunction <- "mgcv..gam"
     if (any(grepl(pattern = kFunction,
@@ -165,6 +169,47 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         mgcv::gam.check(b = cur.model,
                                         type = "response",
                                         pch = 19)
+                        ## Plot model predictions. ##
+                        ## Get yield table data for current species.
+                        new.data.object.name <- paste0("schober.", cur.species.name)
+                        new.data <- get(x = new.data.object.name)
+                        ## Calculate model predictions.
+                        new.data[["gha.predictions"]] <- predict.gam(object = cur.model,
+                                                                     newdata = new.data)
+                        ## Extract vector of independent variables names.
+                        independent.vars <- all.vars(expr = formula(x = cur.model))[-1]
+                        ## Loop over all independent variables.
+                        for (cur.var.name in independent.vars) {
+                            ## Create empty plot.
+                            plot(x = NULL,
+                                 xlim = c(min(new.data[[cur.var.name]], na.rm = TRUE),
+                                          max(new.data[[cur.var.name]], na.rm = TRUE) * 1.2),  ## adds additional space to place legend in
+                                 ylim = c(min(new.data[["gha.predictions"]], na.rm = TRUE),
+                                          max(new.data[["gha.predictions"]], na.rm = TRUE)),
+                                 main = paste0(new.data.object.name, ", ",cur.formula.string, ", predicted gha vs. ", cur.var.name),
+                                 xlab = cur.var.name,
+                                 ylab = "gha")
+                            ## Add lines to plot per yield class.
+                            all.cols <- c("red", "green", "blue", "cyan")
+                            for (cur.yield.class in levels(x = new.data[["yield.class"]])) {
+                                point.col <- all.cols[as.numeric(x = cur.yield.class)]
+                                point.ch <- 19
+                                line.ty <- "solid"
+                                points(x = new.data[[cur.var.name]][new.data[["yield.class"]] == cur.yield.class],
+                                      y = new.data[["gha.predictions"]][new.data[["yield.class"]] == cur.yield.class],
+                                      col = point.col,
+                                      pch = point.ch,
+                                      type = "b",
+                                      lty = line.ty)
+                            }}
+                        ## Add legend.
+                        legend(x = "topright",
+                               legend = paste0("yield class ",
+                                              levels(x = new.data[["yield.class"]])),
+                               lty = line.ty,
+                               pch = point.ch,
+                               col = all.cols,
+                               bg = "slategray1")
                         ## Turn off graphics device.
                         graphics.off()
                     }}}}}}
