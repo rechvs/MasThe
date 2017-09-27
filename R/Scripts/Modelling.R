@@ -59,30 +59,36 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## GAM ##
 #########
 ## Preamble.
+
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
+## kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+
 ## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1h100")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I")
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I")
+## kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
-## Setup for model "GAM_gha_h100".
-kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 
-## Setup for model "GAM_gha_h100.EKL.I".
-kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
 
-## Setup for model "GAM_gha_s1h100".
-kFormulas[["GAM_gha_s1h100"]] <- as.formula(object = "gha ~ s(h100, k = 1)")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
 
-## Setup for model "GAM_gha_s1h100.EKL.I".
-kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 1)")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
 
-## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I".
-kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + h100.EKL.I")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
 
-## Setup for model "GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I".
-kFormulas[["GAM_gha_s1SI.h100.diff.EKL.I_s1h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 1) + s(h100.EKL.I, k = 1)")
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
+
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
+
+## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+## kFormulas[["GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -166,6 +172,12 @@ for (cur.input.data.source.name in names.input.data.sources) {
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
 
+test.beech <- sapply(X = models$mgcv..gam$bart.beech.clean.1.8, FUN = function (x) {return(unname(obj = x$gcv.ubre))});
+test.beech <- test.beech[order(test.beech)];
+test.spruce <- sapply(X = models$mgcv..gam$bart.spruce.clean.1.8, FUN = function (x) {return(unname(obj = x$gcv.ubre))});
+test.spruce <- test.spruce[order(test.spruce)];
+print(paste0("lowest GCV score for beech: ", names(x = test.beech[1])));
+print(paste0("lowest GCV score for spruce: ", names(x = test.spruce[1])));
 ##########
 ## SCAM ##
 ##########
@@ -506,7 +518,6 @@ if (any(grepl(pattern = kFunction,
                         } else {
                             cur.tau.formula <- as.formula(object = "gha ~ 1")
                         }
-                        print(paste0("current formula: ", cur.formula.name))  ## TESTING
                         ## Start sinking output.
                         sink(file = "/dev/null")
                         ## Try to fit model.
