@@ -174,8 +174,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         new.data.object.name <- paste0("schober.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
                         ## Calculate model predictions.
-                        new.data[["gha.predictions"]] <- predict.gam(object = cur.model,
-                                                                     newdata = new.data)
+                        new.data[["gha.predictions"]] <- exp(x = predict.gam(object = cur.model,
+                                                                             newdata = new.data,
+                                                                             type = "link"))
                         ## Extract vector of independent variables names.
                         independent.vars <- all.vars(expr = formula(x = cur.model))[-1]
                         ## Loop over all independent variables.
@@ -196,11 +197,11 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                 point.ch <- 19
                                 line.ty <- "solid"
                                 points(x = new.data[[cur.var.name]][new.data[["yield.class"]] == cur.yield.class],
-                                      y = new.data[["gha.predictions"]][new.data[["yield.class"]] == cur.yield.class],
-                                      col = point.col,
-                                      pch = point.ch,
-                                      type = "b",
-                                      lty = line.ty)
+                                       y = new.data[["gha.predictions"]][new.data[["yield.class"]] == cur.yield.class],
+                                       col = point.col,
+                                       pch = point.ch,
+                                       type = "b",
+                                       lty = line.ty)
                             }}
                         ## Add legend.
                         legend(x = "topright",
