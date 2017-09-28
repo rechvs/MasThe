@@ -60,29 +60,29 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
-## kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
+kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
-## kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
+kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech AND Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech AND Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["GAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
 
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
 kFormulas[["GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
@@ -234,101 +234,101 @@ rm(list = setdiff(x = ls(),
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100.EKL.I")  ## Model does not work due to "subscript out of bounds" error.
 ## kFormulas[["SCAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100.EKL.I")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+kFormulas[["SCAM_gha_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 4, bs = \"mpi\")")
+
 kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
 kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
+kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100")  ## Spruce: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi13h100"]] <- as.formula(object = "gha ~ s(h100, k = 13, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100.EKL.I")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
-## kFormulas[["SCAM_gha_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100.EKL.I")  ## Spruce: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi13h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 13, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100.EKL.I")  ## Spruce: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi13h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 13, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi13h100")  ## Spruce: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi13h100"]] <- as.formula(object = "gha ~ s(h100, k = 13, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14h100.EKL.I")  ## Beech: lowest GCV score compared to other k-values.
-## kFormulas[["SCAM_gha_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 14, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14h100.EKL.I")  ## Beech: lowest GCV score compared to other k-values.
+kFormulas[["SCAM_gha_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 14, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
-## kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
+kFormulas[["SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 14, bs = \"mpi\") + s(h100.EKL.I, k = 9, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
-## kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
+kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 14, bs = \"mpi\") + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
+kFormulas[["SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 27, bs = \"mpi\") + s(h100.EKL.I, k = 18, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_mpi27SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 27, bs = \"mpi\") + s(h100.EKL.I, k = 18, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other combinations of k-values, appears to be the smoothest fit.
+kFormulas[["SCAM_gha_s0SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_s0h100.EKL.I")  ## Beech AND Spruced: compared to other combinations of k-values, appears to be the smoothest fit.
+kFormulas[["SCAM_gha_s0SI.h100.diff.EKL.I_s0h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 0)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100.EKL.I")  ## Beech AND Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+kFormulas[["SCAM_gha_s3h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100")  ## Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+kFormulas[["SCAM_gha_s3h100"]] <- as.formula(object = "gha ~ s(h100, k = 3)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s21SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 21) + s(h100.EKL.I, k = 18, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4h100")  ## Beech: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
+kFormulas[["SCAM_gha_s4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s0SI.h100.diff.EKL.I_s0h100.EKL.I")  ## Beech AND Spruced: compared to other combinations of k-values, appears to be the smoothest fit.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s0h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 0) + s(h100.EKL.I, k = 0)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other combinations of k-values, appears to be the smoothest fit.
+kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other combinations of k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
+kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other combinations of k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s1SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other combinations of k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 14, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other combinations of k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100")  ## Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s3h100"]] <- as.formula(object = "gha ~ s(h100, k = 3)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s21SI.h100.diff.EKL.I_mpi18h100.EKL.I")  ## Spruce: lowest GCV score compared to other combinations of k-values for both terms.
+kFormulas[["SCAM_gha_s21SI.h100.diff.EKL.I_mpi18h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 21) + s(h100.EKL.I, k = 18, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s4h100")  ## Beech: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s28h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_s28h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 28)")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
+kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_sefuminus3SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + s(h100.EKL.I, k = 9, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s3h100.EKL.I")  ## Beech AND Spruce: compared to higher k-values, smoothest fit; compared to lower k-values, same fit.
-## kFormulas[["SCAM_gha_s3h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
+kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s7h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_sefuminus7SI.h100.diff.EKL.I_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + s(h100.EKL.I, k = 14, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_s28h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_s28h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 28)")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Spruce: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 5, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I")  ## Beech: compared to other k-values, smoothest fit.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi5h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 5, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 9, bs = \"mpi\")")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 9, bs = \"mpi\")")
-
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-## kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 14, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
+kFormulas[["SCAM_gha_SI.h100.diff.EKL.I_mpi14h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + s(h100.EKL.I, k = 14, bs = \"mpi\")")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -482,85 +482,85 @@ kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
 kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
 kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100")  ## Beech AND Spruce: compared to higher df-values, smoothest fit; compared to lower df-values, same fit. Beech: compared to higher df-values, lowest AIC; compared to lower df-values, same AIC.
-## kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 1)")
-## kColumnsToSelect[["GAMLSS_gha_psxh100"]] <- c("gha", "h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 8) + pbm(h100.EKL.I, df = 4)")
+kColumnsToSelect[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps15h100")  ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 15)")
-## kColumnsToSelect[["GAMLSS_gha_ps15h100"]] <- c("gha", "h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 10) + pbm(h100.EKL.I, df = 1)")
+kColumnsToSelect[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 8) + pbm(h100.EKL.I, df = 4)")
-## kColumnsToSelect[["GAMLSS_gha_pbm8SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100")  ## Beech AND Spruce: compared to higher df-values, smoothest fit; compared to lower df-values, same fit. Beech: compared to higher df-values, lowest AIC; compared to lower df-values, same AIC.
+kFormulas[["GAMLSS_gha_ps1h100"]] <- as.formula(object = "gha ~ ps(h100, df = 1)")
+kColumnsToSelect[["GAMLSS_gha_ps1h100"]] <- c("gha", "h100")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- as.formula(object = "gha ~ pbm(SI.h100.diff.EKL.I, df = 10) + pbm(h100.EKL.I, df = 1)")
-## kColumnsToSelect[["GAMLSS_gha_pbm10SI.h100.diff.EKL.I_pbm1h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps15h100")  ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_ps15h100"]] <- as.formula(object = "gha ~ ps(h100, df = 15)")
+kColumnsToSelect[["GAMLSS_gha_ps15h100"]] <- c("gha", "h100")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 7) + pbm(h100.EKL.I, df = 4)")
-## kColumnsToSelect[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 7) + pbm(h100.EKL.I, df = 4)")
+kColumnsToSelect[["GAMLSS_gha_ps7SI.h100.diff.EKL.I_pbm4h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 17) + pbm(h100.EKL.I, df = 0)")
-## kColumnsToSelect[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 17) + pbm(h100.EKL.I, df = 0)")
+kColumnsToSelect[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 16) + ps(h100.EKL.I, df = 19)")
-## kColumnsToSelect[["GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I")  ## Beech: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 16) + ps(h100.EKL.I, df = 19)")
+kColumnsToSelect[["GAMLSS_gha_ps16SI.h100.diff.EKL.I_ps19h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 17) + ps(h100.EKL.I, df = 14)")
-## kColumnsToSelect[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I")  ## Spruce: compared to other combinations of df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I"]] <- as.formula(object = "gha ~ ps(SI.h100.diff.EKL.I, df = 17) + ps(h100.EKL.I, df = 14)")
+kColumnsToSelect[["GAMLSS_gha_ps17SI.h100.diff.EKL.I_ps14h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(2 = SI.h100.diff.EKL.I, c = -3) + rhs(2 = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I, df = 2)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I, df = 2)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(3 = SI.h100.diff.EKL.I, c = -3) + rhs(3 = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I, df = 3)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + pbm(h100.EKL.I, df = 3)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_pbm3h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(6 = SI.h100.diff.EKL.I, c = -3) + rhs(6 = SI.h100.diff.EKL.I, c = -3) + ps(h100.EKL.I, df = 6)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + ps(h100.EKL.I, df = 6)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps6h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(13 = SI.h100.diff.EKL.I, c = -3) + rhs(13 = SI.h100.diff.EKL.I, c = -3) + ps(h100.EKL.I, df = 13)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -3) + rhs(x = SI.h100.diff.EKL.I, c = -3) + ps(h100.EKL.I, df = 13)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus3SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(2 = SI.h100.diff.EKL.I, c = -7) + rhs(2 = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I, df = 2)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I, df = 2)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(0 = SI.h100.diff.EKL.I, c = -7) + rhs(0 = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I, df = 0)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + pbm(h100.EKL.I, df = 0)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(2 = SI.h100.diff.EKL.I, c = -7) + rhs(2 = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I, df = 2)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I") ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I, df = 2)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(13 = SI.h100.diff.EKL.I, c = -7) + rhs(13 = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I, df = 13)")
-## kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I") ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = SI.h100.diff.EKL.I, c = -7) + rhs(x = SI.h100.diff.EKL.I, c = -7) + ps(h100.EKL.I, df = 13)")
+kColumnsToSelect[["GAMLSS_gha_sefuminus7SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I")  ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I, df = 2)")
-## kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I")  ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I, df = 2)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I")  ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I, df = 0)")
-## kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I")  ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + pbm(h100.EKL.I, df = 0)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_pbm0h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I")  ## Beech: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I, df = 2)")
-## kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I")  ## Beech: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I, df = 2)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_ps2h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I")  ## Spruce: compared to other df-values, lowest AIC.
-## kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I, df = 13)")
-## kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I")  ## Spruce: compared to other df-values, lowest AIC.
+kFormulas[["GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- as.formula(object = "gha ~ SI.h100.diff.EKL.I + ps(h100.EKL.I, df = 13)")
+kColumnsToSelect[["GAMLSS_gha_SI.h100.diff.EKL.I_ps13h100.EKL.I"]] <- c("gha", "SI.h100.diff.EKL.I", "h100.EKL.I")
 
 ## Check whether the function needed for this block is selected for execution.
 kFunction <- "gamlss..gamlss"
