@@ -1,0 +1,56 @@
+%% Load TikZ libraries.
+\usetikzlibrary[
+shapes.geometric,
+intersections,
+positioning]
+
+%% Set drawing options for figures.
+\tikzset{DataSelectionFlowChartStart/.style = {
+    draw,
+    shape = circle,
+    top color = white,
+    bottom color = green!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartAction/.style = {
+    draw,
+    shape = trapezium,
+    top color = white,
+    bottom color = violet!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartQuestion/.style = {
+    draw,
+    rounded corners,
+    shape=diamond,
+    top color = white,
+    bottom color = violet!30,
+    line width = 0cm,
+    aspect=2,
+    align = center}}
+\tikzset{DataSelectionFlowChartResult/.style = {
+    draw,
+    shape = rectangle,
+    fill = white,
+    line width = 0cm,
+    align = center}}
+\tikzset{DataSelectionFlowChartEnd/.style = {
+    draw,
+    shape = circle,
+    top color = white,
+    bottom color = red!30,
+    line width = 0cm,
+    trapezium angle = 45,
+    align = center}}
+\tikzset{DataSelectionFlowChartArrow/.style = {
+    ->,
+    thick}}
+\tikzset{DataSelectionFlowChartLine/.style = {
+    thick}}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasAr_Thesis.tex"
+%%% End:
