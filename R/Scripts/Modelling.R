@@ -174,9 +174,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         new.data.object.name <- paste0("schober.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
                         ## Calculate model predictions.
-                        new.data[["gha.predictions"]] <- exp(x = predict.gam(object = cur.model,
-                                                                             newdata = new.data,
-                                                                             type = "link"))
+                        new.data[["gha.predictions"]] <- mgcv::predict.gam(object = cur.model,
+                                                                           newdata = new.data,
+                                                                           type = "response")
                         ## Extract vector of independent variables names.
                         independent.vars <- all.vars(expr = formula(x = cur.model))[-1]
                         ## Loop over all independent variables.
@@ -191,7 +191,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                           xmax + abs(x = (xmax - xmin)) * 0.1),  ## adds additional space to place legend in
                                  ylim = c(ymin,
                                           ymax),
-                                 main = paste0(new.data.object.name, ", ",cur.formula.string),
+                                 main = paste0(cur.formula.string, ", ", new.data.object.name),
                                  xlab = cur.var.name,
                                  ylab = "gha")
                             ## Add lines to plot per yield class.
@@ -234,8 +234,8 @@ rm(list = setdiff(x = ls(),
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_h100.EKL.I")  ## Model does not work due to "subscript out of bounds" error.
 ## kFormulas[["SCAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
 
-## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
-## kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4h100")  ## Spruce: smoothest fit compared to other k-values, but also highest GCV score.
+kFormulas[["SCAM_gha_mpi4h100"]] <- as.formula(object = "gha ~ s(h100, k = 4, bs = \"mpi\")")
 
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi5h100")  ## Beech: smoothest fit and lowest GCV score compared to other k-values.
 ## kFormulas[["SCAM_gha_mpi5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5, bs = \"mpi\")")
@@ -419,9 +419,9 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         new.data.object.name <- paste0("schober.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
                         ## Calculate model predictions.
-                        new.data[["gha.predictions"]] <- exp(x = predict.scam(object = cur.model,
-                                                                              newdata = new.data,
-                                                                              type = "link"))
+                        new.data[["gha.predictions"]] <- scam::predict.scam(object = cur.model,
+                                                                            newdata = new.data,
+                                                                            type = "response")
                         ## Extract vector of independent variables names.
                         independent.vars <- all.vars(expr = formula(x = cur.model))[-1]
                         ## Loop over all independent variables.
@@ -436,7 +436,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                           xmax + abs(x = (xmax - xmin)) * 0.1),  ## adds additional space to place legend in
                                  ylim = c(ymin,
                                           ymax),
-                                 main = paste0(new.data.object.name, ", ",cur.formula.string),
+                                 main = paste0(cur.formula.string, ", ", new.data.object.name),
                                  xlab = cur.var.name,
                                  ylab = "gha")
                             ## Add lines to plot per yield class.
@@ -478,9 +478,9 @@ kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 
-## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
-## kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
-## kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_h100")
+kFormulas[["GAMLSS_gha_h100"]] <- as.formula(object = "gha ~ h100")
+kColumnsToSelect[["GAMLSS_gha_h100"]] <- c("gha", "h100")
 
 ## kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100")  ## Beech AND Spruce: compared to higher df-values, smoothest fit; compared to lower df-values, same fit. Beech: compared to higher df-values, lowest AIC; compared to lower df-values, same AIC.
 ## kFormulas[["GAMLSS_gha_psh100"]] <- as.formula(object = "gha ~ ps(h100, df = 1)")
