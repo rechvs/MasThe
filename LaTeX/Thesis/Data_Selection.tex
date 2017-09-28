@@ -20,11 +20,11 @@ Considering the current state of research on the topic of self-thinning rates of
 \newpage{}
 \begin{landscape}
   \begin{figure}[h]
-    \caption{Flowchart representing the mechanism used for selecting observations considered as maximum stand density observations.}  %% CONTINUE HERE or add the symbols used in this figure to the table in "Abbrevs_Symbols.tex".
+    \caption{Flowchart representing the mechanism used for selecting maximum stand density observations.}  %% CONTINUE HERE or add the symbols used in this figure to the table in "Abbrevs_Symbols.tex".
   {
     \footnotesize
     % \small
-    \begin{tikzpicture}[>=stealth]
+    \begin{tikzpicture}[>=stealth,node distance = 0.5]
       %% Start.
       \node (Start1-1) at(0, 0) [DataSelectionFlowChartStart] {Start loop at first \\ observation.};
       %% Questions.
@@ -89,6 +89,20 @@ Considering the current state of research on the topic of self-thinning rates of
       \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-5.north);
       \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-6.north);
       %% Legend.
+      \draw [thick,dashed] (-2, -11) rectangle (14, -13);
+
+      \node[anchor=west] (LegendTitle) at(-1.9, -12) {\textbf{Legend:}};
+
+      \node (LegendStart)  [DataSelectionFlowChartStart,right=of LegendTitle] {Loop start};
+
+      \node (LegendQuestion) [DataSelectionFlowChartQuestion,right=of LegendStart] {Question/Test};
+
+      \node (LegendResult) [DataSelectionFlowChartResult,right=of LegendQuestion] {Answer/Result};
+
+      \node (LegendAction) [DataSelectionFlowChartAction,right=of LegendResult] {Action};
+
+      \node (LegendEnd) [DataSelectionFlowChartEnd,right=of LegendAction] {Loop end};
+      
     \end{tikzpicture}}
 \end{figure}
 \end{landscape}
