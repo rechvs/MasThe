@@ -255,8 +255,8 @@ rm(list = setdiff(x = ls(),
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi15h100.EKL.I")  ## Beech: smoothest fit compared to lower k-values and lowest GCV score compared to higher k-values.
 ## kFormulas[["SCAM_gha_mpi15h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 15, bs = \"mpi\")")
 
-kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
-kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
+## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I")  ## Beech AND Spruce: appears to be the smoothest fit, but definitely has the highest GCV score.
+## kFormulas[["SCAM_gha_mpi4SI.h100.diff.EKL.I_mpi4h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4, bs = \"mpi\") + s(h100.EKL.I, k = 4, bs = \"mpi\")")
 
 ## kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I")  ## Beech: lowest GCV score compared to other combinations of k-values for both terms.
 ## kFormulas[["SCAM_gha_mpi14SI.h100.diff.EKL.I_mpi9h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 14, bs = \"mpi\") + s(h100.EKL.I, k = 9, bs = \"mpi\")")
@@ -646,11 +646,11 @@ if (any(grepl(pattern = kFunction,
                                                 cur.formula.name,
                                                 ".pdf")
                             ## Start graphics device driver for producing PDF graphics.
-                            ## pdf(file = file.name,
-                                ## width = kPdfWidth,
-                                ## height = kPdfHeight,
-                                ## pointsize = kPdfPointSize,
-                                ## family = kPdfFamily)
+                            pdf(file = file.name,
+                            width = kPdfWidth,
+                            height = kPdfHeight,
+                            pointsize = kPdfPointSize,
+                            family = kPdfFamily)
                             ## Loop over all distribution parameters.
                             for (cur.dist.parameter.name in dist.params.names) {
                                 ## Set default model formulas for all distribution parameters.
@@ -685,41 +685,102 @@ if (any(grepl(pattern = kFunction,
                                     }
                                     par(mfrow = mfrow)
                                     ## Plot regression terms for current distribution parameter.
-                                    ## gamlss::term.plot(object = cur.model,
-                                                      ## se = TRUE,
-                                                      ## partial.resid = FALSE,
-                                                      ## what = cur.dist.parameter.name,
-                                                      ## pages = 0,
-                                                      ## ask = FALSE,
-                                                      ## data = cur.input.data.col.subset.na.omitted,
-                                                      ## rug = TRUE)
+                                    gamlss::term.plot(object = cur.model,
+                                                      se = TRUE,
+                                                      partial.resid = FALSE,
+                                                      what = cur.dist.parameter.name,
+                                                      pages = 0,
+                                                      ask = FALSE,
+                                                      data = cur.input.data.col.subset.na.omitted,
+                                                      rug = TRUE)
                                     ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
-                                    ## title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                           ## start = 1,
-                                                                           ## stop = 1)),
-                                                        ## substr(x = cur.dist.parameter.name,
-                                                               ## start = 2,
-                                                               ## stop = nchar(x = cur.dist.parameter.name)),
-                                                        ## ": ",
-                                                        ## as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                                   ## what = cur.dist.parameter.name))),
-                                                        ## ", ",
-                                                        ## cur.input.data.source.name),
-                                          ## line = 0.25)
+                                    title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                                                           start = 1,
+                                                                           stop = 1)),
+                                                        substr(x = cur.dist.parameter.name,
+                                                               start = 2,
+                                                               stop = nchar(x = cur.dist.parameter.name)),
+                                                        ": ",
+                                                        as.character(x = as.expression(x = formula(x = cur.model,
+                                                                                                   what = cur.dist.parameter.name))),
+                                                        ", ",
+                                                        cur.input.data.source.name),
+                                          line = 0.25)
                                 }}
                             ## Plot model overview.
-                            ## plot(x = cur.model,
-                                 ## parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
-                                                  ## "mar" = par("mar") + c(0, 1, 0, 0),
-                                                  ## "col.axis" = "black",
-                                                  ## "col" = "black",
-                                                  ## "col.main" = "black",
-                                                  ## "col.lab" = "black",
-                                                  ## "pch" = 20,
-                                                  ## "cex" = 1.00,
-                                                  ## "cex.lab" = 1.00,
-                                                  ## "cex.axis" = 1,
-                                                  ## "cex.main" = 1.5))
+                            plot(x = cur.model,
+                                 parameters = par("mfrow" = c(2, 2),  ## Settings inspired by Stasinopoulos et al. (2008), p. 122.
+                                                  "mar" = par("mar") + c(0, 1, 0, 0),
+                                                  "col.axis" = "black",
+                                                  "col" = "black",
+                                                  "col.main" = "black",
+                                                  "col.lab" = "black",
+                                                  "pch" = 20,
+                                                  "cex" = 1.00,
+                                                  "cex.lab" = 1.00,
+                                                  "cex.axis" = 1,
+                                                  "cex.main" = 1.5))
+                            ## Plot model predictions. ##
+                            ## Loop over all distribution parameters.
+                            for (cur.dist.parameter.name in dist.params.names) {
+                                ## Store model formula for current distribution parameter as a string in "cur.formula.string".
+                                cur.formula.string <- deparse(expr = formula(x = cur.model, what = cur.dist.parameter.name))
+                                ## If "cur.formula != "gha ~ 1", continue, else, skip over to the next parameter.
+                                if (cur.formula.string != "gha ~ 1") {
+                                    ## Extract vector of independent variables names.
+                                    independent.vars <- all.vars(expr = formula(x = cur.model,
+                                                                                what = cur.dist.parameter.name))[-1]
+                                    ## Get yield table data for current species.
+                                    new.data.object.name <- paste0("schober.", cur.species.name)
+                                    cur.schober <- get(x = new.data.object.name)
+                                    new.data <- na.omit(object = cur.schober)
+                                    ## Restrict "new.data" to the columns of the independent variables of the current model.
+                                    new.data <- subset(x = new.data,
+                                                       select = independent.vars)
+                                    ## Calculate model predictions.
+                                    new.data[["gha.predictions"]] <- predict(object = cur.model,
+                                                                             newdata = new.data,
+                                                                             what = cur.dist.parameter.name,
+                                                                             type = "response")
+                                    ## Reattach column "yield.class" to "new.data".
+                                    new.data[["yield.class"]] <- na.omit(object = cur.schober)[["yield.class"]]
+                                    ## Loop over all independent variables.
+                                    for (cur.var.name in independent.vars) {
+                                        ## Create empty plot.
+                                        xmin <- min(new.data[[cur.var.name]], na.rm = TRUE)
+                                        xmax <- max(new.data[[cur.var.name]], na.rm = TRUE)
+                                        ymin <- min(new.data[["gha.predictions"]], na.rm = TRUE)
+                                        ymax <- max(new.data[["gha.predictions"]], na.rm = TRUE)
+                                        plot(x = NULL,
+                                             xlim = c(xmin,
+                                                      xmax + abs(x = (xmax - xmin)) * 0.1),  ## adds additional space to place legend in
+                                             ylim = c(ymin,
+                                                      ymax),
+                                             main = paste0(cur.dist.parameter.name, ": ", cur.formula.string, ", ", new.data.object.name),
+                                             xlab = cur.var.name,
+                                             ylab = "gha")
+                                        ## Add lines to plot per yield class.
+                                        all.cols <- c("red", "green", "blue", "cyan")
+                                        for (cur.yield.class in levels(x = new.data[["yield.class"]])) {
+                                            point.col <- all.cols[as.numeric(x = cur.yield.class)]
+                                            point.ch <- 19
+                                            line.ty <- "solid"
+                                            points(x = new.data[[cur.var.name]][new.data[["yield.class"]] == cur.yield.class],
+                                                   y = new.data[["gha.predictions"]][new.data[["yield.class"]] == cur.yield.class],
+                                                   col = point.col,
+                                                   pch = point.ch,
+                                                   type = "b",
+                                                   lty = line.ty)
+                                        }
+                                        ## Add legend.
+                                        legend(x = "topright",
+                                               legend = paste0("yield class ",
+                                                               levels(x = new.data[["yield.class"]])),
+                                               lty = line.ty,
+                                               pch = point.ch,
+                                               col = all.cols,
+                                               bg = "slategray1")
+                                    }}}
                             ## Turn off graphics device.
                             graphics.off()
                         }}}}}}}
