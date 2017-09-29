@@ -60,32 +60,11 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100.EKL.I")
-kFormulas[["GAM_gha_h100.EKL.I"]] <- as.formula(object = "gha ~ h100.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I")
+kFormulas[["GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)")
 
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_h100")
-kFormulas[["GAM_gha_h100"]] <- as.formula(object = "gha ~ h100")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 3) + h100.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + h100.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Beech: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 4) + s(h100.EKL.I, k = 15)")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s5h100")  ## Beech: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s5h100"]] <- as.formula(object = "gha ~ s(h100, k = 5)")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s6h100")  ## Spruce: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s6h100"]] <- as.formula(object = "gha ~ s(h100, k = 6)")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7h100.EKL.I")  ## Beech AND Spruce: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s7h100.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 7)")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I")  ## Spruce: compared to other k-values, lowest GCV score.
-kFormulas[["GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I"]] <- as.formula(object = "gha ~ s(SI.h100.diff.EKL.I, k = 7) + s(h100.EKL.I, k = 15)")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
+kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
