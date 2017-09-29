@@ -60,6 +60,15 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 
+## 1. Model
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I")
+kFormulas[["GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)")
+
+## 2. Model
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
+kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
+
+## 4. Model(s)
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest GCV score.
 kFormulas[["GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
 
@@ -71,12 +80,6 @@ kFormulas[["GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object 
 
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: compared to other c-values, lowest GCV score.
 kFormulas[["GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 28) + rhs(x = h100.EKL.I, c = 28) + SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
-kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I")
-kFormulas[["GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -219,6 +222,7 @@ rm(list = setdiff(x = ls(),
 ##########
 ## Preamble.
 
+## 3. Model
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I")
 kFormulas[["GAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, bs = \"mpi\") + SI.h100.diff.EKL.I")
 
@@ -370,18 +374,22 @@ kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I")
-kFormulas[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ pbm(h100.EKL.I) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
-
+## 1. Model
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I")
 kFormulas[["GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
 kColumnsToSelect[["GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
+## 2. Model
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I")
 kFormulas[["GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I) + SI.h100.diff.EKL.I")
 kColumnsToSelect[["GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
+## 3. Model
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I")
+kFormulas[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ pbm(h100.EKL.I) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+
+## 4. Model(s)
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest AIC.
 kFormulas[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
 k12olumnsToSelect[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
