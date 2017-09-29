@@ -1929,3 +1929,100 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.2.RData" ##
+####################################
+## Based on version 5.1.
+## In this version, new data frames "nagel.SPECIES" are added which contain the following columns:
+## - age
+## - yield.class
+## - h100
+## - h100.EKL.I
+## - SI.h100
+## - SI.h100.diff.EKL.I
+## Function by Nagel (1999) (see email by Matthias Schmidt from 2017-04-27 12:06):
+## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
+kBaseFileVersion <- "5.1"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.2"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create "SI.h100" values for yield classes -1 to 3. Values for yield classes 3, 2, and 1 are directly taken from Schober (1995) (moderate thinning). Values for yield classes 0 and -1 (name suffix ".1") are linearly interpolated from the values for classes 1 and 2.
+    if (cur.species.name == "beech") {
+        SI.h100.yield.class.3 <- 24.7
+        SI.h100.yield.class.2 <- 28.6
+        SI.h100.yield.class.1 <- 32.4
+    }
+    if (cur.species.name == "spruce") {
+        SI.h100.yield.class.3 <- 27.2
+        SI.h100.yield.class.2 <- 31.2
+        SI.h100.yield.class.1 <- 35.1
+    }
+    SI.h100.yield.class.0 <- SI.h100.yield.class.1 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+    SI.h100.yield.class..1 <- SI.h100.yield.class.0 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+    ## Create a vector containing the suffixes to use for naming objects individually per yield class.
+    name.suffixes <- c(".1", "0", "1", "2", "3")
+    ## Create an "age" vector which will serve as the basis for various calculations for all yield classes.
+    age <- seq(from = 30,
+               to = 160,
+               by = 1)
+    ## Calculate "h100.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.YC", using the function by Nagel (1999).
+    for (cur.name.suffix in name.suffixes) {
+        SI.h100 <- get(x = paste0("SI.h100.yield.class.", cur.name.suffix))
+        assign(x = paste0("h100.yield.class.", cur.name.suffix),
+               value = SI.h100 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age) ^ 2))
+    }
+    ## Calculate "h100.EKL.I.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.1" using the function by Nagel (1999).
+    for (cur.name.suffix in name.suffixes) {
+        assign(x = paste0("h100.EKL.I.yield.class.", cur.name.suffix),
+               value = SI.h100.yield.class.1 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age)) ^ 2)
+    }
+    ## Calculate "SI.h100.yield.class.YC.vec" for yield class "YC", based on "age" and "h100.yield.class.YC", using the function by Nagel (1999) [This procedure is a bit redundant, since it simply results in the corresponding "SI.h100.yield.YC" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block “Create "gmax_merged_1.5.RData"”).]
+    for (cur.name.suffix in name.suffixes) {
+        h100 <- get(x = paste0("h100.yield.class.", cur.name.suffix))
+        assign(x = paste0("SI.h100.yield.class.", cur.name.suffix, ".vec"),
+               value = (h100 + 49.872 - 7.3309 * log(x = age) - 0.77338 * ((log(x = age)) ^ 2)) / (0.52684 + 0.10542 * log(x = age)))
+    }
+    ## Calculate "SI.h100.diff.EKL.I.yield.class.YC = SI.h100.yield.class.YC.vec - SI.h100.yield.class.1.vec" for yield class "YC".
+    for (cur.name.suffix in name.suffixes) {
+        SI.h100.vec <- get(x = paste0("SI.h100.yield.class.", cur.name.suffix, ".vec"))
+        assign(x = paste0("SI.h100.diff.EKL.I.yield.class.", cur.name.suffix),
+               value = SI.h100.vec - SI.h100.yield.class.1.vec)
+    }
+    ## Create a data frame per yield class with columns "age", "h100", "h100.EKL.I", "SI.h100", "SI.h100.diff.EKL.I", and "yield.class".
+    for (cur.name.suffix in name.suffixes) {
+        assign(x = paste0("yield.class.", cur.name.suffix, ".df"),
+               value = data.frame("age" = age,
+                                  "yield.class" = as.factor(x = ifelse(test = cur.name.suffix == ".1", yes = -1, no = as.numeric(x = cur.name.suffix))),
+                                  "h100" = get(x = paste0("h100.yield.class.", cur.name.suffix)),
+                                  "h100.EKL.I" = get(x = paste0("h100.EKL.I.yield.class.", cur.name.suffix)),
+                                  "SI.h100" = get(x = paste0("SI.h100.yield.class.", cur.name.suffix, ".vec")),
+                                  "SI.h100.diff.EKL.I" = get(x = paste0("SI.h100.diff.EKL.I.yield.class.", cur.name.suffix))))
+    }
+    ## Concatenate the "yield.class.YC.df" data frames into "nagel.SPECIES".
+    final.df.name <- paste0("nagel.", cur.species.name)
+    assign(x = final.df.name,
+           value = data.frame(NULL))
+    for (cur.name.suffix in name.suffixes) {
+        assign(x = final.df.name,
+               value = rbind(get(x = final.df.name),
+                             get(x = paste0("yield.class.", cur.name.suffix, ".df"))))
+    }
+    ## Add final data frame to the vector of names of objects meant to be saved.
+    kgmaxObjects <- c(final.df.name, kgmaxObjects)
+}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
