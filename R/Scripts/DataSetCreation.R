@@ -1894,7 +1894,7 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ## Create "gmax_merged_5.1.RData" ##
 ####################################
 ## Based on version 5.0.
-## In this version, "bart.SPECIES" and "bart.SPECIES.clean.[0-9].[0-9]" contain an additional column "SI.h100.diff.EKL.I = SI.h100 - SI.h100.EKL.I".
+## In this version, "schober.SPECIES" contain an additional column "SI.h100.diff.EKL.I = SI.h100 - SI.h100.EKL.I".
 kBaseFileVersion <- "5.0"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "5.1"
