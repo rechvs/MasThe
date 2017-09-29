@@ -60,6 +60,18 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 #########
 ## Preamble.
 
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest GCV score.
+kFormulas[["GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: seems like the most sensible value, but the segmented function-curves have 2 break points; compared to other c-values, third-lowest GCV score.
+kFormulas[["GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 13) + rhs(x = h100.EKL.I, c = 13) + SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: seems like the most sensible value, but the segmented function-curves have 2 break points; compared to other c-values, third-lowest GCV score.
+kFormulas[["GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + rhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: compared to other c-values, lowest GCV score.
+kFormulas[["GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 28) + rhs(x = h100.EKL.I, c = 28) + SI.h100.diff.EKL.I")
+
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
 kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
 
