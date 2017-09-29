@@ -223,8 +223,8 @@ rm(list = setdiff(x = ls(),
 ## Preamble.
 
 ## 3. Model
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I")
-kFormulas[["GAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, bs = \"mpi\") + SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I")
+kFormulas[["SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, bs = \"mpi\") + SI.h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -392,19 +392,19 @@ kColumnsToSelect[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h
 ## 4. Model(s)
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest AIC.
 kFormulas[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
-k12olumnsToSelect[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: seems like the most sensible value, but the segmented function-curves have 2 break points.
 kFormulas[["GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 13) + rhs(x = h100.EKL.I, c = 13) + SI.h100.diff.EKL.I")
-k13olumnsToSelect[["GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: seems like the most sensible value, but the segmented function-curves have 2 break points.
 kFormulas[["GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + rhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
-k27olumnsToSelect[["GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: compared to other c-values, lowest AIC.
 kFormulas[["GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 30) + rhs(x = h100.EKL.I, c = 30) + SI.h100.diff.EKL.I")
-k30olumnsToSelect[["GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## Check whether the function needed for this block is selected for execution.
 kFunction <- "gamlss..gamlss"
@@ -536,20 +536,31 @@ if (any(grepl(pattern = kFunction,
                                                       pages = 0,
                                                       ask = FALSE,
                                                       data = cur.input.data.col.subset.na.omitted,
-                                                      rug = TRUE)
-                                    ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs).
-                                    title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                           start = 1,
-                                                                           stop = 1)),
-                                                        substr(x = cur.dist.parameter.name,
-                                                               start = 2,
-                                                               stop = nchar(x = cur.dist.parameter.name)),
-                                                        ": ",
-                                                        as.character(x = as.expression(x = formula(x = cur.model,
-                                                                                                   what = cur.dist.parameter.name))),
-                                                        ", ",
-                                                        cur.input.data.source.name),
-                                          line = 0.25)
+                                                      rug = TRUE,
+                                                      main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                                                                       start = 1,
+                                                                                       stop = 1)),
+                                                                    substr(x = cur.dist.parameter.name,
+                                                                           start = 2,
+                                                                           stop = nchar(x = cur.dist.parameter.name)),
+                                                                    ": ",
+                                                                    as.character(x = as.expression(x = formula(x = cur.model,
+                                                                                                               what = cur.dist.parameter.name))),
+                                                                    ", ",
+                                                                    cur.input.data.source.name))
+                                    ## Add plot title (we use "title(...)" because the placing via "plot(main = ...)" does not suit our needs). [Deactivated as of 2017-09-29, since "term.plot(main = ...)" works fine as far as I can tell.]
+                                    ## title(main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                    ## start = 1,
+                                    ## stop = 1)),
+                                    ## substr(x = cur.dist.parameter.name,
+                                    ## start = 2,
+                                    ## stop = nchar(x = cur.dist.parameter.name)),
+                                    ## ": ",
+                                    ## as.character(x = as.expression(x = formula(x = cur.model,
+                                    ## what = cur.dist.parameter.name))),
+                                    ## ", ",
+                                    ## cur.input.data.source.name),
+                                    ## line = 0.25)
                                 }}
                             ## Plot model overview.
                             plot(x = cur.model,
@@ -567,10 +578,14 @@ if (any(grepl(pattern = kFunction,
                             ## Plot model predictions. ##
                             ## Loop over all distribution parameters.
                             for (cur.dist.parameter.name in dist.params.names) {
-                                ## Store model formula for current distribution parameter as a string in "cur.formula.string".
-                                cur.formula.string <- deparse(expr = formula(x = cur.model, what = cur.dist.parameter.name))
-                                ## If "cur.formula != "gha ~ 1", continue, else, skip over to the next parameter.
-                                if (cur.formula.string != "gha ~ 1") {
+                                ## Store model formula for current distribution parameter as a whitespace-free string in "cur.formula.string".
+                                cur.formula.string <- gsub(pattern = " ",
+                                                           replacement = "",
+                                                           x = Reduce(f = paste0,
+                                                                      x = deparse(expr = formula(x = cur.model,
+                                                                                                 what = cur.dist.parameter.name))))
+                                ## If "cur.formula.string != "gha~1", continue, else, skip over to the next parameter. Note: this test expects "cur.formula.string" to be whitespace-free.
+                                if (cur.formula.string != "gha~1") {
                                     ## Extract vector of independent variables names.
                                     independent.vars <- all.vars(expr = formula(x = cur.model,
                                                                                 what = cur.dist.parameter.name))[-1]
@@ -600,7 +615,16 @@ if (any(grepl(pattern = kFunction,
                                                       xmax + abs(x = (xmax - xmin)) * 0.1),  ## adds additional space to place legend in
                                              ylim = c(ymin,
                                                       ymax),
-                                             main = paste0(cur.dist.parameter.name, ": ", cur.formula.string, ", ", new.data.object.name),
+                                             main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
+                                                                              start = 1,
+                                                                              stop = 1)),
+                                                           substr(x = cur.dist.parameter.name,
+                                                                  start = 2,
+                                                                  stop = nchar(x = cur.dist.parameter.name)),
+                                                           ": ",
+                                                           cur.formula.string,
+                                                           ", ",
+                                                           new.data.object.name),
                                              xlab = cur.var.name,
                                              ylab = "gha")
                                         ## Add lines to plot per yield class.
