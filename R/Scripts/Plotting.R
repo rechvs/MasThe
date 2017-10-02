@@ -18,12 +18,173 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 kBlocksToExecute <- vector(mode = "character")
+kBlocksToExecute <- c(kBlocksToExecute, "predictions.comparison")
 ## kBlocksToExecute <- c(kBlocksToExecute, "relations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "locations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAM")
 ## kBlocksToExecute <- c(kBlocksToExecute, "SCAM")
-kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
+## kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
 ## kBlocksToExecute <- c(kBlocksToExecute, "predictions")
+
+###############################
+## Compare model predictions ##
+###############################
+## Proceed only if the current block is meant to be executed.
+if ("predictions.comparison" %in% kBlocksToExecute) {
+    ## Plotting preamble.
+    kPdfWidth <- 30
+    kPdfHeight <- kPdfWidth * 0.625
+    kPdfPointSize <- 19
+    kPdfFamily <- "Times"
+    kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+    ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+    ## Define a list of vectors which contain the names of the models for which predictions should be included in the same plot.
+    kModelNamesVectors <- list("set1" = c("SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I",
+                                          "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"),
+                               "set2" = c("GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I",
+                                          "GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"),
+                               "set3" = c("GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I",
+                                          "GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"),
+                               "set4" = c("GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I",
+                                          "GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"),
+                               "set5" = c("GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I",
+                                          "GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"))
+    ## Loop over all model name vectors.
+    for (cur.model.names.vector in kModelNamesVectors) {
+        ## Loop over all species names.
+        for (cur.species.name in c("beech", "spruce")) {
+            ## Get "nagel.SPECIES" and assign it to "pred.df".
+            pred.df <- get(x = paste0("nagel.", cur.species.name))
+            ## Create the name of the data frame used for model fitting.
+            fit.df.name <- paste0("bart.", cur.species.name, ".clean.1.8")
+            ## Loop over all model names in current model name vector.
+            for (cur.model.name in cur.model.names.vector) {
+                model.type <- strsplit(x = cur.model.name,
+                                       split = "_",
+                                       fixed = TRUE)[[1]][1]
+                if (model.type == "GAM") {
+                    model <- models[["mgcv..gam"]][[fit.df.name]][[cur.model.name]]
+                    pred.df[[cur.model.name]] <- mgcv::predict.gam(object = model,
+                                                                   newdata = pred.df,
+                                                                   type = "response")
+                }
+                if (model.type == "SCAM") {
+                    model <- models[["scam..scam"]][[fit.df.name]][[cur.model.name]]
+                    pred.df[[cur.model.name]] <- scam::predict.scam(object = model,
+                                                                    newdata = pred.df,
+                                                                    type = "response")
+                }
+                if (model.type == "GAMLSS") {
+                    ## Define segmented functions.
+                    rhs <- function (x, c) {
+                        return(ifelse(test = x > c,
+                                      yes = x-c,
+                                      no = 0))
+                    }
+                    lhs <- function (x, c) {
+                        return(ifelse(test = x <= c,
+                                      yes = c-x,
+                                      no = 0))
+                    }
+                    ## Store the data frame used for model fitting in object "cur.input.data.col.subset.na.omitted". [This is necessary for calculating GAMLSS predictions.]
+                    cur.input.data.col.subset.na.omitted <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+                    model <- models[["gamlss..gamlss"]][[fit.df.name]][[cur.model.name]]
+                    pred.df[[cur.model.name]] <- predict(object = model,
+                                                         newdata = subset(x = pred.df,
+                                                                          select = all.vars(expr = formula(x = model,
+                                                                                                           what = "mu"))[-1]),
+                                                         what = "mu",
+                                                         type = "response")
+                }}
+            ## Turn off graphics device.
+            graphics.off()
+            ## If nonexistent, create subdirectory in which to store graphics.
+            graphics.subdir <- paste0("Graphics/Predictions/", fit.df.name, "/")
+            system2(command = "mkdir",
+                    args = paste0("-p ", graphics.subdir))
+            ## Create file name.
+            file.name <-paste0(graphics.subdir,
+                               paste0(cur.model.names.vector, collapse = "_"),
+                               ".pdf")
+            ## Start graphics device driver for producing PDF graphics.
+            pdf(file = file.name,
+                width = kPdfWidth,
+                height = kPdfHeight,
+                pointsize = kPdfPointSize,
+                family = kPdfFamily)
+            ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
+            for (cur.x.values.column.name in c("age", "h100")) {
+                ## Create empty plot.
+                xmin <- min(pred.df[[cur.x.values.column.name]], na.rm = TRUE)
+                xmax <- max(pred.df[[cur.x.values.column.name]], na.rm = TRUE)
+                ymin <- min(pred.df[, cur.model.names.vector], na.rm = TRUE)
+                ymax <- max(pred.df[, cur.model.names.vector], na.rm = TRUE)
+                plot(x = NULL,
+                     xlim = c(xmin,
+                              xmax + abs(x = (xmax - xmin)) * 0.15),  ## adds additional space to place legend in
+                     ylim = c(ymin,
+                              ymax),
+                     xlab = cur.x.values.column.name,
+                     ylab = "gha",
+                     main = paste0("Predictions of ",
+                                   paste0(c(paste0(cur.model.names.vector,
+                                                   collapse = " and "),
+                                            paste0("nagel.",
+                                                   cur.species.name)),
+                                          collapse = " for ")),
+                     panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
+                                          h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
+                                          col = "gray",
+                                          lty = "dashed"))
+                ## Define plot settings.
+                all.ltys <- c("solid", "dashed")
+                all.cols <- c("green", "cyan", "blue", "magenta", "brown")
+                legend.legend <- vector(mode = "character")
+                legend.col <- vector(mode = "character")
+                legend.lty <- vector(mode = "character")
+                ## Loop over all model name indexes.
+                for (cur.model.name.index in seq_len(length.out = length(x = cur.model.names.vector))) {
+                    model.name <- cur.model.names.vector[cur.model.name.index]
+                    ## Loop over all yield class indexes.
+                    for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = pred.df[["yield.class"]])))) {
+                        ## Extract name of current yield class.
+                        yield.class.name <- levels(x = pred.df[["yield.class"]])[cur.yield.class.index]
+                        ## Set point color.
+                        point.col <- all.cols[cur.yield.class.index]
+                        ## Set line type.
+                        line.ty <- all.ltys[cur.model.name.index]
+                        ## Add points to plot.
+                        points(x = pred.df[pred.df[["yield.class"]] == yield.class.name, cur.x.values.column.name],
+                               y = pred.df[pred.df[["yield.class"]] == yield.class.name, model.name],
+                               col = point.col,
+                               type = "l",
+                               lty = line.ty,
+                               lwd = 2)
+                        ## Append current combination of model name and yield class to "legend.legend".
+                        legend.legend <- c(legend.legend,
+                                           paste0(strsplit(x = model.name,
+                                                           split = "_",
+                                                           fixed = TRUE)[[1]][1],
+                                                  " yield class ",
+                                                  yield.class.name))
+                        ## Append current point/line color to "legend.col".
+                        legend.col <- c(legend.col,
+                                        point.col)
+                        ## Append current line type to "legend.lty".
+                        legend.lty <- c(legend.lty,
+                                        line.ty)
+                    }}
+                ## Add legend.
+                legend(x = "topright",
+                       legend = legend.legend,
+                       lty = legend.lty,
+                       lwd = 2,
+                       col = legend.col,
+                       bg = "slategray1")
+            }
+            ## Turn off graphics device.
+            graphics.off()
+        }}}
 
 ####################
 ## Plot relations ##
