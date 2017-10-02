@@ -1976,7 +1976,7 @@ for (cur.species.name in c("beech", "spruce")) {
         assign(x = paste0("h100.yield.class.", cur.name.suffix),
                value = SI.h100 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age) ^ 2))
     }
-    ## Calculate "h100.EKL.I.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.1" using the function by Nagel (1999).
+    ## Calculate "h100.EKL.I.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.1", using the function by Nagel (1999).
     for (cur.name.suffix in name.suffixes) {
         assign(x = paste0("h100.EKL.I.yield.class.", cur.name.suffix),
                value = SI.h100.yield.class.1 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age)) ^ 2)
@@ -1993,7 +1993,7 @@ for (cur.species.name in c("beech", "spruce")) {
         assign(x = paste0("SI.h100.diff.EKL.I.yield.class.", cur.name.suffix),
                value = SI.h100.vec - SI.h100.yield.class.1.vec)
     }
-    ## Create a data frame per yield class with columns "age", "h100", "h100.EKL.I", "SI.h100", "SI.h100.diff.EKL.I", and "yield.class".
+    ## Create a data frame per yield class with columns "age", "yield.class", "h100", "h100.EKL.I", "SI.h100", and "SI.h100.diff.EKL.I".
     for (cur.name.suffix in name.suffixes) {
         assign(x = paste0("yield.class.", cur.name.suffix, ".df"),
                value = data.frame("age" = age,
