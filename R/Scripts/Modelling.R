@@ -595,10 +595,10 @@ if (any(grepl(pattern = kFunction,
                                     ## Extract vector of independent variables names.
                                     independent.vars <- all.vars(expr = formula(x = cur.model,
                                                                                 what = cur.dist.parameter.name))[-1]
-                                    ## Get yield table data for current species.
-                                    new.data.object.name <- paste0("schober.", cur.species.name)
-                                    cur.schober <- get(x = new.data.object.name)
-                                    new.data <- na.omit(object = cur.schober)
+                                    ## Get test data for current species.
+                                    new.data.object.name <- paste0("nagel.", cur.species.name)
+                                    cur.nagel <- get(x = new.data.object.name)
+                                    new.data <- na.omit(object = cur.nagel)
                                     ## Restrict "new.data" to the columns of the independent variables of the current model.
                                     new.data <- subset(x = new.data,
                                                        select = independent.vars)
@@ -607,13 +607,15 @@ if (any(grepl(pattern = kFunction,
                                                                              newdata = new.data,
                                                                              what = cur.dist.parameter.name,
                                                                              type = "response")
-                                    ## Reattach column "yield.class" to "new.data".
-                                    new.data[["yield.class"]] <- na.omit(object = cur.schober)[["yield.class"]]
-                                    ## Loop over all independent variables.
-                                    for (cur.var.name in independent.vars) {
+                                    ## Reattach columns "age", "h100", and "yield.class" to "new.data".
+                                    new.data[["age"]] <- na.omit(object = cur.nagel)[["age"]]
+                                    new.data[["h100"]] <- na.omit(object = cur.nagel)[["h100"]]
+                                    new.data[["yield.class"]] <- na.omit(object = cur.nagel)[["yield.class"]]
+                                    ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
+                                    for (cur.x.values.column in c("age", "h100")) {
                                         ## Create empty plot.
-                                        xmin <- min(new.data[[cur.var.name]], na.rm = TRUE)
-                                        xmax <- max(new.data[[cur.var.name]], na.rm = TRUE)
+                                        xmin <- min(new.data[[cur.x.values.column]], na.rm = TRUE)
+                                        xmax <- max(new.data[[cur.x.values.column]], na.rm = TRUE)
                                         ymin <- min(new.data[["gha.predictions"]], na.rm = TRUE)
                                         ymax <- max(new.data[["gha.predictions"]], na.rm = TRUE)
                                         plot(x = NULL,
@@ -631,19 +633,24 @@ if (any(grepl(pattern = kFunction,
                                                            cur.formula.string,
                                                            ", ",
                                                            new.data.object.name),
-                                             xlab = cur.var.name,
-                                             ylab = "gha")
+                                             xlab = cur.x.values.column,
+                                             ylab = "gha",
+                                             panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
+                                                                  h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
+                                                                  col = "gray",
+                                                                  lty = "dashed"))
                                         ## Add lines to plot per yield class.
-                                        all.cols <- c("red", "green", "blue", "cyan")
-                                        for (cur.yield.class in levels(x = new.data[["yield.class"]])) {
-                                            point.col <- all.cols[as.numeric(x = cur.yield.class)]
-                                            point.ch <- 19
-                                            line.ty <- "solid"
-                                            points(x = new.data[[cur.var.name]][new.data[["yield.class"]] == cur.yield.class],
-                                                   y = new.data[["gha.predictions"]][new.data[["yield.class"]] == cur.yield.class],
+                                        all.cols <- c("green", "cyan", "blue", "magenta", "brown")
+                                        point.ch <- 19
+                                        line.ty <- "solid"
+                                        for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
+                                            yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
+                                            point.col <- all.cols[cur.yield.class.index]
+                                            points(x = new.data[[cur.x.values.column]][new.data[["yield.class"]] == yield.class.name],
+                                                   y = new.data[["gha.predictions"]][new.data[["yield.class"]] == yield.class.name],
                                                    col = point.col,
                                                    pch = point.ch,
-                                                   type = "b",
+                                                   type = "l",
                                                    lty = line.ty)
                                         }
                                         ## Add legend.
