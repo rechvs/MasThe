@@ -186,12 +186,12 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                  main = paste0(cur.formula.string, ", ", new.data.object.name),
                                  xlab = cur.x.values.column,
                                  ylab = "gha",
-                                 panel.first = abline(v = seq(from = 0, to = round(x = xmax, digits = -2), by = 5),  ## Adds a grid to the plot.
-                                                      h = seq(from = 0, to = round(x = ymax, digits = -2), by = 5),
+                                 panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
+                                                      h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
                                                       col = "gray",
                                                       lty = "dashed"))
                             ## Add lines to plot per yield class.
-                            all.cols <- c("green", "cyan", "blue", "magenta", "red")
+                            all.cols <- c("green", "cyan", "blue", "magenta", "brown")
                             point.ch <- 19
                             line.ty <- "solid"
                             for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
@@ -336,8 +336,8 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                  main = paste0(cur.formula.string, ", ", new.data.object.name),
                                  xlab = cur.x.values.column,
                                  ylab = "gha",
-                                 panel.first = abline(v = seq(from = 0, to = round(x = xmax, digits = -2), by = 5),  ## Adds a grid to the plot.
-                                                      h = seq(from = 0, to = round(x = ymax, digits = -2), by = 5),
+                                 panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
+                                                      h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
                                                       col = "gray",
                                                       lty = "dashed"))
                             ## Add lines to plot per yield class.
