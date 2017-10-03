@@ -25,12 +25,12 @@ kPrintSumries <- TRUE
 kPrintSumries <- FALSE
 kFunctionsToUse <- NULL
 kFunctionsToUse <- c(kFunctionsToUse, "mgcv..gam")
+kFunctionsToUse <- c(kFunctionsToUse, "scam..scam")
 kFunctionsToUse <- c(kFunctionsToUse, "gamlss..gamlss")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..nls")
 kFunctionsToUse <- c(kFunctionsToUse, "nls2..nls2")
 kFunctionsToUse <- c(kFunctionsToUse, "minpack.lm..nlsLM")
 kFunctionsToUse <- c(kFunctionsToUse, "stats..glm")
-kFunctionsToUse <- c(kFunctionsToUse, "scam..scam")
 kFormulasToUse <- NULL
 kColumnsToSelect <- vector(mode = "list")  ## Required for "gamlss::gamlss(...)" to avoid omission of more rows than necessary.
 ## Create a vector containing the names of all appropriate input data sources.
@@ -678,46 +678,95 @@ rm(list = setdiff(x = ls(),
 ## kFormulasToUse <- c(kFormulasToUse, "Sterba_Gmax")
 ## Setup for model "Sterba_dgGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 1) or Sterba (1975), eq. (12).
-## Source of possible start values: Sterba (1987), tab. 2.
 kFormulas[["Sterba_dgGmax"]] <- as.formula(object = "dg ~ 1 / (a0 * (h100 ^ a1) * nha + b0 * (h100 ^ b1))")
-kStartValsGrids[["Sterba_dgGmax"]] <- expand.grid("a0" = seq(from = 1.260e-6, to =1.261e-6, by = 1e-10),
-                                                  "a1" = seq(from = 0.840, to = 0.841, by = 1e-4),
-                                                  "b0" = seq(from = 2.0135, to = 2.0145, by = 1e-4),
-                                                  "b1" = seq(from = -1.3615, to = -1.3625, by = -1e-4))
-kStartValsVecs[["Sterba_dgGmax"]] <- c("a0" = 1 * 10 ^ -6,
-                                       "a1" = 0,
-                                       "b0" = 2,
-                                       "b1" = -2)
 kColumnsToSelect[["Sterba_dgGmax"]] <- c("dg", "h100", "nha")
+kStartValsVecs[["Sterba_dgGmax"]][["beech"]] <- c("a0" = 1.0829 * 10 ^ -7,  ## source: Döbbeler (2004), tab. 4.2 [2017-10-03: stats::nls converges and produces realistic results]
+                                                  "a1" = 1.5374,
+                                                  "b0" = 8.3652,
+                                                  "b1" = -1.7365)
+kStartValsVecs[["Sterba_dgGmax"]][["spruce"]] <- c("a0" = 1.28745 * 10 ^ -6,  ## source: Döbbeler (2004), tab. 4.2 [2017-10-03: stats::nls converges and produces realistic results]
+                                                   "a1" = 0.7148,
+                                                   "b0" = 1.2842,
+                                                   "b1" = -1.1914)
+kStartValsVecs[["Sterba_dgGmax"]][["spruce"]] <- c("a0" = 1.2604 * 10 ^ -6,  ## source: Sterba (1987), tab. 2 [2017-10-03: stats::nls converges and produces realistic results]
+                                                   "a1" = 0.8408,
+                                                   "b0" = 2.0140,
+                                                   "b1" = -1.3618)
+kStartValsGrids[["Sterba_dgGmax"]][["spruce"]] <- expand.grid("a0" = seq(from = 1.260e-6, to =1.261e-6, by = 1e-10),  ## source: Sterba (1987), tab. 2 [2017-10-03: nls2::nls2 converges and produces realistic results]
+                                                              "a1" = seq(from = 0.840, to = 0.841, by = 1e-4),
+                                                              "b0" = seq(from = 2.0135, to = 2.0145, by = 1e-4),
+                                                              "b1" = seq(from = -1.3615, to = -1.3625, by = -1e-4))
+kStartValsGrids[["Sterba_dgGmax"]][["beech"]] <- kStartValsGrids[["Sterba_dgGmax"]][["spruce"]]  ## [2017-10-03: nls2::nls2 converges and produces realistic results]
 ## ## Setup for model "Sterba_NGmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 2) or Sterba (1981), eq. (11).
 kFormulas[["Sterba_NGmax"]] <- as.formula(object = "nha ~ (b0 / a0) * (2 * b0 * dg) ^ (a1 / b1 -1)")
-kStartValsGrids[["Sterba_NGmax"]] <- expand.grid("a0" = c(-2:2),
-                                                 "a1" = c(-2:2),
-                                                 "b0" = c(-2:2),
-                                                 "b1" = c(-2:2))
-kStartValsVecs[["Sterba_NGmax"]] <- c("a0" = -1,
-                                      "a1" = -2,
-                                      "b0" = 0,
-                                      "b1" = 1)
 kColumnsToSelect[["Sterba_NGmax"]] <- c("nha", "dg")
+kStartValsVecs[["Sterba_NGmax"]][["beech"]] <- c("a0" = 1.0829 * 10 ^ -7,  ## source: Döbbeler (2004), tab. 4.2 [2017-10-03: stats::nls and minpack.lm::nlsLM do not converge]
+"a1" = 1.5374,
+"b0" = 8.3652,
+"b1" = -1.7365)
+## kStartValsVecs[["Sterba_NGmax"]][["beech"]] <- c("a0" = 2.192 * 10 ^ -9,  ## source: summary(object = models[["stats..nls"]][["bart.beech.clean.1.8"]][["Sterba_dgGmax"]]) [2017-10-03: stats::nls and minpack.lm::nlsLM do not converge]
+                                                 ## "a1" = 2.752,
+                                                 ## "b0" = 1.147 * 10 ^ 2,
+                                                 ## "b1" = -2.554)
+kStartValsVecs[["Sterba_NGmax"]][["spruce"]] <- c("a0" = 1.28745 * 10 ^ -6,  ## source: Döbbeler (2004), tab. 4.2 [2017-10-03: stats::nls and minpack.lm::nlsLM do not converge]
+"a1" = 0.7148,
+"b0" = 1.2842,
+"b1" = -1.1914)
+## kStartValsVecs[["Sterba_NGmax"]][["spruce"]] <- c("a0" = 1.211 * 10 ^ 6,  ## source: summary(object = models[["stats..nls"]][["bart.spruce.clean.1.8"]][["Sterba_dgGmax"]]) [2017-10-03: stats::nls and minpack.lm::nlsLM do not converge]
+                                                  ## "a1" = 8.279 * 10 ^ -1,
+                                                  ## "b0" = 1.650,
+                                                  ## "b1" = -1.355)
+kStartValsGrids[["Sterba_NGmax"]][["beech"]] <- expand.grid("a0" = c(-2:2),  ## [2017-10-03: nls2::nls2 converges, but produces nonsensical results]
+                                                            "a1" = c(-2:2),
+                                                            "b0" = c(-2:2),
+                                                            "b1" = c(-2:2))
+kStartValsGrids[["Sterba_NGmax"]][["spruce"]] <- kStartValsGrids[["Sterba_NGmax"]][["beech"]]  ## [2017-10-03: nls2::nls2 converges, but produces nonsensical results]
 ## Setup for model "Sterba_Gmax".
 ## Source of model formula: Wördehoff et al. (2014), (Gl. 3) or Sterba (1975), eq. (10).
 ## Source of possible start values: Wördehoff (2016), tab. 3.6.
 kFormulas[["Sterba_Gmax"]] <- as.formula(object = "gha / 10000 ~ pi / (16 * a0 * b0 * (h100 ^(a1 + b1)))")
-kStartValsGrids[["Sterba_Gmax"]] <- expand.grid("a0" = c(4 * 10 -6, 1),
-                                                "a1" = c(0, 1),
-                                                "b0" = c(0, 1),
-                                                "b1" = c(-2, 2))
-kStartValsVecs[["Sterba_Gmax"]] <- c("a0" = 4 * 10 ^ -6,
-                                     "a1" = 0.1,
-                                     "b0" = 0.1,
-                                     "b1" = -1)
 kColumnsToSelect[["Sterba_Gmax"]] <- c("gha", "h100")
+kStartValsVecs[["Sterba_Gmax"]][["beech"]] <- c("a0" = 2.616551 * 10 ^ -7,  ## source: Wördehoff (2016), tab. 3.6 [2017-10-03: stats::nls AND minpack.lm::nlsLM do not converge]
+                                                "a1" = 1.368151,
+                                                "b0" = 6.496417,
+                                                "b1" = -1.731867)
+kStartValsVecs[["Sterba_Gmax"]][["spruce"]] <- c("a0" = 4.913256 * 10 ^ -6,  ## source: Wördehoff (2016), tab. 3.6 [2017-10-03: stats::nls AND minpack.lm::nlsLM do not converge]
+                                                 "a1" = 0.4394706,
+                                                 "b0" = 0.3716977,
+                                                 "b1" = -0.9097641)
+kStartValsGrids[["Sterba_Gmax"]][["beech"]] <- expand.grid("a0" = seq(from = 2 * 10 ^ -7,  ## source: Wördehoff (2016), tab. 3.6 [2017-10-03: nls2::nls2 converges, but produces nonsensical results]
+                                                                      to = 3 * 10 ^ -7,
+                                                                      by = 10 ^ -8),
+                                                           "a1" = seq(from = 1,
+                                                                      to = 2,
+                                                                      by = 0.1),
+                                                           "b0" = seq(from = 6,
+                                                                      to = 7,
+                                                                      by = 0.1),
+                                                           "b1" = seq(from = -2,
+                                                                      to = -1,
+                                                                      by = 0.1))
+kStartValsGrids[["Sterba_Gmax"]][["spruce"]] <- expand.grid("a0" = seq(from = 4 * 10 ^ -6,  ## source: Wördehoff (2016), tab. 3.6 [2017-10-03: nls2::nls2 converges, but produces nonsensical results]
+                                                                       to = 5 * 10 ^ -6,
+                                                                       by = 10 ^ -7),
+                                                            "a1" = seq(from = 0,
+                                                                       to = 1,
+                                                                       by = 0.1),
+                                                            "b0" = seq(from = 0,
+                                                                       to = 1,
+                                                                       by = 0.1),
+                                                            "b1" = seq(from = -1,
+                                                                       to = 0,
+                                                                       by = 0.1))
 ## Loop over all input data source names.
 for (cur.input.data.source.name in names.input.data.sources) {
     ## Get original input data.
     input.data <- get(x = cur.input.data.source.name)
+    ## Set name of the current species.
+    species.name <- strsplit(x = cur.input.data.source.name,
+                             split = ".",
+                             fixed = TRUE)[[1]][2]
     ## Set modelling function needed for this section.
     kFunction <- "stats..nls"
     ## Proceed only if the needed modelling function is meant to be executed.
@@ -738,7 +787,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                     try(expr =
                             models[["stats..nls"]][[cur.input.data.source.name]][[cur.formula.name]] <- stats::nls(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
-                                                                                                                   start = kStartValsVecs[[cur.formula.name]],
+                                                                                                                   start = kStartValsVecs[[cur.formula.name]][[species.name]],
                                                                                                                    na.action = na.omit,
                                                                                                                    control = stats::nls.control(maxiter = 1000)))
                 }}}}
@@ -762,7 +811,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                     try(expr =
                             models[["nls2..nls2"]][[cur.input.data.source.name]][[cur.formula.name]] <- nls2::nls2(formula = kFormulas[[cur.formula.name]],
                                                                                                                    data = input.data,
-                                                                                                                   start = kStartValsGrids[[cur.formula.name]],
+                                                                                                                   start = kStartValsGrids[[cur.formula.name]][[species.name]],
                                                                                                                    algorithm = "random-search",
                                                                                                                    control = (stats::nls.control(maxiter = 100,
                                                                                                                                                  minFactor = 10 ^ -10)),
@@ -788,7 +837,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                     try(expr =
                             models[["minpack.lm..nlsLM"]][[cur.input.data.source.name]][[cur.formula.name]] <- minpack.lm::nlsLM(formula = kFormulas[[cur.formula.name]],
                                                                                                                                  data = input.data,
-                                                                                                                                 start = kStartValsVecs[[cur.formula.name]],
+                                                                                                                                 start = kStartValsVecs[[cur.formula.name]][[species.name]],
                                                                                                                                  na.action = na.omit))
                 }}}}}
 ## Clean up workspace.
@@ -914,132 +963,134 @@ rm(list = setdiff(x = ls(),
 kOutputDirPath <- "R/Output/"
 ## Loop over all modelling functions.
 for (cur.function.name in names(x = models)) {
-    ## Loop over all species.
-    for (cur.species.name in c("beech", "spruce")) {
-        ## Create template data frame in which to store the relevant benchmarks of function...
-        if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {  ## ..."mgcv::gam" or "scam::scam".
-            cur.function.species.benchmark.df <- data.frame(
-                ## "formula" = vector(mode = "character"),
-                "model.name" = vector(mode = "character"),
-                ## "data.frame" = vector(mode = "character"),
-                "GCV" = vector(mode = "numeric"))
-        }
-        if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {  ## ..."gamlss::gamlss" or "stats::glm".
-            cur.function.species.benchmark.df <- data.frame(
-                ## "formula" = vector(mode = "character"),
-                "model.name" = vector(mode = "character"),
-                ## "distribution" = vector(mode = "character"),
-                ## "data.frame" = vector(mode = "character"),
-                "AIC" = vector(mode = "numeric"))
-        }
-        ## Generate a vector of appropriate data frame names based on the current species.
-        cur.possible.data.frame.names <- names(x = models[[cur.function.name]])[grepl(pattern = cur.species.name,
-                                                                                      x = names(x = models[[cur.function.name]]))]
-        ## Loop over all appropriate data frames.
-        for (cur.data.frame.name in cur.possible.data.frame.names) {
-            ## Loop over all models.
-            for (cur.model.name in names(x = models[[cur.function.name]][[cur.data.frame.name]])) {
-                ## Store current model in "cur.model".
-                cur.model <- models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]
-                ## Store formula of "cur.model" as a string in "cur.formula.string".
-                cur.formula.string <- Reduce(f = paste,
-                                             x = deparse(expr = cur.model[["formula"]]))
-                ## Remove all whitespace in "cur.formula.string".
-                cur.formula.string <- gsub(pattern = " ", replacement = "", x = cur.formula.string)
-                ## Truncate "cur.formula.string" if it is longer than 110 characters.
-                if (nchar(x = cur.formula.string) > 110) {
-                    cur.formula.string <- paste0(substr(x = cur.formula.string,
+    ## Coninue only if the current function was successfully used for model fitting.
+    if (length(x = models[[cur.function.name]]) != 0) {
+        ## Loop over all species.
+        for (cur.species.name in c("beech", "spruce")) {
+            ## Create template data frame in which to store the relevant benchmarks of function...
+            if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {  ## ..."mgcv::gam" or "scam::scam".
+                cur.function.species.benchmark.df <- data.frame(
+                    ## "formula" = vector(mode = "character"),
+                    "model.name" = vector(mode = "character"),
+                    ## "data.frame" = vector(mode = "character"),
+                    "GCV" = vector(mode = "numeric"))
+            }
+            if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {  ## ..."gamlss::gamlss" or "stats::glm".
+                cur.function.species.benchmark.df <- data.frame(
+                    ## "formula" = vector(mode = "character"),
+                    "model.name" = vector(mode = "character"),
+                    ## "distribution" = vector(mode = "character"),
+                    ## "data.frame" = vector(mode = "character"),
+                    "AIC" = vector(mode = "numeric"))
+            }
+            ## Generate a vector of appropriate data frame names based on the current species.
+            cur.possible.data.frame.names <- names(x = models[[cur.function.name]])[grepl(pattern = cur.species.name,
+                                                                                          x = names(x = models[[cur.function.name]]))]
+            ## Loop over all appropriate data frames.
+            for (cur.data.frame.name in cur.possible.data.frame.names) {
+                ## Loop over all models.
+                for (cur.model.name in names(x = models[[cur.function.name]][[cur.data.frame.name]])) {
+                    ## Store current model in "cur.model".
+                    cur.model <- models[[cur.function.name]][[cur.data.frame.name]][[cur.model.name]]
+                    ## Store formula of "cur.model" as a string in "cur.formula.string".
+                    cur.formula.string <- Reduce(f = paste,
+                                                 x = deparse(expr = cur.model[["formula"]]))
+                    ## Remove all whitespace in "cur.formula.string".
+                    cur.formula.string <- gsub(pattern = " ", replacement = "", x = cur.formula.string)
+                    ## Truncate "cur.formula.string" if it is longer than 110 characters.
+                    if (nchar(x = cur.formula.string) > 110) {
+                        cur.formula.string <- paste0(substr(x = cur.formula.string,
+                                                            start = 1,
+                                                            stop = 110),
+                                                     "...")
+                    }
+                    ## Truncate "cur.model.name" if it is longer than 110 characters.
+                    if (nchar(x = cur.model.name) > 110) {
+                        cur.model.name <- paste0(substr(x = cur.model.name,
                                                         start = 1,
                                                         stop = 110),
                                                  "...")
-                }
-                ## Truncate "cur.model.name" if it is longer than 110 characters.
-                if (nchar(x = cur.model.name) > 110) {
-                    cur.model.name <- paste0(substr(x = cur.model.name,
-                                                        start = 1,
-                                                        stop = 110),
-                                                 "...")
-                }
-                ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
-                cur.formula.data.frame.name.df <- data.frame(
-                    "model.name" = cur.model.name
-                    ## "formula" = cur.formula.string
-                   ## ,"data.frame" = cur.data.frame.name
-                )
-                ## Prepare storing benchmarks of function...
-                ## ..."mgcv::gam" or "scam::scam".
-                if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {
-                    ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
-                    cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
-                    ## Store "cur.formula.data.frame.name.df", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
-                    cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
-                                                         "GCV" = cur.gcv)
-                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
-                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
-                                                               cur.model.benchmark.df)
-                    ## Order "cur.function.species.benchmark.df" based on column "GCV".
-                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["GCV"]]), ]
-                    ## Reset row numbers of "cur.function.species.benchmark.df".
-                    rownames(x = cur.function.species.benchmark.df) <- NULL
-                    ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "mgcv..gam" and for "scam..scam").
-                    if (cur.function.name == "mgcv..gam") {
-                        cur.file.suffix <- "_GAM_GCV.txt"
                     }
-                    if (cur.function.name == "scam..scam") {
-                        cur.file.suffix <- "_SCAM_GCV.txt"
+                    ## Create the first 2 columns (containing the model formula and the data frame name) of the benchmark data frame.
+                    cur.formula.data.frame.name.df <- data.frame(
+                        "model.name" = cur.model.name
+                        ## "formula" = cur.formula.string
+                        ## ,"data.frame" = cur.data.frame.name
+                    )
+                    ## Prepare storing benchmarks of function...
+                    ## ..."mgcv::gam" or "scam::scam".
+                    if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {
+                        ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
+                        cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
+                        ## Store "cur.formula.data.frame.name.df", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
+                        cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
+                                                             "GCV" = cur.gcv)
+                        ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
+                        cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
+                                                                   cur.model.benchmark.df)
+                        ## Order "cur.function.species.benchmark.df" based on column "GCV".
+                        cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["GCV"]]), ]
+                        ## Reset row numbers of "cur.function.species.benchmark.df".
+                        rownames(x = cur.function.species.benchmark.df) <- NULL
+                        ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "mgcv..gam" and for "scam..scam").
+                        if (cur.function.name == "mgcv..gam") {
+                            cur.file.suffix <- "_GAM_GCV.txt"
+                        }
+                        if (cur.function.name == "scam..scam") {
+                            cur.file.suffix <- "_SCAM_GCV.txt"
+                        }
+                        cur.output.file.name <- paste0(kOutputDirPath,
+                                                       cur.species.name,
+                                                       cur.file.suffix)
                     }
-                    cur.output.file.name <- paste0(kOutputDirPath,
-                                                   cur.species.name,
-                                                   cur.file.suffix)
-                }
-                ## ..."gamlss::gamlss" or "stats..glm"..
-                if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {
-                    ## Store "cur.model[["aic"]]" in "cur.aic".
-                    cur.aic <- cur.model[["aic"]]
-                    ## Store "kDistFamilies[[cur.model.name]]" in "cur.dist.family".
-                    cur.dist.family <- kDistFamilies[[cur.model.name]]
-                    ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
-                    cur.model.benchmark.df <- data.frame(
-                        ## "formula" = cur.formula.data.frame.name.df[, "formula"],
-                        "model.name" = cur.model.name,
-                        ## "distribution" = cur.dist.family,
-                        ## "data.frame" = cur.formula.data.frame.name.df[, "data.frame"],
-                        "AIC" = cur.aic)
-                    ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
-                    cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
-                                                               cur.model.benchmark.df)
-                    ## Order "cur.function.species.benchmark.df" based on column "AIC".
-                    cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["AIC"]]), ]
-                    ## Reset row numbers of "cur.function.species.benchmark.df".
-                    rownames(x = cur.function.species.benchmark.df) <- NULL
-                    ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "gamlss..gamlss" and for "stats..glm").
-                    if (cur.function.name == "gamlss..gamlss") {
-                        cur.file.suffix <- "_GAMLSS_AIC.txt"
+                    ## ..."gamlss::gamlss" or "stats..glm"..
+                    if (cur.function.name == "gamlss..gamlss" || cur.function.name == "stats..glm") {
+                        ## Store "cur.model[["aic"]]" in "cur.aic".
+                        cur.aic <- cur.model[["aic"]]
+                        ## Store "kDistFamilies[[cur.model.name]]" in "cur.dist.family".
+                        cur.dist.family <- kDistFamilies[[cur.model.name]]
+                        ## Store "cur.formula.data.frame.name.df", and "cur.aic" in a 1 row data frame "cur.model.benchmark.df".
+                        cur.model.benchmark.df <- data.frame(
+                            ## "formula" = cur.formula.data.frame.name.df[, "formula"],
+                            "model.name" = cur.model.name,
+                            ## "distribution" = cur.dist.family,
+                            ## "data.frame" = cur.formula.data.frame.name.df[, "data.frame"],
+                            "AIC" = cur.aic)
+                        ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
+                        cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
+                                                                   cur.model.benchmark.df)
+                        ## Order "cur.function.species.benchmark.df" based on column "AIC".
+                        cur.function.species.benchmark.df <- cur.function.species.benchmark.df[order(cur.function.species.benchmark.df[["AIC"]]), ]
+                        ## Reset row numbers of "cur.function.species.benchmark.df".
+                        rownames(x = cur.function.species.benchmark.df) <- NULL
+                        ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "gamlss..gamlss" and for "stats..glm").
+                        if (cur.function.name == "gamlss..gamlss") {
+                            cur.file.suffix <- "_GAMLSS_AIC.txt"
+                        }
+                        if (cur.function.name == "stats..glm") {
+                            cur.file.suffix <- "_GLM_AIC.txt"
+                        }
+                        cur.output.file.name <- paste0(kOutputDirPath,
+                                                       cur.species.name,
+                                                       cur.file.suffix)
                     }
-                    if (cur.function.name == "stats..glm") {
-                        cur.file.suffix <- "_GLM_AIC.txt"
-                    }
-                    cur.output.file.name <- paste0(kOutputDirPath,
-                                                   cur.species.name,
-                                                   cur.file.suffix)
-                }
-                ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists.
-                if (exists(x = "cur.function.species.benchmark.df")) {
-                    ## Set options for printing.
-                    op.saved <- options("width" = 10^3)
-                    ## Store printing of "cur.function.species.benchmark.df" in "cur.output", while left justifying output.
-                    cur.output <- capture.output(print(x = format(x = cur.function.species.benchmark.df,
-                                                                  justify="left",
-                                                                  scientific = FALSE),
-                                                       row.names = TRUE))
-                    ## Write "cur.output" to "cur.output.file.name".
-                    cat(cur.output,
-                        file = cur.output.file.name,
-                        sep = "\n",
-                        fill = FALSE)
-                    ## Reset options.
-                    options(op.saved)
-                }}}}}
+                    ## Store and write output only if "cur.function.species.benchmark.df" (which should be deleted at the end of every "cur.function.name" loop) exists.
+                    if (exists(x = "cur.function.species.benchmark.df")) {
+                        ## Set options for printing.
+                        op.saved <- options("width" = 10^3)
+                        ## Store printing of "cur.function.species.benchmark.df" in "cur.output", while left justifying output.
+                        cur.output <- capture.output(print(x = format(x = cur.function.species.benchmark.df,
+                                                                      justify="left",
+                                                                      scientific = FALSE),
+                                                           row.names = TRUE))
+                        ## Write "cur.output" to "cur.output.file.name".
+                        cat(cur.output,
+                            file = cur.output.file.name,
+                            sep = "\n",
+                            fill = FALSE)
+                        ## Reset options.
+                        options(op.saved)
+                    }}}}}}
 ## Clean up workspace.
 rm(list = setdiff(x = ls(),
                   y = objects.at.start))
