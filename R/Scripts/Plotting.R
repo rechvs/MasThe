@@ -99,7 +99,7 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
             ## Turn off graphics device.
             graphics.off()
             ## If nonexistent, create subdirectory in which to store graphics.
-            graphics.subdir <- paste0("Graphics/Predictions/", fit.df.name, "/")
+            graphics.subdir <- paste0("Graphics/Predictions_Comparisons/", fit.df.name, "/")
             system2(command = "mkdir",
                     args = paste0("-p ", graphics.subdir))
             ## Create file name.
