@@ -1,4 +1,4 @@
-* TODO [10/17]
+* TODO [7/14]
 ** CURRENT Read literature for “Introduction”
 *** CURRENT Acquire Assmann (1974) (cp. Schütz & Zingg (2010), p. 507p2)
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
@@ -79,8 +79,6 @@
     + article supposedly (cp. Pretzsch (2000)) deals with Yoda’s rule
     + [2017-07-04 Di]: journal volume not available at SUB, but may be available via interlibrary loan (see email by “SUB, Information” from [2017-06-29 Do 09:47])
 ** CURRENT Improve understanding of Reineke’s approach
-*** CURRENT Read Pretzsch & Biber (2016)
-    + Article was given to me by René Wördehoff on [2017-09-19 Di].
 *** CURRENT Acquire Monserud et al. (2005) (cp. Vacchiano et al. (2013), p. 538)
     + Article might be of interest in terms of the slope of the log(density)-log(diameter)-line for spruce.
 *** CURRENT Acquire Drew & Flewelling (1977) (cp. Drew & Flewelling (1979), p. 521)
@@ -196,6 +194,10 @@
     - State "done"       from "CURRENT"    [2017-07-20 Do 16:28] \\
       Searched for “slope” and noted all relevant information regarding the slope of the log(density)-log(diameter)-line.
     + Article found in the 2. set of [[file:Literature/Search_Results/history_04.ua][this WOS search]].
+*** done Read Pretzsch & Biber (2016)
+    - State "done"       from "CURRENT"    [2017-10-03 Di 16:10] \\
+      Article was only slightly relevant.
+    + Article was given to me by René Wördehoff on [2017-09-19 Di].
 *** problem Acquire Le Goff & Ottorini (1999) (cp Charru et al. (2012), p. 196)
     - State "problem"    from "CURRENT"    [2017-07-19 Mi 10:11] \\
       Article seems to be unavailable (and it’s in French anyway).
