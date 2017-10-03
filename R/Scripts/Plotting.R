@@ -38,6 +38,13 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
     kPdfFamily <- "Times"
     kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
     ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+    plot.ltys <- c("solid", "dashed")  ## Vector must contain one line type per model type (GAM, SCAM, GAMLSS) contained in one plot.
+    plot.cols <- c("green", "cyan", "blue", "magenta", "brown")  ## Vector must contain one color per yield class contained in one plot.
+    grid.col <- "gray"
+    grid.lty <- "dashed"
+    legend.legend <- vector(mode = "character")
+    legend.col <- vector(mode = "character")
+    legend.lty <- vector(mode = "character")
     ## Define a list of vectors which contain the names of the models for which predictions should be included in the same plot.
     kModelNamesVectors <- list("set1" = c("SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I",
                                           "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"),
@@ -126,7 +133,7 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
                               ymax),
                      xlab = cur.x.values.column.name,
                      ylab = "gha",
-                     main = paste0("Predictions of ",
+                     main = paste0("Comparison of predictions of ",
                                    paste0(c(paste0(cur.model.names.vector,
                                                    collapse = " and "),
                                             paste0("nagel.",
@@ -134,14 +141,8 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
                                           collapse = " for ")),
                      panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
                                           h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
-                                          col = "gray",
-                                          lty = "dashed"))
-                ## Define plot settings.
-                all.ltys <- c("solid", "dashed")
-                all.cols <- c("green", "cyan", "blue", "magenta", "brown")
-                legend.legend <- vector(mode = "character")
-                legend.col <- vector(mode = "character")
-                legend.lty <- vector(mode = "character")
+                                          col = grid.col,
+                                          lty = grid.lty))
                 ## Loop over all model name indexes.
                 for (cur.model.name.index in seq_len(length.out = length(x = cur.model.names.vector))) {
                     model.name <- cur.model.names.vector[cur.model.name.index]
@@ -150,9 +151,9 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
                         ## Extract name of current yield class.
                         yield.class.name <- levels(x = pred.df[["yield.class"]])[cur.yield.class.index]
                         ## Set point color.
-                        point.col <- all.cols[cur.yield.class.index]
+                        point.col <- plot.cols[cur.yield.class.index]
                         ## Set line type.
-                        line.ty <- all.ltys[cur.model.name.index]
+                        line.ty <- plot.ltys[cur.model.name.index]
                         ## Add points to plot.
                         points(x = pred.df[pred.df[["yield.class"]] == yield.class.name, cur.x.values.column.name],
                                y = pred.df[pred.df[["yield.class"]] == yield.class.name, model.name],
