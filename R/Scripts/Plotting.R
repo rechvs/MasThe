@@ -18,13 +18,13 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 kBlocksToExecute <- vector(mode = "character")
-kBlocksToExecute <- c(kBlocksToExecute, "predictions.comparison")
+## kBlocksToExecute <- c(kBlocksToExecute, "predictions.comparison")
 ## kBlocksToExecute <- c(kBlocksToExecute, "relations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "locations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAM")
 ## kBlocksToExecute <- c(kBlocksToExecute, "SCAM")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
-## kBlocksToExecute <- c(kBlocksToExecute, "predictions")
+kBlocksToExecute <- c(kBlocksToExecute, "measurements.predictions")
 
 ###############################
 ## Compare model predictions ##
@@ -882,7 +882,7 @@ if (FALSE) { ## WORK IN PROGRESS (2017-06-15) ##
 ## Plot relations and respective model predictions ##
 #####################################################
 ## Proceed only if the current block is meant to be executed.
-if ("predictions" %in% kBlocksToExecute) {
+if ("measurements.predictions" %in% kBlocksToExecute) {
     ## Plotting preamble.
     kPdfWidth <- 30
     kPdfHeight <- kPdfWidth * 0.625
@@ -963,14 +963,14 @@ if ("predictions" %in% kBlocksToExecute) {
                                 "kCurveExpr3" = "eval(expr = parse(text = kCoeffsSource2))[[\"(Intercept)\"]] + -1.605 * x",
                                 "kCurveExpr4" = "eval(expr = parse(text = kCoeffsSource4))[[\"(Intercept)\"]] + -1.605 * x",
                                 "kLegendLegend" = "c(\"Measurements\",
-                                               paste0(\"Curve 1 (estimated slope, estimated intercept): y = \",
-                                                      eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"log.dg\"]], digits = 3))),
-                                                      \" x + \",
-                                                      eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
-                                               paste0(\"Curve 2 (Reinek slope, intercept from curve 1): y = -1.605 x + \",
-                                                      eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
-                                               paste0(\"Curve 3 (Reineke slope, estimated intercept): y = -1.605 x + \",
-                                                      eval(parse(text = round(x = eval(parse(text = kCoeffsSource4))[[\"(Intercept)\"]], digits = 3)))))",
+                                                     paste0(\"Curve 1 (estimated slope, estimated intercept): y = \",
+                                                            eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"log.dg\"]], digits = 3))),
+                                                            \" x + \",
+                                                            eval(parse( text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
+                                                     paste0(\"Curve 2 (Reinek slope, intercept from curve 1): y = -1.605 x + \",
+                                                            eval(parse(text = round(x = eval(parse(text = kCoeffsSource2))[[\"(Intercept)\"]], digits = 3)))),
+                                                     paste0(\"Curve 3 (Reineke slope, estimated intercept): y = -1.605 x + \",
+                                                            eval(parse(text = round(x = eval(parse(text = kCoeffsSource4))[[\"(Intercept)\"]], digits = 3)))))",
                                 "kLegendX" = "topright",
                                 "kPch" = c(1, NA, NA, NA),
                                 "kLty" = c(NA, 1, 1, 1),
