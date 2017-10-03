@@ -7,20 +7,32 @@ In his definition of ``maximum basal area'', \textcite{Assmann1970} points out t
 \textcite{Reineke1933} proposed that every forest stand, regardless of tree species and stand development, is subject to the same self-thinning rate given by the equation
 \begin{equation}
   \label{eq:reineke}
-  \log N = -1.605 \log D + k ~.
+  \log N = s \log D + k ~,
 \end{equation}
-According to \refeq{eq:reineke}, every increase in the logarithm of mean diameter leads to a \num{1.605}-fold decrease in the logarithm of stand density.
+with \(s = -1.605\).  According to \textcite{Reineke1933}, every increase in the logarithm of mean diameter leads to a \num{1.605}-fold decrease in the logarithm of stand density.
 
 However, the universal applicability of \refeq{eq:reineke} has been called into question.  As an alternative approach, \textcite{Charru2012} proposed the use of a quadratic, rather than a linear logarithmic diameter term in the right hand side of \refeq{eq:reineke}. A similar approach is taken by \textcite{Schuetz2008,Schuetz2010,Zeide1995}, whose results suggested to add a quadratic logarithmic diameter term to the right hand side of \refeq{eq:reineke}.  \textcite{Meyer1938} found that for \ponderosa{}, the line reported by \textcite{Reineke1933} had to be changed to a slightly concave curve in order to fit observations.  
 
-Despite the apparent shortcomings of \refeq{eq:reineke}, its general form has been upheld by other studies.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \refeq{eq:reineke} is valid, but only during a specific phase of stand development.  Similarly, \textcite{Zeide1985} suggested that \refeq{eq:reineke} \refeq{eq:reineke} is only applicable during the stage of full canopy closure.  A different approach encountered in the literature is to use a species-specific slope rather than the constant of \num{-1.605} of \refeq{eq:reineke} \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  See \reftab{tab:SpeciesSpecificReinekeSlopes} for an overview of slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.
+Despite the apparent shortcomings of \refeq{eq:reineke}, its general form has been upheld by other studies.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \refeq{eq:reineke} is valid, but only during a specific phase of stand development.  Similarly, \textcite{Zeide1985} suggested that \refeq{eq:reineke} is only applicable during the stage of full canopy closure.  A different approach encountered in the literature is to use a species-specific slope rather than the constant of \num{-1.605} reported by \textcite{Reineke1933} \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  See \reftab{tab:SpeciesSpecificReinekeSlopes} for an overview of slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.
 
-Considering the current state of research on the topic of self-thinning rates of \beech{} and \spruce{}, an intermediate approach was taken in the present study.  While the general form of \refeq{eq:reineke} was utilized, species-specific slopes were incorporated in order to test whether a stand was subject to self-thinning and thus could be considered to be at maximum stand density.
+\subsection{Mechanism for selecting maximum stand density-observations}
+
+Considering the current state of research on the topic of self-thinning rates of \beech{} and \spruce{}, an intermediate approach was taken in the present study.  The approach uses \refeq{eq:reineke}, while also incorporating species-specific values for \(s\).  Figure \ref{fig:DataSelectionFlowChart} provides a schematic of the mechanism used for removing those observations belonging to a specific stand which were not considered to be maximum stand density-observations.  In general, the mechanism attempts to answer 2 questions:
+\begin{enumerate}
+\item Is the slope of \refeq{eq:reineke} between the current and the previous observation greater than or equal to the species-specific lower threshold?
+\item Is the slope of \refeq{eq:reineke} between the current and the following observation lower than or equal to the species-specific upper threshold?
+\end{enumerate}
+An observation is considered to be a maximum stand density-observation if all questions applicable to it are answered positively.  The thresholds were based on literature values and are reported in \reftab{tab:ReinekeSlopeThresholds}.
 
 \newpage{}
 \begin{landscape}
   \begin{figure}[h]
-    \caption{Flowchart representing the mechanism used for selecting maximum stand density observations.}  %% CONTINUE HERE or add the symbols used in this figure to the table in "Abbrevs_Symbols.tex".
+    \caption{Flowchart representing the mechanism used for removing observations of a specific stand which were not considered to be maximum stand density-observations based on the slope of \refeq{eq:reineke} between adjacent observations. \\
+      \(s_l\): species-specific lower threshold for the slope of \refeq{eq:reineke} (cp. \reftab{tab:ReinekeSlopeThresholds}). \\  %% Note: the hyperlinks in this caption are not placed ontop of the corresponding printed character, but at a seemingly random distance behind it. I am currently (2017-10-03) unsure about the cause of this and thus don’t know of any fix for it.
+      \(s_f\): slope of \refeq{eq:reineke} between current and following observation. \\
+      \(s_p\): slope of \refeq{eq:reineke} between current and previous observation. \\
+      \(s_u\): species-specific upper threshold for the slope of \refeq{eq:reineke} (cp. \reftab{tab:ReinekeSlopeThresholds}).}
+    \label{fig:DataSelectionFlowChart}
   {
     \footnotesize
     % \small
@@ -89,29 +101,45 @@ Considering the current state of research on the topic of self-thinning rates of
       \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-5.north);
       \draw [DataSelectionFlowChartLine] (Question2-3.south) -- (Result2-6.north);
       %% Legend.
-      \draw [thick,dashed] (-2, -11) rectangle (14, -13);
+      % \draw [thick,dashed] (-2, -11) rectangle (14, -13);
 
-      \node[anchor=west] (LegendTitle) at(-1.9, -12) {\textbf{Legend:}};
+      % \node[anchor=west] (LegendTitle) at(-1.9, -12) {\textbf{Legend:}};
 
-      \node (LegendStart)  [DataSelectionFlowChartStart,right=of LegendTitle] {Loop start};
+      % \node (LegendStart)  [DataSelectionFlowChartStart,right=of LegendTitle] {Loop start};
 
-      \node (LegendQuestion) [DataSelectionFlowChartQuestion,right=of LegendStart] {Question/Test};
+      % \node (LegendQuestion) [DataSelectionFlowChartQuestion,right=of LegendStart] {Question/Test};
 
-      \node (LegendResult) [DataSelectionFlowChartResult,right=of LegendQuestion] {Answer/Result};
+      % \node (LegendResult) [DataSelectionFlowChartResult,right=of LegendQuestion] {Answer/Result};
 
-      \node (LegendAction) [DataSelectionFlowChartAction,right=of LegendResult] {Action};
+      % \node (LegendAction) [DataSelectionFlowChartAction,right=of LegendResult] {Action};
 
-      \node (LegendEnd) [DataSelectionFlowChartEnd,right=of LegendAction] {Loop end};
+      % \node (LegendEnd) [DataSelectionFlowChartEnd,right=of LegendAction] {Loop end};
       
     \end{tikzpicture}}
 \end{figure}
 \end{landscape}
 
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{L l l}
+      \caption{Species-specific lower (\(s_l\)) and upper (\(s_u\)) threshold for the slope of \refeq{eq:reineke} used for selecting maximum stand density-observations (cp. \reffig{fig:DataSelectionFlowChart}).  \label{tab:ReinekeSlopeThresholds}} \\
+      \toprule
+      Species & \(s_l\) & \(s_u\) \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      \beech{} & \num{-2.91} & \num{-0.9} \\
+      \spruce{} & \num{-2.82} & \num{-0.65} \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
   {\tabulinesep=2mm
     \begin{longtabu}{L r r}
-      \caption{Species-specific slopes of \refeq{eq:reineke} for \beech{} and \spruce{} as reported in the literature.  \label{tab:SpeciesSpecificReinekeSlopes}} \\
+      \caption{Species-specific values for parameter \(s\) of \refeq{eq:reineke} for \beech{} and \spruce{} as reported in the literature.  \label{tab:SpeciesSpecificReinekeSlopes}} \\
       \toprule
       Source & beech & spruce \\
       \midrule
