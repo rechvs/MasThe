@@ -1,10 +1,7 @@
-                                  model.name        GCV
-1 GAM_gha_s4SI.h100.diff.EKL.I_s15h100.EKL.I 0.02441639
-2 GAM_gha_s7SI.h100.diff.EKL.I_s15h100.EKL.I 0.02526542
-3 GAM_gha_s4SI.h100.diff.EKL.I_h100.EKL.I    0.03208377
-4 GAM_gha_s7h100.EKL.I                       0.04349108
-5 GAM_gha_s3SI.h100.diff.EKL.I_h100.EKL.I    0.04674626
-6 GAM_gha_s5h100                             0.05333399
-7 GAM_gha_s6h100                             0.05357157
-8 GAM_gha_h100                               0.06022927
-9 GAM_gha_h100.EKL.I                         0.06133276
+                                   model.name        GCV
+1 GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I     0.02526352
+2 GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I      0.03939646
+3 GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I 0.04010201
+4 GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I 0.04070157
+5 GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I 0.06107994
+6 GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I 0.06107994
