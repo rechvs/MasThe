@@ -497,10 +497,10 @@ if (any(grepl(pattern = kFunction,
                                                 ".pdf")
                             ## Start graphics device driver for producing PDF graphics.
                             pdf(file = file.name,
-                            width = kPdfWidth,
-                            height = kPdfHeight,
-                            pointsize = kPdfPointSize,
-                            family = kPdfFamily)
+                                width = kPdfWidth,
+                                height = kPdfHeight,
+                                pointsize = kPdfPointSize,
+                                family = kPdfFamily)
                             ## Loop over all distribution parameters.
                             for (cur.dist.parameter.name in dist.params.names) {
                                 ## Set default model formulas for all distribution parameters.
