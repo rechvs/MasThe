@@ -1981,7 +1981,7 @@ for (cur.species.name in c("beech", "spruce")) {
         assign(x = paste0("h100.EKL.I.yield.class.", cur.name.suffix),
                value = SI.h100.yield.class.1 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age)) ^ 2)
     }
-    ## Calculate "SI.h100.yield.class.YC.vec" for yield class "YC", based on "age" and "h100.yield.class.YC", using the function by Nagel (1999) [This procedure is a bit redundant, since it simply results in the corresponding "SI.h100.yield.YC" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block “Create "gmax_merged_1.5.RData"”).]
+    ## Calculate "SI.h100.yield.class.YC.vec" for yield class "YC", based on "age" and "h100.yield.class.YC", using the function by Nagel (1999) [This procedure is a bit redundant, since it simply results in the corresponding "SI.h100.yield.class.YC" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block "Create "gmax_merged_1.5.RData"").]
     for (cur.name.suffix in name.suffixes) {
         h100 <- get(x = paste0("h100.yield.class.", cur.name.suffix))
         assign(x = paste0("SI.h100.yield.class.", cur.name.suffix, ".vec"),
@@ -2014,6 +2014,86 @@ for (cur.species.name in c("beech", "spruce")) {
     }
     ## Add final data frame to the vector of names of objects meant to be saved.
     kgmaxObjects <- c(final.df.name, kgmaxObjects)
+}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.3.RData" ##
+####################################
+## Based on version 5.2.
+## In this version, "bart.SPECIES.clean.1.8" contains an additional column "SI.h100.class.new", which consists of the SI.h100 class as the result of comparing column "SI.h100" with values from Schober (1995) (moderate thinning).
+## Function by Nagel (1999) (see email by Matthias Schmidt from 2017-04-27 12:06):
+## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
+kBaseFileVersion <- "5.2"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.3"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Get name of data frame for current species.
+    data.frame.name <- paste0("bart.", cur.species.name, ".clean.1.8")
+    ## Initiate column "SI.h100.class.new".
+    bart.species.clean.1.8 <- get(x = data.frame.name)
+    bart.species.clean.1.8[["SI.h100.class.new"]] <- NA
+    ## Set values for SI.h100. Values for yield classes 4, 3, 2, and 1 are taken from Schober (1995) (moderate thinning). Values for yield classes 0, -1, and -2 are linearly interpolated from values for yield classes 2 and 1.
+    if (cur.species.name == "beech") {
+        SI.h100.yield.class.4 <- 20.7
+        SI.h100.yield.class.3 <- 24.7
+        SI.h100.yield.class.2 <- 28.6
+        SI.h100.yield.class.1 <- 32.4
+    }
+    if (cur.species.name == "spruce") {
+        SI.h100.yield.class.4 <- 23.5
+        SI.h100.yield.class.3 <- 27.2
+        SI.h100.yield.class.2 <- 31.2
+        SI.h100.yield.class.1 <- 35.1
+    }
+    SI.h100.yield.class.0 <- SI.h100.yield.class.1 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+    SI.h100.yield.class..1 <- SI.h100.yield.class.0 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+    SI.h100.yield.class..2 <- SI.h100.yield.class..1 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+    ## Calculate ranges for SI.h100 per yield class.
+    SI.h100.range.yield.class.3 <- c(
+        SI.h100.yield.class.3 + (SI.h100.yield.class.4 - SI.h100.yield.class.3) / 2,
+        SI.h100.yield.class.3 - (SI.h100.yield.class.3 - SI.h100.yield.class.2) / 2)
+    SI.h100.range.yield.class.2 <- c(
+        SI.h100.yield.class.2 + (SI.h100.yield.class.3 - SI.h100.yield.class.2) / 2,
+        SI.h100.yield.class.2 - (SI.h100.yield.class.2 - SI.h100.yield.class.1) / 2)
+    SI.h100.range.yield.class.1 <- c(
+        SI.h100.yield.class.1 + (SI.h100.yield.class.2 - SI.h100.yield.class.1) / 2,
+        SI.h100.yield.class.1 - (SI.h100.yield.class.1 - SI.h100.yield.class.0) / 2)
+    SI.h100.range.yield.class.0 <- c(
+        SI.h100.yield.class.0 + (SI.h100.yield.class.1 - SI.h100.yield.class.0) / 2,
+        SI.h100.yield.class.0 - (SI.h100.yield.class.0 - SI.h100.yield.class..1) / 2)
+    SI.h100.range.yield.class..1 <- c(
+        SI.h100.yield.class..1 + (SI.h100.yield.class.0 - SI.h100.yield.class..1) / 2,
+        SI.h100.yield.class..1 - (SI.h100.yield.class..1 - SI.h100.yield.class..2) / 2)
+    ## Compare column "SI.h100" with the ranges and set column "SI.h100.class.new" to the approriate value.
+    for (cur.yield.class.name in c("3", "2", "1", "0", ".1")) {
+        yield.class <- ifelse(test = cur.yield.class.name == ".1",
+                              yes = -1,
+                              no = as.numeric(cur.yield.class.name))
+        yield.class.range <- get(x = paste0("SI.h100.range.yield.class.", cur.yield.class.name))
+        bart.species.clean.1.8[bart.species.clean.1.8[["SI.h100"]] > yield.class.range[1] &
+                               bart.species.clean.1.8[["SI.h100"]] <= yield.class.range[2],
+                               "SI.h100.class.new"] <- yield.class
+    }
+    ## Turn column "SI.h100.class.new" into a factor.
+    bart.species.clean.1.8[["SI.h100.class.new"]] <- as.factor(x = bart.species.clean.1.8[["SI.h100.class.new"]])
+    ## Assign new version of data frame for current species.
+    assign(x = data.frame.name,
+           value = bart.species.clean.1.8)
 }
 ## Save results.
 kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
