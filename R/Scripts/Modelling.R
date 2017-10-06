@@ -1138,10 +1138,13 @@ for (cur.function.name in names(x = models)) {
                     ## Prepare storing benchmarks of function...
                     ## ..."mgcv::gam" or "scam::scam".
                     if (cur.function.name == "mgcv..gam" || cur.function.name == "scam..scam") {
+                        ## Store AIC of "cur.model" in "cur.aic".
+                        cur.aic <- AIC(object = cur.model)
                         ## Store "cur.model[["gcv.ubre"]]" in "cur.gcv" (without name).
                         cur.gcv <- unname(obj = cur.model[["gcv.ubre"]])
-                        ## Store "cur.formula.data.frame.name.df", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
+                        ## Store "cur.formula.data.frame.name.df", "cur.aic", and "cur.gcv" in a 1 row data frame "cur.model.benchmark.df". 
                         cur.model.benchmark.df <- data.frame(cur.formula.data.frame.name.df,
+                                                             "AIC" = cur.aic,
                                                              "GCV" = cur.gcv)
                         ## Append "cur.model.benchmark.df" to "cur.function.species.benchmark.df".
                         cur.function.species.benchmark.df <- rbind(cur.function.species.benchmark.df,
