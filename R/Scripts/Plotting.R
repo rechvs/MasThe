@@ -182,6 +182,10 @@ if ("predictions.comparison" %in% kBlocksToExecute) {
                        lwd = 2,
                        col = legend.col,
                        bg = "slategray1")
+                ## Reset legend components.
+                legend.legend <- vector(mode = "character")
+                legend.col <- vector(mode = "character")
+                legend.lty <- vector(mode = "character")
             }
             ## Turn off graphics device.
             graphics.off()
