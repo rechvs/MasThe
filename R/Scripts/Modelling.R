@@ -69,17 +69,11 @@ kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
 kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
 
 ## 4. Model(s)
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest GCV score.
-kFormulas[["GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce.
+kFormulas[["GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
 
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: seems like the most sensible value, but the segmented function-curves have 2 break points; compared to other c-values, third-lowest GCV score.
-kFormulas[["GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 13) + rhs(x = h100.EKL.I, c = 13) + SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: seems like the most sensible value, but the segmented function-curves have 2 break points; compared to other c-values, third-lowest GCV score.
-kFormulas[["GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + rhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: compared to other c-values, lowest GCV score.
-kFormulas[["GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 28) + rhs(x = h100.EKL.I, c = 28) + SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for beech.
+kFormulas[["GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -484,21 +478,13 @@ kFormulas[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object 
 kColumnsToSelect[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## 4. Model(s)
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: compared to other c-values, lowest AIC.
-kFormulas[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 12) + rhs(x = h100.EKL.I, c = 12) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce.
+kFormulas[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I")  ## Spruce: seems like the most sensible value, but the segmented function-curves have 2 break points.
-kFormulas[["GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 13) + rhs(x = h100.EKL.I, c = 13) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: seems like the most sensible value, but the segmented function-curves have 2 break points.
-kFormulas[["GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + rhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
-
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I")  ## Beech: compared to other c-values, lowest AIC.
-kFormulas[["GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 30) + rhs(x = h100.EKL.I, c = 30) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for beech.
+kFormulas[["GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## Check whether the function needed for this block is selected for execution.
 kFunction <- "gamlss..gamlss"
