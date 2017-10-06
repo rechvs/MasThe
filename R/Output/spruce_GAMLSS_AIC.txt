@@ -1,8 +1,6 @@
-                                      model.name      AIC
-1 GAMLSS_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I 702.6603
-2 GAMLSS_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I 704.1144
-3 GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I    705.3113
-4 GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I   707.1247
-5 GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I     710.2802
-6 GAMLSS_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I 747.1443
-7 GAMLSS_gha_sefu30h100.EKL.I_SI.h100.diff.EKL.I 747.4372
+                                                     model.name      AIC
+1 GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I                   705.3113
+2 GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I                  707.1247
+3 GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I                    710.2802
+4 GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I 747.1909
+5 GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I                 754.3935

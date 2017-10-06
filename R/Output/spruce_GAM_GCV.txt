@@ -1,7 +1,5 @@
-                                   model.name        GCV
-1 GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I     0.02945132
-2 GAM_gha_sefu12h100.EKL.I_SI.h100.diff.EKL.I 0.02987336
-3 GAM_gha_sefu13h100.EKL.I_SI.h100.diff.EKL.I 0.03057891
-4 GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I      0.03267823
-5 GAM_gha_sefu27h100.EKL.I_SI.h100.diff.EKL.I 0.04558666
-6 GAM_gha_sefu28h100.EKL.I_SI.h100.diff.EKL.I 0.04574128
+                                                     model.name      AIC        GCV
+1 GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I                       705.9977 0.02945132
+2 GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I                        718.0582 0.03267823
+3 GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I 748.4529 0.04401745
+4 GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I                    753.9866 0.04646375
