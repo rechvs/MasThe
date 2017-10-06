@@ -670,6 +670,11 @@ if (any(grepl(pattern = kFunction,
                                                   "cex.axis" = 1,
                                                   "cex.main" = 1.5))
                             ## Plot model predictions. ##
+                            ## Initiate legend components.
+                            legend.legend <- vector(mode = "character")
+                            legend.pch <- vector(mode = "numeric")
+                            legend.lty <- vector(mode = "character")
+                            legend.col <- vector(mode = "character")
                             ## Loop over all distribution parameters.
                             for (cur.dist.parameter.name in dist.params.names) {
                                 ## Store model formula for current distribution parameter as a whitespace-free string in "cur.formula.string".
@@ -702,13 +707,21 @@ if (any(grepl(pattern = kFunction,
                                     ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
                                     for (cur.x.values.column in c("age", "h100")) {
                                         ## Create empty plot.
-                                        xmin <- min(new.data[[cur.x.values.column]], na.rm = TRUE)
-                                        xmax <- max(new.data[[cur.x.values.column]], na.rm = TRUE)
-                                        ymin <- min(new.data[["gha.predictions"]], na.rm = TRUE)
-                                        ymax <- max(new.data[["gha.predictions"]], na.rm = TRUE)
+                                        xmin <- min(cur.input.data[[cur.x.values.column]],
+                                                    new.data[[cur.x.values.column]],
+                                                    na.rm = TRUE)
+                                        xmax <- max(cur.input.data[[cur.x.values.column]],
+                                                    new.data[[cur.x.values.column]],
+                                                    na.rm = TRUE)
+                                        ymin <- min(cur.input.data[["gha"]],
+                                                    new.data[["gha.predictions"]],
+                                                    na.rm = TRUE)
+                                        ymax <- max(cur.input.data[["gha"]],
+                                                    new.data[["gha.predictions"]],
+                                                    na.rm = TRUE)
                                         plot(x = NULL,
                                              xlim = c(xmin,
-                                                      xmax + abs(x = (xmax - xmin)) * 0.1),  ## adds additional space to place legend in
+                                                      xmax + abs(x = (xmax - xmin)) * 0.15),  ## adds additional space to place legend in
                                              ylim = c(ymin,
                                                       ymax),
                                              main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
@@ -729,26 +742,57 @@ if (any(grepl(pattern = kFunction,
                                                                   lty = "dashed"))
                                         ## Add lines to plot per yield class.
                                         all.cols <- c("green", "cyan", "blue", "magenta", "brown")
-                                        point.ch <- 19
                                         line.ty <- "solid"
                                         for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
                                             yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
-                                            point.col <- all.cols[cur.yield.class.index]
-                                            points(x = new.data[[cur.x.values.column]][new.data[["yield.class"]] == yield.class.name],
-                                                   y = new.data[["gha.predictions"]][new.data[["yield.class"]] == yield.class.name],
+                                            line.col <- all.cols[cur.yield.class.index]
+                                            lines(x = new.data[[cur.x.values.column]][new.data[["yield.class"]] == yield.class.name],
+                                                  y = new.data[["gha.predictions"]][new.data[["yield.class"]] == yield.class.name],
+                                                  col = line.col,
+                                                  lty = line.ty)
+                                            ## Update legend components.
+                                            legend.legend <- c(legend.legend,
+                                                               paste0("yield class ",
+                                                                      yield.class.name,
+                                                                      " (test data)"))
+                                            legend.pch <- c(legend.pch, NA)
+                                            legend.lty <- c(legend.lty, line.ty)
+                                            legend.col <- c(legend.col, line.col)
+                                        }
+                                        ## Add points of training data measurements to plot per "SI.h100.class.new".
+                                        point.ch <- 19
+                                        cur.x.values.column <- ifelse(test = cur.x.values.column == "age",
+                                                                      yes = "alt",
+                                                                      no = cur.x.values.column)
+                                        for (cur.SI.h100.class.new.index in seq_len(length.out = length(x = levels(x = cur.input.data[["SI.h100.class.new"]])))) {
+                                            SI.h100.class.new.name <- levels(x = cur.input.data[["SI.h100.class.new"]])[cur.SI.h100.class.new.index]
+                                            point.col <- all.cols[cur.SI.h100.class.new.index]
+                                            points(x = cur.input.data[[cur.x.values.column]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
+                                                   y = cur.input.data[["gha"]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
                                                    col = point.col,
                                                    pch = point.ch,
-                                                   type = "l",
-                                                   lty = line.ty)
+                                                   type = "p")
+                                            ## Update legend components.
+                                            legend.legend <- c(legend.legend,
+                                                               paste0("SI.h100 class ",
+                                                                      SI.h100.class.new.name,
+                                                                      " (training data)"))
+                                            legend.pch <- c(legend.pch, point.ch)
+                                            legend.lty <- c(legend.lty, NA)
+                                            legend.col <- c(legend.col, point.col)
                                         }
                                         ## Add legend.
                                         legend(x = "topright",
-                                               legend = paste0("yield class ",
-                                                               levels(x = new.data[["yield.class"]])),
-                                               lty = line.ty,
-                                               pch = point.ch,
-                                               col = all.cols,
+                                               legend = legend.legend,
+                                               lty = legend.lty,
+                                               pch = legend.pch,
+                                               col = legend.col,
                                                bg = "slategray1")
+                                        ## Reset legend components.
+                                        legend.legend <- vector(mode = "character")
+                                        legend.pch <- vector(mode = "numeric")
+                                        legend.lty <- vector(mode = "character")
+                                        legend.col <- vector(mode = "character")
                                     }}}
                             ## Turn off graphics device.
                             graphics.off()
