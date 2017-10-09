@@ -1967,7 +1967,7 @@ for (cur.species.name in c("beech", "spruce")) {
     ## Create a vector containing the suffixes to use for naming objects individually per yield class.
     name.suffixes <- c(".1", "0", "1", "2", "3")
     ## Create an "age" vector which will serve as the basis for various calculations for all yield classes.
-    age <- seq(from = 30,
+    age <- seq(from = 10,
                to = 160,
                by = 1)
     ## Calculate "h100.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.YC", using the function by Nagel (1999).
