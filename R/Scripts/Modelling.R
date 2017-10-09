@@ -166,18 +166,27 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         ## Get test data for current species.
                         new.data.object.name <- paste0("nagel.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
+                        ## If the current species is spruce, cap test data frame based on columns "h100" and "age".
+                        if (cur.species.name == "spruce") {
+                            new.data <- subset(x = new.data,
+                                               subset = h100 <= 35 & age <= 95)
+                        }
                         ## Calculate model predictions.
                         new.data[["gha.predictions"]] <- mgcv::predict.gam(object = cur.model,
                                                                            newdata = new.data,
                                                                            type = "response")
                         ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
-                        for (cur.x.values.column in c("age", "h100")) {
+                        for (cur.test.data.x.values.column.name in c("age", "h100")) {
+                            ## Set object "input.data.x.values.column.name", depending on "cur.test.data.x.values.column.name".
+                            input.data.x.values.column.name <- ifelse(test = cur.test.data.x.values.column.name == "age",
+                                                                      yes = "alt",
+                                                                      no = cur.test.data.x.values.column.name)
                             ## Create empty plot.
-                            xmin <- min(input.data[[cur.x.values.column]],
-                                        new.data[[cur.x.values.column]],
+                            xmin <- min(input.data[[input.data.x.values.column.name]],
+                                        new.data[[cur.test.data.x.values.column.name]],
                                         na.rm = TRUE)
-                            xmax <- max(input.data[[cur.x.values.column]],
-                                        new.data[[cur.x.values.column]],
+                            xmax <- max(input.data[[input.data.x.values.column.name]],
+                                        new.data[[cur.test.data.x.values.column.name]],
                                         na.rm = TRUE)
                             ymin <- min(input.data[["gha"]],
                                         new.data[["gha.predictions"]],
@@ -187,11 +196,11 @@ for (cur.input.data.source.name in names.input.data.sources) {
                                         na.rm = TRUE)
                             plot(x = NULL,
                                  xlim = c(xmin,
-                                          xmax + abs(x = (xmax - xmin)) * 0.15),  ## adds additional space to place legend in
+                                          xmax + abs(x = (xmax - xmin)) * 0.25),  ## adds additional space to place legend in
                                  ylim = c(ymin,
                                           ymax),
                                  main = paste0(cur.formula.string, ", ", new.data.object.name),
-                                 xlab = cur.x.values.column,
+                                 xlab = cur.test.data.x.values.column.name,
                                  ylab = "gha",
                                  panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
                                                       h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
@@ -203,7 +212,7 @@ for (cur.input.data.source.name in names.input.data.sources) {
                             for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
                                 yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
                                 line.col <- all.cols[cur.yield.class.index]
-                                lines(x = new.data[[cur.x.values.column]][new.data[["yield.class"]] == yield.class.name],
+                                lines(x = new.data[[cur.test.data.x.values.column.name]][new.data[["yield.class"]] == yield.class.name],
                                       y = new.data[["gha.predictions"]][new.data[["yield.class"]] == yield.class.name],
                                       col = line.col,
                                       lty = line.ty)
@@ -218,13 +227,10 @@ for (cur.input.data.source.name in names.input.data.sources) {
                             }
                             ## Add points of training data measurements to plot per "SI.h100.class.new".
                             point.ch <- 19
-                            cur.x.values.column <- ifelse(test = cur.x.values.column == "age",
-                                                          yes = "alt",
-                                                          no = cur.x.values.column)
                             for (cur.SI.h100.class.new.index in seq_len(length.out = length(x = levels(x = input.data[["SI.h100.class.new"]])))) {
                                 SI.h100.class.new.name <- levels(x = input.data[["SI.h100.class.new"]])[cur.SI.h100.class.new.index]
                                 point.col <- all.cols[cur.SI.h100.class.new.index]
-                                points(x = input.data[[cur.x.values.column]][input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
+                                points(x = input.data[[input.data.x.values.column.name]][input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
                                        y = input.data[["gha"]][input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
                                        col = point.col,
                                        pch = point.ch,
