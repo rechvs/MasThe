@@ -18,14 +18,188 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## 611 = Douglasie
 ## 711 = Kiefer
 kBlocksToExecute <- vector(mode = "character")
+kBlocksToExecute <- c(kBlocksToExecute, "term.plots.comparison")
 ## kBlocksToExecute <- c(kBlocksToExecute, "predictions.comparison")
 ## kBlocksToExecute <- c(kBlocksToExecute, "relations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "locations")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAM")
 ## kBlocksToExecute <- c(kBlocksToExecute, "SCAM")
 ## kBlocksToExecute <- c(kBlocksToExecute, "GAMLSS")
-kBlocksToExecute <- c(kBlocksToExecute, "measurements.predictions")
+## kBlocksToExecute <- c(kBlocksToExecute, "measurements.predictions")
+## Store names of objects currently present in workspace.
+objects.at.script.start <- c(ls(), "objects.at.script.start")
 
+##############################
+## Compare model term plots ##
+##############################
+## Proceed only if the current block is meant to be executed.
+if ("term.plots.comparison" %in% kBlocksToExecute) {
+    ## Define segmented functions.
+    rhs <- function (x, c) {
+        return(ifelse(test = x > c,
+                      yes = x-c,
+                      no = 0))
+    }
+    lhs <- function (x, c) {
+        return(ifelse(test = x <= c,
+                      yes = c-x,
+                      no = 0))
+    }
+    ## Plotting preamble.
+    kPdfWidth <- 30
+    kPdfHeight <- kPdfWidth * 0.625
+    kPdfPointSize <- 19
+    kPdfFamily <- "Times"
+    kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+    ## kPlotMargins <- c(5, 5, 2, 1)  ## As small as possible using whole lines.
+    ## Create a list of 2-elements lists, according to the following format:
+    ## - name of each element = "package..function" pair for the respective function
+    ## - elements: set of models meant for comparison.
+    kComparisonLists <- list(list("mgcv..gam" = "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I",
+                                  "gamlss..gamlss" = "GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I"),
+                             list("mgcv..gam" = "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I",
+                                  "gamlss..gamlss" = "GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I"),
+                             list("scam..scam" = "SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I",
+                                  "gamlss..gamlss" = "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"),
+                             list("mgcv..gam" = "GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I",
+                                  "gamlss..gamlss" = "GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"),
+                             list("mgcv..gam" = "GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I",
+                                  "gamlss..gamlss" = "GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"))
+    ## Store names of objects currently present in workspace.
+    objects.at.block.start <- c(ls(), "objects.at.block.start")
+    ## Loop over all input data frame names.
+    for (cur.input.data.frame.name in c("bart.beech.clean.1.8", "bart.spruce.clean.1.8")) {
+        ## Loop over all comparison lists
+        for (cur.compar.list in kComparisonLists) {
+            ## Turn off graphics device.
+            graphics.off()
+            ## If nonexistent, create subdirectory in which to store graphics.
+            graphics.subdir <- paste0("Graphics/Term_Plot_Comparisons/", cur.input.data.frame.name, "/")
+            system2(command = "mkdir",
+                    args = paste0("-p ", graphics.subdir))
+            ## Create file name.
+            file.name <-paste0(graphics.subdir,
+                               paste0(cur.compar.list, collapse = "_"),
+                               ".pdf")
+            ## Start graphics device driver for producing PDF graphics.
+            pdf(file = file.name,
+                width = kPdfWidth,
+                height = kPdfHeight,
+                pointsize = kPdfPointSize,
+                family = kPdfFamily)
+            ## Set plot margins.
+            par(mar = kPlotMargins)
+            ## Initiate "layout.mat".
+            layout.mat <- matrix()
+            ## Initiate "nr.of.regression.terms"
+            nr.of.regression.terms <- vector(mode = "numeric")
+            ## Loop over all model indices in "cur.compar.list."
+            for (cur.model.index in seq_len(length.out = length(x = cur.compar.list))) {
+                ## Extract current model name as character vector.
+                cur.model.name <- as.character(x = cur.compar.list[cur.model.index])
+                ## Extract "package..function" pair for current model.
+                cur.pckg..fnctn <- names(x = cur.compar.list[cur.model.index])
+                ## Extract current model from "models".
+                cur.model <- models[[cur.pckg..fnctn]][[cur.input.data.frame.name]][[cur.model.name]]
+                ## Determine number of regressor terms in current model.
+                nr.of.regression.terms <- c(nr.of.regression.terms,
+                                           length(x = attr(x = terms.formula(x = formula(x = cur.model)), which = "term.labels")))
+            }
+            ## Initiate matrix to be used for "layout(...)", based on contents of "nr.of.regression.terms".
+            layout.mat <- matrix(data = NA,
+                                 nrow = max(nr.of.regression.terms),
+                                 ncol = length(x = nr.of.regression.terms))
+            ## Populate "layout.mat".
+            for (cur.regression.terms.nr.index in seq_len(length.out = length(x = nr.of.regression.terms))) {
+                ## Extract current number of regressor terms.
+                cur.nr.of.regression.terms <- nr.of.regression.terms[cur.regression.terms.nr.index]
+                ## Create a sequence from "cur.nr.of.regression.terms".
+                cur.plot.nrs <- seq_len(length.out = cur.nr.of.regression.terms)
+                ## Check whether we are at the first column of "layout.mat" and, depending on the result, set the number to be added to the values in the current column of "layout.mat".
+                if (cur.regression.terms.nr.index == 1) {
+                    plot.nr.addition <- 0
+                } else {
+                    plot.nr.addition <- max(layout.mat[, cur.regression.terms.nr.index - 1], na.rm = TRUE)
+                }
+                layout.mat[, cur.regression.terms.nr.index] <- c(cur.plot.nrs + plot.nr.addition,
+                                                                rep(x = 0,
+                                                                    times = nrow(x = layout.mat) - length(x = cur.plot.nrs)))
+            }
+            ## Set plot layout via "layout(...)".
+            layout(mat = layout.mat)
+            ## Loop over all model names in "cur.compar.list".
+            for (cur.model.name in cur.compar.list) {
+                ## Extract "package..function" pair for current model.
+                cur.pckg..fnctn <- names(x = cur.compar.list[which(x = cur.compar.list == cur.model.name)])
+                ## Extract current model from "models".
+                cur.model <- models[[cur.pckg..fnctn]][[cur.input.data.frame.name]][[cur.model.name]]
+                ## Extract current model formula using the appropriate function call to "formula(...)" for the current model type.
+                if (cur.pckg..fnctn == "gamlss..gamlss") {
+                    cur.formula <- formula(x = cur.model, what = "mu")
+                } else {
+                    cur.formula <- formula(x = cur.model)
+                }
+                ## Store current model formula as a whitespace-free string.
+                cur.formula.string <- gsub(pattern = " ",
+                                           replacement = "",
+                                           x = Reduce(f = paste,
+                                                      x = deparse(expr = cur.formula)))
+                ## Plot model term effects using the appropriate function for the current model type.
+                ## Note (2017-10-09): "mgcv::plot.gam" and "scam::plot.scam" ignore the "main = ..." argument if the current model term is a simple linear term and use the term's variable as the plot's main title. Not sure how to fix this.
+                if (cur.pckg..fnctn == "mgcv..gam") {
+                    input.data <- get(x = cur.input.data.frame.name)
+                    mgcv::plot.gam(x = cur.model,
+                                   all.terms = TRUE,
+                                   main = paste0(cur.pckg..fnctn,
+                                                 ", ",
+                                                 cur.formula.string,
+                                                 ", ",
+                                                 cur.input.data.frame.name))
+                }
+                if (cur.pckg..fnctn == "scam..scam") {
+                    scam::plot.scam(x = cur.model,
+                                    all.terms = TRUE,
+                                    ## data = get(x = cur.input.data.frame.name),
+                                    main = paste0(cur.pckg..fnctn,
+                                                  ", ",
+                                                  cur.formula.string,
+                                                  ", ", cur.input.data.frame.name))
+                }
+                if (cur.pckg..fnctn == "gamlss..gamlss") {
+                    ## Store current input data in "cur.input.data".
+                    cur.input.data <- get(x = cur.input.data.frame.name)
+                    ## Subset "cur.input.data" to the independent variables of the current model.
+                    indep.vars <- all.vars(expr = formula(x = cur.model, what = "mu"))
+                    cur.input.data.col.subset <- cur.input.data[, indep.vars]
+                    ## Remove missing values from "cur.input.data.col.subset".
+                    cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+                    gamlss::term.plot(object = cur.model,
+                                      se = TRUE,
+                                      partial.resid = FALSE,
+                                      what = "mu",
+                                      pages = 0,
+                                      ask = FALSE,
+                                      data = cur.input.data.col.subset.na.omitted,
+                                      rug = TRUE,
+                                      main = paste0(cur.pckg..fnctn,
+                                                    ", ",
+                                                    "Mu: ",
+                                                    cur.formula.string,
+                                                    ", ",
+                                                    cur.input.data.frame.name))
+                }
+            }
+            ## Turn off graphics device.
+            graphics.off()
+        }
+        ## Clean up workspace.
+        rm(list = setdiff(x = ls(),
+                          y = objects.at.block.start))
+    }}
+## Clean up workspace.
+rm(list = setdiff(x = ls(),
+                  y = objects.at.script.start))
+    
 ###############################
 ## Compare model predictions ##
 ###############################
