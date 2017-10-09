@@ -166,10 +166,14 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         ## Get test data for current species.
                         new.data.object.name <- paste0("nagel.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
-                        ## If the current species is spruce, cap test data frame based on columns "h100" and "age".
+                        ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
+                        if (cur.species.name == "beech") {
+                            new.data <- subset(x = new.data,
+                                               subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                        }
                         if (cur.species.name == "spruce") {
                             new.data <- subset(x = new.data,
-                                               subset = h100 <= 35 & age <= 95)
+                                               subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
                         }
                         ## Calculate model predictions.
                         new.data[["gha.predictions"]] <- mgcv::predict.gam(object = cur.model,
