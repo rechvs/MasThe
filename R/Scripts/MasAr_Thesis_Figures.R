@@ -26,15 +26,15 @@ kPdfHeight <- kPdfWidth * 0.55
 kPdfPointSize <- 90
 kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 3.9, 1.1, 0.5)  ## As small as possible using fractions of lines.
-kLineWidth <- 4
+kLineWidth <- 6
 kLineType <- "solid"
 kPointCharacter <- 20
 kXLab <- "log(D)"
 kYLab <- "log(N)"
-kXMin <- list("beech" = 0.8 * 1.0,
-              "spruce" = 0.75 * 1.2)
+kXMin <- list("beech" = 0.8,
+              "spruce" = 0.8)
 kXMax <- list("beech" = 1.8,
-              "spruce" = 1.75)
+              "spruce" = 1.8)
 kYMin <- list("beech" = 1.6,
               "spruce" = 2.4 * 0.9)
 kYMax <- list("beech" = 3.6,
