@@ -1,8 +1,16 @@
-\section{Selection of data}
+\subsection{Data selection}
+The present study aims at predicting maximum basal area of pure \beech{} and \spruce{} stands by fitting statistical models to real-world data.  This approach requires that the data set used for model fitting only contains observations meeting both of the following requirements:
+\begin{enumerate}
+\item The observation belongs to a pure stand.
+\item The observation belongs to a stand with maximum basal area.
+\end{enumerate}
+% itself to contain only observations of (almost) pure stands with (close to) maximum basal area.
+Since the original data set contained several observations which did not meet these requirements, a selection of data had to be made.  With respect to the first requirement, selection was based on crown projection area: an observation was selected and consequently considered a pure stand observation if either \beech{} or \spruce{} held \SI{70}{\percent} or more of the stand’s total crown projection area.
+% Meeting the requirement of maximum basal area proved more difficult. 
+% Meeting the latter requirement, however, was not as straightforward and required an answer to the following question: ``Which observations from a large pool of observations can be considered maximum basal area observations?''
+The approach taken for selecting observations meeting the second requirement will be detailed below.
 
-The present study aims at predicting maximum basal area by fitting statistical models to real-world data.  This approach requires that the observations selected as the training data are (close to) maximum basal area observations.  Thus, we need to provide an answer to the following question: ``Which basal area observations from a large pool of observations can be considered \emph{maximum} basal area observations?''
-
-\subsection{Maximum basal area and self-thinning}
+\subsubsection{Maximum basal area and self-thinning}
 
 In his definition of ``maximum basal area'', \textcite{Assmann1970} points out that maximum basal area is only achieved in stands which have not actively been thinned.  In this context, ``active thinning'' means a reduction of stand density exceeding natural density dependent mortality, also known as ``natural thinning'' \parencite{SAF1958} or ``self-thinning'' \parencite{Roehrig1992}.  Self-thinning, by definition, is a naturally occurring phenomenon.  However, the cause of thinning, be it natural inter-plant competition or human influence, is of no relevance to the present study since the end result is the same: a reduction of stand density.  What is relevant is the actual extent or rate of thinning, since a thinning rate below or above the self-thinning rate will lead to the basal area being above or below its natural maximum.  Thus, data selection was based on the following rationale: a stand is considered to have maximum basal area, as long as its thinning rate is roughly equal to the self-thinning rate of the respective species.  This, however, requires knowledge of the self-thinning modalities of forest stands in general and the species in question in particular.
 
@@ -17,9 +25,9 @@ However, the universal applicability of \refeq{eq:reineke} has been called into 
 
 Despite the apparent shortcomings of \refeq{eq:reineke}, its general form has been upheld by other studies.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \refeq{eq:reineke} is valid, but only during a specific phase of stand development.  Similarly, \textcite{Zeide1985} suggested that \refeq{eq:reineke} is only applicable during the stage of full canopy closure.  A different approach encountered in the literature is to use a species-specific slope rather than the constant of \num{-1.605} reported by \textcite{Reineke1933} \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  \reftab{tab:SpeciesSpecificReinekeSlopes} lists several example slopes for \beech{} and \spruce{} as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.
 
-\subsection{Mechanism for selecting maximum basal area observations}
+\subsubsection{Mechanism for selecting maximum basal area observations}
 
-The approach for selecting maximum basal area observations employed in this study uses \refeq{eq:reineke} in combination with species-specific self-thinning rates.  It examines observations belonging to a stand in chronological order, while attempting to answer 3 questions:
+The approach for selecting maximum basal area observations employed in this study uses \refeq{eq:reineke} in combination with species-specific thresholds of the self-thinning rate.  It examines observations belonging to a stand in chronological order, while attempting to answer 3 questions:
 \begin{enumerate}
 \item Is the current observation preceded and/or followed by another observation?
 \item If the current observation is preceded by another observation, is the slope \(s\) of \refeq{eq:reineke} between the current and the previous observation greater than or equal to the species-specific lower threshold?
@@ -27,7 +35,29 @@ The approach for selecting maximum basal area observations employed in this stud
 \end{enumerate}
 An observation is considered to be a maximum basal area observation if and only if all questions are answered positively.
 The slope thresholds are reported in \reftab{tab:ReinekeSlopeThresholds} and form a range of allowed thinning rates.  While being based on literature values, they are essentially arbitrary and a compromise of 2 conflicting goals: select enough observations to ensure generalizable models but do not select observations which clearly do not show self-thinning.
+% Figures \ref{fig:beech_logN_logD_Plot_before_after_data_selection} and \ref{fig:spruce_logN_logD_Plot_before_after_data_selection} provide a comparison of the data set before and after application of the data selection mechanism.
+As can be seen from figures \ref{fig:beech_logN_logD_Plot_before_after_data_selection} and \ref{fig:spruce_logN_logD_Plot_before_after_data_selection}, the data selection mechanism succeeded in removing observations made during stages where thinning rates where above the species-specific upper slope threshold.
+In contrast, the case of thinning rates being below the species-specific lower slope threshold was not encountered in either species.  In both figures, the dashed and solid black lines exemplify the species-specific upper and lower slope thresholds, respectively.
 % Figure \ref{fig:DataSelectionFlowChart} provides a flowchart of the mechanism.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/beech_logN_logD_Plot_before_after_data_selection.pdf}
+  \caption{Observed diameter-density relationship for pure stands of \beech{}.  Each colored circle represents one observation.  Colored lines connect observations belonging to the same sample plot.  Dashed black lines exemplify the upper slope threshold used in the data selection mechanism.  Solid black lines exemplify the lower slope threshold used in the data selection mechanism.  \\
+    A: observations before application of the data selection mechanism \\
+    B: observations after application of the data selection mechanism}
+  \label{fig:beech_logN_logD_Plot_before_after_data_selection}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/spruce_logN_logD_Plot_before_after_data_selection.pdf}
+  \caption{Observed diameter-density relationship for pure stands of \spruce{}.  Each colored circle represents one observation.  Colored lines connect observations belonging to the same sample plot.  Dashed black lines exemplify the upper slope threshold used in the data selection mechanism.  Solid black lines exemplify the lower slope threshold used in the data selection mechanism.  \\
+    A: observations before application of the data selection mechanism \\
+    B: observations after application of the data selection mechanism}
+  \label{fig:spruce_logN_logD_Plot_before_after_data_selection}
+\end{figure}
+
 
 % \newpage{}
 % \input{Data_Selection_FlowChart.tex}  %% [2017-10-04: I opted against the figure (and deactivated all references to it) since it does not provide any additional information to the 3-questions list above.]
