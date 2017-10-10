@@ -23,12 +23,12 @@ objects.at.script.start <- c(ls(), "objects.at.script.start")  ## Required for c
 ## Plotting preamble.
 kPdfWidth <- (210 - 30 - 20) * 0.3937
 kPdfHeight <- kPdfWidth * 0.55
-kPdfPointSize <- 60
+kPdfPointSize <- 90
 kPdfFamily <- "Times"
 kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
 kLineWidth <- 4
 kLineType <- "solid"
-kPointCharacter <- 19
+kPointCharacter <- 20
 kXLab <- "log(D)"
 kYLab <- "log(N)"
 kXMin <- 0.5
@@ -128,13 +128,13 @@ for (cur.species.name in kSpeciesNames) {
                   lwd = kLineWidth,
                   col = cur.point.line.col)
             ## Add legend.
-            ## legend(x = "topright",
-            ## legend = cur.species.name,
-            ## col = cur.point.line.col,
-            ## lty = kLineType,
-            ## pch = kPointCharacter,
-            ## lwd = kLineWidth,
-            ## bg = "gray")
+            legend(x = "topright",
+                   legend = cur.species.name,
+                   col = cur.point.line.col,
+                   lty = kLineType,
+                   pch = kPointCharacter,
+                   lwd = kLineWidth,
+                   bg = "gray")
         }}
     ## Turn off graphics device.
     graphics.off()
