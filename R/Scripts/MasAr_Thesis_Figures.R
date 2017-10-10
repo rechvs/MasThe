@@ -25,22 +25,18 @@ kPdfWidth <- (210 - 30 - 20) * 0.3937
 kPdfHeight <- kPdfWidth * 0.55
 kPdfPointSize <- 90
 kPdfFamily <- "Times"
-kPlotMargins <- c(4.1, 4.2, 1.5, 0.1)  ## As small as possible using fractions of lines.
+kPlotMargins <- c(4.1, 3.9, 1.1, 0.5)  ## As small as possible using fractions of lines.
 kLineWidth <- 4
 kLineType <- "solid"
 kPointCharacter <- 20
 kXLab <- "log(D)"
 kYLab <- "log(N)"
-kXMin <- 0.5
-kXMin <- list("beech" = 0.8,
-              "spruce" = 0.75)
-kXMax <- 2
+kXMin <- list("beech" = 0.8 * 1.0,
+              "spruce" = 0.75 * 1.2)
 kXMax <- list("beech" = 1.8,
               "spruce" = 1.75)
-kYMin <- 1
 kYMin <- list("beech" = 1.6,
-              "spruce" = 2.4)
-kYMax <- 4
+              "spruce" = 2.4 * 0.9)
 kYMax <- list("beech" = 3.6,
               "spruce" = 3.6)
 kGridLineType <- "dashed"
@@ -50,6 +46,11 @@ kSpeciesNames <- c("beech", "spruce")
 kPointLineColors <- list("beech" = "#ee7f00",
                          "spruce" = "#4066aa")
 kPlotLayout <- 1:2
+kUpperThresholdLineType <- "dashed"
+kLowerThresholdLineType <- "solid"
+kThresholdLinesFrom <- 0
+kThresholdLinesTo <- 10
+kThresholdLinesCol <- "black"
 ## Loop over all species names.
 for (cur.species.name in kSpeciesNames) {
     ## Turn off graphics device.
@@ -90,13 +91,22 @@ for (cur.species.name in kSpeciesNames) {
         cur.plot.main <- ifelse(test = cur.plot.nr %% 2 != 0,
                                 yes = "A",
                                 no = "B")
+
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
+        legend.lwd <- vector(mode = "numeric")
+        legend.col <- vector(mode = "character")
         ## Create empty plot.
-        plot(x = 1,
+        plot(x = 0,
              type = "n",
              xlim = c(cur.xmin, cur.xmax),
              ylim = c(cur.ymin, cur.ymax),
              xlab = kXLab,
              ylab = kYLab,
+             xaxs = "i",
+             yaxs = "i",
              main = cur.plot.main,
              panel.first = abline(v = seq(from = 0,
                                           to = 2,
@@ -107,6 +117,54 @@ for (cur.species.name in kSpeciesNames) {
                                   lty = kGridLineType,
                                   lwd = kGridLineWidth,
                                   col = kGridLineCol))
+
+        ## Define function for calculating the lines representing the slope thresholds.
+        slope.threshold.func <- function(s, x, k) {
+            res <- s * x + k
+            return(res)
+        }
+        ## Add line for upper slope threshold to plot.
+        cur.species.upper.slope.threshold <- ifelse(test = cur.species.name == "beech",
+                                                    yes = -0.9,
+                                                    no = -0.65)
+        cur.species.threshold.func.upper.intercept <- cur.ymax - cur.species.upper.slope.threshold * cur.xmin
+        curve(expr = slope.threshold.func(s = cur.species.upper.slope.threshold,
+                                          x,
+                                          k = cur.species.threshold.func.upper.intercept),
+              from = kThresholdLinesFrom,
+              to = kThresholdLinesTo,
+              lty = kUpperThresholdLineType,
+              lwd = kLineWidth,
+              col = kThresholdLinesCol,
+              add = TRUE)
+        ## Update legend components.
+        legend.legend <- c(legend.legend, "upper slope threshold")
+        legend.pch <- c(legend.pch, NA)
+        legend.lty <- c(legend.lty, kUpperThresholdLineType)
+        legend.lwd <- c(legend.lwd, kLineWidth)
+        legend.col <- c(legend.col, kThresholdLinesCol)
+
+        ## Add line for lower slope threshold to plot.
+        cur.species.lower.slope.threshold <- ifelse(test = cur.species.name == "beech",
+                                                    yes = -2.91,
+                                                    no = -2.82)
+        cur.species.threshold.func.lower.intercept <- cur.ymax - cur.species.lower.slope.threshold * cur.xmin
+        curve(expr = slope.threshold.func(s = cur.species.lower.slope.threshold,
+                                          x,
+                                          k = cur.species.threshold.func.lower.intercept),
+              from = kThresholdLinesFrom,
+              to = kThresholdLinesTo,
+              lty = kLowerThresholdLineType,
+              lwd = kLineWidth,
+              col = kThresholdLinesCol,
+              add = TRUE)
+        ## Update legend components.
+        legend.legend <- c(legend.legend, "lower slope threshold")
+        legend.pch <- c(legend.pch, NA)
+        legend.lty <- c(legend.lty, kLowerThresholdLineType)
+        legend.lwd <- c(legend.lwd, kLineWidth)
+        legend.col <- c(legend.col, kThresholdLinesCol)
+
         ## Loop over all "edvid"s.
         for (cur.edvid.name in levels(x = cur.data.frame[["edvid"]])) {
             ## Extract x-values for current "edvid".
@@ -119,7 +177,6 @@ for (cur.species.name in kSpeciesNames) {
                    type = "p",
                    pch = kPointCharacter,
                    lty = kLineType,
-                   lwd = kLineWidth,
                    col = cur.point.line.col)
             ## Add lines to plot per "edvid", with distinct colors per species.
             lines(x = cur.x.values,
@@ -127,17 +184,32 @@ for (cur.species.name in kSpeciesNames) {
                   lty = kLineType,
                   lwd = kLineWidth,
                   col = cur.point.line.col)
-            ## Add legend.
-            legend(x = "topright",
-                   legend = cur.species.name,
-                   col = cur.point.line.col,
-                   lty = kLineType,
-                   pch = kPointCharacter,
-                   lwd = kLineWidth,
-                   bg = "gray")
-        }}
+        }
+        ## Update legend components.
+        legend.legend <- c(legend.legend, "observations")
+        legend.pch <- c(legend.pch, kPointCharacter)
+        legend.lty <- c(legend.lty, kLineType)
+        legend.lwd <- c(legend.lwd, kLineWidth)
+        legend.col <- c(legend.col, cur.point.line.col)
+
+        ## Add legend.
+        legend(x = "bottomleft",
+               legend = legend.legend,
+               col = legend.col,
+               lty = legend.lty,
+               pch = legend.pch,
+               lwd = legend.lwd,
+               bg = "gray")
+
+        ## Reset legend components.
+        legend.legend <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
+        legend.lwd <- vector(mode = "numeric")
+        legend.col <- vector(mode = "character")
+    }
     ## Turn off graphics device.
     graphics.off()
 }
 ## Clean up workspace.
-rm(list = setdiff(x = ls(), y = objects.at.script.start))
+## rm(list = setdiff(x = ls(), y = objects.at.script.start))
