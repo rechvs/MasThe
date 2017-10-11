@@ -17,9 +17,10 @@
     objects.at.script.start <- c(ls(), "objects.at.script.start")  ## Required for cleaning up workspace.
   #+END_SRC
 * log(N)-log(D)-plots before/after data selection
+  #+NAME: log(N)-log(D)-plots before/after data selection
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Selection.tex
-    ## This block creates 2 files, one per species. Each file contains 2 plots (in a 1 row, 2 column layout): the left plot for observations before application of the data selection mechanism, the right plot for observations after application of the data selection mechanism.
+    ## This creates 4 plots in one file in a 2-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
     kPdfWidth <- (210 - 30 - 20) * 0.3937
     ## kPdfHeight <- kPdfWidth * 0.55
@@ -70,7 +71,7 @@
         family = kPdfFamily)
     ## Set plot margins.
     par("mar" = kPlotMargins)
-    ## Set plot layout to 1 row and 2 columns (1 graphics device per species, 1 plot per data selection state).
+    ## Set plot layout to 2-by-2.
     layout(mat = matrix(data = kPlotLayout,
 		    ## nrow = 1,
 		    nrow = 2,
@@ -233,8 +234,103 @@
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * Location of sample plots
+  #+NAME: Location of sample plots
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
-  
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Plot_Location.tex
+    ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
+    ## Plotting preamble.
+    kPdfWidth <- (210 - 30 - 20) * 0.3937
+    kPdfHeight <- kPdfWidth * 0.55
+    kPdfPointSize <- 90
+    kPdfFamily <- "Times"
+    kPlotMargins <- c(0, 0, 0, 0)  ## As small as possible using fractions of lines.
+    kPointCharacter <- 20
+    kGridLineType <- "dashed"
+    kGridLineCol <- "gray"
+    kGridLineWidth <- 2
+    kSpeciesNames <- c("beech", "spruce")
+    kPointLineColors <- list("beech" = "#ee7f00",  ## Colors taken from Niedersächsische Landesforsten (2011), fig. 3.
+		         "spruce" = "#4066aa")
+    kPlotLayout <- 1:2
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "Locations_Sample_Plots.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidth,
+        height = kPdfHeight,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout to 1-by-2.
+    layout(mat = matrix(data = kPlotLayout,
+		    nrow = 1,
+		    ncol = 2,
+		    byrow = FALSE))
+    ## Set plot margins.
+    par("mar" = kPlotMargins)
+    ## Initiate legend components.
+    legend.legend <- vector(mode = "character")
+    legend.pch <- vector(mode = "numeric")
+    legend.col <- vector(mode = "character")
+    ## Loop over all plot numbers.
+    for (cur.plot.nr in kPlotLayout) {
+        ## Set current species name ("beech" for plot number 1, "spruce" for plot number 2).
+        cur.species.name <- ifelse(test = cur.plot.nr == 1,
+			     yes = "beech",
+			     no = "spruce")
+        ## Set point and line color for current species.
+        cur.point.line.col <- as.character(x = kPointLineColors[names(x = kPointLineColors) == cur.species.name])
+        ## Get data frame for current species and plot number.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Condense "cur.data.frame" to the unique values of columns "edvid", "EAST.UTM", and "NORTH.UTM".
+        cur.data.frame <- unique(x = cur.data.frame[, c("edvid", "EAST.UTM", "NORTH.UTM")])
+        ## Extract easting and northing.
+        easting <- cur.data.frame[["EAST.UTM"]]
+        northing <- cur.data.frame[["NORTH.UTM"]]
+        ## Calculate plot axis limits.
+        x.lim.low <- range(easting, na.rm = TRUE)[1]
+        x.lim.high <- range(easting, na.rm = TRUE)[2]
+        y.lim.low <- range(northing, na.rm = TRUE)[1]
+        y.lim.high <- range(northing, na.rm = TRUE)[2]
+        x.lim <- c(x.lim.low, x.lim.high)
+        y.lim <- c(y.lim.low, y.lim.high)
+        ## Plot national and federal state boundaries.
+        library("sp")
+        plot(x = bld_utm,
+	   add = FALSE)
+        ## Add plot title (we’re using "title(...)" because the normal placement via "plot(main = ...)" wastes too much space).
+        ## title(main = cur.species.name,
+        ## outer = FALSE,
+        ## line = 0)
+        ## Add points at sample plot locations to plot.
+        points(x = easting,
+	     y = northing,
+	     xlab = "Easting",
+	     ylab = "Northing",
+	     col = cur.point.line.col,
+	     pch = kPointCharacter)
+        ## Update legend components.
+        legend.legend <- c(legend.legend, cur.species.name)
+        legend.pch <- c(legend.pch, kPointCharacter)
+        legend.col <- c(legend.col, cur.point.line.col)
+        ## Add legend to last plot.
+        if (cur.plot.nr == max(kPlotLayout)) {
+	  legend(x = "bottomright",
+	         legend = legend.legend,
+	         pch = legend.pch,
+	         col = legend.col,
+	         bg = "gray")
+	  ## Reset legend components.
+	  legend.legend <- vector(mode = "character")
+	  legend.pch <- vector(mode = "numeric")
+	  legend.col <- vector(mode = "character")
+        }
+    
+    }
+    ## Turn off graphics device.
+    graphics.off()
   #+END_SRC
 * File local variables
 # Local Variables:
