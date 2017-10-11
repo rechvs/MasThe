@@ -207,7 +207,7 @@
 	        col = cur.point.line.col)
         }
         ## Update legend components.
-        legend.legend <- c(legend.legend, paste0("observation ", cur.species.name))
+        legend.legend <- c(legend.legend, paste0("observations ", cur.species.name))
         legend.pch <- c(legend.pch, kPointCharacter)
         legend.lty <- c(legend.lty, kLineType)
         legend.lwd <- c(legend.lwd, kLineWidth)
@@ -244,12 +244,10 @@
     kPdfPointSize <- 90
     kPdfFamily <- "Times"
     kPlotMargins <- c(0, 0, 0, 0)  ## As small as possible using fractions of lines.
+    kBoundaryLineWidth <- 4
     kPointCharacter <- 20
-    kGridLineType <- "dashed"
-    kGridLineCol <- "gray"
-    kGridLineWidth <- 2
     kSpeciesNames <- c("beech", "spruce")
-    kPointLineColors <- list("beech" = "#ee7f00",  ## Colors taken from Niedersächsische Landesforsten (2011), fig. 3.
+    kPointColors <- list("beech" = "#ee7f00",  ## Colors taken from Niedersächsische Landesforsten (2011), fig. 3.
 		         "spruce" = "#4066aa")
     kPlotLayout <- 1:2
     ## Turn off graphics device.
@@ -281,7 +279,7 @@
 			     yes = "beech",
 			     no = "spruce")
         ## Set point and line color for current species.
-        cur.point.line.col <- as.character(x = kPointLineColors[names(x = kPointLineColors) == cur.species.name])
+        cur.point.line.col <- as.character(x = kPointColors[names(x = kPointColors) == cur.species.name])
         ## Get data frame for current species and plot number.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Condense "cur.data.frame" to the unique values of columns "edvid", "EAST.UTM", and "NORTH.UTM".
@@ -299,11 +297,8 @@
         ## Plot national and federal state boundaries.
         library("sp")
         plot(x = bld_utm,
-	   add = FALSE)
-        ## Add plot title (we’re using "title(...)" because the normal placement via "plot(main = ...)" wastes too much space).
-        ## title(main = cur.species.name,
-        ## outer = FALSE,
-        ## line = 0)
+	   add = FALSE,
+	   lwd = kBoundaryLineWidth)
         ## Add points at sample plot locations to plot.
         points(x = easting,
 	     y = northing,
@@ -312,7 +307,7 @@
 	     col = cur.point.line.col,
 	     pch = kPointCharacter)
         ## Update legend components.
-        legend.legend <- c(legend.legend, cur.species.name)
+        legend.legend <- c(legend.legend, paste0("sample plots ", cur.species.name))
         legend.pch <- c(legend.pch, kPointCharacter)
         legend.col <- c(legend.col, cur.point.line.col)
         ## Add legend to last plot.
@@ -327,7 +322,6 @@
 	  legend.pch <- vector(mode = "numeric")
 	  legend.col <- vector(mode = "character")
         }
-    
     }
     ## Turn off graphics device.
     graphics.off()
