@@ -1827,6 +1827,13 @@ for (cur.object.name in c("schober.beech", "schober.spruce")) {
            value = cur.object)
 }
 ## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
@@ -1855,6 +1862,13 @@ for (cur.object.name in c("schober.beech", "schober.spruce")) {
            value = cur.object)
 }
 ## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
@@ -1884,6 +1898,13 @@ for (cur.object.name in c("schober.beech", "schober.spruce")) {
            value = cur.object)
 }
 ## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
@@ -1923,7 +1944,9 @@ kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
 kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
 kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
-kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
@@ -2020,7 +2043,9 @@ kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
 kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
 kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
-kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
@@ -2100,7 +2125,9 @@ kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
 kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
 kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
 kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
-kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
 save(list = kgmaxObjects,
      file = kFileName,
      precheck = TRUE)
