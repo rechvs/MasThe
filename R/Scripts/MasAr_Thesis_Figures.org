@@ -10,6 +10,9 @@
     kBaseFileVersion <- "5.3"
     kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
     kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+    ## Set a distinct color for each species to use in all multi-species plots. Colors are taken from Niedersächsische Landesforsten (2011), fig. 3.
+    kSpeciesColors <- list("beech" = "#ee7f00",
+		       "spruce" = "#4066aa")
     ## If nonexistent, create subdirectory in which to store graphics.
     kGraphicsSubdir <- "Graphics/Thesis/"
     system2(command = "mkdir",
@@ -46,8 +49,6 @@
     kGridLineCol <- "gray"
     kGridLineWidth <- 2
     kSpeciesNames <- c("beech", "spruce")
-    kPointLineColors <- list("beech" = "#ee7f00",  ## Colors taken from Niedersächsische Landesforsten (2011), fig. 3.
-		         "spruce" = "#4066aa")
     kPlotLayout <- 1:4
     kUpperThresholdLineType <- "dashed"
     kLowerThresholdLineType <- "solid"
@@ -90,7 +91,7 @@
         cur.ymin <- as.numeric(x = kYMin[names(x = kYMin) == cur.species.name])
         cur.ymax <- as.numeric(x = kYMax[names(x = kYMax) == cur.species.name])
         ## Set point and line color for current species.
-        cur.point.line.col <- as.character(x = kPointLineColors[names(x = kPointLineColors) == cur.species.name])
+        cur.point.line.col <- as.character(x = kSpeciesColors[names(x = kSpeciesColors) == cur.species.name])
         ## Set data frame version for current plot number ("1.0" for plots number 1 and 3, "1.8" for plots number 2 and 4).
         cur.data.frame.version <- ifelse(test = cur.plot.nr %% 2 != 0,
 				 yes = "1.0",
@@ -247,8 +248,6 @@
     kBoundaryLineWidth <- 4
     kPointCharacter <- 20
     kSpeciesNames <- c("beech", "spruce")
-    kPointColors <- list("beech" = "#ee7f00",  ## Colors taken from Niedersächsische Landesforsten (2011), fig. 3.
-		         "spruce" = "#4066aa")
     kPlotLayout <- 1:2
     ## Turn off graphics device.
     graphics.off()
@@ -279,7 +278,7 @@
 			     yes = "beech",
 			     no = "spruce")
         ## Set point and line color for current species.
-        cur.point.line.col <- as.character(x = kPointColors[names(x = kPointColors) == cur.species.name])
+        cur.point.line.col <- as.character(x = kSpeciesColors[names(x = kSpeciesColors) == cur.species.name])
         ## Get data frame for current species and plot number.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Condense "cur.data.frame" to the unique values of columns "edvid", "EAST.UTM", and "NORTH.UTM".
