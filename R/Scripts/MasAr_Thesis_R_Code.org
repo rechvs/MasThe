@@ -20,7 +20,7 @@
     kPdfWidth2by2 <- kPdfWidth1by2
     kPdfHeight2by2 <- kPdfWidth2by2
     ## Set point size for PDF device.
-    kPdfPointSize <- 8
+    kPdfPointSize <- 9
     ## Set font family for PDF device.
     kPdfFamily <- "Times"
     ## Set standard point character for plots.
@@ -393,7 +393,7 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Plotting preamble.
-    kPlotMargins <- c(4, 4, 1, 1)
+    kPlotMargins <- c(1, 4, 1, 0)
     kXValues <- seq(from = 1, to = 2, by = 0.5)
     kXMin <- min(kXValues)
     kXMax <- max(kXValues)
@@ -424,7 +424,7 @@
     plot(x = kXValues,
          xlim = c(kXMin, kXMax),
          ylim = c(kYMin, kYMax),
-         xlab = "Species",
+         xlab = "",
          ylab = "Altitude above sea level [m]",
          type = "n",
          axes = FALSE,
@@ -432,9 +432,6 @@
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
 			    col = kGridLineCol))
-    axis(side = 1,
-         labels = c("beech", "spruce"),
-         at = c(1, 2))
     axis(side = 2,
          labels = TRUE,
          at = kYAxisTicks)
