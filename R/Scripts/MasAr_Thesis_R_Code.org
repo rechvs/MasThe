@@ -25,13 +25,16 @@
     kPdfFamily <- "Times"
     ## Set standard point character for plots.
     kPointCharacter <- 20
+    ## Set standard line settings for plots.
+    kLineWidth <- 1
+    kLineType <- "solid"
     ## Set a distinct color for each species to use in all multi-species plots. Colors are taken from Niedersächsische Landesforsten (2011), fig. 3.
     kSpeciesColors <- list("beech" = "#ee7f00",
 		       "spruce" = "#4066aa")
     ## Set plot grid properties.
     kGridLineType <- "dashed"
     kGridLineCol <- "gray"
-    kGridLineWidth <- 1
+    kGridLineWidth <- 0.5
     ## Set background color for plot legends.
     kLegendBg <- "gray"
     ## Set vectors of species names.
@@ -52,16 +55,8 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Selection.tex
     ## This creates 4 plots in one file in a 2-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
-    kPdfWidth <- (210 - 30 - 20) * 0.3937
-    ## kPdfHeight <- kPdfWidth * 0.55
-    kPdfHeight <- kPdfWidth
-    kPdfPointSize <- 90
-    kPdfFamily <- "Times"
-    kPlotMargins <- c(3.5, 3.5, 1, 0.5)  ## As small as possible using fractions of lines.
+    kPlotMargins <- c(3.5, 3.5, 1, 1)
     kPlotMgp <- c(2, 1, 0)
-    kLineWidth <- 6
-    kLineType <- "solid"
-    kPointCharacter <- 20
     kXLab <- expression(paste("log(", italic("D"), ")"))
     kYLab <- expression(paste("log(", italic("N"), ")"))
     kXMin <- list("beech" = 0.8,
@@ -72,10 +67,6 @@
 	        "spruce" = 2.4 * 0.9)
     kYMax <- list("beech" = 3.6,
 	        "spruce" = 3.6)
-    kGridLineType <- "dashed"
-    kGridLineCol <- "gray"
-    kGridLineWidth <- 2
-    kSpeciesNames <- c("beech", "spruce")
     kPlotLayout <- 1:4
     kUpperThresholdLineType <- "dashed"
     kLowerThresholdLineType <- "solid"
@@ -93,8 +84,8 @@
 		   "logN_logD_Plots_before_after_data_selection.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
+        width = kPdfWidth2by2,
+        height = kPdfHeight2by2,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot margins.
@@ -267,14 +258,7 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Plot_Location.tex
     ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
     ## Plotting preamble.
-    kPdfWidth <- (210 - 30 - 20) * 0.3937
-    kPdfHeight <- kPdfWidth * 0.55
-    kPdfPointSize <- 90
-    kPdfFamily <- "Times"
-    kPlotMargins <- c(0, 0, 0, 0)  ## As small as possible using fractions of lines.
-    kBoundaryLineWidth <- 4
-    kPointCharacter <- 20
-    kSpeciesNames <- c("beech", "spruce")
+    kPlotMargins <- c(0, 0, 0, 0)
     kPlotLayout <- 1:2
     ## Turn off graphics device.
     graphics.off()
@@ -283,8 +267,8 @@
 		   "Locations_Sample_Plots.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
-        width = kPdfWidth,
-        height = kPdfHeight,
+        width = kPdfWidth1by2,
+        height = kPdfHeight1by2,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout to 1-by-2.
@@ -324,7 +308,7 @@
         library("sp")
         plot(x = bld_utm,
 	   add = FALSE,
-	   lwd = kBoundaryLineWidth)
+	   lwd = kLineWidth)
         ## Add points at sample plot locations to plot.
         points(x = easting,
 	     y = northing,
