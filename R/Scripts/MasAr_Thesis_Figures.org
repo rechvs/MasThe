@@ -13,10 +13,16 @@
     ## Set a distinct color for each species to use in all multi-species plots. Colors are taken from Niedersächsische Landesforsten (2011), fig. 3.
     kSpeciesColors <- list("beech" = "#ee7f00",
 		       "spruce" = "#4066aa")
-    ## If nonexistent, create subdirectory in which to store graphics.
+    ## Set vectors of species names.
+    kSpeciesNames <- c("beech", "spruce")
+    kSpeciesNamesCapitalized <- c("Beech", "Spruce")
+    ## Set destination directory for output.
+    kOutputSubdir <- "R/Output/Thesis/"
+    ## Set destination directory for graphics.
     kGraphicsSubdir <- "Graphics/Thesis/"
+    ## If nonexistent, create all required directories.
     system2(command = "mkdir",
-	  args = paste0("-p ", kGraphicsSubdir))
+	  args = paste0("-p ", c(kGraphicsSubdir, kOutputSubdir)))
     objects.at.script.start <- c(ls(), "objects.at.script.start")  ## Required for cleaning up workspace.
   #+END_SRC
 * log(N)-log(D)-plots before/after data selection
@@ -325,8 +331,56 @@
     ## Turn off graphics device.
     graphics.off()
   #+END_SRC
+* Geographic properties of sample plots
+  #+NAME: Geographic properties of sample plots
+  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## Preamble.
+    ## Set vector of names of similar functions needed in this block.
+    kFunctionNames <- c("min", "median", "mean", "max")
+    ## Set vector of columns on which the functions mentioned in "kFunctionNames" should be applied.
+    kColumnNames <- c("EAST.UTM", "NORTH.UTM", "hnn.neu")
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Initiate "cur.species.results.df".
+        cur.species.results.df <- data.frame(kFunctionNames,
+				     vector(mode = "numeric", length = length(x = kFunctionNames)),
+				     vector(mode = "numeric", length = length(x = kFunctionNames)),
+				     vector(mode = "numeric", length = length(x = kFunctionNames)),
+				     vector(mode = "numeric", length = length(x = kFunctionNames)))
+        colnames(x = cur.species.results.df) <- c("Function.name", kColumnNames, "n")
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Make data frame unique with respect to columns "EAST.UTM", "NORTH.UTM", "hnn.neu", and"edvid".
+        cur.data.frame.unique <- unique(x = cur.data.frame[, c(kColumnNames, "edvid")])
+        ## Calculate minimum, median, mean, and maximum of columns "EAST.UTM", "NORTH.UTM", and "hnn.neu" and total number of sample plots.
+        for (cur.column.name in kColumnNames) {
+	  for (cur.function.name in kFunctionNames) {
+	      cur.function <- get(x = cur.function.name)
+	      ## cur.column.function.result <- cur.function(cur.data.frame.unique[[cur.column.name]],
+	      ## na.rm = TRUE)
+	      cur.species.results.df[cur.species.results.df[["Function.name"]] == cur.function.name,
+			         c(kColumnNames, "n")] <- c(apply(X = cur.data.frame.unique[, kColumnNames],
+							  MARGIN = 2,
+							  FUN = cur.function.name,
+							  "na.rm" = TRUE),
+						      cur.function(length(cur.data.frame.unique[["edvid"]])))
+	  }}
+        ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
+        cur.output <- capture.output(print(x = format(x = cur.species.results.df,
+					    justify="left",
+					    scientific = FALSE),
+				   row.names = TRUE))
+        ## Output results to file.
+        cat(cur.output,
+	  file = paste0(kOutputSubdir, cur.species.name, "_geographic_properties_summary.txt"),
+	  sep = "\n",
+	  fill = FALSE)
+    }
+    ## Clean up workspace.
+    ## rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
 * File local variables
 # Local Variables:
-# org-babel-inline-result-wrap: ""
 # End:
 
