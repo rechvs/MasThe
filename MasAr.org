@@ -314,6 +314,16 @@
      + For this approach of excluding measurements, I am mainly interested in stage 2, phase 2, since this is the only period during which a stand can be considered to be fully stocked (cp. VanderSchaaf (2010), p. 328). In this period, self-thinning occurs and the slope of the log(density)-log(diameter)-trajectory is stable (i.e., the trajectory is a line).
    + Rewrite block [[file:R/Scripts/DataSetCreation.R::Create%20"gmax_merged_1.9.RData"%20##][Create "gmax_merged_1.9.RData"]] such that it excludes measurements if the slope of the log(density)-log(diameter)-line lies outside the aforementioned range. However, I am currently unsure about how to tell whether to exclude the current or the next measurement if the slope lies outside the range. 
 * NOTES
+** Layout of Thesis
+*** Introduction
+**** Sterba’s approach
+*** Material and Methods
+**** Description of data sets
+     + Location of sample plots
+**** Mechanism for selecting data
+*** Discussion
+    + Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
+    + 
 ** R Code Style Guidelines
 *** Where to find Google’s R Style Guide?
     + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
@@ -346,6 +356,10 @@
 *** Which code belongs into block “Preamble” and which to specific blocks?
     + Code required for more than 1 block belongs in block “Preamble”.
     + Code required only for 1 block belongs into the respective block (optionally segregated into subblock “Preamble”).
+** Explanation of [[file:R/Scripts/MasAr_Thesis_R_Code.org::1][MasAr_Thesis_R_Code.org]]
+   + The file should contain all R code used for producing the figures and numbers included in the Thesis.
+   + Each topic should be given its own block, even if this means a single block creates multiple figures (e.g., one per species).
+   + Each block should contain the name of the TEX file which incorporates the figure produced in the block.
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
