@@ -255,10 +255,10 @@
 * Location of sample plots
   #+NAME: Location of sample plots
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Plot_Location.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
     ## Plotting preamble.
-    kPlotMargins <- c(0, 0, 0, 0)
+    kPlotMargins <- c(0.5, 0.5, 0.5, 0.5)
     kPlotLayout <- 1:2
     ## Turn off graphics device.
     graphics.off()
@@ -316,22 +316,22 @@
 	     ylab = "Northing",
 	     col = cur.point.line.col,
 	     pch = kPointCharacter)
+        ## Draw box around plot.
+        box(bty = "o")
         ## Update legend components.
         legend.legend <- c(legend.legend, paste0("sample plots ", cur.species.name))
         legend.pch <- c(legend.pch, kPointCharacter)
         legend.col <- c(legend.col, cur.point.line.col)
-        ## Add legend to last plot.
-        if (cur.plot.nr == max(kPlotLayout)) {
-	  legend(x = "bottomright",
-	         legend = legend.legend,
-	         pch = legend.pch,
-	         col = legend.col,
-	         bg = "gray")
-	  ## Reset legend components.
-	  legend.legend <- vector(mode = "character")
-	  legend.pch <- vector(mode = "numeric")
-	  legend.col <- vector(mode = "character")
-        }
+        ## Add legend.
+        legend(x = "bottomright",
+	     legend = legend.legend,
+	     pch = legend.pch,
+	     col = legend.col,
+	     bg = "gray")
+        ## Reset legend components.
+        legend.legend <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.col <- vector(mode = "character")
     }
     ## Turn off graphics device.
     graphics.off()
@@ -393,7 +393,7 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Plotting preamble.
-    kPlotMargins <- c(1, 4, 1, 0)
+    kPlotMargins <- c(1, 4, 1, 0.5)
     kXValues <- seq(from = 1, to = 2, by = 0.5)
     kXMin <- min(kXValues)
     kXMax <- max(kXValues)
@@ -431,7 +431,9 @@
          panel.first = abline(h = kYAxisTicks,
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
-			    col = kGridLineCol))
+			col = kGridLineCol))
+    ## Draw box around plot.
+    box(bty = "o")
     axis(side = 2,
          labels = TRUE,
          at = kYAxisTicks)
@@ -466,7 +468,7 @@
     ## Turn off graphics device.
     graphics.off()
     ## Clean up workspace.
-    ## rm(list = setdiff(x = ls(), y = objects.at.script.start))
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * File local variables
 # Local Variables:
