@@ -10,9 +10,30 @@
     kBaseFileVersion <- "5.3"
     kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
     kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+    ## Set dimensions of PDF device for different device layouts.
+    kCmToInch <- 1 / 2.54
+    kMmToInch <- 1 / 25.4
+    kPdfWidth1by1 <- (210 - 30 - 20) * 0.5 * kMmToInch
+    kPdfHeight1by1 <- kPdfWidth1by1
+    kPdfWidth1by2 <- 2 * kPdfWidth1by1
+    kPdfHeight1by2 <- kPdfHeight1by1
+    kPdfWidth2by2 <- kPdfWidth1by2
+    kPdfHeight2by2 <- kPdfWidth2by2
+    ## Set point size for PDF device.
+    kPdfPointSize <- 8
+    ## Set font family for PDF device.
+    kPdfFamily <- "Times"
+    ## Set standard point character for plots.
+    kPointCharacter <- 20
     ## Set a distinct color for each species to use in all multi-species plots. Colors are taken from Niedersächsische Landesforsten (2011), fig. 3.
     kSpeciesColors <- list("beech" = "#ee7f00",
 		       "spruce" = "#4066aa")
+    ## Set plot grid properties.
+    kGridLineType <- "dashed"
+    kGridLineCol <- "gray"
+    kGridLineWidth <- 1
+    ## Set background color for plot legends.
+    kLegendBg <- "gray"
     ## Set vectors of species names.
     kSpeciesNames <- c("beech", "spruce")
     kSpeciesNamesCapitalized <- c("Beech", "Spruce")
@@ -330,6 +351,8 @@
     }
     ## Turn off graphics device.
     graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * Geographic properties of sample plots
   #+NAME: Geographic properties of sample plots
@@ -337,7 +360,7 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Preamble.
     ## Set vector of names of similar functions needed in this block.
-    kFunctionNames <- c("min", "median", "mean", "max")
+    kFunctionNames <- c("min", "mean", "median", "max")
     ## Set vector of columns on which the functions mentioned in "kFunctionNames" should be applied.
     kColumnNames <- c("EAST.UTM", "NORTH.UTM", "hnn.neu")
     ## Loop over all species names.
@@ -360,11 +383,12 @@
 	      ## cur.column.function.result <- cur.function(cur.data.frame.unique[[cur.column.name]],
 	      ## na.rm = TRUE)
 	      cur.species.results.df[cur.species.results.df[["Function.name"]] == cur.function.name,
-			         c(kColumnNames, "n")] <- c(apply(X = cur.data.frame.unique[, kColumnNames],
+			         c(kColumnNames, "n")] <- round(x = c(apply(X = cur.data.frame.unique[, kColumnNames],
 							  MARGIN = 2,
 							  FUN = cur.function.name,
 							  "na.rm" = TRUE),
-						      cur.function(length(cur.data.frame.unique[["edvid"]])))
+							  cur.function(length(cur.data.frame.unique[["edvid"]]))),
+							digits = 1)
 	  }}
         ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
         cur.output <- capture.output(print(x = format(x = cur.species.results.df,
@@ -377,6 +401,89 @@
 	  sep = "\n",
 	  fill = FALSE)
     }
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* Altitude of sample plots
+  #+NAME: Altitude of sample plots
+  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## Plotting preamble.
+    kPlotMargins <- c(4, 4, 1, 1)
+    kXValues <- seq(from = 1, to = 2, by = 0.5)
+    kXMin <- min(kXValues)
+    kXMax <- max(kXValues)
+    kYMin <- min(bart.beech.clean.1.8[["hnn.neu"]],
+	       bart.spruce.clean.1.8[["hnn.neu"]],
+	       na.rm = TRUE)
+    kYMax <- round(x = max(bart.beech.clean.1.8[["hnn.neu"]],
+		       bart.spruce.clean.1.8[["hnn.neu"]],
+		       na.rm = TRUE),
+	         digits = -2)
+    kYAxisTicks <- seq(from = 0,
+		   to = kYMax,
+		   by = 100)
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "Altitude_Sample_Plots.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidth1by1,
+        height = kPdfHeight1by1,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot margins.
+    par("mar" = kPlotMargins)
+    ## Create empty plot.
+    plot(x = kXValues,
+         xlim = c(kXMin, kXMax),
+         ylim = c(kYMin, kYMax),
+         xlab = "Species",
+         ylab = "Altitude above sea level [m]",
+         type = "n",
+         axes = FALSE,
+         panel.first = abline(h = kYAxisTicks,
+			    lty = kGridLineType,
+			    lwd = kGridLineWidth,
+			    col = kGridLineCol))
+    axis(side = 1,
+         labels = c("beech", "spruce"),
+         at = c(1, 2))
+    axis(side = 2,
+         labels = TRUE,
+         at = kYAxisTicks)
+    ## Initiate legend components.
+    legend.legend <- vector(mode = "character")
+    legend.col <- vector(mode = "character")
+    legend.pch <- vector(mode = "numeric")
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get point color for current species.
+        cur.point.color <- kSpeciesColors[[cur.species.name]]
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Make data frame unique with respect to columns "edvid" and "hnn.neu".
+        cur.data.frame.unique <- unique(x = cur.data.frame[, c("edvid", "hnn.neu")])
+        ## Add points to plot.
+        points(x = rep(x = which(x = kSpeciesNames == cur.species.name), times = length(x = cur.data.frame.unique[["hnn.neu"]])),
+	     y = cur.data.frame.unique[["hnn.neu"]],
+	     col = cur.point.color,
+	     pch = kPointCharacter)
+        ## Update legend components.
+        legend.legend <- c(legend.legend, paste0("sample plots ", cur.species.name))
+        legend.col <- c(legend.col, cur.point.color)
+        legend.pch <- c(legend.pch, kPointCharacter)
+    }
+    ## Add legend.
+    legend(x = "topleft",
+	 legend = legend.legend,
+	 pch = legend.pch,
+	 col = legend.col,
+	 bg = kLegendBg)
+    ## Turn off graphics device.
+    graphics.off()
     ## Clean up workspace.
     ## rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
