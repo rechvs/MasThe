@@ -480,9 +480,11 @@
   #+END_SRC
 * Yield class classification of training data
 ** General procedure:
-   1. Calculate column “SI.h100” based on columns “h100” and “alt” using the function by Nagel (1999) (cp. [[file:DataSetCreation.R::Create%20"gmax_merged_1.5.RData"][DataSetCreation.R, block Create "gmax_merged_1.5.RData"]]).
-   2. Set “SI.h100” ranges values per yield class, based on “SI.h100” values taken from Schober (1995) (moderate thinning) (cp.  [[file:DataSetCreation.R::Create%20"gmax_merged_5.3.RData"][DataSetCreation.R, block Create "gmax_merged_5.3.RData"]]).
-   3. Compare column “SI.h100” from 1. with the “SI.h100” ranges per yield class from 2. and store the comparison result in column “SI.h100.class.new” accordingly (cp.  [[file:DataSetCreation.R::Create%20"gmax_merged_5.3.RData"][DataSetCreation.R, block Create "gmax_merged_5.3.RData"]]).
+   1. Set SI.h100 values per yield class based on Schober (1995) (moderate thinning).
+   2. Generate a sequence of SI.h100 values from the worst yield class to the best yield class needed to cover the observed range of SI.h100 values, with a distance of 0.1 between sequence elements.
+   3. Generate a color palette based on the result of 2.
+   4. Map the observed SI.h100 values to the corresponding color of the color palette from 3. for plotting.
+   5. Map the SI.h100 value of each yield class to the corresponding color of the color palette from 3. for the legend.
 ** R Code
    #+NAME: Yield class classification of training data
    #+BEGIN_SRC R :results silent :var input=Preamble :session A
