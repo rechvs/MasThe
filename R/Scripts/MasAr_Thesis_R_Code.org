@@ -1,7 +1,7 @@
 #+STARTUP: hideblocks
 * Preamble
   #+NAME: Preamble
-  #+BEGIN_SRC R :session A
+  #+BEGIN_SRC R :results silent :session A
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/MasAr_Thesis.tex
     rm(list = ls())
     setwd(dir = "~/laptop02_MasAr")
@@ -10,9 +10,17 @@
     kBaseFileVersion <- "5.3"
     kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
     kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
-    ## Set dimensions of PDF device for different device layouts.
+    ## Set dimensions of PDF device.
     kCmToInch <- 1 / 2.54
     kMmToInch <- 1 / 25.4
+    kMarginTop <- 20  ## For margins see "~/Uni/Formatvorlagen/LaTeX/settings.tex", block "geometry".
+    kMarginOuter <- kMarginTop
+    kMarginBottom <- kMarginTop
+    kMarginInner <- 30
+    kPdfWidthA4Portrait <- (210 - kMarginInner - kMarginOuter) * kMmToInch
+    kPdfHeightA4Portrait <- (297 - kMarginTop - kMarginBottom) * kMmToInch
+    kPdfWidthA4Landscape <- (297 - kMarginTop - kMarginBottom) * kMmToInch
+    kPdfHeightA4Landscape <- (210 - kMarginInner - kMarginOuter) * kMmToInch
     kPdfWidth1by1 <- (210 - 30 - 20) * 0.5 * kMmToInch
     kPdfHeight1by1 <- kPdfWidth1by1
     kPdfWidth1by2 <- 2 * kPdfWidth1by1
@@ -470,6 +478,146 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
+* Yield class classification of training data
+** General procedure:
+   1. Calculate column “SI.h100” based on columns “h100” and “alt” using the function by Nagel (1999) (cp. [[file:DataSetCreation.R::Create%20"gmax_merged_1.5.RData"][DataSetCreation.R, block Create "gmax_merged_1.5.RData"]]).
+   2. Set “SI.h100” ranges values per yield class, based on “SI.h100” values taken from Schober (1995) (moderate thinning) (cp.  [[file:DataSetCreation.R::Create%20"gmax_merged_5.3.RData"][DataSetCreation.R, block Create "gmax_merged_5.3.RData"]]).
+   3. Compare column “SI.h100” from 1. with the “SI.h100” ranges per yield class from 2. and store the comparison result in column “SI.h100.class.new” accordingly (cp.  [[file:DataSetCreation.R::Create%20"gmax_merged_5.3.RData"][DataSetCreation.R, block Create "gmax_merged_5.3.RData"]]).
+** R Code
+   #+NAME: Yield class classification of training data
+   #+BEGIN_SRC R :results silent :var input=Preamble :session A
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+     ## Plotting preamble.
+     kPlotMargins <- c(4, 4, 4, 1)
+     kPlotLayout <- c(2, 1)
+     kLegendX <- "bottomright"
+     ## Define color palette generating function.
+     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+
+     ## Turn off graphics device.
+     graphics.off()
+     ## Create file name.
+     file.name <-paste0(kGraphicsSubdir,
+		    "Training_Data_Yield_Class_Classification.pdf")
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = file.name,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.75,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over all species names.
+     ## for (cur.species.name in kSpeciesNames) {
+     for (cur.species.name in "spruce") {  ## TESTING
+         ## Get data frame for current species.
+         bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+         ## Get x- and y-limits for current plot.
+         xlim <- c(0, 160)
+         ylim <- c(0, 40)
+
+         ## Set SI.h100 values. Values for yield classes 4, 3, 2, and 1 are taken from Schober (1995) (moderate thinning). Values for yield classes 0, -1, and -2 are linearly interpolated from values for yield classes 2 and 1.
+         if (cur.species.name == "beech") {
+	   SI.h100.yield.class.4 <- 20.7
+	   SI.h100.yield.class.3 <- 24.7
+	   SI.h100.yield.class.2 <- 28.6
+	   SI.h100.yield.class.1 <- 32.4
+         }
+         if (cur.species.name == "spruce") {
+	   SI.h100.yield.class.4 <- 23.5
+	   SI.h100.yield.class.3 <- 27.2
+	   SI.h100.yield.class.2 <- 31.2
+	   SI.h100.yield.class.1 <- 35.1
+         }
+         SI.h100.yield.class.0 <- SI.h100.yield.class.1 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+         SI.h100.yield.class..1 <- SI.h100.yield.class.0 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+         SI.h100.yield.class..2 <- SI.h100.yield.class..1 + SI.h100.yield.class.1 - SI.h100.yield.class.2
+         ## Calculate SI.h100 value for yield classes 3.5 and -1.5.
+         SI.h100.yield.class.3.5 <- SI.h100.yield.class.3 + (SI.h100.yield.class.4 - SI.h100.yield.class.3) / 2
+         SI.h100.yield.class..1.5 <- SI.h100.yield.class..1 - (SI.h100.yield.class..1 - SI.h100.yield.class..2) / 2
+         ## Generate a sequence ranging from SI.h100 of yield class 3.5 to SI.h100 of yield class -1.5, with 0.1 as the distance between sequence elements.
+         SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.3.5,
+				   to = SI.h100.yield.class..1.5,
+				   by = 0.1),
+			     digits = 1)
+         ## Generate a color palette of the same length as "SI.h100.sequence".
+         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+    
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+
+         ## Create empty plot.
+         plot(x = bart.cur.species.clean.1.8[["alt"]],
+	    type = "n",
+	    xlim = xlim,
+	    ylim = ylim,
+	    xlab = "age [a]",
+	    ylab = expression(italic("h")[100]*" [m]"),,
+	    main = cur.species.name,
+	    xaxs = "i",
+	    yaxs = "i",
+	    panel.first = abline(h  = seq(from = ylim[1],
+				    to = ylim[2],
+				    by = 10),
+			     v = seq(from = xlim[1],
+				   to = xlim[2],
+				   by = 10),
+			     lty = kGridLineType,
+			     lwd = kGridLineWidth,
+			     col = kGridLineCol))
+
+         ## Loop over all evdids.
+         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	   ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	   edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			      subset = edvid == cur.edvid)
+	   ## Add lines for observations belonging to current edvid.
+	   lines(x =edvid.subset[["alt"]],
+	         y = edvid.subset[["h100"]],
+	         lwd = kLineWidth,
+	         lty = kLineType)
+         }
+
+         ## Loop over all evdids. We use a second loop here in order to make sure that point are drawn after all lines.
+         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	   ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	   edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			      subset = edvid == cur.edvid)
+
+	   ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	   SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+					table = SI.h100.sequence)
+	   ## Add points to plot.
+	   points(x = edvid.subset[["alt"]],
+		y = edvid.subset[["h100"]],
+		col = cur.species.color.palette[SI.h100.rounded.color.index],
+		pch = kPointCharacter)
+         }
+         ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+         SI.h100.yield.class.values.color.index <- match(x = round(x = c(
+							 SI.h100.yield.class..1,
+							 SI.h100.yield.class.0,
+							 SI.h100.yield.class.1,
+							 SI.h100.yield.class.2,
+							 SI.h100.yield.class.3
+						       ),
+						       digits = 1),
+				      table = SI.h100.sequence)
+         ## Add legend.
+         legend.legend <- c(paste0("yield class ", seq(from = -1, to = 3, by = 1)))
+    
+         legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+         legend.pch <- kPointCharacter
+         legend(x = kLegendX,
+	      legend = legend.legend,
+	      col = legend.col,
+	      pch = legend.pch,
+	      bg = kLegendBg)
+    
+     }
+     ## Turn off graphics device.
+     graphics.off()
+   #+END_SRC
 * File local variables
 # Local Variables:
 # End:
