@@ -292,6 +292,9 @@ rm(list = setdiff(x = ls(),
 kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I")
 kFormulas[["SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, bs = \"mpi\") + SI.h100.diff.EKL.I")
 
+kFormulasToUse <- c(kFormulasToUse, "SCAM_gha_micvh100.EKL.I_SI.h100.diff.EKL.I")  ## Improved version of the "...mpi..." model for both species.
+kFormulas[["SCAM_gha_micvh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, bs = \"micv\") + SI.h100.diff.EKL.I")
+
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
     input.data <- eval(expr = parse(text = cur.input.data.source.name))
