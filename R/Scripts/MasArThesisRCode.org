@@ -401,7 +401,8 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session A
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Plotting preamble.
-    kPlotMargins <- c(1, 4, 1, 0.5)
+    kPlotMargins <- c(3, 3, 0.5, 0.75)
+    kPlotMgp <- c(2, 1, 0)
     kXValues <- seq(from = 1, to = 2, by = 0.5)
     kXMin <- min(kXValues)
     kXMax <- max(kXValues)
@@ -432,19 +433,25 @@
     plot(x = kXValues,
          xlim = c(kXMin, kXMax),
          ylim = c(kYMin, kYMax),
-         xlab = "",
+         xlab = "Species",
          ylab = "Altitude above sea level [m]",
+         mgp = kPlotMgp,
          type = "n",
          axes = FALSE,
          panel.first = abline(h = kYAxisTicks,
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
 			col = kGridLineCol))
-    ## Draw box around plot.
-    box(bty = "o")
+    axis(side = 1,
+         labels = kSpeciesNamesCapitalized,
+         at = c(1, 2))
     axis(side = 2,
          labels = TRUE,
-         at = kYAxisTicks)
+         at = seq(from = kYAxisTicks[1],
+	        to = kYAxisTicks[length(x = kYAxisTicks)],
+	        by = 200))
+    ## Draw box around plot.
+    box(bty = "o")
     ## Initiate legend components.
     legend.legend <- vector(mode = "character")
     legend.col <- vector(mode = "character")
