@@ -1,0 +1,2 @@
+                                  model.name      AIC
+1 GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I 399.6681

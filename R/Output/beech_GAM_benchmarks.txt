@@ -1,0 +1,7 @@
+                                                  model.name      AIC        GCV
+1 GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I                    400.3893 0.02526352
+2 GAM_gha_s3h100.EKL.I_SI.h100.diff.EKL.I                    429.1552 0.03926959
+3 GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I                     429.1311 0.03939646
+4 GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I                 440.2010 0.04664938
+5 GAM_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I                 442.4862 0.04836006
+6 GAM_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I 444.4243 0.04996454
