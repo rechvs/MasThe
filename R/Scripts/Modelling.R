@@ -505,6 +505,8 @@ kUseStepGAIC <- vector(mode = "list")
 kSigmaFormulas <- vector(mode = "list")
 kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
+kQuantilesToPredict <- c(0.95)
+kQuantilesPredictionsLineTypes <- c("dashed")
 
 ## 1. Model
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I")  ## Model for beech.
@@ -719,144 +721,192 @@ if (any(grepl(pattern = kFunction,
                             legend.lwd <- vector(mode = "numeric")
                             legend.col <- vector(mode = "character")
                             ## Loop over all distribution parameters.
-                            for (cur.dist.parameter.name in dist.params.names) {
-                                ## Store model formula for current distribution parameter as a whitespace-free string in "cur.formula.string".
-                                cur.formula.string <- gsub(pattern = " ",
-                                                           replacement = "",
-                                                           x = Reduce(f = paste0,
-                                                                      x = deparse(expr = formula(x = cur.model,
-                                                                                                 what = cur.dist.parameter.name))))
-                                ## If "cur.formula.string != "gha~1", continue, else, skip over to the next parameter. Note: this test expects "cur.formula.string" to be whitespace-free.
-                                if (cur.formula.string != "gha~1") {
-                                    ## Extract vector of independent variables names.
-                                    independent.vars <- all.vars(expr = formula(x = cur.model,
-                                                                                what = cur.dist.parameter.name))[-1]
-                                    ## Get test data for current species.
-                                    new.data.object.name <- paste0("nagel.", cur.species.name)
-                                    cur.nagel <- get(x = new.data.object.name)
-                                    new.data <- na.omit(object = cur.nagel)
-                                    ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
-                                    if (cur.species.name == "beech") {
-                                        cur.nagel <- subset(x = cur.nagel,
-                                                            subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                                        new.data <- subset(x = new.data,
-                                                           subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                                    }
-                                    if (cur.species.name == "spruce") {
-                                        cur.nagel <- subset(x = cur.nagel,
-                                                            subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                                        new.data <- subset(x = new.data,
-                                                           subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                                    }
-                                    ## Restrict "new.data" to the columns of the independent variables of the current model.
+                            ## for (cur.dist.parameter.name in dist.params.names) {  TESTING
+                            ## Store model formula for current distribution parameter as a whitespace-free string in "cur.formula.string".
+                            cur.formula.string <- gsub(pattern = " ",
+                                                       replacement = "",
+                                                       x = Reduce(f = paste0,
+                                                                  x = deparse(expr = formula(x = cur.model,
+                                                                                             what = "mu"))))
+                            ## If "cur.formula.string != "gha~1", continue, else, skip over to the next parameter. Note: this test expects "cur.formula.string" to be whitespace-free.
+                            if (cur.formula.string != "gha~1") {
+                                ## Extract vector of independent variables names.
+                                independent.vars <- all.vars(expr = formula(x = cur.model,
+                                                                            what = "mu"))[-1]
+                                ## Get test data for current species.
+                                new.data.object.name <- paste0("nagel.", cur.species.name)
+                                cur.nagel <- get(x = new.data.object.name)
+                                new.data <- na.omit(object = cur.nagel)
+                                ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
+                                if (cur.species.name == "beech") {
+                                    cur.nagel <- subset(x = cur.nagel,
+                                                        subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
                                     new.data <- subset(x = new.data,
-                                                       select = independent.vars)
-                                    ## Calculate model predictions.
-                                    new.data[["gha.predictions"]] <- predict(object = cur.model,
-                                                                             newdata = new.data,
-                                                                             what = cur.dist.parameter.name,
-                                                                             type = "response")
-                                    ## Reattach columns "age", "h100", and "yield.class" to "new.data".
-                                    new.data[["age"]] <- na.omit(object = cur.nagel)[["age"]]
-                                    new.data[["h100"]] <- na.omit(object = cur.nagel)[["h100"]]
-                                    new.data[["yield.class"]] <- na.omit(object = cur.nagel)[["yield.class"]]
-                                    ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
-                                    for (cur.test.data.x.values.column.name in c("age", "h100")) {
-                                        ## Set object "input.data.x.values.column.name", depending on "cur.test.data.x.values.column.name".
-                                        input.data.x.values.column.name <- ifelse(test = cur.test.data.x.values.column.name == "age",
-                                                                                  yes = "alt",
-                                                                                  no = cur.test.data.x.values.column.name)
-                                        ## Create empty plot.
-                                        xmin <- min(cur.input.data[[input.data.x.values.column.name]],
-                                                    new.data[[cur.test.data.x.values.column.name]],
-                                                    na.rm = TRUE)
-                                        xmax <- max(cur.input.data[[input.data.x.values.column.name]],
-                                                    new.data[[cur.test.data.x.values.column.name]],
-                                                    na.rm = TRUE)
-                                        ymin <- min(cur.input.data[["gha"]],
-                                                    new.data[["gha.predictions"]],
-                                                    na.rm = TRUE)
-                                        ymax <- max(cur.input.data[["gha"]],
-                                                    new.data[["gha.predictions"]],
-                                                    na.rm = TRUE)
-                                        par("cex" = 1)
-                                        plot(x = NULL,
-                                             xlim = c(xmin,
-                                                      xmax + abs(x = (xmax - xmin)) * 0.15),  ## adds additional space to place legend in
-                                             ylim = c(ymin,
-                                                      ymax),
-                                             main = paste0(toupper(x = substr(x = cur.dist.parameter.name,
-                                                                              start = 1,
-                                                                              stop = 1)),
-                                                           substr(x = cur.dist.parameter.name,
-                                                                  start = 2,
-                                                                  stop = nchar(x = cur.dist.parameter.name)),
-                                                           ": ",
-                                                           cur.formula.string,
-                                                           ", ",
-                                                           new.data.object.name),
-                                             xlab = cur.test.data.x.values.column.name,
-                                             ylab = "gha",
-                                             panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
-                                                                  h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
-                                                                  col = "gray",
-                                                                  lty = "dashed"))
-                                        ## Add lines to plot per yield class.
-                                        all.cols <- c("green", "cyan", "blue", "magenta", "brown")
-                                        line.ty <- "solid"
-                                        line.wd <- 2
-                                        for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
-                                            yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
-                                            line.col <- all.cols[cur.yield.class.index]
-                                            lines(x = new.data[[cur.test.data.x.values.column.name]][new.data[["yield.class"]] == yield.class.name],
-                                                  y = new.data[["gha.predictions"]][new.data[["yield.class"]] == yield.class.name],
-                                                  col = line.col,
-                                                  lty = line.ty,
-                                                  lwd = line.wd)
-                                            ## Update legend components.
-                                            legend.legend <- c(legend.legend,
-                                                               paste0("yield class ",
-                                                                      yield.class.name,
-                                                                      " (test data)"))
-                                            legend.pch <- c(legend.pch, NA)
-                                            legend.lty <- c(legend.lty, line.ty)
-                                            legend.lwd <- c(legend.lwd, line.wd)
-                                            legend.col <- c(legend.col, line.col)
-                                        }
-                                        ## Add points of training data measurements to plot per "SI.h100.class.new".
-                                        point.ch <- 19
-                                        for (cur.SI.h100.class.new.index in seq_len(length.out = length(x = levels(x = cur.input.data[["SI.h100.class.new"]])))) {
-                                            SI.h100.class.new.name <- levels(x = cur.input.data[["SI.h100.class.new"]])[cur.SI.h100.class.new.index]
-                                            point.col <- all.cols[cur.SI.h100.class.new.index]
-                                            points(x = cur.input.data[[input.data.x.values.column.name]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
-                                                   y = cur.input.data[["gha"]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
-                                                   col = point.col,
-                                                   pch = point.ch,
-                                                   type = "p")
-                                            ## Update legend components.
-                                            legend.legend <- c(legend.legend,
-                                                               paste0("SI.h100 class ",
-                                                                      SI.h100.class.new.name,
-                                                                      " (training data)"))
-                                            legend.pch <- c(legend.pch, point.ch)
-                                            legend.lty <- c(legend.lty, NA)
-                                            legend.col <- c(legend.col, point.col)
-                                        }
-                                        ## Add legend.
-                                        legend(x = "topright",
-                                               legend = legend.legend,
-                                               lty = legend.lty,
-                                               lwd = legend.lwd,
-                                               pch = legend.pch,
-                                               col = legend.col,
-                                               bg = "gray")
-                                        ## Reset legend components.
-                                        legend.legend <- vector(mode = "character")
-                                        legend.pch <- vector(mode = "numeric")
-                                        legend.lty <- vector(mode = "character")
-                                        legend.lwd <- vector(mode = "numeric")
-                                        legend.col <- vector(mode = "character")
-                                    }}}
+                                                       subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                                }
+                                if (cur.species.name == "spruce") {
+                                    cur.nagel <- subset(x = cur.nagel,
+                                                        subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                                    new.data <- subset(x = new.data,
+                                                       subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                                }
+                                ## Restrict "new.data" to the columns of the independent variables of the current model.
+                                new.data <- subset(x = new.data,
+                                                   select = independent.vars)
+                                ## Calculate model predictions.
+                                mu.predictions <- predict(object = cur.model,
+                                                          newdata = new.data,
+                                                          what = "mu",
+                                                          type = "response")
+                                sigma.predictions <- predict(object = cur.model,
+                                                             newdata = new.data,
+                                                             what = "sigma",
+                                                             type = "response")
+                                nu.predictions <- predict(object = cur.model,
+                                                          newdata = new.data,
+                                                          what = "nu",
+                                                          type = "response")
+                                ## Append model predictions to "new.data".
+                                new.data[["mu.predictions"]] <- mu.predictions
+                                new.data[["sigma.predictions"]] <- sigma.predictions
+                                new.data[["nu.predictions"]] <- nu.predictions
+                                ## Calculate predictions quantiles.
+                                for (cur.quantile in kQuantilesToPredict) {
+                                    cur.quantile.column.name <- paste0("predictions.", cur.quantile, ".quantile")
+                                    new.data[[cur.quantile.column.name]] <- NA
+                                    new.data[[cur.quantile.column.name]] <- qBCCGo(p = cur.quantile,
+                                                                                   mu = new.data[["mu.predictions"]],
+                                                                                   sigma = new.data[["sigma.predictions"]],
+                                                                                   nu = new.data[["nu.predictions"]])
+                                }
+                                ## Reattach columns "age", "h100", and "yield.class" to "new.data".
+                                new.data[["age"]] <- na.omit(object = cur.nagel)[["age"]]
+                                new.data[["h100"]] <- na.omit(object = cur.nagel)[["h100"]]
+                                new.data[["yield.class"]] <- na.omit(object = cur.nagel)[["yield.class"]]
+                                ## Loop over columns "age" and "h100" as the sources for the plot's x-values.
+                                for (cur.test.data.x.values.column.name in c("age", "h100")) {
+                                    ## Set object "input.data.x.values.column.name", depending on "cur.test.data.x.values.column.name".
+                                    input.data.x.values.column.name <- ifelse(test = cur.test.data.x.values.column.name == "age",
+                                                                              yes = "alt",
+                                                                              no = cur.test.data.x.values.column.name)
+                                    ## Create empty plot.
+                                    xmin <- min(cur.input.data[[input.data.x.values.column.name]],
+                                                new.data[[cur.test.data.x.values.column.name]],
+                                                na.rm = TRUE)
+                                    xmax <- max(cur.input.data[[input.data.x.values.column.name]],
+                                                new.data[[cur.test.data.x.values.column.name]],
+                                                na.rm = TRUE)
+                                    ymin <- min(cur.input.data[["gha"]],
+                                                new.data[["mu.predictions"]],
+                                                na.rm = TRUE)
+                                    ymax <- max(cur.input.data[["gha"]],
+                                                new.data[["mu.predictions"]],
+                                                na.rm = TRUE)
+                                    par("cex" = 1)
+                                    plot(x = NULL,
+                                         xlim = c(xmin,
+                                                  xmax + abs(x = (xmax - xmin)) * 0.15),  ## adds additional space to place legend in
+                                         ylim = c(ymin,
+                                                  ymax),
+                                         ## main = paste0(toupper(x = substr(x = "mu",
+                                         ## start = 1,
+                                         ## stop = 1)),
+                                         ## substr(x = "mu",
+                                         ## start = 2,
+                                         ## stop = nchar(x = "mu")),
+                                         ## ": ",
+                                         ## cur.formula.string,
+                                         ## ", ",
+                                         ## new.data.object.name),
+                                         main = paste0("Mu: ",
+                                                       cur.formula.string,
+                                                       ", ",
+                                                       new.data.object.name),
+                                         xlab = cur.test.data.x.values.column.name,
+                                         ylab = "gha",
+                                         panel.first = abline(v = seq(from = 0, to = round(x = xmax + 50, digits = -2), by = 5),  ## Adds a grid to the plot.
+                                                              h = seq(from = 0, to = round(x = ymax + 50, digits = -2), by = 5),
+                                                              col = "gray",
+                                                              lty = "dashed"))
+                                    ## Loop over all yield classes.
+                                    all.cols <- c("green", "cyan", "blue", "magenta", "brown")
+                                    line.ty <- "solid"
+                                    line.wd <- 2
+                                    for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
+                                        yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
+                                        line.col <- all.cols[cur.yield.class.index]
+                                        ## If we are currently at yield class -1, add lines to plot for predictions quantiles.
+                                        if (yield.class.name == "1") {
+                                            for (cur.quantile.index in seq_len(length.out = length(x = kQuantilesToPredict))) {
+                                                cur.quantile <- kQuantilesToPredict[cur.quantile.index]
+                                                cur.quantile.column.name <- paste0("predictions.", cur.quantile, ".quantile")
+                                                cur.quantile.line.type <- kQuantilesPredictionsLineTypes[cur.quantile.index]
+                                                lines(x = new.data[[cur.test.data.x.values.column.name]][new.data[["yield.class"]] == yield.class.name],
+                                                      y = new.data[[cur.quantile.column.name]][new.data[["yield.class"]] == yield.class.name],
+                                                      col = line.col,
+                                                      lty = cur.quantile.line.type,
+                                                      lwd = line.wd)
+                                                ## Update legend components.
+                                                legend.legend <- c(legend.legend,
+                                                                   paste0("model predictions (yield class ",
+                                                                          yield.class.name,
+                                                                          ", ", cur.quantile, " quantile)"))
+                                                legend.pch <- c(legend.pch, NA)
+                                                legend.lty <- c(legend.lty, cur.quantile.line.type)
+                                                legend.lwd <- c(legend.lwd, line.wd)
+                                                legend.col <- c(legend.col, line.col)
+                                            }}
+                                        ## Add lines to plot for current yield class.
+                                        lines(x = new.data[[cur.test.data.x.values.column.name]][new.data[["yield.class"]] == yield.class.name],
+                                              y = new.data[["mu.predictions"]][new.data[["yield.class"]] == yield.class.name],
+                                              col = line.col,
+                                              lty = line.ty,
+                                              lwd = line.wd)
+                                        ## Update legend components.
+                                        legend.legend <- c(legend.legend,
+                                                           paste0("model predictions (yield class ",
+                                                                  yield.class.name,
+                                                                  ", 0.50 quantile)"))
+                                        legend.pch <- c(legend.pch, NA)
+                                        legend.lty <- c(legend.lty, line.ty)
+                                        legend.lwd <- c(legend.lwd, line.wd)
+                                        legend.col <- c(legend.col, line.col)
+                                    }
+                                    ## Add points of training data measurements to plot per "SI.h100.class.new".
+                                    point.ch <- 19
+                                    for (cur.SI.h100.class.new.index in seq_len(length.out = length(x = levels(x = cur.input.data[["SI.h100.class.new"]])))) {
+                                        SI.h100.class.new.name <- levels(x = cur.input.data[["SI.h100.class.new"]])[cur.SI.h100.class.new.index]
+                                        point.col <- all.cols[cur.SI.h100.class.new.index]
+                                        points(x = cur.input.data[[input.data.x.values.column.name]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
+                                               y = cur.input.data[["gha"]][cur.input.data[["SI.h100.class.new"]] == SI.h100.class.new.name],
+                                               col = point.col,
+                                               pch = point.ch,
+                                               type = "p")
+                                        ## Update legend components.
+                                        legend.legend <- c(legend.legend,
+                                                           paste0("observations (yield class ",
+                                                                  SI.h100.class.new.name,
+                                                                  ")"))
+                                        legend.pch <- c(legend.pch, point.ch)
+                                        legend.lty <- c(legend.lty, NA)
+                                        legend.col <- c(legend.col, point.col)
+                                    }
+                                    ## Add legend.
+                                    legend(x = "bottomright",
+                                           legend = legend.legend,
+                                           lty = legend.lty,
+                                           lwd = legend.lwd,
+                                           pch = legend.pch,
+                                           col = legend.col,
+                                           bg = "gray")
+                                    ## Reset legend components.
+                                    legend.legend <- vector(mode = "character")
+                                    legend.pch <- vector(mode = "numeric")
+                                    legend.lty <- vector(mode = "character")
+                                    legend.lwd <- vector(mode = "numeric")
+                                    legend.col <- vector(mode = "character")
+                                }}
+                            ## }   TESTING
                             ## Turn off graphics device.
                             graphics.off()
                         }}}}}}}
