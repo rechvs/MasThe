@@ -1,2 +1,0 @@
-                                 model.name    AIC       GCV
-1 SCAM_gha_mpih100.EKL.I_SI.h100.diff.EKL.I 713.99 0.0313731

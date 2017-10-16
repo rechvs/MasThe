@@ -1,6 +1,0 @@
-                                                     model.name      AIC
-1 GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I                  382.4712
-2 GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I                    399.6681
-3 GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I                   411.3616
-4 GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I                 411.4197
-5 GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I 423.1815
