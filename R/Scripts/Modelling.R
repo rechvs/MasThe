@@ -61,19 +61,28 @@ objects.at.start <- sort(x = c(ls(), "objects.at.start"))  ## Required for clean
 ## Preamble.
 
 ## 1. Model
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I")  ## Model for beech.
 kFormulas[["GAM_gha_sh100.EKL.I_sSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)")
 
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3h100.EKL.I_sSI.h100.diff.EKL.I")  ## Model for spruce. The chosen k-value is necessary to prevent the h100.EKL.I-term from developing an upward-curve at h100.EKL.I >= 35 and to ensure a sensible yield class-dependent stratification of predictions.
+kFormulas[["GAM_gha_sh100.EKL.I_s3SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3) + s(SI.h100.diff.EKL.I)")
+
 ## 2. Model
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I")  ## Model for beech.
 kFormulas[["GAM_gha_sh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I")
 
-## 4. Model(s)
-kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce.
-kFormulas[["GAM_gha_lhs22h100.EKL.I_SI_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_s3h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. The chosen k-value is necessary to prevent the h100.EKL.I-term from developing an upward-curve at h100.EKL.I >= 35 and to ensure a sensible yield class-dependent stratification of predictions.
+kFormulas[["GAM_gha_s3h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ s(h100.EKL.I, k = 3) + SI.h100.diff.EKL.I")
 
+## 4. Model(s)
 kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for beech.
 kFormulas[["GAM_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. Lowering the c-value does not result in the rhs-term becoming asymptotic.
+kFormulas[["GAM_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAM_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. The chosen the c-value results in the most plausible model compared to other c-values.
+kFormulas[["GAM_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
 
 ## Initiate "for" loop (for looping over all names of input data sources).
 for (cur.input.data.source.name in names.input.data.sources) {
@@ -495,14 +504,22 @@ kNuFormulas <- vector(mode = "list")
 kTauFormulas <- vector(mode = "list")
 
 ## 1. Model
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I")  ## Model for beech.
 kFormulas[["GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
 kColumnsToSelect[["GAMLSS_gha_psh100.EKL.I_psSI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100.EKL.I_psSI.h100.diff.EKL.I")  ## Model for spruce. The chosen df-value is necessary to prevent the h100.EKL.I-term from developing an upward-curve at h100.EKL.I >= 35 and to ensure a sensible yield class-dependent stratification of predictions.
+kFormulas[["GAMLSS_gha_ps1h100.EKL.I_psSI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I, df = 1) + ps(SI.h100.diff.EKL.I)")
+kColumnsToSelect[["GAMLSS_gha_ps1h100.EKL.I_psSI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+
 ## 2. Model
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I")
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I") ## Model for beech.
 kFormulas[["GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I) + SI.h100.diff.EKL.I")
 kColumnsToSelect[["GAMLSS_gha_psh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_ps1h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. The chosen df-value is necessary to prevent the h100.EKL.I-term from developing an upward-curve at h100.EKL.I >= 35 and to ensure a sensible yield class-dependent stratification of predictions.
+kFormulas[["GAMLSS_gha_ps1h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ ps(h100.EKL.I, df = 1) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_ps1h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## 3. Model
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I")
@@ -510,13 +527,17 @@ kFormulas[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object 
 kColumnsToSelect[["GAMLSS_gha_pbmh100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## 4. Model(s)
-kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce.
-kFormulas[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
-kColumnsToSelect[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
-
 kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for beech.
 kFormulas[["GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 27) + SI.h100.diff.EKL.I")
 kColumnsToSelect[["GAMLSS_gha_lhs27h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. Lowering the c-value does not result in the rhs-term becoming asymptotic.
+kFormulas[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + rhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_lhs22h100.EKL.I_rhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
+
+kFormulasToUse <- c(kFormulasToUse, "GAMLSS_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I")  ## Model for spruce. The chosen the c-value results in the most plausible model compared to other c-values.
+kFormulas[["GAMLSS_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
+kColumnsToSelect[["GAMLSS_gha_lhs22h100.EKL.I_SI.h100.diff.EKL.I"]] <- c("gha", "h100.EKL.I", "SI.h100.diff.EKL.I")
 
 ## Check whether the function needed for this block is selected for execution.
 kFunction <- "gamlss..gamlss"
@@ -1208,10 +1229,10 @@ for (cur.function.name in names(x = models)) {
                         rownames(x = cur.function.species.benchmark.df) <- NULL
                         ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "mgcv..gam" and for "scam..scam").
                         if (cur.function.name == "mgcv..gam") {
-                            cur.file.suffix <- "_GAM_GCV.txt"
+                            cur.file.suffix <- "_GAM_benchmarks.txt"
                         }
                         if (cur.function.name == "scam..scam") {
-                            cur.file.suffix <- "_SCAM_GCV.txt"
+                            cur.file.suffix <- "_SCAM_benchmarks.txt"
                         }
                         cur.output.file.name <- paste0(kOutputDirPath,
                                                        cur.species.name,
@@ -1239,10 +1260,10 @@ for (cur.function.name in names(x = models)) {
                         rownames(x = cur.function.species.benchmark.df) <- NULL
                         ## Create the name of the file for outputting "cur.function.species.benchmark.df" (different one for "gamlss..gamlss" and for "stats..glm").
                         if (cur.function.name == "gamlss..gamlss") {
-                            cur.file.suffix <- "_GAMLSS_AIC.txt"
+                            cur.file.suffix <- "_GAMLSS_benchmarks.txt"
                         }
                         if (cur.function.name == "stats..glm") {
-                            cur.file.suffix <- "_GLM_AIC.txt"
+                            cur.file.suffix <- "_GLM_benchmarks.txt"
                         }
                         cur.output.file.name <- paste0(kOutputDirPath,
                                                        cur.species.name,
