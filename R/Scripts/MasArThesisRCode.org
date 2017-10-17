@@ -650,16 +650,22 @@
         cur.species.results.df <- rbind(cur.species.results.df,
 				data.frame("edvid" = c(as.character(x = nrow(x = cur.species.results.df)),
 						   NA,
+						   NA,
+						   NA,
 						   NA),
 					 "observations.count" = c(sum(cur.species.results.df[["observations.count"]]),
+							      min(cur.species.results.df[["observations.count"]]),
 							      mean(cur.species.results.df[["observations.count"]]),
-							      median(cur.species.results.df[["observations.count"]]))
+							      median(cur.species.results.df[["observations.count"]]),
+							      max(cur.species.results.df[["observations.count"]]))
 					 ))
         ## Set rownames.
-        rownames(x = cur.species.results.df) <- c(rownames(x = cur.species.results.df)[1:(length(x = rownames(x = cur.species.results.df)) - 3)],
+        rownames(x = cur.species.results.df) <- c(rownames(x = cur.species.results.df)[1:(length(x = rownames(x = cur.species.results.df)) - 5)],
 					"total",
+					"min",
 					"mean",
-					"median")
+					"median",
+					"max")
         ## Round column "observations.count" to 1 decimal digit.
         cur.species.results.df[["observations.count"]] <- round(x = cur.species.results.df[["observations.count"]],
 						    digits = 1)
