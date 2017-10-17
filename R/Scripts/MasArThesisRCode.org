@@ -389,7 +389,7 @@
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
-	  file = paste0(kOutputSubdir, cur.species.name, "_geographic_properties_summary.txt"),
+	  file = paste0(kOutputSubdir, "geographic_properties_summary_", cur.species.name, ".txt"),
 	  sep = "\n",
 	  fill = FALSE)
     }
@@ -630,6 +630,51 @@
      ## Turn off graphics device.
      graphics.off()
    #+END_SRC
+* Number of sample plots and observations
+  #+NAME: Number of sample plots and observations
+  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Create a subset with only columns "edvid", "h100.EKL.I", and "SI.h100.diff.EKL.I".
+        cur.data.frame <- subset(x = cur.data.frame, select = c("edvid", "h100.EKL.I", "SI.h100.diff.EKL.I"))
+        ## Count observations per edvid.
+        obs.per.edvid <- table(cur.data.frame[["edvid"]])
+        ## Store results in data frame.
+        cur.species.results.df <- data.frame("edvid" = names(x = obs.per.edvid),
+				     "observations.count" = as.numeric(x = obs.per.edvid),
+				     stringsAsFactors = FALSE)
+        ## Calculate sum of each column.
+        cur.species.results.df <- rbind(cur.species.results.df,
+				data.frame("edvid" = c(as.character(x = nrow(x = cur.species.results.df)),
+						   NA,
+						   NA),
+					 "observations.count" = c(sum(cur.species.results.df[["observations.count"]]),
+							      mean(cur.species.results.df[["observations.count"]]),
+							      median(cur.species.results.df[["observations.count"]]))
+					 ))
+        ## Set rownames.
+        rownames(x = cur.species.results.df) <- c(rownames(x = cur.species.results.df)[1:(length(x = rownames(x = cur.species.results.df)) - 3)],
+					"total",
+					"mean",
+					"median")
+        ## Round column "observations.count" to 1 decimal digit.
+        cur.species.results.df[["observations.count"]] <- round(x = cur.species.results.df[["observations.count"]],
+						    digits = 1)
+        ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
+        cur.output <- capture.output(print(x = format(x = cur.species.results.df,
+					    justify="left",
+					    scientific = FALSE),
+				   row.names = TRUE))
+        ## Output results to file.
+        cat(cur.output,
+	  file = paste0(kOutputSubdir, "observations_count_per_edvid_", cur.species.name, ".txt"),
+	  sep = "\n",
+	  fill = FALSE)
+    }
+  #+END_SRC
 * File local variables
 # Local Variables:
 # End:
