@@ -517,7 +517,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.75,
+         height = kPdfHeightA4Portrait * 0.90,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -543,7 +543,7 @@
 	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
 	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
          }
-         ## Interpolate SI.h100 values for yield classes 0, -1, and "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+         ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
          for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
 	   SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
 	   SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
@@ -598,7 +598,7 @@
 	         lwd = kLineWidth,
 	         lty = kLineType)
          }
-         ## Loop over all evdids. We use a second loop here in order to make sure that point are drawn after all lines.
+         ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
          for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
 	   ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
 	   edvid.subset <- subset(x = bart.cur.species.clean.1.8,
