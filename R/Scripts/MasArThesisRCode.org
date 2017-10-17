@@ -1,7 +1,7 @@
 #+STARTUP: hideblocks
 * Preamble
   #+NAME: Preamble
-  #+BEGIN_SRC R :results silent :session A
+  #+BEGIN_SRC R :results silent :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/MasAr_Thesis.tex
     rm(list = ls())
     setwd(dir = "~/laptop02_MasAr")
@@ -59,7 +59,7 @@
   #+END_SRC
 * log(N)-log(D)-plots before/after data selection
   #+NAME: log(N)-log(D)-plots before/after data selection
-  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Selection.tex
     ## This creates 4 plots in one file in a 2-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
@@ -262,7 +262,7 @@
   #+END_SRC
 * Location of sample plots
   #+NAME: Location of sample plots
-  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
     ## Plotting preamble.
@@ -348,7 +348,7 @@
   #+END_SRC
 * Geographic properties of sample plots
   #+NAME: Geographic properties of sample plots
-  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Preamble.
     ## Set vector of names of similar functions needed in this block.
@@ -398,7 +398,7 @@
   #+END_SRC
 * Altitude of sample plots
   #+NAME: Altitude of sample plots
-  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Plotting preamble.
     kPlotMargins <- c(3, 3, 0.5, 0.75)
@@ -494,7 +494,7 @@
    5. Map the SI.h100 value of each yield class to the corresponding color of the color palette from 3. for the legend.
 ** R Code
    #+NAME: Yield class classification of training data
-   #+BEGIN_SRC R :results silent :var input=Preamble :session A
+   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
      ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
      ## Plotting preamble.
      kPlotMargins <- c(3, 3, 2, 1)
@@ -632,7 +632,7 @@
    #+END_SRC
 * Number of sample plots and observations
   #+NAME: Number of sample plots and observations
-  #+BEGIN_SRC R :results silent :var input=Preamble :session A
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
