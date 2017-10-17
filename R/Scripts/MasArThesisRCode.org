@@ -675,6 +675,36 @@
 	  fill = FALSE)
     }
   #+END_SRC
+* Age and top height range
+  #+NAME: Age and top height range
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Extract age range.
+        age.min <- min(cur.data.frame[["alt"]])
+        age.max <- max(cur.data.frame[["alt"]])
+        ## Extract top height range.
+        h100.min <- min(cur.data.frame[["h100"]])
+        h100.max <- max(cur.data.frame[["h100"]])
+        ## Store results in data frame.
+        cur.species.results.df <- data.frame("statistic" = c("min", "max"),
+				     "age" = c(age.min, age.max),
+				     "h100" = c(h100.min, h100.max))
+        ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
+        cur.output <- capture.output(print(x = format(x = cur.species.results.df,
+					    justify="left",
+					    scientific = FALSE),
+				   row.names = TRUE))
+        ## Output results to file.
+        cat(cur.output,
+	  file = paste0(kOutputSubdir, "min_max_age_and_top_height_", cur.species.name, ".txt"),
+	  sep = "\n",
+	  fill = FALSE)
+    }
+  #+END_SRC
 * File local variables
 # Local Variables:
 # End:
