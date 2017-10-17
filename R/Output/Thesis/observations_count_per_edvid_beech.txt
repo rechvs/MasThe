@@ -18,5 +18,7 @@
 17     J5121007                4.0
 18     Z72NAT01                2.0
 total  18                     63.0
+min    NA                      2.0
 mean   NA                      3.5
 median NA                      4.0
+max    NA                      8.0

@@ -28,5 +28,7 @@
 27     S2451102                4.0
 28     S2651104                8.0
 total  28                    100.0
+min    NA                      2.0
 mean   NA                      3.6
 median NA                      3.0
+max    NA                      8.0
