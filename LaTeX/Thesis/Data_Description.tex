@@ -1,13 +1,102 @@
-\subsection{Description of data set}
+\subsection{Description of data sets}
 
-The total number of sample plots was \num{18} for \beech{} and \num{28} for \spruce{}.  The geographical location of the sample plots is reported in \reffig{fig:Locations_Sample_Plots}.  The dots in both plots of the figure do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the geographical location.  As can be seen from \reffig{fig:Altitude_Sample_Plots}, sample plots of both species cover a wide range of altitudes above sea level (\beech{}: \SIrange{40}{565}{\meter}, \spruce{}: \SIrange{20}{750}{\meter}).
+The data set size for \beech{} is reported in \reftab{tab:observations_count_per_edvid_beech}.  The data set comprises 18 sample plots, with a total of 63 observations.  The data set size for \spruce{} is reported in \reftab{tab:observations_count_per_edvid_spruce}.  The data set comprises 28 sample plots, with a total of 100 observations.  The geographical location of the sample plots for both species is reported in \reffig{fig:Locations_Sample_Plots}.  The dots in both plots of the figure do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the same geographical location.  As can be seen from \reffig{fig:Altitude_Sample_Plots}, sample plots of both species cover a wide range of altitudes above sea level (\beech{}: \SIrange{40}{565}{\meter}; \spruce{}: \SIrange{20}{750}{\meter}).
 
-% CONTINUE HERE with describing yield classes of the sample plots.
-  
+Figure \ref{fig:Training_Data_Yield_Class_Classification} depicts the development of top height \(\topheight\) over stand age for \beech{} (top) and \spruce{} (bottom).  The dot color signifies the yield class of the respective observation.  Classification of observations into yield classes required multiple steps.  First, the absolute site class \(SI\) in \si{\meter} was computed using the equation
+\begin{equation}
+  \label{eq:nagel_function_solved_for_SI}
+  SI = \frac{\topheight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)} , 
+\end{equation}
+where \(x\) is stand age and \(\topheight(x)\) is top height at age \(x\) in \si{\meter}.  Next, a sequence of \(\topheight{}\)-values at age \SI{100}{\years} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.  This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\)-value and the worst yield class needed to include the highest observed \(SI\)-value.  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class) over yellow and green to blue (best yield class).  Each observed \(SI\)-value was then mapped to the color representing the corresponding \(\topheight{}\)-value.  As can be seen from \reffig{fig:Training_Data_Yield_Class_Classification}, several differences between the \beech{} data set and the \spruce{} data set exist:
+
+%% CONTINUE HERE by describing differences with respect to h_100 range, age range, and yield class range (possibly requires a new R source code block).
+
+\newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l S L}
+      \caption{Number of sample plots and number of observations per sample plot for \beech{}. \label{tab:observations_count_per_edvid_beech}} \\
+      \toprule
+      & Sample plot ID & {Number of observations} &  \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      & 00521004 & 4 \\
+      & 04221005 & 5 \\
+      & 08021003 & 2 \\
+      & 58321003 & 8 \\
+      & 8942102A & 4 \\
+      & 8942102B & 2 \\
+      & 89521002 & 5 \\
+      & 89621002 & 4 \\
+      & 89721006 & 2 \\
+      & 90421001 & 2 \\
+      & 99321000 & 4 \\
+      & A1321300 & 2 \\
+      & A8121011 & 2 \\
+      & H1021001 & 2 \\
+      & J5121001 & 4 \\
+      & J5121005 & 5 \\
+      & J5121007 & 4 \\
+      & Z72NAT01 & 2 \\
+      Total & 18 & 63 \\
+      % Mean & & 3.5 \\
+      % Median & & 4 \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
+\newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l S L}
+      \caption{Number of sample plots and number of observations per sample plot for \spruce{}. \label{tab:observations_count_per_edvid_spruce}} \\
+      \toprule
+      & Sample plot ID & {Number of observations} &  \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      & 05451102 & 5 \\
+      & 06451102 & 5 \\
+      & 07151102 & 8 \\
+      & 07551103 & 7 \\
+      & 07551105 & 3 \\
+      & 4665111A & 2 \\
+      & 4665112B & 2 \\
+      & 4665113B & 2 \\
+      & 4665114B & 4 \\
+      & 4675112A & 2 \\
+      & 4675113A & 3 \\
+      & 4675113B & 3 \\
+      & 47451104 & 5 \\
+      & 55751102 & 3 \\
+      & 87021515 & 2 \\
+      & 87021517 & 2 \\
+      & 87021522 & 2 \\
+      & J6351121 & 2 \\
+      & J6351141 & 3 \\
+      & S1051103 & 3 \\
+      & S1751101 & 3 \\
+      & S1851101 & 4 \\
+      & S1951101 & 3 \\
+      & S2051102 & 3 \\
+      & S2151101 & 2 \\
+      & S2251101 & 5 \\
+      & S2451102 & 4 \\
+      & S2651104 & 8 \\
+      Total & 28 & 100 \\
+      % Mean & & 3.6 \\
+      % Media & & 3 \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/Locations_Sample_Plots.pdf}
-  \caption{Geographical location of the trial plots of \beech{} (left) and \spruce{} (right) in Germany.}
+  \caption{Geographical location of the sample plots of \beech{} (left) and \spruce{} (right) in Germany.}
   \label{fig:Locations_Sample_Plots}
 \end{figure}
 
@@ -16,6 +105,14 @@ The total number of sample plots was \num{18} for \beech{} and \num{28} for \spr
   \includegraphics[width=0.5\textwidth]{../../Graphics/Thesis/Altitude_Sample_Plots.pdf}
   \caption{Altitude above sea level of sample plots.}
   \label{fig:Altitude_Sample_Plots}
+\end{figure}
+
+\newpage{}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/Training_Data_Yield_Class_Classification.pdf}
+  \caption{Observed relationship between stand age and top height \(\topheight\) for \beech{} (top) and \spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the yield class of the respective observation.}
+  \label{fig:Training_Data_Yield_Class_Classification}
 \end{figure}
 
 % \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)

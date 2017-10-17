@@ -1,11 +1,11 @@
 \subsection{Data selection}
-The present study aims at predicting maximum basal area of pure \beech{} and \spruce{} stands by fitting statistical models to real-world data.  This approach requires that the data set used for model fitting only contains observations meeting both of the following requirements:
+The present study aims at predicting maximum basal area of pure \beech{} and \spruce{} stands by fitting statistical models to real-world data.  This approach necessitates that the data set used for model fitting only contains observations meeting both of the following requirements:
 \begin{enumerate}
-\item The observation belongs to a pure stand.
+\item The observation belongs to a pure stand of the respective species.
 \item The observation belongs to a stand with maximum basal area.
 \end{enumerate}
 % itself to contain only observations of (almost) pure stands with (close to) maximum basal area.
-Since the original data set contained several observations which did not meet these requirements, a selection of data had to be made.  With respect to the first requirement, selection was based on crown projection area: an observation was considered a pure stand observation and consequently selected if either \beech{} or \spruce{} held \SI{70}{\percent} or more of the stand’s total crown projection area.
+Since the original data sets contained several observations which did not meet these requirements, a selection of data had to be made.  With respect to the first requirement, selection was based on crown projection area: an observation was considered a pure stand observation and consequently selected if either \beech{} or \spruce{} held \SI{70}{\percent} or more of the stand’s total crown projection area.
 % Meeting the requirement of maximum basal area proved more difficult. 
 % Meeting the latter requirement, however, was not as straightforward and required an answer to the following question: ``Which observations from a large pool of observations can be considered maximum basal area observations?''
 The approach taken for selecting observations meeting the second requirement will be referred to as the ``data selection mechanism'' and will be detailed below.
@@ -42,7 +42,7 @@ In all plots of \reffig{fig:logN_logD_Plots_before_after_data_selection}, the da
 \end{itemize}
 % Figure \ref{fig:DataSelectionFlowChart} provides a flowchart of the mechanism.
 
-The data set of selected observations will be further described in the following sections.
+The data sets of selected observations will be further described in the following sections.
 
 % \begin{figure}[H]
   % \centering
@@ -68,8 +68,8 @@ The data set of selected observations will be further described in the following
   \caption{Observed relationship between stand density \(N\) and average diameter \(D\) in pure stands of \beech{} (top row) and \spruce{} (bottom row) on double-logarithmic scale.  Each colored dot represents one observation.  Colored lines connect observations belonging to the same sample plot.  Dashed black lines exemplify the species-specific upper slope threshold used in the data selection mechanism.  Solid black lines exemplify the species-specific lower slope threshold used in the data selection mechanism.  \\
     % top row: \beech{} \\
     % bottom row: \spruce{} \\
-    column A: before application of the data selection mechanism \\
-    column B: after application of the data selection mechanism}
+    column A: data set before application of the data selection mechanism \\
+    column B: data set after application of the data selection mechanism}
   \label{fig:logN_logD_Plots_before_after_data_selection}
 \end{figure}
 
