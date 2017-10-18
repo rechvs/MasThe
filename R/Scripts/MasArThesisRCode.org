@@ -87,9 +87,9 @@
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   ## cur.species.name,
-		   ## "_logN_logD_Plot_before_after_data_selection.pdf")
-		   "logN_logD_Plots_before_after_data_selection.pdf")
+		   ## "logDlogNPlotsBeforeAfterDataSelection",
+		   ## kSpeciesNamesCapitalized[grep(pattern = cur.species.name, x = kSpeciesNamesCapitalized, ignore.case = TRUE)], ".pdf")
+		   "logDlogNPlotsBeforeAfterDataSelection.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidth2by2,
@@ -272,7 +272,7 @@
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "Locations_Sample_Plots.pdf")
+		   "LocationsSamplePlots.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidth1by2,
@@ -357,6 +357,10 @@
     kColumnNames <- c("EAST.UTM", "NORTH.UTM", "hnn.neu")
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Extract capitalized version of current species name.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
         ## Initiate "cur.species.results.df".
         cur.species.results.df <- data.frame(kFunctionNames,
 				     vector(mode = "numeric", length = length(x = kFunctionNames)),
@@ -389,7 +393,7 @@
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
-	  file = paste0(kOutputSubdir, "geographic_properties_summary_", cur.species.name, ".txt"),
+	  file = paste0(kOutputSubdir, "GeographicPropertiesSummary", cur.species.name.capitalized, ".txt"),
 	  sep = "\n",
 	  fill = FALSE)
     }
@@ -420,7 +424,7 @@
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "Altitude_Sample_Plots.pdf")
+		   "SpeciesAltitudeOfSamplePlots.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidth1by1,
@@ -513,7 +517,7 @@
      graphics.off()
      ## Create file name.
      file.name <-paste0(kGraphicsSubdir,
-		    "Training_Data_Yield_Class_Classification.pdf")
+		    "Ageh100YieldClassClassification.pdf")
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
@@ -636,6 +640,10 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Extract capitalized version of current species name.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
         ## Get data frame for current species.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Create a subset with only columns "edvid", "h100.EKL.I", and "SI.h100.diff.EKL.I".
@@ -676,7 +684,7 @@
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
-	  file = paste0(kOutputSubdir, "observations_count_per_edvid_", cur.species.name, ".txt"),
+	  file = paste0(kOutputSubdir, "ObservationsCountPerEdvid", cur.species.name.capitalized, ".txt"),
 	  sep = "\n",
 	  fill = FALSE)
     }
@@ -687,6 +695,10 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Extract capitalized version of current species name.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
         ## Get data frame for current species.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Extract age range.
@@ -706,12 +718,13 @@
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
-	  file = paste0(kOutputSubdir, "min_max_age_and_top_height_", cur.species.name, ".txt"),
+	  file = paste0(kOutputSubdir, "Ageh100Range", cur.species.name.capitalized, ".txt"),
 	  sep = "\n",
 	  fill = FALSE)
     }
   #+END_SRC
+* 
 * File local variables
-# Local Variables:
-# End:
+  # Local Variables:
+  # End:
 
