@@ -60,7 +60,7 @@
 * logDlogNPlotsBeforeAfterDataSelection.pdf
   #+NAME: logDlogNPlotsBeforeAfterDataSelection.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Selection.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataSelection.tex
     ## This creates 4 plots in one file in a 2-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
     kPlotMargins <- c(3.5, 3.5, 1, 1)
@@ -263,7 +263,7 @@
 * LocationsSamplePlots.pdf
   #+NAME: LocationsSamplePlots.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
     ## Plotting preamble.
     kPlotMargins <- c(0.5, 0.5, 0.5, 0.5)
@@ -349,7 +349,7 @@
 * GeographicPropertiesSummarySPECIES.txt
   #+NAME: GeographicPropertiesSummarySPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Preamble.
     ## Set vector of names of similar functions needed in this block.
     kFunctionNames <- c("min", "mean", "median", "max")
@@ -403,7 +403,7 @@
 * SpeciesAltitudeOfSamplePlots.pdf
   #+NAME: SpeciesAltitudeOfSamplePlots.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Plotting preamble.
     kPlotMargins <- c(3, 3, 0.5, 0.75)
     kPlotMgp <- c(2, 1, 0)
@@ -499,7 +499,7 @@
 ** R Code
    #+NAME: Ageh100YieldClassClassification.pdf
    #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
      ## Plotting preamble.
      kPlotMargins <- c(3, 3, 2, 1)
      kPlotMgp <- c(2, 1, 0)
@@ -636,7 +636,7 @@
 * ObservationsCountPerEdvidSPECIES.txt
   #+NAME: ObservationsCountPerEdvidSPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Extract capitalized version of current species name.
@@ -691,7 +691,7 @@
 * Ageh100RangeSPECIES.txt
   #+NAME: Ageh100RangeSPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
-    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Extract capitalized version of current species name.
