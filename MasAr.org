@@ -370,6 +370,7 @@
 *** Conventions for naming figure/output files
     + General convention: “DescriptiveNameOfFile[Species].suffix”
     + Figure files with the same set of x- and y-axis variables in all plots: “XAxisVariableYAxisVariable[AdditionalDescription][Species].pdf”
+      “X|YAxisVariable” here means the term used to refer to the variable in question in written text, not the (column) name used in the data set (e.g., “TopHeight” instead of “h100”).
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
@@ -471,7 +472,7 @@
 ***** “edvid”: J6351141 (“forstamt”: Wheretal, “abt”: 2588A1)
       + 2.5 m x 1.25 m [= 3200 plants/ha => 1. highest plant density; in accordance with “gha” based ranking]
       + untreated [NOT in accordance with “parz$BESONDERHEITEN”]
-** .bib file
+** BIB file
    + Percentage signs must be escaped.
    + It seems that underscores used in the “Abstract” do not have to be escaped.
    + Authors’s first names should be abbreviated in the .bib file to ensure correcting sorting of the bibliography.
@@ -514,7 +515,13 @@
     | beech              | information regarding beech (Fagus sylvatica)                 |
     | spruce             | information regarding spruce (Picea abies)                    |
     | density            | information regarding stand density                           |
-** .tex files
-   + Files, macros, and labels should be named like this: “FileName.tex”, “MacroName”, and “LabelName”
-   + File names should loosely be based on the topic covered in the file
-     File names should not directly be based on section headings used within the file, since it would make renaming of sections too cumbersome.
+** TEX files
+*** Convention for naming files
+    + General convention: “TopicCoveredInFile.tex”
+    + File names should loosely be based on the topic covered in the file.
+    + File names should NOT directly be based on section headings used within the file, since it would make renaming of sections too cumbersome.
+*** Convention for naming macros
+    + General convention: “MacroName”
+*** Convention for naming labels
+    + General convention: “type:LabelName”
+    + Figure labels: “fig:NameOfFigureFileExcludingSuffix”
