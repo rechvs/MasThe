@@ -722,8 +722,8 @@
 	  fill = FALSE)
     }
   #+END_SRC
-* AgeBasalAreaYieldClassClassification.pdf
-  #+NAME: AgeBasalAreaYieldClassClassification.pdf
+* StandAgeBasalAreaYieldClassClassification.pdf
+  #+NAME: StandAgeBasalAreaYieldClassClassification.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Plotting preamble.
@@ -743,7 +743,7 @@
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "AgeBasalAreaYieldClassClassification.pdf")
+		   "StandAgeBasalAreaYieldClassClassification.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
