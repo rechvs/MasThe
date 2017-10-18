@@ -57,8 +57,8 @@
 	  args = paste0("-p ", c(kGraphicsSubdir, kOutputSubdir)))
     objects.at.script.start <- c(ls(), "objects.at.script.start")  ## Required for cleaning up workspace.
   #+END_SRC
-* log(N)-log(D)-plots before/after data selection
-  #+NAME: log(N)-log(D)-plots before/after data selection
+* logDlogNPlotsBeforeAfterDataSelection.pdf
+  #+NAME: logDlogNPlotsBeforeAfterDataSelection.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Selection.tex
     ## This creates 4 plots in one file in a 2-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
@@ -260,8 +260,8 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* Location of sample plots
-  #+NAME: Location of sample plots
+* LocationsSamplePlots.pdf
+  #+NAME: LocationsSamplePlots.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## This block creates 2 plots (one per species) in one file in a 1-by-2 layout, showing the locations of the sample plots on a map of Germany.
@@ -346,8 +346,8 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* Geographic properties of sample plots
-  #+NAME: Geographic properties of sample plots
+* GeographicPropertiesSummarySPECIES.txt
+  #+NAME: GeographicPropertiesSummarySPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Preamble.
@@ -400,8 +400,8 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* Altitude of sample plots
-  #+NAME: Altitude of sample plots
+* SpeciesAltitudeOfSamplePlots.pdf
+  #+NAME: SpeciesAltitudeOfSamplePlots.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Plotting preamble.
@@ -489,7 +489,7 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* Yield class classification of training data
+* Ageh100YieldClassClassification.pdf
 ** General procedure:
    1. Set SI.h100 values per yield class based on Schober (1995) (moderate thinning).
    2. Generate a sequence of SI.h100 values from the worst yield class to the best yield class needed to cover the observed range of SI.h100 values, with a distance of 0.1 between sequence elements.
@@ -497,7 +497,7 @@
    4. Map the observed SI.h100 values to the corresponding color of the color palette from 3. for plotting.
    5. Map the SI.h100 value of each yield class to the corresponding color of the color palette from 3. for the legend.
 ** R Code
-   #+NAME: Yield class classification of training data
+   #+NAME: Ageh100YieldClassClassification.pdf
    #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
      ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
      ## Plotting preamble.
@@ -633,8 +633,8 @@
      ## Turn off graphics device.
      graphics.off()
    #+END_SRC
-* Number of sample plots and observations
-  #+NAME: Number of sample plots and observations
+* ObservationsCountPerEdvidSPECIES.txt
+  #+NAME: ObservationsCountPerEdvidSPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Loop over all species names.
@@ -688,8 +688,8 @@
 	  fill = FALSE)
     }
   #+END_SRC
-* Age and top height range
-  #+NAME: Age and top height range
+* Ageh100RangeSPECIES.txt
+  #+NAME: Ageh100RangeSPECIES.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Data_Description.tex
     ## Loop over all species names.
