@@ -1,3 +1,0 @@
-  statistic age h100
-1       min  15  9.1
-2       max 113 33.3
