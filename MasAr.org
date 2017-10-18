@@ -359,7 +359,10 @@
 ** Explanation of [[file:R/Scripts/MasArThesisRCode.org::1][MasArThesisRCode.org]]
    + The file should contain all R code used for producing the figures and numbers included in the Thesis.
    + Each topic should be given its own block, even if this means a single block creates multiple figures (e.g., one per species).
-   + Each block should contain the name of the TEX file which incorporates the figure produced in the block.
+   + Each block should contain the name of the TEX file which incorporates the figure/numbers produced by the block.
+*** Conventions for naming figure/output files
+    + General convention: “DescriptiveNameOfFile[Species].suffix”
+    + Figure files with the same set of x- and y-axis variables in all plots: “XAxisVariableYAxisVariable[AdditionalDescription][Species].pdf”
 ** Diary
 *** [2017-05-26 Fr]
     + got function [[file:R/Scripts/Modelling.R::94][nls2::nls2]] to converge but, judging by [[file:R/Scripts/Plotting.R::19][this]], results still seem unsatisfactory
