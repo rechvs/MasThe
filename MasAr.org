@@ -356,7 +356,7 @@
 *** Which code belongs into block “Preamble” and which to specific blocks?
     + Code required for more than 1 block belongs in block “Preamble”.
     + Code required only for 1 block belongs into the respective block (optionally segregated into subblock “Preamble”).
-** Explanation of [[file:R/Scripts/MasAr_Thesis_R_Code.org::1][MasAr_Thesis_R_Code.org]]
+** Explanation of [[file:R/Scripts/MasArThesisRCode.org::1][MasArThesisRCode.org]]
    + The file should contain all R code used for producing the figures and numbers included in the Thesis.
    + Each topic should be given its own block, even if this means a single block creates multiple figures (e.g., one per species).
    + Each block should contain the name of the TEX file which incorporates the figure produced in the block.
@@ -504,3 +504,7 @@
     | beech              | information regarding beech (Fagus sylvatica)                 |
     | spruce             | information regarding spruce (Picea abies)                    |
     | density            | information regarding stand density                           |
+** .tex files
+   + Files, macros, and labels should be named like this: “FileName.tex”, “MacroName”, and “LabelName”
+   + File names should loosely be based on the topic covered in the file
+     File names should not directly be based on section headings used within the file, since it would make renaming of sections too cumbersome.
