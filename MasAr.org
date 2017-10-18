@@ -357,9 +357,16 @@
     + Code required for more than 1 block belongs in block “Preamble”.
     + Code required only for 1 block belongs into the respective block (optionally segregated into subblock “Preamble”).
 ** Explanation of [[file:R/Scripts/MasArThesisRCode.org::1][MasArThesisRCode.org]]
-   + The file should contain all R code used for producing the figures and numbers included in the Thesis.
-   + Each topic should be given its own block, even if this means a single block creates multiple figures (e.g., one per species).
+   + The file should contain all R code used for producing the figures and numbers included in the Thesis, organized in headings and org blocks.
+   + A heading may contain only one org block in all its subheadings.
+     A heading may contain several subheadings.
+   + A block may produce either 2 files (1 file per species) or 1 file (1 file for both species).
    + Each block should contain the name of the TEX file which incorporates the figure/numbers produced by the block.
+*** Convention for naming headings
+    + A heading should have the same name as the org block contained in it.
+*** Convention for naming headings and blocks
+    + A block should have the same name as the file produced by the block (including the file name suffix).
+    + If a block produces 2 files, the species name in the block name should be replaced by the string “SPECIES”.
 *** Conventions for naming figure/output files
     + General convention: “DescriptiveNameOfFile[Species].suffix”
     + Figure files with the same set of x- and y-axis variables in all plots: “XAxisVariableYAxisVariable[AdditionalDescription][Species].pdf”
