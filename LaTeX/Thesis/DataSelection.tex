@@ -33,8 +33,8 @@ The approach for selecting maximum basal area observations employed in this stud
 \item If the current observation is preceded by another observation, is the slope \(s\) of \RefEq{eq:Reineke} between the current and the previous observation greater than or equal to the species-specific lower threshold?
 \item If the current observation is followed by another observation, is the slope \(s\) of \RefEq{eq:Reineke} between the current and the following observation lower than or equal to the species-specific upper threshold?
 \end{enumerate}
-An observation is considered to be a maximum basal area observation and consequently selected if and only if all questions are answered positively.  The slope thresholds are reported in \RefTab{tab:ReinekeSlopeThresholds} and form a range of allowed thinning rates.  While being based on values reported in the literature, the thresholds are essentially arbitrary and a compromise of 2 conflicting goals: select enough observations to ensure generalizable models but do not select observations which clearly do not show self-thinning.  As can be seen from \RefFig{fig:logNlogDPlotsBeforeAfterDataSelection}, the data selection mechanism succeeded in removing observations made during stages in which thinning rates were above the species-specific upper slope threshold.  In contrast, the case of thinning rates being below the species-specific lower slope threshold was not encountered in either species.
-In all plots of \RefFig{fig:logNlogDPlotsBeforeAfterDataSelection}, the dashed and solid black lines exemplify the species-specific upper and lower slope thresholds, respectively.  Thus, an observation from a plot in column A (observations before application of the data selection mechanims) is present in the corresponding plot of column B (observations after application of the data selection mechanism) if
+An observation is considered to be a maximum basal area observation and consequently selected if and only if all questions are answered positively.  The slope thresholds are reported in \RefTab{tab:ReinekeSlopeThresholds} and form a range of allowed thinning rates.  While being based on values reported in the literature, the thresholds are essentially arbitrary and a compromise of 2 conflicting goals: select enough observations to ensure generalizable models but do not select observations which clearly do not show self-thinning.  As can be seen from \RefFig{fig:logDlogNPlotsBeforeAfterDataSelection}, the data selection mechanism succeeded in removing observations made during stages in which thinning rates were above the species-specific upper slope threshold.  In contrast, the case of thinning rates being below the species-specific lower slope threshold was not encountered in either species.
+In all plots of \RefFig{fig:logDlogNPlotsBeforeAfterDataSelection}, the dashed and solid black lines exemplify the species-specific upper and lower slope thresholds, respectively.  Thus, an observation from a plot in column A (observations before application of the data selection mechanims) is present in the corresponding plot of column B (observations after application of the data selection mechanism) if
 \begin{itemize}
 \item the slope of the line connecting it to the previous observation (if present) is higher than the slope of the solid black line \\
   and
@@ -50,7 +50,7 @@ The data sets of selected observations will be further described in the followin
   % \caption{Observed diameter-density relationship for pure stands of \Beech{}.  Each colored circle represents one observation.  Colored lines connect observations belonging to the same sample plot.  Dashed black lines exemplify the upper slope threshold used in the data selection mechanism.  Solid black lines exemplify the lower slope threshold used in the data selection mechanism.  \\
     % A: observations before application of the data selection mechanism \\
     % B: observations after application of the data selection mechanism}
-  % \label{fig:BeechlogNlogDPlotBeforeAfterDataSelection}
+  % \label{fig:logDlogNPlotsBeforeAfterDataSelectionBeech}
 % \end{figure}
 
 % \begin{figure}[H]
@@ -59,7 +59,7 @@ The data sets of selected observations will be further described in the followin
   % \caption{Observed diameter-density relationship for pure stands of \Spruce{}.  Each colored circle represents one observation.  Colored lines connect observations belonging to the same sample plot.  Dashed black lines exemplify the upper slope threshold used in the data selection mechanism.  Solid black lines exemplify the lower slope threshold used in the data selection mechanism.  \\
     % A: observations before application of the data selection mechanism \\
     % B: observations after application of the data selection mechanism}
-  % \label{fig:SprucelogNlogDPlotBeforeAfterDataSelection}
+  % \label{fig:logDlogNPlotsBeforeAfterDataSelectionSpruce}
 % \end{figure}
 
 \begin{figure}[H]
@@ -70,32 +70,13 @@ The data sets of selected observations will be further described in the followin
     % bottom row: \Spruce{} \\
     column A: data set before application of the data selection mechanism \\
     column B: data set after application of the data selection mechanism}
-  \label{fig:logNlogDPlotsBeforeAfterDataSelection}
+  \label{fig:logDlogNPlotsBeforeAfterDataSelection}
 \end{figure}
 
 % \newpage{}
 % \input{Data_Selection_FlowChart.tex}  %% [2017-10-04: I opted against the figure (and deactivated all references to it) since it does not provide any additional information to the 3-questions list above.]
 
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
-\begin{singlespace}
-  {\tabulinesep=2mm
-    \begin{longtabu}{L l l}
-      % \caption{Species-specific lower (\(s_l\)) and upper (\(s_u\)) threshold for the slope of \RefEq{eq:Reineke} used for selecting maximum basal area observations (cp. \RefFig{fig:DataSelectionFlowChart}). 
-      \caption{Species-specific lower and upper threshold for the slope of \RefEq{eq:Reineke} used for selecting maximum basal area observations.  \label{tab:ReinekeSlopeThresholds}} \\
-      \toprule
-      % Species & \(s_l\) & \(s_u\) \\
-      Species & Lower threshold & Upper threshold \\
-      \midrule
-      \endhead
-      \bottomrule
-      \endlastfoot
-      \Beech{} & \num{-2.91} & \num{-0.9} \\
-      \Spruce{} & \num{-2.82} & \num{-0.65} \\
-    \end{longtabu}
-  }
-\end{singlespace}
-
-% \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
   {\tabulinesep=2mm
     \begin{longtabu}{L r r}
@@ -116,6 +97,25 @@ The data sets of selected observations will be further described in the followin
       \textcite{Sterba1987} & & \num{-1.737} \\
       \textcite{Vacchiano2013} & & \num{-1.497} \\
       \textcite{Vospernik2015} & \num{-1.941} & \num{-1.753} \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
+% \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{L l l}
+      % \caption{Species-specific lower (\(s_l\)) and upper (\(s_u\)) threshold for the slope of \RefEq{eq:Reineke} used for selecting maximum basal area observations (cp. \RefFig{fig:DataSelectionFlowChart}). 
+      \caption{Species-specific lower and upper threshold for the slope of \RefEq{eq:Reineke} used for selecting maximum basal area observations.  \label{tab:ReinekeSlopeThresholds}} \\
+      \toprule
+      % Species & \(s_l\) & \(s_u\) \\
+      Species & Lower threshold & Upper threshold \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      \Beech{} & \num{-2.91} & \num{-0.9} \\
+      \Spruce{} & \num{-2.82} & \num{-0.65} \\
     \end{longtabu}
   }
 \end{singlespace}
