@@ -860,6 +860,36 @@
     ## Turn off graphics device.
     graphics.off()
   #+END_SRC
+* BasalAreaRangeSPECIES.txt
+  #+NAME: BasalAreaRangeSPECIES.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session MasArThesisRConsole
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Extract capitalized version of current species name.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Extract top height range.
+        gha.min <- min(cur.data.frame[["gha"]])
+        gha.max <- max(cur.data.frame[["gha"]])
+        ## Store results in data frame.
+        cur.species.results.df <- data.frame("statistic" = c("min", "max"),
+				     "gha" = c(gha.min, gha.max))
+        ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
+        cur.output <- capture.output(print(x = format(x = cur.species.results.df,
+					    justify="left",
+					    scientific = FALSE),
+				   row.names = TRUE))
+        ## Output results to file.
+        cat(cur.output,
+	  file = paste0(kOutputSubdir, "BasalAreaRange", cur.species.name.capitalized, ".txt"),
+	  sep = "\n",
+	  fill = FALSE)
+    }
+  #+END_SRC
 * File local variables
   # Local Variables:
   # End:
