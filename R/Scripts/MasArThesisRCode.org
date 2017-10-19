@@ -921,6 +921,9 @@
         family = kPdfFamily)
     ## Set plot layout.
     layout(mat = kPlotLayout)
+    ## Initiate object in which to store indices of worst and best yield class needed to cover all observations of both species.
+    index.worst.yield.class.needed <- vector(mode = "numeric")
+    index.best.yield.class.needed <- vector(mode = "numeric")
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Get data frame for current species.
@@ -947,16 +950,28 @@
 	  SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
 	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
         }
+        ## Store data frame "SI.h100.yield.class.values" in a species-specific object for future reference.
+        assign(x = paste0("SI.h100.yield.class.values.", cur.species.name),
+	     value = SI.h100.yield.class.values)
         ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
         SI.h100.min <- min(bart.cur.species.clean.1.8[["SI.h100"]],
 		       na.rm = TRUE)
         SI.h100.max <- max(bart.cur.species.clean.1.8[["SI.h100"]],
 		       na.rm = TRUE)
-        index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
-        index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
-        ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
-        SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
-				  to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+        ## Store index of best and worst yield classes needed to cover the range of SI.h100 values present in the data frame. The values are stored in a species-specific manner in order to allow calculation of the yield class range required to cover the range of observations of both species.
+        index.worst.yield.class.needed[[cur.species.name]] <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+        index.best.yield.class.needed[[cur.species.name]] <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+    }
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Get "SI.h100.yield.class.values.SPECIES" and store it in "SI.h100.yield.class.values".
+        assign(x = "SI.h100.yield.class.values",
+	     value = get(x = paste0("SI.h100.yield.class.values.", cur.species.name)))
+        ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed for both species, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+        SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[min(index.worst.yield.class.needed), "SI.h100"],
+				  to = SI.h100.yield.class.values[max(index.best.yield.class.needed), "SI.h100"],
 				  by = 0.1),
 			    digits = 1)
         ## Generate a color palette of the same length as "SI.h100.sequence".
@@ -991,18 +1006,18 @@
 			    lwd = kGridLineWidth,
 			    col = kGridLineCol))
         ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
-        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed[cur.species.name] : index.best.yield.class.needed[cur.species.name], "SI.h100"],
 						      digits = 1),
 					      table = SI.h100.sequence)
         ## Add horizontal lines at the central value of each yield class.
-        abline(h = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed:index.best.yield.class.needed],
+        abline(h = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed[cur.species.name]:index.best.yield.class.needed[cur.species.name]],
 	     col = cur.species.color.palette[SI.h100.yield.class.values.color.index],
 	     lty = kYieldClassSIValuesLineType)
         ## Update legend components.
         legend.legend <- c(legend.legend,
 		       mapply(FUN = function(expr, numbr) { as.expression(x = bquote(.(expr)*.(numbr))) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
 			    expr = expression(italic("SI")*" yield class "),
-			    numbr = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+			    numbr = SI.h100.yield.class.values[index.worst.yield.class.needed[cur.species.name] : index.best.yield.class.needed[cur.species.name], "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = NA,
 				times = length(x = SI.h100.yield.class.values.color.index)))
@@ -1035,7 +1050,7 @@
         }
         ## Update legend components.
         legend.legend <- c(legend.legend, paste0("observations yield class ",
-				         SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+				         SI.h100.yield.class.values[index.worst.yield.class.needed[cur.species.name] : index.best.yield.class.needed[cur.species.name], "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = kPointCharacter,
 				times = length(x = SI.h100.yield.class.values.color.index)))
@@ -1051,6 +1066,8 @@
     }
     ## Turn off graphics device.
     graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * File local variables
   # Local Variables:
