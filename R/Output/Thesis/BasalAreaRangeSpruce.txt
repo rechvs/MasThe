@@ -1,3 +1,0 @@
-  statistic  gha
-1       min 10.8
-2       max 79.8
