@@ -1,5 +1,0 @@
-  Function.name EAST.UTM NORTH.UTM hnn.neu  n
-1        min    353856.5   5463401    40.0 18
-2        mean   504751.8   5688328   315.6 18
-3        median 507484.8   5711504   363.5 18
-4        max    603910.2   5896795   565.0 18
