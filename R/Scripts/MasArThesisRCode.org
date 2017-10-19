@@ -1001,7 +1001,7 @@
         ## Update legend components.
         legend.legend <- c(legend.legend,
 		       mapply(FUN = function(expr, numbr) { as.expression(x = bquote(.(expr)*.(numbr))) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
-			    expr = expression(italic("SI")*" value yield class "),
+			    expr = expression(italic("SI")*" yield class "),
 			    numbr = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = NA,
