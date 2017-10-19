@@ -1003,7 +1003,8 @@
     kVariablesColumnNames <- c("alt",  ## All variables must be numeric.
 			 "h100",
 			 "gha",
-			 "SI.h100")
+			 "SI.h100",
+			 "hnn.neu")
     kStatisticFunctionsNames <- c("min",  ## All functions need to accept argument "x" as their input and argument "na.rm = TRUE".
 			    "median",
 			    "mean",
