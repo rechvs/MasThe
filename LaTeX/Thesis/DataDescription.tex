@@ -4,14 +4,17 @@ Data sets were kindly provided by the \NWFVA{}. The data set size for \Beech{} i
 Figure \ref{fig:SpeciesAltitudeOfSamplePlots} shows the altitude above sea level of sample plots from both data sets.  For \Beech{}, it ranges from \SIrange{40}{565}{\meter}, with a mean of \SI{315.6}{\meter}.  For \Spruce{}, it ranges from \SIrange{20}{750}{\meter}, with a mean of \SI{404}{\meter}.
 % As can be seen from \RefFig{fig:SpeciesAltitudeOfSamplePlots}, sample plots of both species cover a wide range of altitudes above sea level (\Beech{}: \SIrange{40}{565}{\meter}; \Spruce{}: \SIrange{20}{750}{\meter}).
 
-Figure \ref{fig:StandAgeTopHeightYieldClassClassification} depicts the development of top height \(\TopHeight\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  The dot color signifies the yield class of the respective observation.  Classification of observations into yield classes required multiple steps.  First, the absolute site class \(SI\) in \si{\meter} was computed using the equation
+Figure \ref{fig:StandAgeTopHeightYieldClassClassification} depicts the development of top height \(\TopHeight\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  The dot color signifies the yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, the absolute site index \(SI\) in \si{\meter} was computed using the equation
 \begin{equation}
   \label{eq:NagelFunctionSolvedForSI}
   SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)} ,
 \end{equation}
-\parencite{Nagel1999} where \(x\) is stand age and \(\TopHeight(x)\) is top height at age \(x\) in \si{\meter}.  Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.  This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\)-value and the worst yield class needed to include the highest observed \(SI\)-value.  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class) over yellow and green to blue (best yield class).  Each observed \(SI\)-value was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist:
-in the former, observed stand age spans \SI{118.6}{\year}, ranging from \SIrange{35}{153.6}{\year}, observed \(\TopHeight{}\) spans \SI{22.9}{\meter}, ranging from \SIrange{16.3}{39.2}{\meter}, and observed yield class varies between \numlist{4; -1};
-in the latter, observed stand age spans \SI{98}{\year}, ranging from \SIrange{15}{113}{\year}, observed \(\TopHeight{}\) spans \SI{24.2}{\meter}, ranging from \SIrange{9.1}{33.3}{\meter}, and observed yield class varies between \numlist{4; -2}.
+\parencite{Nagel1999} where \(x\) is stand age and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\).  Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\) and the worst yield class needed to include the highest observed \(SI\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(SI\) was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist:  in the former, observed stand age spans \SI{118.6}{\year}, ranging from \SIrange{35}{153.6}{\year}, observed \(\TopHeight{}\) spans \SI{22.9}{\meter}, ranging from \SIrange{16.3}{39.2}{\meter}, and observed yield class varies between \numlist{4; -1};  in the latter, observed stand age spans \SI{98}{\year}, ranging from \SIrange{15}{113}{\year}, observed \(\TopHeight{}\) spans \SI{24.2}{\meter}, ranging from \SIrange{9.1}{33.3}{\meter}, and observed yield class varies between \numlist{4; -2}.  In both data sets, the method for classifying observations into yield classes yields plausible results:  for a given top height, yield class gradually worsens as stand age increases.   In the case of \Beech{}, the maximal top height of all observations was reached by a sample plot of intermediate yield class (\(\approx{} 1\)) compared to the other sample plots in the data set.   In the case of \Spruce{}, the maximal top height of all observations was reached by a sample plot of bad yield class (\(\approx{} 2.2\)) compared to the other sample plots in the data set.  
+
+As can be seen from \RefFig{fig:StandAgeSIYieldClassClassification}, site index and thus yield class remained fairly stable for all sample plots of both \Beech{} (top) and \Spruce{} (bottom).
+
+
+\RefFig{fig:StandAgeBasalAreaYieldClassClassification} depicts the development of basal area over stand age for \Beech{} (top) and \Spruce{} (bottom).  As in \RefFig{fig:StandAgeTopHeightYieldClassClassification}, dots represent observations, with dot color signifying the yield class of the respective observation.  However, the range of observed \(SI\) and yield classes differes between species: in the case of \Beech{}, \(SI\) ranges from %% CONTINUE HERE
 
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
@@ -113,15 +116,23 @@ in the latter, observed stand age spans \SI{98}{\year}, ranging from \SIrange{15
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeTopHeightYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and top height \(\TopHeight\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the yield class of the respective observation, ranging from red (worst yield class) over yellow and green to blue (best yield class).}
+  \caption{Observed relationship between stand age and top height \(\TopHeight\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeTopHeightYieldClassClassification}
 \end{figure}
 
 \newpage{}
 \begin{figure}[H]
   \centering
+  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeSIYieldClassClassification.pdf}
+  \caption{Observed relationship between stand age and site index \(SI\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Solid black lines connect observations belonging to the same sample plot.  Dashed lines mark the \(SI\) of yield classes.  Color of dots and dashed lines signifies the yield class of the respective \(SI\), ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Note the different yield class ranges in both plots.}
+  \label{fig:StandAgeSIYieldClassClassification}
+\end{figure}
+
+\newpage{}
+\begin{figure}[H]
+  \centering
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeBasalAreaYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and basal area for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the yield class of the respective observation, ranging from red (worst yield class) over yellow and green to blue (best yield class).}
+  \caption{Observed relationship between stand age and basal area for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeBasalAreaYieldClassClassification}
 \end{figure}
 
