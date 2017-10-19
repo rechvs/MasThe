@@ -900,7 +900,8 @@
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 2,
 		      ncol = 1)
-    kLegendX <- "bottomleft"
+    kLegendX <- "topright"
+    kYieldClassSIValuesLineType <- "dashed"
     kXLim <- c(0, 160)
     kYLim <- c(20, 50)
     ## Define color palette generating function.
@@ -922,7 +923,6 @@
     layout(mat = kPlotLayout)
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
-        ## for (cur.species.name in "spruce") {  ## TESTING
         ## Get data frame for current species.
         bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
@@ -961,6 +961,11 @@
 			    digits = 1)
         ## Generate a color palette of the same length as "SI.h100.sequence".
         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "expression")
+        legend.col <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
         ## Set plot margins.
         par("mar" = kPlotMargins)
         ## Create empty plot.
@@ -979,12 +984,30 @@
 	   panel.first = abline(v = seq(from = kXLim[1],
 				  to = kXLim[2],
 				  by = 10),
-			    h  = seq(from = kYLim[1],
-				   to = kYLim[2],
-				   by = 10),
+			    ## h  = seq(from = kYLim[1],
+			    ## to = kYLim[2],
+			    ## by = 5),
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
 			    col = kGridLineCol))
+        ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						      digits = 1),
+					      table = SI.h100.sequence)
+        ## Add horizontal lines at the central value of each yield class.
+        abline(h = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed:index.best.yield.class.needed],
+	     col = cur.species.color.palette[SI.h100.yield.class.values.color.index],
+	     lty = kYieldClassSIValuesLineType)
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       mapply(FUN = function(expr, numbr) { as.expression(x = bquote(.(expr)*.(numbr))) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
+			    expr = expression(italic("SI")*" value yield class "),
+			    numbr = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
+        legend.pch <- c(legend.pch, rep(x = NA,
+				times = length(x = SI.h100.yield.class.values.color.index)))
+        legend.lty <- c(legend.lty, rep(x = kYieldClassSIValuesLineType,
+				times = length(x = SI.h100.yield.class.values.color.index)))
         ## Loop over all evdids.
         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
 	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
@@ -1010,20 +1033,21 @@
 	         col = cur.species.color.palette[SI.h100.rounded.color.index],
 	         pch = kPointCharacter)
         }
-        ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
-        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
-						      digits = 1),
-					      table = SI.h100.sequence)
+        ## Update legend components.
+        legend.legend <- c(legend.legend, paste0("observations yield class ",
+				         SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
+        legend.pch <- c(legend.pch, rep(x = kPointCharacter,
+				times = length(x = SI.h100.yield.class.values.color.index)))
+        legend.lty <- c(legend.lty, rep(x = NA,
+				times = length(x = SI.h100.yield.class.values.color.index)))
         ## Add legend.
-        legend.legend <- c(paste0("yield class ",
-			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
-        legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
-        legend.pch <- kPointCharacter
         legend(x = kLegendX,
 	     legend = legend.legend,
 	     col = legend.col,
 	     pch = legend.pch,
-	     bg = kLegendBg)
+	     bg = kLegendBg,
+	     lty = legend.lty)
     }
     ## Turn off graphics device.
     graphics.off()
