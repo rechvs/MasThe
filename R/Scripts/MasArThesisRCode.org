@@ -777,8 +777,8 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* StandAgeSIYieldClassClassification.pdf
-  #+NAME: StandAgeSIYieldClassClassification.pdf
+* StandAgeSiteIndexYieldClassClassification.pdf
+  #+NAME: StandAgeSiteIndexYieldClassClassification.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Plotting preamble.
@@ -799,7 +799,7 @@
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "StandAgeSIYieldClassClassification.pdf")
+		   "StandAgeSiteIndexYieldClassClassification.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
