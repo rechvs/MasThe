@@ -4,7 +4,7 @@ The data set size for \Beech{} is reported in \RefTab{tab:ObservationsCountPerEd
 
 The geographical location and the altitude above sea level of sample plots is reported in \RefFig{fig:LocationsSamplePlots} and \RefFig{fig:SpeciesAltitudeOfSamplePlots}, respectively.  The dots in the plots of both figures do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the same geographical location and altitude.  In the \Beech{} data set, altitude above sea level spans \SI{525}{\meter}, ranging from \SIrange{40}{565}{\meter}, with a mean of \SI{313.2}{\meter}.  In the case of \Spruce{} it spans \SI{730}{\meter}, ranging from \SIrange{20}{750}{\meter}, with a mean of \SI{410.5}{\meter}.
 
-Figure \ref{fig:StandAgeTopHeightYieldClassClassification} depicts the development of top height \(\TopHeight\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  The dot color signifies the yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, the absolute site index \(SI\) in \si{\meter} was computed using the equation
+Figure \ref{fig:StandAgeTopHeightYieldClassClassification} depicts the development of top height \(\TopHeight\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  The dot color signifies the yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the absolute site index \(SI\) in \si{\meter} was computed using the equation
 \begin{equation}
   \label{eq:NagelFunctionSolvedForSI}
   SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)} ,
@@ -14,7 +14,7 @@ Figure \ref{fig:StandAgeTopHeightYieldClassClassification} depicts the developme
 As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist.
 In the former, stands are notably older and cover a wider range of ages, with stand age ranging from \SIrange{35}{153.6}{\year} (difference: \SI{118.6}{\year}), whereas in the latter it ranges from \SIrange{15}{113}{\year} (difference: \SI{98}{\year}).  Consequently, stands in the \Beech{} data set have a higher top height, with \(\TopHeight\) ranging from \SIrange{16.3}{39.2}{\meter} (difference: \SI{22.9}{\meter}), but \Spruce{} stands cover a slightly wider range of top heights, with \(\TopHeight{}\) ranging from \SIrange{9.1}{33.3}{\meter} (difference: \SI{24.2}{\meter}).
 
-As can be seen from \RefFig{fig:StandAgeSIYieldClassClassification}, the site index \(SI\) of a given sample plot did change at least once during stand development for all sample plots in both the \Beech{} (top) and the \Spruce{} (bottom) data set.  However, for several sample plots the direction of this change itself differs during stand development and there does not seem to be a general direction to which site index changes adhere.  The \Beech{} data set covers a narrower range of site indices and consequently yield classes than the \Spruce{} one, with \(SI\) ranging from \SIrange{23.7}{38.3}{\meter} (difference: \SI{14.6}{\meter}) and yield class ranging from \numrange{4}{-1} in the former, whereas for \Spruce{} \(SI\) ranges from \SIrange{24.1}{45.2}{\meter} (difference: \SI{21.1}{\meter}) and yield class from \numrange{4}{-2}.
+As can be seen from \RefFig{fig:StandAgeSiteIndexYieldClassClassification}, the site index \(SI\) of a given sample plot did change at least once during stand development for all sample plots in both the \Beech{} (top) and the \Spruce{} (bottom) data set.  However, for several sample plots the direction of this change itself differs during stand development and there does not seem to be a general direction to which site index changes adhere.  The \Beech{} data set covers a narrower range of site indices and consequently yield classes than the \Spruce{} one, with \(SI\) ranging from \SIrange{23.7}{38.3}{\meter} (difference: \SI{14.6}{\meter}) and yield class ranging from \numrange{4}{-1} in the former, whereas for \Spruce{} \(SI\) ranges from \SIrange{24.1}{45.2}{\meter} (difference: \SI{21.1}{\meter}) and yield class from \numrange{4}{-2}.
 
 \RefFig{fig:StandAgeBasalAreaYieldClassClassification} depicts the development of basal area over stand age for \Beech{} (top) and \Spruce{} (bottom).  %% CONTINUE HERE
 
@@ -125,9 +125,9 @@ As can be seen from \RefFig{fig:StandAgeSIYieldClassClassification}, the site in
 \newpage{}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeSIYieldClassClassification.pdf}
+  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeSiteIndexYieldClassClassification.pdf}
   \caption{Observed relationship between stand age and site index \(SI\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Solid black lines connect observations belonging to the same sample plot.  Dashed lines mark the \(SI\) of yield classes.  Color of dots and dashed lines signifies the yield class of the respective \(SI\), ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Note the different yield class ranges in both plots.}
-  \label{fig:StandAgeSIYieldClassClassification}
+  \label{fig:StandAgeSiteIndexYieldClassClassification}
 \end{figure}
 
 \newpage{}
