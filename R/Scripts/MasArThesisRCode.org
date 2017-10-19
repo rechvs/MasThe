@@ -760,7 +760,6 @@
     layout(mat = kPlotLayout)
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
-        ## for (cur.species.name in "spruce") {  ## TESTING
         ## Get data frame for current species.
         bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
