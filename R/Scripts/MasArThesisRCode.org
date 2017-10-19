@@ -976,8 +976,9 @@
 	      ## Get current statistic function.
 	      cur.stat.fun <- get(x = cur.stat.fun.name)
 	      ## Calclulate current statistic and store it in the appropriate row and column of "cur.species.results.df".
-	      cur.species.results.df[cur.species.results.df[["statistic"]] == cur.stat.fun.name, cur.col.name] <- cur.stat.fun(x = cur.data.frame[[cur.col.name]],
-												         na.rm = TRUE)
+	      cur.species.results.df[cur.species.results.df[["statistic"]] == cur.stat.fun.name, cur.col.name] <- round(x = cur.stat.fun(x = cur.data.frame[[cur.col.name]],
+													         na.rm = TRUE),
+												  digits = 1)
 	  }}
 
         ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
