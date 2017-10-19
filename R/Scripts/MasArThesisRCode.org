@@ -632,6 +632,8 @@
      }
      ## Turn off graphics device.
      graphics.off()
+     ## Clean up workspace.                                   
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
    #+END_SRC
 * ObservationsCountPerEdvidSPECIES.txt
   #+NAME: ObservationsCountPerEdvidSPECIES.txt
@@ -687,6 +689,8 @@
 	  sep = "\n",
 	  fill = FALSE)
     }
+    ## Clean up workspace.                                   
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * Ageh100RangeSPECIES.txt
   #+NAME: Ageh100RangeSPECIES.txt
@@ -721,6 +725,8 @@
 	  sep = "\n",
 	  fill = FALSE)
     }
+    ## Clean up workspace.                                   
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * StandAgeBasalAreaYieldClassClassification.pdf
   #+NAME: StandAgeBasalAreaYieldClassClassification.pdf
@@ -859,6 +865,8 @@
     }
     ## Turn off graphics device.
     graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * BasalAreaRangeSPECIES.txt
   #+NAME: BasalAreaRangeSPECIES.txt
@@ -889,6 +897,8 @@
 	  sep = "\n",
 	  fill = FALSE)
     }
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * StandAgeSIYieldClassClassification.pdf
   #+NAME: StandAgeSIYieldClassClassification.pdf
