@@ -1140,7 +1140,7 @@
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
-	  file = paste0(kOutputSubdir, "StatisticsOfVariablesSPECIES", cur.species.name.capitalized, ".txt"),
+	  file = paste0(kOutputSubdir, "VariablesStatistics", cur.species.name.capitalized, ".txt"),
 	  sep = "\n",
 	  fill = FALSE)
     }
