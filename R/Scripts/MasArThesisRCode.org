@@ -716,7 +716,7 @@
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
-	   ylab = expression("basal area [m"^2*" ha"^-1*"]"),
+	   ylab = expression(italic("G")*" [m"^2*" ha"^-1*"]"),
 	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
 					x = kSpeciesNamesCapitalized,
 					ignore.case = TRUE)],
