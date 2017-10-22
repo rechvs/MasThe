@@ -17,10 +17,10 @@ where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\
 A GLM has the structure
 \begin{equation}
   \label{eq:GeneralizedLinearModel}
-  g\bigl(\mu_i\bigr) = \mathbf{x}_i \symbf{\beta}~,  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
+  g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta}~,  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
 \end{equation}
-where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\mathbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\mathbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006}.
-GLMs are an extension of LMs insofar as they also also center around a ``linear predictor'', \(\mathbf{X}\symbf{\beta}\), but allow other link functions than the identity function and allow the distribution of the dependent variable to be any distribution from the exponential family, instead of only the normal distribution.  The exponential family consists of distributions whose probability density function can be written as
+where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\symbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\symbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006}.
+GLMs are an extension of LMs insofar as they also also center around a ``linear predictor'', \(\symbf{X}\symbf{\beta}\), but allow other link functions than the identity function and allow the distribution of the dependent variable to be any distribution from the exponential family, instead of only the normal distribution.  The exponential family consists of distributions whose probability density function can be written as
 \begin{equation}
   \label{eq:ExponentialFamilyProbabilityDensityFunction}
   f_{\theta}\bigl(y\bigr) = \exp \bigg( \frac{y \theta - b(\theta)}{a(\Phi)} + c(y, \Phi)\bigg)~,
