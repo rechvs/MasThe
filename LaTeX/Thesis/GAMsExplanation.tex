@@ -19,7 +19,7 @@ A GLM has the structure
   \label{eq:GeneralizedLinearModel}
   g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta}~,  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
 \end{equation}
-where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\symbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\symbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006}.
+where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\symbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\symbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006,Nelder1972}.
 GLMs are an extension of LMs insofar as they also also center around a ``linear predictor'', \(\symbf{X}\symbf{\beta}\), but allow other link functions than the identity function and allow the distribution of the dependent variable to be any distribution from the exponential family, instead of only the normal distribution.  The exponential family consists of distributions whose probability density function can be written as
 \begin{equation}
   \label{eq:ExponentialFamilyProbabilityDensityFunction}
@@ -30,9 +30,59 @@ where \(a\), \(b\), and \(c\) are arbitrary functions, \(\Phi\) is an arbitrary 
 Building upon GLMs, a GAM has a structure similar to
 \begin{equation}
   \label{eq:GeneralizedAdditiveModel}
-  g\bigl(\mu_i\bigr) = \symbf{X}_i^* \symbf{\theta} + f_{1}\bigl(x_{1i}\bigr) + f_{2}\bigl(x_{2i}\bigr) + f_{3}\bigl(x_{3i}, x_{4i}\bigr) + \ldots~,
+  g\bigl(\mu_i\bigr) = \symbf{x}_i^* \symbf{\theta} + f_{1}\bigl(x_{1i}\bigr) + f_{2}\bigl(x_{2i}\bigr) + f_{3}\bigl(x_{3i}, x_{4i}\bigr) + \ldots~,
 \end{equation}
-where \(\mu_i\) again is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), the response variable \(Y_i\) follows any exponential family distribution, \(X_i^*\) is a row of the model matrix for any strictly parametric model components, \(\symbf{\theta}\) is the corresponding parameter vector, and the \(f_j\) are smooth functions of the covariates, \(x_k\) \parencite{Wood2006}.  %% Continue here (Wood (2006) p. 119)
+where \(\mu_i\) again is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), the response variable \(Y_i\) follows any exponential family distribution, \(\symbf{x}_i^*\) is a row of the model matrix for any strictly parametric model components, \(\symbf{\theta}\) is the corresponding parameter vector, and the \(f_j\) are smooth functions of the covariates, \(x_k\) \parencite{Wood2006}.  A smooth function may be considered an estimate of the acutal functional relationship between the response variable and the predictor variable to which the smooth function is applied \parencite{Hastie1991}.  Unlike LMs or GLMs, a smooth function is nonparametric, i.e., it does not assume the response variable to follow any specific distribution.
+As an explanatory example, consider a model containing one smooth function of one predictor variable with the identity function as the link function,
+\begin{equation}
+  \label{eq:GeneralizedAdditiveModelSimple}
+  y_i = f\bigl(x_i\bigr) + \varepsilon_i~,
+\end{equation}
+where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is a smooth function, and the \(\varepsilon_i\) follow the normal distribution with a mean of zero and a variance of \(\sigma^2\) \parencite{Wood2006}.  The \(x_i\) lie in the interval \([0, 1]\).  In order to be able to estimate \(f\), a space of known functions, of which \(f\) (or its estimate) is assumed to be an element, needs to be chosen, such that
+\begin{equation}
+  \label{eq:SmoothFunctionBasis}
+  f(x) = \sum_{i=1}^q b_i(x)\beta_i~,
+\end{equation}
+where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GeneralizedAdditiveModelSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
+
+The GAMs used in the present study employ thin plate regression splines as the basis of all their smooth functions.  In order to explain thin plate regression splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesModel}
+  y_i = g(\symbf{x}_i) + \varepsilon_i~,
+\end{equation}
+where \(\varepsilon_i\) is a random error term and where \(\symbf{x}\) is a \(d\)-vector \((d \leq n)\) \parencite{Wood2006}.  Function \(g\) is then estimated by finding the function \(\hat{f}\) which minimizes
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesTermToMinimize}
+  \norm{\symbf{y} - \symbf{f}}^2 + \lambda J_{md}(f)~,
+\end{equation}
+where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\lambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesPenalty}
+  J_{md} = \int{\hspace{-2.5mm}}\cdots\int_{\mathbb{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
+\end{equation}
+\parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \RefEq{eq:ThinPlateRegressionSplinesTermToMinimize} has the form
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesMinimizingFunctionForm}
+  \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{md}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x})~,
+\end{equation}
+where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\delta\) being subject to the linear constraints that \(\symbf{\text{T}}^{\text{T}}\symbf{\delta} = 0\), where \(T_{ij} = \Phi_j\bigl(\symbf{x}_i\bigr)\).  The \(M = \binom{m + d - 1}{d}\) functions, \(\Phi_i\), are linearly independent polynomials spanning the space of polynomials \(\mathbb{R}^d\) of degree less than \(m\).  The \(\Phi_i\) span the space of functions for which \(J_{md}\) is zero.  The \(\eta_{md}\) functions are defined as
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesEtaFunctionDefinition}
+  \eta_{md}(r) =
+  \begin{cases}
+    \frac{(-1)^{m + 1 + d / 2}}{2^{2m - 1}\pi^{d / 2}(m - 1)!(m - d / 2)!}r^{2m - d}\log(r) & \text{if \(d\) is even} \\
+    \frac{\Gamma (d / 2 - m)}{2^{2m}\pi^{d / 2}(m - 1)!}r^{2m - d} & \text{if \(d\) is odd}
+  \end{cases}
+\end{equation}
+\parencite{Wood2006}.  If matrix \(\text{\textbf{E}}\) is defined by \(E_{ij} \equiv \eta_{md}\Bigl(\norm{\symbf{x}_i - \symbf{x}_j}\Bigr)\), then the thin plate spline fitting problem becomes
+
+\begin{equation}
+  \label{eq:ThinPlateSplineRegressionSimplifiedFittingProblem}
+  \text{minimize } \norm{\symbf{y} - \text{\textbf{E}}\symbf{\delta} - \text{\textbf{T}}\symbf{\alpha}}^2 + \lambda \symbf{\delta}^{\text{T}}\text{\textbf{E}}\symbf{\delta} \text{ subject to } \text{\textbf{T}}^{\text{T}}\symbf{\delta} = 0~,
+\end{equation}
+with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\).
+
+%% CONTINUE HERE (Wood (2006), p. 152 (PDF p. 165))
 
 %%% Local Variables:
 %%% mode: latex
