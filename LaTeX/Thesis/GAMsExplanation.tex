@@ -45,7 +45,7 @@ where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is 
 \end{equation}
 where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GeneralizedAdditiveModelSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
-The GAMs used in the present study employ thin plate regression splines for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
+The GAMs used in the present study employ thin plate regression splines \parencite{Wood2003} for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines \parencite{Duchon1977}.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
 \begin{equation}
   \label{eq:ThinPlateSplinesModel}
   y_i = g(\symbf{x}_i) + \varepsilon_i~,
@@ -95,9 +95,6 @@ with respect to \(\symbf{\delta}_k\) and \(\symbf{\alpha}\).  In order to absorb
   \text{minimize } \norm{\symbf{y} - \symbf{U}_k \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}} - \symbf{T} \symbf{\alpha}}^2 + \uplambda \tilde{\symbf{\delta}}^{\text{T}} \symbf{Z}_k^{\text{T}} \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}}
 \end{equation}
 with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\).
-
-
-%% CONTINUE HERE (Wood (2006), p. 152 (PDF p. 165))
 
 %%% Local Variables:
 %%% mode: latex
