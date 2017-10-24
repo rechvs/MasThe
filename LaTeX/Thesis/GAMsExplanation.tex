@@ -45,42 +45,57 @@ where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is 
 \end{equation}
 where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GeneralizedAdditiveModelSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
-The GAMs used in the present study employ thin plate regression splines as the basis of all their smooth functions.  In order to explain thin plate regression splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
+The GAMs used in the present study employ thin plate regression splines for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
 \begin{equation}
-  \label{eq:ThinPlateRegressionSplinesModel}
+  \label{eq:ThinPlateSplinesModel}
   y_i = g(\symbf{x}_i) + \varepsilon_i~,
 \end{equation}
 where \(\varepsilon_i\) is a random error term and where \(\symbf{x}\) is a \(d\)-vector \((d \leq n)\) \parencite{Wood2006}.  Function \(g\) is then estimated by finding the function \(\hat{f}\) which minimizes
 \begin{equation}
-  \label{eq:ThinPlateRegressionSplinesTermToMinimize}
-  \norm{\symbf{y} - \symbf{f}}^2 + \lambda J_{md}(f)~,
+  \label{eq:ThinPlateSplinesTermToMinimize}
+  \norm{\symbf{y} - \symbf{f}}^2 + \uplambda J_{md}(f)~,
 \end{equation}
-where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\lambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
+where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
 \begin{equation}
-  \label{eq:ThinPlateRegressionSplinesPenalty}
-  J_{md} = \int{\hspace{-2.5mm}}\cdots\int_{\mathbb{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
+  \label{eq:ThinPlateSplinesPenalty}
+  J_{md} = \int{\hspace{-3mm}}\cdots\int_{\mathfrak{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
 \end{equation}
-\parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \RefEq{eq:ThinPlateRegressionSplinesTermToMinimize} has the form
+\parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \RefEq{eq:ThinPlateSplinesTermToMinimize} has the form
 \begin{equation}
-  \label{eq:ThinPlateRegressionSplinesMinimizingFunctionForm}
+  \label{eq:ThinPlateSplinesMinimizingFunctionForm}
   \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{md}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x})~,
 \end{equation}
-where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\delta\) being subject to the linear constraints that \(\symbf{\text{T}}^{\text{T}}\symbf{\delta} = 0\), where \(T_{ij} = \Phi_j\bigl(\symbf{x}_i\bigr)\).  The \(M = \binom{m + d - 1}{d}\) functions, \(\Phi_i\), are linearly independent polynomials spanning the space of polynomials \(\mathbb{R}^d\) of degree less than \(m\).  The \(\Phi_i\) span the space of functions for which \(J_{md}\) is zero.  The \(\eta_{md}\) functions are defined as
+where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\symbf{\delta}\) being subject to the linear constraints that \(\symbf{T}^{\text{T}}\symbf{\delta} = 0\), where \(T_{ij} = \Phi_j\bigl(\symbf{x}_i\bigr)\).
+The \(M = \dbinom{m + d - 1}{d}\) functions, \(\Phi_i\), are linearly independent polynomials spanning the space of polynomials \(\mathfrak{R}^d\) of degree less than \(m\).  %% I need to use "\dbinom...", because XITS Math (and all OpenType fonts for that matter) in combination with my version of LuaLaTeX cannot properly place the binomial coefficients when using "\tbinom...".
+The \(\Phi_i\) span the space of functions for which \(J_{md}\) is zero.  The \(\eta_{md}\) functions are defined as
 \begin{equation}
-  \label{eq:ThinPlateRegressionSplinesEtaFunctionDefinition}
+  \label{eq:ThinPlateSplinesEtaFunctionDefinition}
   \eta_{md}(r) =
   \begin{cases}
-    \frac{(-1)^{m + 1 + d / 2}}{2^{2m - 1}\pi^{d / 2}(m - 1)!(m - d / 2)!}r^{2m - d}\log(r) & \text{if \(d\) is even} \\
-    \frac{\Gamma (d / 2 - m)}{2^{2m}\pi^{d / 2}(m - 1)!}r^{2m - d} & \text{if \(d\) is odd}
+    \frac{(-1)^{m + 1 + d / 2}}{2^{2m - 1}\uppi^{d / 2}(m - 1)!(m - d / 2)!}r^{2m - d}\log(r) & \text{if \(d\) is even} \\
+    \frac{\upGamma (d / 2 - m)}{2^{2m}\uppi^{d / 2}(m - 1)!}r^{2m - d} & \text{if \(d\) is odd}
   \end{cases}
 \end{equation}
-\parencite{Wood2006}.  If matrix \(\text{\textbf{E}}\) is defined by \(E_{ij} \equiv \eta_{md}\Bigl(\norm{\symbf{x}_i - \symbf{x}_j}\Bigr)\), then the thin plate spline fitting problem becomes
+\parencite{Wood2006}.  If matrix \(\symbf{E}\) is defined by \(E_{ij} \equiv \eta_{md}\Bigl(\norm{\symbf{x}_i - \symbf{x}_j}\Bigr)\), then the thin plate spline fitting problem becomes
 
 \begin{equation}
-  \label{eq:ThinPlateSplineRegressionSimplifiedFittingProblem}
-  \text{minimize } \norm{\symbf{y} - \text{\textbf{E}}\symbf{\delta} - \text{\textbf{T}}\symbf{\alpha}}^2 + \lambda \symbf{\delta}^{\text{T}}\text{\textbf{E}}\symbf{\delta} \text{ subject to } \text{\textbf{T}}^{\text{T}}\symbf{\delta} = 0~,
+  \label{eq:ThinPlateSplineSimplifiedFittingProblem}
+  \text{minimize } \norm{\symbf{y} - \symbf{E}\symbf{\delta} - \symbf{T}\symbf{\alpha}}^2 + \uplambda \symbf{\delta}^{\text{T}}\symbf{E}\symbf{\delta} \text{ subject to } \symbf{T}^{\text{T}}\symbf{\delta} = 0~,
 \end{equation}
 with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\).
+
+Thin plate regression splines build upon thin plate splines by truncating the space of the components with parameter \(\symbf{\delta}\), without changing the \(\symbf{\alpha}\) components \parencite{Wood2006}.  Let \(\symbf{E} = \symbf{U D U}^{\text{T}}\) be the eigen-decomposition of \(\symbf{E}\), so that \(\symbf{D}\) is a diagonal matrix of eigenvalues of \(\symbf{E}\) arranged so that \(\abs{D_{i, i}} \geq \abs{D_{i-1, i-1}}\) and the columns of \(\symbf{U}\) are the corresponding eigenvectors. Furthermore, let \(\symbf{U}_k\) denote the matrix consisting of the first \(k\) columns of \(\symbf{U}\) and let \(\symbf{D}_k\) denote the top right \(k \times k\) submatrix of \(\symbf{D}\).  By writing \(\symbf{\delta} = \symbf{U}_k \symbf{\delta}_k\), one can restrict \(\symbf{\delta}\) to the columns space of \(\symbf{U}_k\), by which \RefEq{eq:ThinPlateSplineSimplifiedFittingProblem} becomes
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesSimplifiedFittingProblem}
+  \text{minimize } \norm{\symbf{y} - \symbf{U}_k\symbf{D}_k\symbf{\delta}_k - \symbf{T \alpha}}^2 + \uplambda \symbf{\delta}_k^{\text{T}} \symbf{D}_k \symbf{\delta}_k \text{ subject to } \symbf{T}^{\text{T}} \symbf{U}_k \symbf{\delta}_k = 0
+\end{equation}
+with respect to \(\symbf{\delta}_k\) and \(\symbf{\alpha}\).  In order to absorb the constraints, an orthogonal column basis \(\symbf{Z}_k\) must be found, such that \(\symbf{T}^{\text{T}} \symbf{U}_k \symbf{Z}_k = 0\).  By writing \(\symbf{\delta}_k = \symbf{Z}_k \tilde{\symbf{\delta}}\) one can restrict \(\symbf{\delta}_k\) to this space.  This yields the unconstrained problem that must be solved to fit the rank \(k\) approximation to the smoothing spline:
+\begin{equation}
+  \label{eq:ThinPlateRegressionSplinesUnconstrainedFittingProblem}
+  \text{minimize } \norm{\symbf{y} - \symbf{U}_k \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}} - \symbf{T} \symbf{\alpha}}^2 + \uplambda \tilde{\symbf{\delta}}^{\text{T}} \symbf{Z}_k^{\text{T}} \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}}
+\end{equation}
+with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\).
+
 
 %% CONTINUE HERE (Wood (2006), p. 152 (PDF p. 165))
 
