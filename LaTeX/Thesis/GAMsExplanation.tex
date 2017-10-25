@@ -96,6 +96,44 @@ with respect to \(\symbf{\delta}_k\) and \(\symbf{\alpha}\).  In order to absorb
 \end{equation}
 with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\).
 
+Estimation of the smoothing parameter \(\uplambda\) for each smooth function is achieved via generalized cross validation (GCV), which builds upon cross validation.  In cross validation, each pair of observations \(\bigl(x_i, y_i\bigr)\) is left out one at a time while estimating the smooth function at \(x_i\) using the remaining \(n - 1\) observations.  This way, cross validation mimics the use of training and test data for model fitting.  The quantity of interest is the cross validation sum of squares
+\begin{equation}
+  \label{eq:CrossValidationSumOfSquares01}
+  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Bigl(y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\Bigr)^2~,
+\end{equation}
+where \(n\) is the total number of observations, \(y_i\) is the \(i^{\text{th}}\) observation of the response variable \(Y\), \(x_i\) is the \(i^{\text{th}}\) observation of the response variable \(X\), and \(\hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\) is the smooth function fit at \(x_i\), obtained with smoothing parameter \(\uplambda\) and by leaving out \(\bigl(x_i, y_i\bigr)\) \parencite{Hastie1991}.  The cross validation sum of squares is computed for several values of \(\uplambda\) over a suitable range and the smoothing parameter value \(\hat{\uplambda}\) which minimizes \(CV(\uplambda)\) is selected.  A formal definition of \(\hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\) for linear smoothers is
+\begin{equation}
+  \label{eq:CrossValidationFormalDefinitionOfJackknifedFit1}
+  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n \frac{S_{i j}(\uplambda)}{1 - S_{i i}(\uplambda)} y_i~,
+\end{equation}
+where \(S_{i j}(\uplambda)\) is the element of row \(i\) and column \(j\) of the smoother matrix \(\symbf{S}_\uplambda\) for smoothing parameter \(\uplambda\).  The smoother matrix \(\symbf{S}\) is the matrix which satisfies the equation
+\begin{equation}
+  \label{eq:SmootherMatrixDefinition}
+  \hat{\symbf{f}} = \symbf{S} \symbf{y}~,
+\end{equation}
+where \(\hat{\symbf{f}}\) is the vector of smooth function fits at observations \(x_1, \ldots, x_n\) and \(\symbf{y}\) is the vector of observations of the response variable.
+Equation \ref{eq:CrossValidationFormalDefinitionOfJackknifedFit1} implies that
+\begin{equation}
+  \label{eq:CrossValidationFormalDefinitionOfJackknifedFit2}
+  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n S_{i j}(\uplambda) y_i +S_{i i}(\uplambda) \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)~,
+\end{equation}
+which in turn implies that
+\begin{equation}
+  \label{eq:CrossValidationFormalDefinitionOfJackknifedFit3}
+  y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}~.
+\end{equation}
+Substituting \RefEq{eq:CrossValidationFormalDefinitionOfJackknifedFit3} into \RefEq{eq:CrossValidationSumOfSquares01} yields
+\begin{equation}
+  \label{eq:CrossValidationSumOfSquares02}
+  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}\Biggr)^2~.
+\end{equation}
+GCV replaces \(S_{ii}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} with its mean value \(\text{tr}\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
+\begin{equation}
+  \label{eq:GeneralizedCrossValidation}
+  GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \text{tr}\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2~,
+\end{equation}
+where \(\text{tr}(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\).
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "MasArThesis.tex"
