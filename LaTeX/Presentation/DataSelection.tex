@@ -1,0 +1,72 @@
+\section{Auswahl der Daten}
+\subsection{Reineke-Gleichung und Mortalitätsrate}
+\begin{frame}[c]
+  \visible<\thefirstElement->{
+    \centerline{
+      \(\log(N) = \textcolor{red}{s} \log(D) + k\)
+    }
+    
+    \begin{minipage}{1.0\textwidth}
+      \centerline{
+        \mycaption{Gleichung: Bestandesdichte in Abhängigkeit von mittlerem Durchmesser (Quelle: [1]).}
+      }
+    \end{minipage}
+    \begin{align*}
+      \myscalebox{N} & \myscalebox{: \text{Bestandesdichte [ha\textsuperscript{-1}]}} \\[-3mm]
+      \myscalebox{s} & \myscalebox{: \text{Steigung (}\widehat{=}\text{ \textcolor{red}{Mortalitätsrate})}} \\[-3mm]
+      \myscalebox{D} & \myscalebox{: \text{Durchmesser des Grundflächemittelstammes [cm]}} \\[-3mm]
+      \myscalebox{k} & \myscalebox{: \text{Konstante (artabhängig)}} \\[-3mm]
+    \end{align*}}
+  
+  \begin{itemize}
+  \item<\thesecondElement-> Literatur: uneinheitliche Angaben
+  \item<\thesecondElement-> Lösungsansatz: Korridor ,,erlaubter`` Mortalitätsraten
+  \end{itemize}
+  
+\end{frame}
+
+\subsection{Auswahl-Mechanismus}
+
+\begin{frame}[c]
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{tikzpicture}[>=stealth]
+        %% Coordinate system.
+        \draw[black,thick,->] (0,0) -- (5,0);  %% x-axis
+        \draw[black,thick,->] (0,0) -- (0,5);  %% y-axis
+        \node[anchor=north] at (2.5,0) {\(\log(D)\)};  %% x-axis title
+        \node[anchor=south,rotate=90] at (0,2.5) {\(\log(N)\)};  %% y-axis title
+        
+        %% Specify point coordinates.
+        \coordinate (Pi-1) at (1,4);
+        \coordinate (Pi) at (2,2);
+        \coordinate (Pi+1) at (3,1);
+
+        %% Lines.
+        % \draw[black,thick] (Pi-1) -- (Pi) -- (Pi+1);
+        \draw[green,thick] (Pi-1) -- (Pi);
+        \draw[blue,thick] (Pi) -- (Pi+1);
+
+        %% Points.
+        \fill[gray] (Pi-1) circle (0.1);
+        \fill[gray] (Pi) circle (0.1);
+        \fill[gray] (Pi+1) circle (0.1);
+
+        %% Text.
+        
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{enumerate}
+      \item<\thesecondElement-> Ist die Steigung \textcolor{green}{\(s_1\)}
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArPresentation.tex"
+%%% End:
