@@ -1,0 +1,35 @@
+\section{Einleitung}
+\subsection{Ziele, Probleme, Lösungsansätze}
+\begin{frame}[t]
+  % \only<1>{
+    % \centerline{
+      % \begin{minipage}{0.9\textwidth}
+        % \includegraphics[width=1.0\textwidth]{Grafiken/IMG_1181_beschnitten} \\
+        % \mycaption{Abbildung: Beispiel für das Landnutzungsschema der Untersuchungsflächen (hier: KUP und Grünland)
+          % (Quelle: Falk Richter, verändert).}
+      % \end{minipage}}}
+
+  \begin{itemize}
+  \item<\thefirstElement-> Ziel: \\
+    Modellierung der \emph{maximalen} Bestandesgrundfläche in Abhängigkeit von \emph{Alter} und \emph{Bonität} gleichaltriger Buchen- und Fichtenreinbestände
+  \item<\thesecondElement-> Probleme:
+    \begin{itemize}
+    \item<\thesecondElement-> Trainingdatensatz muss von maximalbestockten Flächen stammen
+    \item<\thesecondElement-> Direkt messbare Größen (z.B. \(h_{100}\)) als Prädiktoren ungeeignet, da sie Alters- und Bonitätseffekte enthalten
+    \item<\thesecondElement-> Gängige Modelle erscheinen unzureichend
+    \end{itemize}
+  \end{itemize}
+  \begin{itemize}
+  \item<\thethirdElement-> Lösungsansatz:
+    \begin{itemize}
+    \item<\thethirdElement-> Auswahl der Trainingdaten anhand der Mortalitätsrate
+    \item<\thethirdElement-> Trennung von Alters- und Bonitätseffekten
+    \item<\thethirdElement-> GAMs (Generalized Additive Models) und GAMLSSs (Generalized Additive Models for Location, Scale and Shape)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArPresentation"
+%%% End:

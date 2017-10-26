@@ -1,0 +1,71 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/PackagesPresentations.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/SettingsPresentations.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/HyphenationEnglish.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/HyphenationGerman.tex}
+
+%% Custom commands and environments.
+\newcommand{\mycaption}[1]{\tiny\raggedright{#1}}
+\newcommand*{\myscalebox}[2][0.6]{\scalebox{#1}{\ensuremath{#2}}}%
+
+%% Define lengths, widths, and heights.
+\newlength{\balancedcolumnwidth}
+\setlength{\balancedcolumnwidth}{0.49\textwidth}
+
+%% Define slide numbers for managing element visibility.
+\newcounter{firstElement}
+\newcounter{secondElement}
+\newcounter{thirdElement}
+\newcounter{fourthElement}
+\newcounter{fifthElement}
+\newcounter{sixthElement}
+\newcounter{seventhElement}
+\newcounter{eighthElement}
+\newcounter{ninthElement}
+\newcounter{tenthElement}
+\FPset{\thefirstElement}{2}
+\FPadd{\thesecondElement}{\thefirstElement}{1}
+\FPadd{\thethirdElement}{\thesecondElement}{1}
+\FPadd{\thefourthElement}{\thethirdElement}{1}
+\FPadd{\thefifthElement}{\thefourthElement}{1}
+\FPadd{\thesixthElement}{\thefifthElement}{1}
+\FPadd{\theseventhElement}{\thesixthElement}{1}
+\FPadd{\theeighthElement}{\theseventhElement}{1}
+\FPadd{\theninthElement}{\theeighthElement}{1}
+\FPadd{\thetenthElement}{\theninthElement}{1}
+\FPround{\thesecondElement}{\thesecondElement}{0}
+\FPround{\thethirdElement}{\thethirdElement}{0}
+\FPround{\thefourthElement}{\thefourthElement}{0}
+\FPround{\thefifthElement}{\thefifthElement}{0}
+\FPround{\thesixthElement}{\thesixthElement}{0}
+\FPround{\theseventhElement}{\theseventhElement}{0}
+\FPround{\theeighthElement}{\theeighthElement}{0}
+\FPround{\theninthElement}{\theninthElement}{0}
+\FPround{\thetenthElement}{\thetenthElement}{0}
+
+\begin{document}
+
+\title{Modellierung maximaler Grundflächen in gleichaltrigen Reinbeständen}
+\subtitle{}
+\author{Renke von Seggern}
+\date[01.11.2017]{1. November 2017}
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Titelfolie)
+
+\input{Introduction.tex}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
