@@ -1,0 +1,244 @@
+#+STARTUP: hideblocks
+* Preamble
+  #+NAME: Preamble
+  #+BEGIN_SRC R :results silent :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/MasAr_Thesis.tex
+    rm(list = ls())
+    setwd(dir = "~/laptop02_MasAr")
+    kDataDir <- "Data/"
+    ## Load data set.
+    kBaseFileVersion <- "5.3"
+    kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
+    kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+    ## Set dimensions of PDF device.
+    kPtToCm <- 0.035146
+    kPdfWidthSlide <- 358.50484 * kPtToCm  ## Use "\the\textwidth" in LaTeX document to find out total text width.
+    kPdfHeightSlide <- 233.49104 * kPtToCm  ## Use "\the\textheight" in LaTeX document to find out total text height.
+    ## Set point size for PDF device.
+    kPdfPointSize <- 9
+    ## Set font family for PDF device.
+    kPdfFamily <- "Helvetica"
+    ## Set standard point character for plots.
+    kPointCharacter <- 20
+    ## Set standard line settings for plots.
+    kLineWidth <- 1
+    kLineType <- "solid"
+    ## Set a distinct color for each species to use in all multi-species plots. Colors are taken from Niedersächsische Landesforsten (2011), fig. 3.
+    kSpeciesColors <- list("beech" = "#ee7f00",
+		       "spruce" = "#4066aa")
+    ## Set plot grid properties.
+    kGridLineType <- "dashed"
+    kGridLineCol <- "gray"
+    kGridLineWidth <- 0.5
+    ## Set background color for plot legends.
+    kLegendBg <- "gray"
+    ## Set vectors of species names.
+    kSpeciesNames <- c("beech", "spruce")
+    kSpeciesNamesCapitalized <- c("Beech", "Spruce")
+    ## Set destination directory for output.
+    kOutputSubdir <- "R/Output/Presentation/"
+    ## Set destination directory for graphics.
+    kGraphicsSubdir <- "Graphics/Presentation/"
+    ## If nonexistent, create all required directories.
+    system2(command = "mkdir",
+	  args = paste0("-p ", c(kGraphicsSubdir, kOutputSubdir)))
+    objects.at.script.start <- c(ls(), "objects.at.script.start")  ## Required for cleaning up workspace.
+  #+END_SRC
+* logDlogNPlotsBeforeAfterDataSelectionBeech.pdf
+  #+NAME: logDlogNPlotsBeforeAfterDataSelectionBeech.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/DataSelection.tex
+    ## This script creates 2 plots in one file in a 1-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
+    ## Plotting preamble.
+    kPlotMargins <- c(3.5, 3.5, 1, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kXLab <- expression(paste("log(", italic("D"), ")"))
+    kYLab <- expression(paste("log(", italic("N"), ")"))
+    kXMin <- list("beech" = 0.8,
+	        "spruce" = 0.8)
+    kXMax <- list("beech" = 1.8,
+	        "spruce" = 1.8)
+    kYMin <- list("beech" = 1.6,
+	        "spruce" = 2.4 * 0.9)
+    kYMax <- list("beech" = 3.6,
+	        "spruce" = 3.6)
+    kPlotLayout <- 1:4
+    kUpperThresholdLineType <- "dashed"
+    kLowerThresholdLineType <- "solid"
+    kThresholdLinesFrom <- 0
+    kThresholdLinesTo <- 10
+    kThresholdLinesCol <- "black"
+    ## Loop over all species names.
+    for (cur.species.name in "beech") {
+        ## Turn off graphics device.
+        graphics.off()
+        ## Create file name.
+        file.name <-paste0(kGraphicsSubdir,
+		       "logDlogNPlotsBeforeAfterDataSelectionBeech.pdf")
+        ## Start graphics device driver for producing PDF graphics.
+        pdf(file = file.name,
+	  width = kPdfWidthSlide / 2,
+	  height = kPdfHeightSlide / 2 * 0.9,
+	  pointsize = kPdfPointSize,
+	  family = kPdfFamily)
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Set plot layout to 1-by-2.
+        layout(mat = matrix(data = kPlotLayout,
+		        nrow = 1,
+		        ncol = 2,
+		        byrow = TRUE))
+        ## Loop over all plot numbers.
+        for (cur.plot.nr in kPlotLayout) {
+	  ## Extract x- and y-limits for current species.
+	  cur.xmin <- as.numeric(x = kXMin[names(x = kXMin) == cur.species.name])
+	  cur.xmax <- as.numeric(x = kXMax[names(x = kXMax) == cur.species.name])
+	  cur.ymin <- as.numeric(x = kYMin[names(x = kYMin) == cur.species.name])
+	  cur.ymax <- as.numeric(x = kYMax[names(x = kYMax) == cur.species.name])
+	  ## Set point and line color for current species.
+	  cur.point.line.col <- as.character(x = kSpeciesColors[names(x = kSpeciesColors) == cur.species.name])
+	  ## Set data frame version for current plot number ("1.0" for plots number 1 and 3, "1.8" for plots number 2 and 4).
+	  cur.data.frame.version <- ifelse(test = cur.plot.nr %% 2 != 0,
+				     yes = "1.0",
+				     no = "1.8")
+	  ## Get data frame for current species and plot number.
+	  cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.", cur.data.frame.version))
+	  ## Select column specifier for current plot ("A" for plot number 1, "B" for plot number 2, "" for plots number 3 and 4).
+	  if (cur.plot.nr <=2) {
+	      cur.plot.main <- ifelse(test = cur.plot.nr %% 2 != 0,
+				yes = "A",
+				no = "B")
+	  } else {
+	      cur.plot.main <- ""
+	  }
+	  ## Set x-axis label for current plot ("" for plots number 1 and 2, kXLab for plots number 3 and 4).
+	  cur.xlab <- ifelse(test = cur.plot.nr <= 2,
+			 yes = "",
+			 no = kXLab)
+	  ## Set y-axis label for current plot (kYLab for plots number 1 and 3, "" for plots number 2 and 4).
+	  cur.ylab <- ifelse(test = cur.plot.nr %% 2 != 0,
+			 yes = kYLab,
+			 no = "")
+	  ## Initiate legend components.
+	  legend.legend <- vector(mode = "character")
+	  legend.pch <- vector(mode = "numeric")
+	  legend.lty <- vector(mode = "character")
+	  legend.lwd <- vector(mode = "numeric")
+	  legend.col <- vector(mode = "character")
+	  ## Create empty plot.
+	  plot(x = 0,
+	       type = "n",
+	       xlim = c(cur.xmin, cur.xmax),
+	       ylim = c(cur.ymin, cur.ymax),
+	       xlab = kXLab,
+	       ## xlab = cur.xlab,
+	       ## ylab = kYLab,
+	       ylab = cur.ylab,
+	       xaxs = "i",
+	       yaxs = "i",
+	       mgp = kPlotMgp,
+	       main = cur.plot.main,
+	       panel.first = abline(v = seq(from = 0,
+				      to = 2,
+				      by = 0.2),
+			        h = seq(from = 0,
+				      to = 4,
+				      by = 0.2),
+			        lty = kGridLineType,
+			        lwd = kGridLineWidth,
+			        col = kGridLineCol))
+	  ## Define function for calculating the lines representing the slope thresholds.
+	  slope.threshold.func <- function(s, x, k) {
+	      res <- s * x + k
+	      return(res)
+	  }
+	  ## Add line for upper slope threshold to plot.
+	  cur.species.upper.slope.threshold <- ifelse(test = cur.species.name == "beech",
+					      yes = -0.9,
+					      no = -0.65)
+	  cur.species.threshold.func.upper.intercept <- cur.ymax - cur.species.upper.slope.threshold * cur.xmin
+	  curve(expr = slope.threshold.func(s = cur.species.upper.slope.threshold,
+				      x,
+				      k = cur.species.threshold.func.upper.intercept),
+	        from = kThresholdLinesFrom,
+	        to = kThresholdLinesTo,
+	        lty = kUpperThresholdLineType,
+	        lwd = kLineWidth,
+	        col = kThresholdLinesCol,
+	        add = TRUE)
+	  ## Update legend components.
+	  legend.legend <- c(legend.legend, expression(italic("m")[o]))
+	  legend.pch <- c(legend.pch, NA)
+	  legend.lty <- c(legend.lty, kUpperThresholdLineType)
+	  legend.lwd <- c(legend.lwd, kLineWidth)
+	  legend.col <- c(legend.col, kThresholdLinesCol)
+	  ## Add line for lower slope threshold to plot.
+	  cur.species.lower.slope.threshold <- ifelse(test = cur.species.name == "beech",
+					      yes = -2.91,
+					      no = -2.82)
+	  cur.species.threshold.func.lower.intercept <- cur.ymax - cur.species.lower.slope.threshold * cur.xmin
+	  curve(expr = slope.threshold.func(s = cur.species.lower.slope.threshold,
+				      x,
+				      k = cur.species.threshold.func.lower.intercept),
+	        from = kThresholdLinesFrom,
+	        to = kThresholdLinesTo,
+	        lty = kLowerThresholdLineType,
+	        lwd = kLineWidth,
+	        col = kThresholdLinesCol,
+	        add = TRUE)
+	  ## Update legend components.
+	  legend.legend <- c(legend.legend, expression(italic("m")[u]))
+	  legend.pch <- c(legend.pch, NA)
+	  legend.lty <- c(legend.lty, kLowerThresholdLineType)
+	  legend.lwd <- c(legend.lwd, kLineWidth)
+	  legend.col <- c(legend.col, kThresholdLinesCol)
+	  ## Loop over all "edvid"s.
+	  for (cur.edvid.name in levels(x = cur.data.frame[["edvid"]])) {
+	      ## Extract x-values for current "edvid".
+	      cur.x.values <- cur.data.frame[["log.dg"]][cur.data.frame[["edvid"]] == cur.edvid.name]
+	      ## Extract y-values for current "edvid".
+	      cur.y.values <- cur.data.frame[["log.nha"]][cur.data.frame[["edvid"]] == cur.edvid.name]
+	      ## Add points to plot per "edvid", with distinct colors per species.
+	      points(x = cur.x.values,
+		   y = cur.y.values,
+		   type = "p",
+		   pch = kPointCharacter,
+		   lty = kLineType,
+		   col = cur.point.line.col)
+	      ## Add lines to plot per "edvid", with distinct colors per species.
+	      lines(x = cur.x.values,
+		  y = cur.y.values,
+		  lty = kLineType,
+		  lwd = kLineWidth,
+		  col = cur.point.line.col)
+	  }
+	  ## Calculate number of observations in current data frame.
+	  cur.n <- nrow(x = cur.data.frame)
+	  ## Update legend components.
+	  legend.legend <- c(legend.legend, paste0("Beobachtungen (n = ", cur.n, ")"))
+	  legend.pch <- c(legend.pch, kPointCharacter)
+	  legend.lty <- c(legend.lty, kLineType)
+	  legend.lwd <- c(legend.lwd, kLineWidth)
+	  legend.col <- c(legend.col, cur.point.line.col)
+	  ## Add legend.
+	  legend(x = "bottomleft",
+	         legend = legend.legend,
+	         col = legend.col,
+	         lty = legend.lty,
+	         pch = legend.pch,
+	         lwd = legend.lwd,
+	         bg = "gray")
+	  ## Reset legend components.
+	  legend.legend <- vector(mode = "character")
+	  legend.pch <- vector(mode = "numeric")
+	  legend.lty <- vector(mode = "character")
+	  legend.lwd <- vector(mode = "numeric")
+	  legend.col <- vector(mode = "character")
+        }
+        ## Turn off graphics device.
+        graphics.off()
+    }
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+
