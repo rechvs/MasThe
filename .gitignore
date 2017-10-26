@@ -19,6 +19,8 @@ Literature/Exported_Items.bib
 *.toc
 *.bbl
 *.blg
+*.nav
+*.snm
 
 # .el files.
 *.el
