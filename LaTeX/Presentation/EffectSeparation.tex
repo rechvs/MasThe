@@ -1,0 +1,49 @@
+\section{Trennung der Effekte}
+\begin{frame}[c]
+
+  \begin{itemize}
+  \item<\theFirstElement-> Problem: \\
+    \(h_{100}\) als Prädiktor ungeeignet, da sie sowohl durch Alter als auch durch Bonität beeinflusst wird
+  \item<\theFirstElement-> Lösungsansatz: \\
+    Aufspaltung von \(h_{100}\) in Bonitäts- und Alterseffekte mittels
+  \end{itemize}
+
+  \begin{center}
+    \begin{minipage}{0.75\linewidth}
+      \centerline{\visible<\theFirstElement->{\NagelFunctionSolvedForSI{}}}
+      \vspace{\captiondistance}
+      \mycaption{Gleichung}{Absolute Bonität \(SI\) in Abhängigkeit von \(h_{100}\) und Alter (Quelle: [3]).}
+    \end{minipage}
+  \end{center}
+
+\end{frame}
+
+\subsection{Bonitätseffekt}
+
+\begin{frame}[c]
+
+  \visible<\theFirstElement->{Vorgehensweise:}
+  \begin{enumerate}
+  \item<\theFirstElement-> Berechnung der absoluten Bonität
+  \item<\theFirstElement-> Berechnung der Differenz zwischen 1. und absoluter Bonität der I. EKL
+  \item<\theFirstElement-> Verwendung von 2. als Prediktor
+  \end{enumerate}
+
+  \visible<\theSecondElement->{Beispiel:}
+  \begin{itemize}
+  % \item<\theSecondElement-> Alter = \SI{91}{a}
+  \item<\theSecondElement-> \(h_{100}(91) = \SI{29.4}{\meter}\)
+  \item<\theSecondElement-> \(SI = \SI{30.39}{\meter}\)
+  \item<\theSecondElement-> \(SI_{\text{I. EKL}} = \SI{32.4}{\meter}\)
+  \item<\theSecondElement-> \(\begin{aligned}[t]
+                              \Delta_{SI} &= \SI{30.39}{\meter} - \SI{32.4}{\meter} \\
+                                          &= \SI{-2.01}{\meter} \\
+                            \end{aligned}\)
+  \end{itemize}
+
+\end{frame}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArPresentation.tex"
+%%% End:

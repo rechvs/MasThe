@@ -2,22 +2,26 @@
 \subsection{Reineke-Gleichung und Mortalitätsrate}
 \begin{frame}[c]
   \visible<\theFirstElement->{
-    \centerline{
-      \(\log(N) = \textcolor{red}{s} \log(D) + k\)
-    }
-    
-    \begin{minipage}{1.0\textwidth}
-      \centerline{
-        \mycaption{Gleichung: Bestandesdichte in Abhängigkeit von mittlerem Durchmesser (Quelle: [1]).}
-      }
-    \end{minipage}
-    \begin{align*}
-      \myscalebox{N} & \myscalebox{: \text{Bestandesdichte [ha\textsuperscript{-1}]}} \\[-3mm]
-      \myscalebox{s} & \myscalebox{: \text{Steigung (}\widehat{=}\text{ \textcolor{red}{Mortalitätsrate})}} \\[-3mm]
-      \myscalebox{D} & \myscalebox{: \text{Durchmesser des Grundflächemittelstammes [cm]}} \\[-3mm]
-      \myscalebox{k} & \myscalebox{: \text{Konstante (artabhängig)}} \\[-3mm]
-    \end{align*}}
-  
+    \begin{center}
+      \begin{minipage}{0.40\textwidth}
+        \centerline{\(\mylog(N) = \textcolor{red}{s} \log(D) + k\)}
+        \vspace{\captiondistance}
+        \mycaption{Gleichung}{Bestandesdichte in Abhängigkeit von mittlerem Durchmesser (Quelle: [1]). \\
+          \(N\): Bestandesdichte [\si{\per\hectare}] \\
+          \(s\): Steigung (\(\hat{=}\) \textcolor{red}{Mortalitätsrate}) \\
+          \(D\): Durchmesser des Grundflächenmittelstammes [\si{\centi\meter}] \\
+          \(k\): Konstante (artabhängig)}
+      \end{minipage}
+    \end{center}
+
+    % \begin{align*}
+      % \myscalebox{N} & \myscalebox{: \text{Bestandesdichte [ha\textsuperscript{-1}]}} \\[-3mm]
+      % \myscalebox{s} & \myscalebox{: \text{Steigung (}\widehat{=}\text{ \textcolor{red}{Mortalitätsrate})}} \\[-3mm]
+      % \myscalebox{D} & \myscalebox{: \text{Durchmesser des Grundflächemittelstammes [cm]}} \\[-3mm]
+      % \myscalebox{k} & \myscalebox{: \text{Konstante (artabhängig)}} \\[-3mm]
+    % \end{align*}
+  }
+
   \begin{itemize}
   \item<\theSecondElement-> Literatur: \\
     Mortalitätsrate scheint art- und standortabhängig zu sein (s. z.B. [2])
@@ -55,6 +59,8 @@
           %% Text.
           \node[anchor=north east] at (Pi) {\(\text{P}_i\)};
         \end{tikzpicture}
+        \captionsep{}
+        \mycaption{Abbildung}{Schematische Darstellung des beobachteten Zusammenhangs zwischen Bestandesdichte \(N\) und mittlerem Durchmesser \(D\).}
       }
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -73,10 +79,11 @@
   \visible<1->{
     \centerline{
       \begin{minipage}{0.9\textwidth}
-        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/logDlogNPlotsBeforeAfterDataSelectionBeech.pdf} \\
-        \mycaption{Abbildung: Auswirkung des Auswahl-Mechanismus am Beispiel des Buchen-Datensatzes. Farbige Linien verbinden Beobachtungen eines Bestandes. \\
-        A: vor Anwendung des Auswahl-Mechanismus \\
-        B: nach Anwendung des Auswahl-Mechanismus }
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/logDlogNPlotsBeforeAfterDataSelectionBeech.pdf}
+        \captionsep{}
+        \mycaption{Abbildung}{Beobachteter Zusammenhang zwischen Bestandesdichte \(N\) und mittlerem Durchmesser \(D\).  Farbige Linien verbinden Beobachtungen eines Bestandes. Gestrichelte bzw. durchgezogene schwarze Linien stellen den oberen bzw. unteren Schwellwert der noch ,,erlaubten`` Mortalitätsraten beispielhaft dar. \\
+          A: vor Anwendung des Auswahl-Mechanismus \\
+          B: nach Anwendung des Auswahl-Mechanismus}
       \end{minipage}}}
 \end{frame}
 
