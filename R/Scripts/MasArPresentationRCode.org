@@ -62,7 +62,7 @@
 	        "spruce" = 2.4 * 0.9)
     kYMax <- list("beech" = 3.6,
 	        "spruce" = 3.6)
-    kPlotLayout <- 1:4
+    kPlotLayout <- 1:2
     kUpperThresholdLineType <- "dashed"
     kLowerThresholdLineType <- "solid"
     kThresholdLinesFrom <- 0
@@ -215,7 +215,11 @@
 	  ## Calculate number of observations in current data frame.
 	  cur.n <- nrow(x = cur.data.frame)
 	  ## Update legend components.
-	  legend.legend <- c(legend.legend, paste0("Beobachtungen (n = ", cur.n, ")"))
+	  ## legend.legend <- c(legend.legend, paste0("Beobachtungen (n = ", cur.n, ")"))
+	  legend.legend <- c(legend.legend,
+			 mapply(FUN = function(expr, numbr) { as.expression(x = bquote(.(expr)*.(numbr)*")")) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
+			        expr = expression("Beobachtungen ("*italic("n")*" = "),
+			        numbr = cur.n))
 	  legend.pch <- c(legend.pch, kPointCharacter)
 	  legend.lty <- c(legend.lty, kLineType)
 	  legend.lwd <- c(legend.lwd, kLineWidth)
