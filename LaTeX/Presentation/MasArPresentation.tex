@@ -5,6 +5,9 @@
 \input{/home/renke/Uni/Formatvorlagen/LaTeX/HyphenationEnglish.tex}
 \input{/home/renke/Uni/Formatvorlagen/LaTeX/HyphenationGerman.tex}
 
+%% File-specific settings.
+\sisetup{output-decimal-marker = {,}}
+
 %% Define lengths, widths, and heights.
 \newlength{\balancedcolumnwidth}
 \setlength{\balancedcolumnwidth}{0.49\textwidth}
@@ -16,8 +19,11 @@
 \newcommand{\mycaption}[2]{\raggedright{\tiny{}\textbf{#1:} #2 \\}}
 \newcommand*{\myscalebox}[2][0.6]{\scalebox{#1}{\ensuremath{#2}}}%
 \newcommand{\captionsep}{\vspace{\captiondistance} \\}
-% \newcommand{\NagelFunctionSolvedForSI}{\(h_{100}(100) = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}\)}
-\newcommand{\NagelFunctionSolvedForSI}{\(SI = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}\)}
+% \newcommand{\NagelFunctionSolvedForSI}{h_{100}(100) = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}\)}
+\newcommand{\NagelFunctionSolvedForSI}{SI = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}}
+\newcommand{\NagelFunctionSimpleSolvedForSI}{SI = \frac{h_{100}(\text{Alter}) + \beta_0 + \beta_1 \cdot \ln(\text{Alter}) + \beta_2 \cdot \ln(\text{Alter})^2 }{\beta_3 + \beta_4 \cdot \ln(\text{Alter})}}
+\newcommand{\NagelFunctionSimpleSolvedForh}{h_{100}(Alter) = SI \cdot (\beta_3 + \beta_4 \cdot ln(\text{Alter})) - \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
+\newcommand{\NagelFunctionSimpleSolvedForhSIIEKL}{h_{100}(Alter) = &SI_{\text{I. EKL}} \cdot (\beta_3 + \beta_4 \cdot ln(\text{Alter})) \\ &- \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
 
 %% Define slide numbers for managing element visibility.
 \newcounter{firstElement}
