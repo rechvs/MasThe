@@ -10,11 +10,11 @@
 \begin{frame}[c]
   \begin{itemize}
   \item<\theFirstElement-> Ziel: \\
-    Modellierung der \emph{maximalen} Bestandesgrundfläche in Abhängigkeit von \emph{Alter} und \emph{Bonität} gleichaltriger Buchen- und Fichtenreinbestände
+    Modellierung der \emph{maximalen} Bestandesgrundfläche in Abhängigkeit von \emph{Bonität} und \emph{Alter} gleichaltriger Buchen- und Fichtenreinbestände
   \item<\theSecondElement-> Probleme:
     \begin{itemize}
     \item<\theSecondElement-> Trainingdatensatz muss von maximalbestockten Flächen stammen
-    \item<\theSecondElement-> Direkt messbare Variablen (z.B. \(h_{100}\)) als Prädiktoren ungeeignet, da sie Alters- und Bonitätseffekte enthalten
+    \item<\theSecondElement-> Direkt messbare Variablen (z.B. \(h_{100}\)) als Prädiktoren ungeeignet, da sie sowohl Bonitäts- als auch Alterseffekte enthalten
     \item<\theSecondElement-> Gängige Modelle erscheinen unzureichend
     \end{itemize}
   \end{itemize}
@@ -22,7 +22,7 @@
   \item<\theThirdElement-> Lösungsansätze:
     \begin{itemize}
     \item<\theThirdElement-> Auswahl der Trainingdaten anhand der Mortalitätsrate
-    \item<\theThirdElement-> Trennung von Alters- und Bonitätseffekten
+    \item<\theThirdElement-> Trennung von Bonitäts- und Alterseffekten
     \item<\theThirdElement-> GAM (Generalized Additive Model) und GAMLSS (Generalized Additive Model for Location, Scale and Shape)
     \end{itemize}
   \end{itemize}

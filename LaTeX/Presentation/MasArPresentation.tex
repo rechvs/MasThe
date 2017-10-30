@@ -69,7 +69,7 @@
 \titlepage
 \end{frame}
 
-\addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Titelfolie)
+\addtocounter{framenumber}{-1} %% Reduktion der Folienzahl (-1 für Titelfolie)
 \input{Introduction.tex}
 
 \input{DataSelection.tex}
@@ -78,9 +78,11 @@
 
 \input{Modelling.tex}
 
-\addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Finalfolie)
+\addtocounter{framenumber}{-1} %% Reduktion der Folienzahl (-1 für Finalfolie)
 \input{Finale.tex}
 
+\setbeamertemplate{footline}{}  %% Deaktivieren der Anzeiger der Foliennummer in der Fußzeile.
+\addtocounter{framenumber}{-2} %% Reduktion der Folienzahl (-1 je Backupfolie)
 \input{BackupSlides.tex}
 
 \end{document}

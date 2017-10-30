@@ -3,7 +3,7 @@
 
   \begin{center}
     \begin{minipage}{0.37\linewidth}
-      \mycaption{Tabelle}{Für den Auswahl-Mechanismus verwendete Schwellwerte ,,erlaubter`` Mortalitätsraten.}
+      \mycaption{Tabelle S1}{Für den Auswahl-Mechanismus verwendete Schwellwerte ,,erlaubter`` Mortalitätsraten.}
       \begin{tabular}{l l l}
         \toprule
         Art & \(m_u\) & \(m_o\) \\
@@ -17,7 +17,7 @@
 
   \begin{center}
     \begin{minipage}{0.33\linewidth}
-      \mycaption{Tabelle}{In [2] wiedergegebene Mortalitätsraten.}
+      \mycaption{Tabelle S2}{In [2] wiedergegebene Mortalitätsraten.}
       \begin{tabular}{l l l}
         \toprule
         Art & Min. & Max. \\
@@ -29,6 +29,24 @@
     \end{minipage}
   \end{center}
 
+\end{frame}
+
+\begin{frame}[c]  %% The following emtpy line is required to prevent the "frame" environment from assuming the "{\scriptsize...}" call to be the frame title.
+  
+      {\scriptsize
+      \mycaption{Tabelle S3}{Auswahl der in \texttt{R} verwendeten Einstellungen für die gezeigten Modelle.}
+      \begin{tabular}{l l l}
+        \toprule
+        Modell & Formel & Verteilung u. Links \\
+        \midrule
+        GAM & \mu{}: \texttt{gha \textasciitilde{} s(h100.EKL.I) + SI.h100.diff.EKL.I} & \multirow{2}{*}{\begin{tabular}{l} Gamma \\ \mu{}-Link: log \end{tabular}} \\
+        \\
+        GAMLSS & \mu{}: \texttt{gha \textasciitilde{} pbm(h100.EKL.I) + SI.h100.diff.EKL.I} & \multirow{4}{*}{\begin{tabular}{l}Box-Cox-Cole-Greene \\ \mu{}-Link: log \\ \sigma{}-Link: log \\ \nu{}-Link: identity \end{tabular}} \\
+        & \sigma{}: \texttt{gha \textasciitilde{} 1} \\
+        & \nu{}: \texttt{gha \textasciitilde{} 1}\\
+        \\
+        \bottomrule
+      \end{tabular}}
 \end{frame}
 
 %%% Local Variables:
