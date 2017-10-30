@@ -1,0 +1,49 @@
+\section{Modelle}
+
+\begin{frame}[c]
+  \visible<\theFirstElement->{
+    \begin{itemize}
+    \item Problem: \\
+      Gängige Grundflächenmodelle erscheinen unzureichend
+      
+    \item Lösungsansatz: \\
+      GAM (Generalized Additive Model) und \\
+      GAMLSS (Generalized Additive Model for Location, Scale, and Shape)
+    \end{itemize}}
+\end{frame}
+
+\subsection{Hintergrund}
+
+\begin{frame}[c]
+  \visible<\theFirstElement->{
+    {\scriptsize
+      \mycaption{Tabelle 1}{Unterschiede zwischen linearem Modell (LM), generalisiertem linearen Model (GLM), GAM und GAMLSS.}
+      \begin{tabular}{l l l l}
+      \toprule
+      Modelltyp & modellierter Zusammenhang & unterstellte Verteilung & geschätzter Parameter \\
+      \midrule
+      LM & linear & Normal & Mittelwert \\
+      GLM & linear & Exponentialfamilie & Mittelwert \\
+      GAM & beliebig & Exponentialfamilie & Mittelwert \\
+      GAMLSS & beliebig & beliebig & beliebig \\
+      \bottomrule
+    \end{tabular}}
+  }
+\end{frame}
+
+\subsection{Ergebnisse}
+
+\begin{frame}[c]
+  \visible<1->{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/AgeBasalAreaObservationsGAM2PredictionsBeech.pdf}
+        \captionsep{}
+        \mycaption{Abbildung 3}{Beobachtete (Punkte) und durch GAM vorhergesagte (farbige Linien) Grundfläche über Alter für Buche. Farben geben die jeweilige EKL wieder.}
+      \end{minipage}}}
+\end{frame}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArPresentation.tex"
+%%% End:
