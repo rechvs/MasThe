@@ -30,7 +30,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Auswahl-Mechanismus}
+\subsection{Auswahlmechanismus}
 \begin{frame}[c]
   \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -45,11 +45,14 @@
           %% Specify point coordinates.
           \coordinate (Pi-1) at (1,4);
           \coordinate (Pi) at (2,2);
-          \coordinate (Pi+1) at (3,1);
+          \coordinate (Pi+1) at (3,3);
 
           %% Lines.
-          \visible<\theSecondElement->{\draw[green,thick] (Pi-1) -- (Pi);}
-          \visible<\theThirdElement->{\draw[blue,thick] (Pi) -- (Pi+1);}
+          \visible<\theFirstElement-\theSecondElement>{\draw[black,thick] (Pi-1) -- (Pi) -- (Pi+1);}
+          \visible<\theSecondElement->{\draw[magenta,thick] (Pi-1) -- ++(280:2cm);}
+          \visible<\theSecondElement->{\draw[blue,thick] (Pi-1) -- (Pi);}
+          \visible<\theThirdElement->{\draw[cyan,thick,dashed] (Pi) -- ++(330:2cm);}
+          \visible<\theThirdElement->{\draw[brown,thick,dashed] (Pi) -- (Pi+1);}
 
           %% Points.
           \fill[gray] (Pi-1) circle (0.1);
@@ -57,18 +60,21 @@
           \fill[gray] (Pi+1) circle (0.1);
 
           %% Text.
-          \node[anchor=north east] at (Pi) {\(\text{P}_i\)};
+          % \node[anchor=south] at (Pi-1) {\(\text{P}_{i-1}\)};
+          \node[anchor=north] at (Pi) {\(\text{P}_i\)};
+          % \node[anchor=south] at (Pi+1) {\(\text{P}_{i+1}\)};
+
         \end{tikzpicture}
         \captionsep{}
-        \mycaption{Abbildung 1}{Schematische Darstellung des beobachteten Zusammenhangs zwischen Bestandesdichte \(N\) und mittlerem Durchmesser \(D\).}
+        \mycaption{Abbildung 1}{Schematische Darstellung der Funktionsweise des Auswahlmechanismus.}
       }
     \end{column}
     \begin{column}{0.5\textwidth}
       \visible<\theFirstElement->{\(\text{P}_i\) wird ausgewählt, wenn}
       \begin{enumerate}
-      \item<\theFirstElement-> es mind. einen benachbarten Punkt gibt und
-      \item<\theSecondElement-> Steigung \(\textcolor{green}{s_1} \geq m_u\) und
-      \item<\theThirdElement-> Steigung \(\textcolor{blue}{s_2} \leq m_o\).
+      \item<\theFirstElement-> es mind. einen benachbarten Punkt gibt (\ding{51}) und
+      \item<\theSecondElement-> Steigung \(\textcolor{blue}{s_1} \geq \textcolor{magenta}{m_u}\) (\ding{51}) und
+      \item<\theThirdElement-> Steigung \(\textcolor{brown}{s_2} \leq \textcolor{cyan}{m_o}\) (\ding{55}).
       \end{enumerate}
     \end{column}
   \end{columns}
@@ -82,8 +88,8 @@
         \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/logDlogNPlotsBeforeAfterDataSelectionBeech.pdf}
         \captionsep{}
         \mycaption{Abbildung 2}{Beobachteter Zusammenhang zwischen Bestandesdichte \(N\) und mittlerem Durchmesser \(D\).  Farbige Linien verbinden Beobachtungen eines Bestandes. Gestrichelte bzw. durchgezogene schwarze Linien stellen den oberen bzw. unteren Schwellwert der noch ,,erlaubten`` Mortalitätsraten beispielhaft dar. \\
-          A: vor Anwendung des Auswahl-Mechanismus \\
-          B: nach Anwendung des Auswahl-Mechanismus}
+          A: vor Anwendung des Auswahlmechanismus \\
+          B: nach Anwendung des Auswahlmechanismus}
       \end{minipage}}}
 \end{frame}
 
