@@ -194,9 +194,24 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 for (cur.object.name in c("bart.beech", "bart.spruce")) {
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
+    ## Assign species-specific coefficients of Nagel function (taken from Nagel (1999), tab. 4).
+    if (grepl(pattern = "beech", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -75.659
+        hb1 <- 23.192
+        hb2 <- -1.468
+        hb3 <- 0
+        hb4 <- 0.2152
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -49.872
+        hb1 <- 7.3309
+        hb2 <- 0.77338
+        hb3 <- 0.52684
+        hb4 <- 0.10542
+    }
     ## Calculate "SI_h100".
     ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-    cur.object[["SI.h100"]] <- (cur.object[["h100"]] + 49.87200 - 7.33090 * log(x = cur.object[["alt"]]) - 0.77338 * ((log(x = cur.object[["alt"]])) ^ 2.0)) / (0.52684 + 0.10542 * log(x = cur.object[["alt"]]))
+    cur.object[["SI.h100"]] <- (cur.object[["h100"]] - hb0 - hb1 * log(x = cur.object[["alt"]]) - hb2 * log(x = cur.object[["alt"]]) ^ 2) / (hb3 + hb4 * log(x = cur.object[["alt"]])) 
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -228,11 +243,26 @@ for (cur.object.name in c("bart.beech", "bart.spruce")) {
     if (grepl(pattern = "spruce", x = cur.object.name)) {
         SI.h100.EKL.I <- 35.1  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
     }
+    ## Assign species-specific coefficients of Nagel function (taken from Nagel (1999), tab. 4).
+    if (grepl(pattern = "beech", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -75.659
+        hb1 <- 23.192
+        hb2 <- -1.468
+        hb3 <- 0
+        hb4 <- 0.2152
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -49.872
+        hb1 <- 7.3309
+        hb2 <- 0.77338
+        hb3 <- 0.52684
+        hb4 <- 0.10542
+    }
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
     ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = cur.object[["alt"]])) - 49.872 + 7.3309 * log(x = cur.object[["alt"]]) + 0.77338 * (log(x = cur.object[["alt"]]))^2
+    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (hb3 + hb4 * log(x = cur.object[["alt"]])) + hb0 + hb1 * log(x = cur.object[["alt"]]) + hb2 * (log(x = cur.object[["alt"]])) ^ 2
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -1817,11 +1847,26 @@ for (cur.object.name in c("schober.beech", "schober.spruce")) {
     if (grepl(pattern = "spruce", x = cur.object.name)) {
         SI.h100.EKL.I <- 35.1  ## This value is h_100 at age 100 (i.e., SI.h100) for EKL I of spruce, moderate thinning (source: Schober (1995)).
     }
+    ## Assign species-specific coefficients of Nagel function (taken from Nagel (1999), tab. 4).
+    if (grepl(pattern = "beech", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -75.659
+        hb1 <- 23.192
+        hb2 <- -1.468
+        hb3 <- 0
+        hb4 <- 0.2152
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -49.872
+        hb1 <- 7.3309
+        hb2 <- 0.77338
+        hb3 <- 0.52684
+        hb4 <- 0.10542
+    }
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
     ## Calculate "h100.EKL.I" based on the function by Nagel 1999 solved for "h100".
     ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (0.52684 + 0.10542 * log(x = cur.object[["age"]])) - 49.872 + 7.3309 * log(x = cur.object[["age"]]) + 0.77338 * (log(x = cur.object[["age"]]))^2
+    cur.object[["h100.EKL.I"]] <- SI.h100.EKL.I * (hb3 + hb4 * log(x = cur.object[["age"]])) + hb0 + hb1 * log(x = cur.object[["age"]]) + hb2 * (log(x = cur.object[["age"]])) ^ 2
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -1890,9 +1935,24 @@ kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 for (cur.object.name in c("schober.beech", "schober.spruce")) {
     ## Assign current object.
     cur.object <- get(x = cur.object.name)
+    ## Assign species-specific coefficients of Nagel function (taken from Nagel (1999), tab. 4).
+    if (grepl(pattern = "beech", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -75.659
+        hb1 <- 23.192
+        hb2 <- -1.468
+        hb3 <- 0
+        hb4 <- 0.2152
+    }
+    if (grepl(pattern = "spruce", x = cur.object.name, fixed = TRUE)) {
+        hb0 <- -49.872
+        hb1 <- 7.3309
+        hb2 <- 0.77338
+        hb3 <- 0.52684
+        hb4 <- 0.10542
+    }
     ## Calculate "SI_h100".
     ## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))  ## Original function (see email by Matthias Schmidt from 2017-04-27 12:06).
-    cur.object[["SI.h100"]] <- (cur.object[["h100"]] + 49.87200 - 7.33090 * log(x = cur.object[["age"]]) - 0.77338 * ((log(x = cur.object[["age"]])) ^ 2.0)) / (0.52684 + 0.10542 * log(x = cur.object[["age"]]))
+    cur.object[["SI.h100"]] <- (cur.object[["h100"]] - hb0 - hb1 * log(x = cur.object[["age"]]) - hb2 * log(x = cur.object[["age"]]) ^ 2) / (hb3 + hb4 * log(x = cur.object[["age"]])) 
     ## Assign new version of current object.
     assign(x = cur.object.name,
            value = cur.object)
@@ -1974,6 +2034,21 @@ kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
 kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
 ## Loop over all species.
 for (cur.species.name in c("beech", "spruce")) {
+    ## Assign species-specific coefficients of Nagel function (taken from Nagel (1999), tab. 4).
+    if (cur.species.name == "beech") {
+        hb0 <- -75.659
+        hb1 <- 23.192
+        hb2 <- -1.468
+        hb3 <- 0
+        hb4 <- 0.2152
+    }
+    if (cur.species.name == "spruce") {
+        hb0 <- -49.872
+        hb1 <- 7.3309
+        hb2 <- 0.77338
+        hb3 <- 0.52684
+        hb4 <- 0.10542
+    }
     ## Create "SI.h100" values for yield classes -1 to 3. Values for yield classes 3, 2, and 1 are directly taken from Schober (1995) (moderate thinning). Values for yield classes 0 and -1 (name suffix ".1") are linearly interpolated from the values for classes 1 and 2.
     if (cur.species.name == "beech") {
         SI.h100.yield.class.3 <- 24.7
@@ -1997,18 +2072,18 @@ for (cur.species.name in c("beech", "spruce")) {
     for (cur.name.suffix in name.suffixes) {
         SI.h100 <- get(x = paste0("SI.h100.yield.class.", cur.name.suffix))
         assign(x = paste0("h100.yield.class.", cur.name.suffix),
-               value = SI.h100 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age) ^ 2))
+               value = SI.h100 * (hb3 + hb4 * log(x = age)) + hb0 + hb1 * log(x = age) + hb2 * (log(x = age) ^ 2))
     }
     ## Calculate "h100.EKL.I.yield.class.YC" for yield class "YC", based on "age" and "SI.h100.yield.class.1", using the function by Nagel (1999).
     for (cur.name.suffix in name.suffixes) {
         assign(x = paste0("h100.EKL.I.yield.class.", cur.name.suffix),
-               value = SI.h100.yield.class.1 * (0.52684 + 0.10542 * log(x = age)) - 49.872 + 7.3309 * log(x = age) + 0.77338 * (log(x = age)) ^ 2)
+               value = SI.h100.yield.class.1 * (hb3 + hb4 * log(x = age)) + hb0 + hb1 * log(x = age) + hb2 * (log(x = age)) ^ 2)
     }
     ## Calculate "SI.h100.yield.class.YC.vec" for yield class "YC", based on "age" and "h100.yield.class.YC", using the function by Nagel (1999) [This procedure is a bit redundant, since it simply results in the corresponding "SI.h100.yield.class.YC" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block "Create "gmax_merged_1.5.RData"").]
     for (cur.name.suffix in name.suffixes) {
         h100 <- get(x = paste0("h100.yield.class.", cur.name.suffix))
         assign(x = paste0("SI.h100.yield.class.", cur.name.suffix, ".vec"),
-               value = (h100 + 49.872 - 7.3309 * log(x = age) - 0.77338 * ((log(x = age)) ^ 2)) / (0.52684 + 0.10542 * log(x = age)))
+               value = (h100 - hb0 - hb1 * log(x = age) - hb2 * ((log(x = age)) ^ 2)) / (hb3 + hb4 * log(x = age)))
     }
     ## Calculate "SI.h100.diff.EKL.I.yield.class.YC = SI.h100.yield.class.YC.vec - SI.h100.yield.class.1.vec" for yield class "YC".
     for (cur.name.suffix in name.suffixes) {
@@ -2057,8 +2132,6 @@ rm(list = setdiff(x = ls(), y = objects.at.start))
 ####################################
 ## Based on version 5.2.
 ## In this version, "bart.SPECIES.clean.1.8" contains an additional column "SI.h100.class.new", which consists of the SI.h100 class as the result of comparing column "SI.h100" with values from Schober (1995) (moderate thinning).
-## Function by Nagel (1999) (see email by Matthias Schmidt from 2017-04-27 12:06):
-## fi1.2$SI_h100 <- (fi1.2$h100+49.87200-7.33090*log(fi1.2$alt)-0.77338*((log(fi1.2$alt))^2.0))/(0.52684+0.10542*log(fi1.2$alt))
 kBaseFileVersion <- "5.2"
 kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
 kFileVersion <- "5.3"
