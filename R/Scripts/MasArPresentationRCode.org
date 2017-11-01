@@ -1,7 +1,7 @@
 #+STARTUP: hideblocks
 * Preamble
   #+NAME: Preamble
-  #+BEGIN_SRC R :results silent :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/MasAr_Thesis.tex
     rm(list = ls())
     setwd(dir = "~/laptop02_MasAr")
@@ -48,7 +48,7 @@
   #+END_SRC
 * logDlogNPlotsBeforeAfterDataSelectionBeech.pdf
   #+NAME: logDlogNPlotsBeforeAfterDataSelectionBeech.pdf
-  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/DataSelection.tex
     ## This script creates 2 plots in one file in a 1-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
@@ -249,7 +249,7 @@
   #+END_SRC
 * AgeBasalAreaObservationsGAM2PredictionsBeech.pdf
   #+NAME: AgeBasalAreaObservationsGAM2PredictionsBeech.pdf
-  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
@@ -425,7 +425,7 @@
   #+END_SRC
 * TopHeightBasalAreaObservationsGAM2PredictionsBeech.pdf
   #+NAME: TopHeightBasalAreaObservationsGAM2PredictionsBeech.pdf
-  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
@@ -601,7 +601,7 @@
   #+END_SRC
 * AgeBasalAreaObservationsGAMLSS3PredictionsBeech.pdf
   #+NAME: AgeBasalAreaObservationsGAMLSS3PredictionsBeech.pdf
-  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
@@ -799,7 +799,7 @@
   #+END_SRC
 * TopHeightBasalAreaObservationsGAMLSS3PredictionsBeech.pdf
   #+NAME: TopHeightBasalAreaObservationsGAMLSS3PredictionsBeech.pdf
-  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
