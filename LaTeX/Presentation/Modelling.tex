@@ -1,34 +1,51 @@
 \section{Modelle}
 
+\subsection{Bisherige Modelle}
 \begin{frame}[c]
   \visible<\theFirstElement->{
     \begin{itemize}
-    \item Problem: \\
-      Gängige Grundflächenmodelle erscheinen unzureichend
-      
-    \item Lösungsansatz: \\
-      GAM (Generalized Additive Model) und \\
-      GAMLSS (Generalized Additive Model for Location, Scale, and Shape)
+    \item<\theFirstElement-> Sterba ([??]): erscheint grds. ungeeignet
+    \item<\theSecondElement-> Wördehoff ([??]): besser, aber bonitätsunempfindlich
     \end{itemize}}
+
+  \visible<\theSecondElement->{
+    \begin{center}
+      \begin{minipage}[t]{0.975\linewidth}
+        {\scriptsize
+        \mycaption{Tabelle 1}{Vergleich der Grundfläche (\(G\)) bei gegebener Oberhöhe (\(h_{100}\)) in verschiedenen Ertragsklassen für Buche, mäßige Durchforstung (Quelle: [??]).}
+        \begin{tabular}{l c c c c}
+          \toprule
+          & \multicolumn{4}{c}{\(G\) [\si{\square\meter\per\hectare}]} \\ \cline{2-5}
+          \(h_{100}\) [\si{\meter}] & I. EKL & II. EKL & III. EKL & IV. EKL \\
+          \midrule
+          15 & \(18.25\) & \(18.9 < x < 20.57\) & \(20.95 < x < 22.35\) & \(22.78 < x < 23.96\) \\
+          25 & \(25.6 < x < 26.8\) & \(27.76 < x < 28.58\) & \(29.3 < x < 29.7\) & \(30.72 < x < 30.97\) \\
+          \bottomrule
+        \end{tabular}}
+      \end{minipage}
+    \end{center}}
 \end{frame}
 
-\subsection{Hintergrund}
+\subsection{GAM und GAMLSS \textendash{} Hintergrund}
 
 \begin{frame}[c]
   \visible<\theFirstElement->{
-    {\scriptsize
-      \mycaption{Tabelle 1}{Unterschiede zwischen linearem Modell (LM), generalisiertem linearen Model (GLM), GAM und GAMLSS.}
-      \begin{tabular}{l l l l}
-      \toprule
-      Modelltyp & modellierter Zusammenhang & unterstellte Verteilung & geschätzter Parameter \\
-      \midrule
-      LM & linear & Normal & Mittelwert \\
-      GLM & linear & Exponentialfamilie & Mittelwert \\
-      GAM & beliebig & Exponentialfamilie & Mittelwert \\
-      GAMLSS & beliebig & beliebig & beliebig \\
-      \bottomrule
-    \end{tabular}}
-  }
+    \begin{center}
+      \begin{minipage}[t]{0.95\linewidth}
+        {\scriptsize
+          \mycaption{Tabelle 1}{Unterschiede zwischen linearem Modell (LM), generalisiertem linearen Model (GLM), GAM und GAMLSS.}
+          \begin{tabular}{l l l l}
+            \toprule
+            Modelltyp & modellierter Zusammenhang & unterstellte Verteilung & geschätzter Parameter \\
+            \midrule
+            LM & linear & Normal & Mittelwert \\
+            GLM & linear & Exponentialfamilie & Mittelwert \\
+            GAM & beliebig & Exponentialfamilie & Mittelwert \\
+            GAMLSS & beliebig & beliebig & beliebig \\
+            \bottomrule
+          \end{tabular}}
+        \end{minipage}
+      \end{center}}
 \end{frame}
 
 \subsection{Ergebnisse}

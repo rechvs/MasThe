@@ -3,9 +3,9 @@
 
   \begin{itemize}
   \item<\theFirstElement-> Problem: \\
-    Direkt messbare Variablen als Prädiktoren ungeeignet, da sie sowohl durch Bonität als auch durch Alter beeinflusst werden
+    \(h_{100}\) als Prädiktor ungeeignet, da sie (bei geringem Datenumfang) keine Trennung von Entwicklungsstufen- und Bonitätseffekt zulässt
   \item<\theFirstElement-> Lösungsansatz: \\
-    Separate Berechung von Bonitäts- und Alterseffekten
+    Separate Berechung von Entwicklungsstufen- und Bonitätseffekten
   \end{itemize}
 
   % \begin{center}
@@ -16,6 +16,27 @@
   %   \end{minipage}
   % \end{center}
 
+\end{frame}
+
+\subsection{Entwicklungsstufeneffekt}
+
+\begin{frame}[c]
+  \visible<\theFirstElement->{Vorgehensweise:}
+  \begin{enumerate}
+  \item Berechnung der Oberhöhe \(h_{100}\) mittels \textbf{Gleichung 3}
+  \end{enumerate}
+  
+    \visible<\theFirstElement->{\begin{center}
+      \begin{minipage}{0.665\linewidth}
+        \centerline{\(\begin{aligned}[t]\NagelFunctionSimpleSolvedForhSIIEKL{}\end{aligned}\)}
+        \vspace{\captiondistance}
+        \mycaption{Gleichung 3}{\(h_{100}\) in Abhängigkeit von absoluter Bonität \(SI\) und Alter, unterstellt der Bestand sei I. EKL (Quelle: [3]). \\
+          \(h_{100}(x)\): Oberhöhe im Alter \(x\) [\si{\meter}]\\
+          \(SI_{\text{I. EKL}}\): \(h_{100}\) im Alter \SI{100}{a} der I. EKL (Quelle: [4]) [\si{\meter}]\\
+          \(\ln\): natürlicher Logarithmus \\
+        \(\beta_0, \ldots, \beta_4\): Koeffizienten}
+      \end{minipage}
+    \end{center}}
 \end{frame}
 
 \subsection{Bonitätseffekt}
@@ -50,27 +71,6 @@
   %       &= \SI{-2.01}{\meter} \\
   %     \end{aligned}\)
   %   \end{itemize}}
-\end{frame}
-
-\subsection{Alterseffekt}
-
-\begin{frame}[c]
-  \visible<\theFirstElement->{Vorgehensweise:}
-  \begin{enumerate}
-  \item Berechnung der Oberhöhe \(h_{100}\) mittels \textbf{Gleichung 3}
-  \end{enumerate}
-  
-    \visible<\theFirstElement->{\begin{center}
-      \begin{minipage}{0.665\linewidth}
-        \centerline{\(\begin{aligned}[t]\NagelFunctionSimpleSolvedForhSIIEKL{}\end{aligned}\)}
-        \vspace{\captiondistance}
-        \mycaption{Gleichung 3}{\(h_{100}\) in Abhängigkeit von absoluter Bonität \(SI\) und Alter, unterstellt der Bestand sei I. EKL (Quelle: [3]). \\
-          \(h_{100}(x)\): Oberhöhe im Alter \(x\) [\si{\meter}]\\
-          \(SI_{\text{I. EKL}}\): \(h_{100}\) im Alter \SI{100}{a} der I. EKL (Quelle: [4]) [\si{\meter}]\\
-          \(\ln\): natürlicher Logarithmus \\
-        \(\beta_0, \ldots, \beta_4\): Koeffizienten}
-      \end{minipage}
-    \end{center}}
 \end{frame}
 
 %%% Local Variables:

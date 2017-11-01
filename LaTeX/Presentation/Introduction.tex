@@ -6,24 +6,37 @@
 % \end{frame}
 
 \section{Einleitung}
-\subsection{Ziel, Probleme, Lösungsansätze}
+\subsection{Ziel und Motivation}
+
 \begin{frame}[c]
   \begin{itemize}
   \item<\theFirstElement-> Ziel: \\
-    Modellierung der \emph{maximalen} Bestandesgrundfläche in Abhängigkeit von \emph{Bonität} und \emph{Alter} gleichaltriger Buchen- und Fichtenreinbestände
-  \item<\theSecondElement-> Probleme:
+    Modellierung der \emph{maximalen} Bestandesgrundfläche in Abhängigkeit von \emph{Entwicklungsstufe} und \emph{Bonität} gleichaltriger Buchen- und Fichtenreinbestände
+  \item<\theFirstElement-> Motivation:
     \begin{itemize}
-    \item<\theSecondElement-> Trainingdatensatz muss von maximalbestockten Flächen stammen
-    \item<\theSecondElement-> Direkt messbare Variablen (z.B. \(h_{100}\)) als Prädiktoren ungeeignet, da sie sowohl Bonitäts- als auch Alterseffekte enthalten
-    \item<\theSecondElement-> Gängige Modelle erscheinen unzureichend
+    \item Modellierung dichteabhängiger Mortalität
+    \item Referenz für oberhöhengesteuerte Grundflächenhaltung
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Probleme und Lösungsansätze}
+\begin{frame}[c]
+  \begin{itemize}
+  \item<\theFirstElement-> Probleme:
+    \begin{itemize}
+    \item<\theFirstElement-> Trainingdatensatz muss von maximalbestockten Flächen stammen
+    \item<\theSecondElement-> \(h_{100}\) als Prädiktor nicht ideal, da sie sowohl Entwicklungsstufen- als auch Bonitätseffekte enthält
+    \item<\theThirdElement-> Bisherige Modelle für Zielerreichung nicht geeignet
     \end{itemize}
   \end{itemize}
   \begin{itemize}
-  \item<\theThirdElement-> Lösungsansätze:
+  \item<\theFirstElement-> Lösungsansätze:
     \begin{itemize}
-    \item<\theThirdElement-> Auswahl der Trainingdaten anhand der Mortalitätsrate
-    \item<\theThirdElement-> Trennung von Bonitäts- und Alterseffekten
-    \item<\theThirdElement-> GAM (Generalized Additive Model) und GAMLSS (Generalized Additive Model for Location, Scale and Shape)
+    \item<\theFirstElement-> Auswahl der Trainingdaten mithilfe der Reineke-Gleichung
+    \item<\theSecondElement-> Trennung von Entwicklungsstufen- und Bonitätseffekten
+    \item<\theThirdElement-> GAM (Generalized Additive Model) und \\
+      GAMLSS (Generalized Additive Model for Location, Scale and Shape)
     \end{itemize}
   \end{itemize}
 \end{frame}
