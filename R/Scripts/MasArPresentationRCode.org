@@ -37,6 +37,25 @@
     ## Set vectors of species names.
     kSpeciesNames <- c("beech", "spruce")
     kSpeciesNamesCapitalized <- c("Beech", "Spruce")
+    ## Define segmented functions.
+    rhs <- function (x, c) {
+        return(ifelse(test = x > c,
+		  yes = x-c,
+		  no = 0))
+    }
+    lhs <- function (x, c) {
+        return(ifelse(test = x <= c,
+		  yes = c-x,
+		  no = 0))
+    }
+    ## Set model formulas for the unconstrained GAMLSS, depending on species.
+    kUnconstrainedFormulas <- list(as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)"),
+			     as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)"))
+    names(x = kUnconstrainedFormulas) <- kSpeciesNames
+    ## Set model formulas for the constrained GAMLSS, depending on species.
+    kConstrainedFormulas <- list(as.formula(object = "gha ~ pbm(h100.EKL.I) + SI.h100.diff.EKL.I"),
+			   as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I"))
+    names(x = kConstrainedFormulas) <- kSpeciesNames
     ## Set destination directory for output.
     kOutputSubdir <- "R/Output/Presentation/"
     ## Set destination directory for graphics.
@@ -257,6 +276,215 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
+* TermEffectsGAMLSSUnconstrained.pdf
+  #+NAME: TermEffectsGAMLSSUnconstrained.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
+    ## Plotting preamble ##
+    #######################
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:4,
+		      nrow = 2,
+		      ncol = 2)
+    kLegendNcol <- 2
+    kXLim <- c(0, 160)
+    kYLim <- c(0, 85)
+    ## Create file name.
+    kFilename <-paste0(kGraphicsSubdir,
+		   "TermEffectsGAMLSSUnconstrained.pdf")
+    ## Define color palette generating function.
+    kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+    ## Set best yield class level for which to interpolate SI.h100 values
+    kBestYieldClassLevel <- -2
+    ## Modelling preamble ##
+    ########################
+    library(package = "gamlss")
+    ## Turn off graphics device.
+    graphics.off()
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = kFilename,
+        width = kPdfWidthSlide / 2,
+        height = kPdfHeightSlide / 2 * 0.9,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Set graphical parameters.
+    par("mgp" = kPlotMgp)
+    ## Loop over species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get translated version of current species name.
+        if (cur.species.name == "beech") {
+	  cur.species.name.translated <- "Buche"
+        }
+        if (cur.species.name == "spruce") {
+	  cur.species.name.translated <- "Fichte"
+        }
+        ## Fit model ##
+    ###############
+        ## Get unconstrained model formula for current species.
+        cur.formula <- kUnconstrainedFormulas[[cur.species.name]]
+        ## Get input data frame for current species.
+        cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Subset input data frame to the variables mentioned in the model formula.
+        cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.formula)]
+        ## Remove missing values from "cur.input.data.col.subset".
+        cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+        ## Fit model.
+        cur.model <- gamlss::gamlss(formula = cur.formula,
+			      sigma.formula = "gha ~ 1",
+			      nu.formula = "gha ~ 1",
+			      tau.formula = "gha ~ 1",
+			      family = gamlss.dist::BCCGo(),
+			      data = cur.input.data.col.subset.na.omitted,
+			      method = RS(1000))
+        ## Loop over model term indexes for current model.
+        for (cur.term.index in 1:2) {
+	  ## Get current model term.
+	  cur.model.term <- attr(x = terms(x = formula(x = cur.model, what = "mu")), which = "term.labels")[cur.term.index]
+	  ## Define plot main title and plot margins, depending on which term index (and thus which plot) we are at.
+	  if (cur.term.index %% 2 != 0) {
+	      cur.plot.main.title <- cur.species.name.translated
+	      top.margin <- 2
+	  } else {
+	      cur.plot.main.title <- ""
+	      top.margin <- 0
+	  }
+	  ## Set y-axis label and plot margins, depending on which species (and thus which plot) we are at.
+	  if (cur.species.name == kSpeciesNames[1]) {
+	      cur.ylab <- paste0("Partial for ", cur.model.term)
+	      left.margin <- 3.25
+	  } else {
+	      cur.ylab <- ""
+	      left.margin <- 2
+	  }
+	  ## Set plot margins.
+	  par("mar" = c(3, left.margin, top.margin, 0.25))
+	  ## Plot model term effect ##
+    ############################
+	  gamlss::term.plot(object = cur.model,
+			se = TRUE,
+			partial.resid = FALSE,
+			what = "mu",
+			terms = cur.model.term,
+			ylab = cur.ylab,
+			pages = 0,
+			ask = FALSE,
+			data = cur.input.data.col.subset.na.omitted,
+			rug = TRUE,
+			main = cur.plot.main.title)
+        }}
+        ## Turn off graphics device.
+        graphics.off()
+  #+END_SRC
+* TermEffectsGAMLSSConstrained.pdf
+  #+NAME: TermEffectsGAMLSSConstrained.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
+    ## Plotting preamble ##
+    #######################
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:4,
+		      nrow = 2,
+		      ncol = 2)
+    kLegendNcol <- 2
+    kXLim <- c(0, 160)
+    kYLim <- c(0, 85)
+    ## Create file name.
+    kFilename <-paste0(kGraphicsSubdir,
+		   "TermEffectsGAMLSSConstrained.pdf")
+    ## Define color palette generating function.
+    kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+    ## Set best yield class level for which to interpolate SI.h100 values
+    kBestYieldClassLevel <- -2
+    ## Modelling preamble ##
+    ########################
+    library(package = "gamlss")
+    ## Turn off graphics device.
+    graphics.off()
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = kFilename,
+        width = kPdfWidthSlide / 2,
+        height = kPdfHeightSlide / 2 * 0.9,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Set graphical parameters.
+    par("mgp" = kPlotMgp)
+    ## Loop over species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get translated version of current species name.
+        if (cur.species.name == "beech") {
+	  cur.species.name.translated <- "Buche"
+        }
+        if (cur.species.name == "spruce") {
+	  cur.species.name.translated <- "Fichte"
+        }
+        ## Fit model ##
+    ###############
+        ## Get constrained model formula for current species.
+        cur.formula <- kConstrainedFormulas[[cur.species.name]]
+        ## Get input data frame for current species.
+        cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Subset input data frame to the variables mentioned in the model formula.
+        cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.formula)]
+        ## Remove missing values from "cur.input.data.col.subset".
+        cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+        ## Fit model.
+        cur.model <- gamlss::gamlss(formula = cur.formula,
+			      sigma.formula = "gha ~ 1",
+			      nu.formula = "gha ~ 1",
+			      tau.formula = "gha ~ 1",
+			      family = gamlss.dist::BCCGo(),
+			      data = cur.input.data.col.subset.na.omitted,
+			      method = RS(1000))
+        ## Loop over model term indexes for current model.
+        for (cur.term.index in 1:2) {
+	  ## Get current model term.
+	  cur.model.term <- attr(x = terms(x = formula(x = cur.model, what = "mu")), which = "term.labels")[cur.term.index]
+	  ## Define plot main title, y-axis label, and plot margins, depending on which term index (and thus which plot) we are at.
+	  if (cur.term.index %% 2 != 0) {
+	      cur.plot.main.title <- cur.species.name.translated
+	      cur.ylab <- paste0("Partial for ", cur.model.term)
+	      top.margin <- 2
+	      if (cur.species.name == kSpeciesNames[1]) {
+		left.margin <- 3.25
+	      } else {
+		left.margin <- 3.25
+	      }
+	  } else {
+	      if (cur.species.name == kSpeciesNames[1]) {
+		cur.ylab <- paste0("Partial for ", cur.model.term)
+		left.margin <- 3.25
+	      } else {
+		cur.ylab <- ""
+		left.margin <- 2
+	      }
+	      cur.plot.main.title <- ""
+	      top.margin <- 0
+	  }
+	  ## Set plot margins.
+	  par("mar" = c(3, left.margin, top.margin, 0.25))
+	  ## Plot model term effect ##
+    ############################
+	  gamlss::term.plot(object = cur.model,
+			se = TRUE,
+			partial.resid = FALSE,
+			what = "mu",
+			terms = cur.model.term,
+			ylab = cur.ylab,
+			pages = 0,
+			ask = FALSE,
+			data = cur.input.data.col.subset.na.omitted,
+			rug = TRUE,
+			main = cur.plot.main.title)
+        }}
+        ## Turn off graphics device.
+        graphics.off()
+  #+END_SRC
 * StandAgeBasalAreaObservationsGAMLSSUnconstrainedPredictions.pdf
   #+NAME: StandAgeBasalAreaObservationsGAMLSSUnconstrainedPredictions.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
@@ -302,13 +530,8 @@
         }
         ## Fit model ##
     ###############
-        ## Set model formula for the constrained GAMLSS, depending on species.
-	  if (cur.species.name == "beech") {
-	      cur.formula <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
-	  }
-	  if (cur.species.name == "spruce") {
-	      cur.formula <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
-	  }
+        ## Get unconstrained model formula for current species.
+        cur.formula <- kUnconstrainedFormulas[[cur.species.name]]
         ## Get input data frame for current species.
         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Subset input data frame to the variables mentioned in the model formula.
@@ -590,13 +813,8 @@
         }
         ## Fit model ##
     ###############
-        ## Set model formula for the constrained GAMLSS, depending on species.
-        if (cur.species.name == "beech") {
-	  cur.formula <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
-        }
-        if (cur.species.name == "spruce") {
-	  cur.formula <- as.formula(object = "gha ~ ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)")
-        }
+        ## Get unconstrained model formula for current species.
+        cur.formula <- kUnconstrainedFormulas[[cur.species.name]]
         ## Get input data frame for current species.
         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Subset input data frame to the variables mentioned in the model formula.
@@ -903,13 +1121,8 @@
         }
         ## Fit model ##
     ###############
-        ## Set model formula for the constrained GAMLSS, depending on species.
-	  if (cur.species.name == "beech") {
-	      cur.formula <- as.formula(object = "gha ~ pbm(h100.EKL.I) + SI.h100.diff.EKL.I")
-	  }
-	  if (cur.species.name == "spruce") {
-	      cur.formula <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
-	  }
+        ## Get constrained model formula for current species.
+        cur.formula <- kConstrainedFormulas[[cur.species.name]]
         ## Get input data frame for current species.
         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Subset input data frame to the variables mentioned in the model formula.
@@ -1202,13 +1415,8 @@
         }
         ## Fit model ##
     ###############
-        ## Set model formula for the constrained GAMLSS, depending on species.
-        if (cur.species.name == "beech") {
-	  cur.formula <- as.formula(object = "gha ~ pbm(h100.EKL.I) + SI.h100.diff.EKL.I")
-        }
-        if (cur.species.name == "spruce") {
-	  cur.formula <- as.formula(object = "gha ~ lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I")
-        }
+        ## Get constrained model formula for current species.
+        cur.formula <- kConstrainedFormulas[[cur.species.name]]
         ## Get input data frame for current species.
         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Subset input data frame to the variables mentioned in the model formula.
