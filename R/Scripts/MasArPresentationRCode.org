@@ -609,8 +609,8 @@
     ## Clean up workspace.                                   
     ## rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* StandAgeBasalAreaObservationsGAMLSS3Predictions.pdf
-  #+NAME: StandAgeBasalAreaObservationsGAMLSS3Predictions.pdf
+* StandAgeBasalAreaObservationsGAMLSSConstrainedPredictions.pdf
+  #+NAME: StandAgeBasalAreaObservationsGAMLSSConstrainedPredictions.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArPresentationRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
@@ -625,7 +625,7 @@
     kYLim <- c(0, 85)
     ## Create file name.
     kFilename <-paste0(kGraphicsSubdir,
-		   "StandAgeBasalAreaObservationsGAMLSS3Predictions.pdf")
+		   "StandAgeBasalAreaObservationsGAMLSSConstrainedPredictions.pdf")
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values
