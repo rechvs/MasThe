@@ -177,14 +177,14 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         new.data.object.name <- paste0("nagel.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
                         ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
-                        if (cur.species.name == "beech") {
-                            new.data <- subset(x = new.data,
-                                               subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                        }
-                        if (cur.species.name == "spruce") {
-                            new.data <- subset(x = new.data,
-                                               subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                        }
+                        ## if (cur.species.name == "beech") {
+                            ## new.data <- subset(x = new.data,
+                                               ## subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                        ## }
+                        ## if (cur.species.name == "spruce") {
+                            ## new.data <- subset(x = new.data,
+                                               ## subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                        ## }
                         ## Calculate model predictions.
                         new.data[["gha.predictions"]] <- mgcv::predict.gam(object = cur.model,
                                                                            newdata = new.data,
@@ -390,14 +390,14 @@ for (cur.input.data.source.name in names.input.data.sources) {
                         new.data.object.name <- paste0("nagel.", cur.species.name)
                         new.data <- get(x = new.data.object.name)
                         ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
-                        if (cur.species.name == "beech") {
-                            new.data <- subset(x = new.data,
-                                               subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                        }
-                        if (cur.species.name == "spruce") {
-                            new.data <- subset(x = new.data,
-                                               subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                        }
+                        ## if (cur.species.name == "beech") {
+                            ## new.data <- subset(x = new.data,
+                                               ## subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                        ## }
+                        ## if (cur.species.name == "spruce") {
+                            ## new.data <- subset(x = new.data,
+                                               ## subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                        ## }
                         ## Calculate model predictions.
                         new.data[["gha.predictions"]] <- scam::predict.scam(object = cur.model,
                                                                             newdata = new.data,
@@ -738,18 +738,18 @@ if (any(grepl(pattern = kFunction,
                                 cur.nagel <- get(x = new.data.object.name)
                                 new.data <- na.omit(object = cur.nagel)
                                 ## Cap test data frame based on columns "h100" and "age" in order to avoid extrapolation of models beyond the range of the training data.
-                                if (cur.species.name == "beech") {
-                                    cur.nagel <- subset(x = cur.nagel,
-                                                        subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                                    new.data <- subset(x = new.data,
-                                                       subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
-                                }
-                                if (cur.species.name == "spruce") {
-                                    cur.nagel <- subset(x = cur.nagel,
-                                                        subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                                    new.data <- subset(x = new.data,
-                                                       subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
-                                }
+                                ## if (cur.species.name == "beech") {
+                                    ## cur.nagel <- subset(x = cur.nagel,
+                                                        ## subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                                    ## new.data <- subset(x = new.data,
+                                                       ## subset = age >= 35 & age <= 155 & h100 >= 15 & h100 <= 40)
+                                ## }
+                                ## if (cur.species.name == "spruce") {
+                                    ## cur.nagel <- subset(x = cur.nagel,
+                                                        ## subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                                    ## new.data <- subset(x = new.data,
+                                                       ## subset = age >= 15 & age <= 115 & h100 >= 10 & h100 <= 35)
+                                ## }
                                 ## Restrict "new.data" to the columns of the independent variables of the current model.
                                 new.data <- subset(x = new.data,
                                                    select = independent.vars)
