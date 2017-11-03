@@ -71,7 +71,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/DataSelection.tex
     ## This script creates 2 plots in one file in a 1-by-2 layout (one row per species, one column per data selection state), showing the effect of the data selection mechanism.
     ## Plotting preamble.
-    kPlotMargins <- c(3.5, 3.5, 1, 1)
     kPlotMgp <- c(2, 1, 0)
     kXLab <- expression(paste("log(", italic("D"), ")"))
     kYLab <- expression(paste("log(", italic("N"), ")"))
@@ -102,8 +101,6 @@
 	  height = kPdfHeightSlide / 2 * 0.9,
 	  pointsize = kPdfPointSize,
 	  family = kPdfFamily)
-        ## Set plot margins.
-        par("mar" = kPlotMargins)
         ## Set plot layout to 1-by-2.
         layout(mat = matrix(data = kPlotLayout,
 		        nrow = 1,
@@ -111,6 +108,16 @@
 		        byrow = TRUE))
         ## Loop over all plot numbers.
         for (cur.plot.nr in kPlotLayout) {
+	  ## Define plot margins, depending on which plot are at.
+	  if (cur.plot.nr == 1) {
+	      left.margin <- 3.25
+	      right.margin <- 0
+	  } else {
+	      left.margin <- 2
+	      right.margin <- 1
+	  }
+	  ## Set plot margins.
+	  par("mar" = c(3.5, left.margin, 1, right.margin))
 	  ## Extract x- and y-limits for current species.
 	  cur.xmin <- as.numeric(x = kXMin[names(x = kXMin) == cur.species.name])
 	  cur.xmax <- as.numeric(x = kXMax[names(x = kXMax) == cur.species.name])
@@ -282,7 +289,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:4,
 		      nrow = 2,
@@ -365,6 +371,7 @@
     ############################
 	  gamlss::term.plot(object = cur.model,
 			se = TRUE,
+			scheme = "lines",
 			partial.resid = FALSE,
 			what = "mu",
 			terms = cur.model.term,
@@ -384,7 +391,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:4,
 		      nrow = 2,
@@ -472,6 +478,7 @@
     ############################
 	  gamlss::term.plot(object = cur.model,
 			se = TRUE,
+			scheme = "lines",
 			partial.resid = FALSE,
 			what = "mu",
 			terms = cur.model.term,
@@ -491,7 +498,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 1,
@@ -643,15 +649,25 @@
         legend.col <- vector(mode = "character")
         ## Generate a color palette of the same length as "SI.h100.sequence".
         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Define y-axis labels and plot margins, depending on which species (and thus which plot) we are at.
+        if (cur.species.name == "beech") {
+	  y.lab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+	  left.margin <- 3.25
+	  right.margin <- 0
+        } else {
+	  y.lab <- ""
+	  left.margin <- 2
+	  right.margin <- 1
+        }
         ## Set plot margins.
-        par("mar" = kPlotMargins)
+        par("mar" = c(3, left.margin, 2, right.margin))
         ## Create empty plot.
         plot(x = cur.input.data[["alt"]],
 	   type = "n",
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "Alter [a]",
-	   ylab = expression(italic("G")*" ["*m^2*" ha"^-1*"]"),
+	   ylab = y.lab,
 	   main = cur.species.name.capitalized,
 	   mgp = kPlotMgp,
 	   xaxs = "i",
@@ -774,7 +790,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 1,
@@ -926,15 +941,25 @@
         legend.col <- vector(mode = "character")
         ## Generate a color palette of the same length as "SI.h100.sequence".
         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Define y-axis labels and plot margins, depending on which species (and thus which plot) we are at.
+        if (cur.species.name == "beech") {
+	  y.lab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+	  left.margin <- 3.25
+	  right.margin <- 0
+        } else {
+	  y.lab <- ""
+	  left.margin <- 2
+	  right.margin <- 1
+        }
         ## Set plot margins.
-        par("mar" = kPlotMargins)
+        par("mar" = c(3, left.margin, 2, right.margin))
         ## Create empty plot.
         plot(x = cur.input.data[["h100"]],
 	   type = "n",
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = expression(italic("h")["100"]*" [m]"),
-	   ylab = expression(italic("G")*" ["*m^2*" ha"^-1*"]"),
+	   ylab = y.lab,
 	   main = cur.species.name.capitalized,
 	   mgp = kPlotMgp,
 	   xaxs = "i",
@@ -1071,7 +1096,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 1,
@@ -1234,15 +1258,25 @@
         legend.col <- vector(mode = "character")
         ## Generate a color palette of the same length as "SI.h100.sequence".
         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Define y-axis labels and plot margins, depending on which species (and thus which plot) we are at.
+        if (cur.species.name == "beech") {
+	  y.lab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+	  left.margin <- 3.25
+	  right.margin <- 0
+        } else {
+	  y.lab <- ""
+	  left.margin <- 2
+	  right.margin <- 1
+        }
         ## Set plot margins.
-        par("mar" = kPlotMargins)
+        par("mar" = c(3, left.margin, 2, right.margin))
         ## Create empty plot.
         plot(x = cur.input.data[["alt"]],
 	   type = "n",
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "Alter [a]",
-	   ylab = expression(italic("G")*" ["*m^2*" ha"^-1*"]"),
+	   ylab = y.lab,
 	   main = cur.species.name.capitalized,
 	   mgp = kPlotMgp,
 	   xaxs = "i",
@@ -1365,7 +1399,6 @@
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
     #######################
-    kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 1,
@@ -1528,15 +1561,25 @@
         legend.col <- vector(mode = "character")
         ## Generate a color palette of the same length as "SI.h100.sequence".
         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Define y-axis labels and plot margins, depending on which species (and thus which plot) we are at.
+        if (cur.species.name == "beech") {
+	  y.lab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+	  left.margin <- 3.25
+	  right.margin <- 0
+        } else {
+	  y.lab <- ""
+	  left.margin <- 2
+	  right.margin <- 1
+        }
         ## Set plot margins.
-        par("mar" = kPlotMargins)
+        par("mar" = c(3, left.margin, 2, right.margin))
         ## Create empty plot.
         plot(x = cur.input.data[["h100"]],
 	   type = "n",
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = expression(italic("h")["100"]*" [m]"),
-	   ylab = expression(italic("G")*" ["*m^2*" ha"^-1*"]"),
+	   ylab = y.lab,
 	   main = cur.species.name.capitalized,
 	   mgp = kPlotMgp,
 	   xaxs = "i",
