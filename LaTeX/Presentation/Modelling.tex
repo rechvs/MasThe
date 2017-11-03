@@ -4,36 +4,36 @@
 \begin{frame}[c]
   \visible<\theFirstElement->{
     \begin{itemize}
-    \item<\theFirstElement-> Sterba ([??]): erscheint grds. ungeeignet
-    \item<\theSecondElement-> Wördehoff ([??]): besser, aber bonitätsunempfindlich
+    \item<\theFirstElement-> Sterba (\Sterba{}): erscheint grds. nicht geeignet
+    \item<\theSecondElement-> Wördehoff (\Woerdehoff{}): besser, aber noch bonitätsunempfindlich und deswegen nicht geeignet für den Ansatz von \DoebbelerSpellmann{} und \SpellmannEtAl{}
     \end{itemize}}
 
   \visible<\theSecondElement->{
     \begin{center}
       \begin{minipage}[t]{0.975\linewidth}
         {\scriptsize
-        \mycaption{Tabelle 1}{Vergleich der Grundfläche (\(G\)) bei gegebener Oberhöhe (\(h_{100}\)) in verschiedenen Ertragsklassen für Buche, mäßige Durchforstung (Quelle: [??]).}
-        \begin{tabular}{l c c c c}
-          \toprule
-          & \multicolumn{4}{c}{\(G\) [\si{\square\meter\per\hectare}]} \\ \cline{2-5}
-          \(h_{100}\) [\si{\meter}] & I. EKL & II. EKL & III. EKL & IV. EKL \\
-          \midrule
-          15 & \(18.25\) & \(18.9 < x < 20.57\) & \(20.95 < x < 22.35\) & \(22.78 < x < 23.96\) \\
-          25 & \(25.6 < x < 26.8\) & \(27.76 < x < 28.58\) & \(29.3 < x < 29.7\) & \(30.72 < x < 30.97\) \\
-          \bottomrule
-        \end{tabular}}
+          \mycaption{Tabelle 1}{Vergleich der Grundfläche (\(G\)) bei gegebener Oberhöhe (\(h_{100}\)) in verschiedenen Ertragsklassen für Buche, mäßige Durchforstung (Quelle: \Schober{}).}
+          \begin{tabular}{l c c c c}
+            \toprule
+            & \multicolumn{4}{c}{\(G\) [\si{\square\meter\per\hectare}]} \\ \cline{2-5}
+            \(h_{100}\) [\si{\meter}] & I. EKL & II. EKL & III. EKL & IV. EKL \\
+            \midrule
+            15 & \(18.25\) & \(18.9 < x < 20.57\) & \(20.95 < x < 22.35\) & \(22.78 < x < 23.96\) \\
+            25 & \(25.6 < x < 26.8\) & \(27.76 < x < 28.58\) & \(29.3 < x < 29.7\) & \(30.72 < x < 30.97\) \\
+            \bottomrule
+          \end{tabular}}
       \end{minipage}
     \end{center}}
 \end{frame}
 
-\subsection{GAM und GAMLSS \textendash{} Hintergrund}
+\subsection{GAM und GAMLSS  \textendash{} Hintergrund}
 
 \begin{frame}[c]
   \visible<\theFirstElement->{
     \begin{center}
-      \begin{minipage}[t]{0.95\linewidth}
+      \begin{minipage}[t]{0.975\linewidth}
         {\scriptsize
-          \mycaption{Tabelle 1}{Unterschiede zwischen linearem Modell (LM), generalisiertem linearen Model (GLM), GAM und GAMLSS.}
+          \mycaption{Tabelle 1}{Unterschiede zwischen linearen Modellen (LM), generalisierten linearen Modellen (GLM), GAM und GAMLSS.}
           \begin{tabular}{l l l l}
             \toprule
             Modelltyp & modellierter Zusammenhang & unterstellte Verteilung & geschätzter Parameter \\
@@ -44,49 +44,95 @@
             GAMLSS & beliebig & beliebig & beliebig \\
             \bottomrule
           \end{tabular}}
-        \end{minipage}
-      \end{center}}
+      \end{minipage}
+    \end{center}}
+
+  \visible<\theSecondElement->{
+    \begin{center}
+      \begin{minipage}[t]{0.825\linewidth}
+        {\scriptsize
+          \mycaption{Tabelle 2}{In \texttt{R} eingesetzte Gleichungen und Verteilungen der hier vorgestellten unbeschränkten GAMLSS. \texttt{h100.EKL.I} ist die Entwicklungsstufenvariable. \texttt{SI.h100.diff.EKL.I} ist die Bontitätsvariable.}
+          \begin{tabular}{l l l}
+            \toprule
+            Baumart & Gleichung & Verteilung \\
+            \midrule
+            Buche & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)} & \texttt{BCCGo()} \\
+            Fichte & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)} & \texttt{BCCGo()} \\
+            \bottomrule
+          \end{tabular}}
+      \end{minipage}
+    \end{center}}
+  
+  \visible<\theSecondElement->{
+    \begin{center}
+      \begin{minipage}[t]{0.925\linewidth}
+        {\scriptsize
+          \mycaption{Tabelle 3}{In \texttt{R} eingesetzte Gleichungen und Verteilungen der hier vorgestellten beschränkten GAMLSS. \texttt{h100.EKL.I} ist die Entwicklungsstufenvariable. \texttt{SI.h100.diff.EKL.I} ist die Bontitätsvariable.}
+          \begin{tabular}{l l l}
+            \toprule
+            Baumart & Gleichung & Verteilung \\
+            \midrule
+            Buche & \texttt{gha \textasciitilde{} pbm(h100.EKL.I) + SI.h100.diff.EKL.I} & \texttt{BCCGo()} \\
+            Fichte & \texttt{gha \textasciitilde{} lhs(x = h100.EKL.I, c = 22) + SI.h100.diff.EKL.I} & \texttt{BCCGo()} \\
+            \bottomrule
+          \end{tabular}}
+      \end{minipage}
+    \end{center}}
 \end{frame}
 
-\subsection{Ergebnisse}
+\subsection{Unbeschränkte GAMLSS \textendash{} Ergebnisse}
 
 \begin{frame}[c]
-  \visible<\theFirstElement->{
+  \only<\theFirstElement>{
     \centerline{
       \begin{minipage}{0.9\textwidth}
-        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/AgeBasalAreaObservationsGAM2PredictionsBeech.pdf}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TermEffectsGAMLSSUnconstrained.pdf}
         \captionsep{}
-        \mycaption{Abbildung 3}{Beobachtete (Punkte) und durch GAM vorhergesagte (farbige Linien) Grundfläche \(G\) über Alter bei Buche. Farben deuten die jeweilige EKL an.}
+        \mycaption{Abbildung 3}{Effekt der Entwicklungsstufenvariable (\texttt{h100.EKL.I}, oben) und der Bonitätsvariable (\texttt{SI.h100.diff.EKL.I}, unten) im unbeschränkten GAMLSS für Buche (links) und Fichte (rechts).  Gestrichelte orange Linien markieren den Standardfehler.  Senkrechte graue Striche repräsentieren beobachtete Variablenwerte.}
+      \end{minipage}}}
+
+  \only<\theSecondElement>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/StandAgeBasalAreaObservationsGAMLSSUnconstrainedPredictions.pdf}
+        \captionsep{}
+        \mycaption{Abbildung 4}{Beobachtete (Punkte) und durch unbeschränkte GAMLSS vorhergesagte (farbige Linien) Grundfläche (\(G\)) über Alter bei Buche (links) und Fichte (rechts).  Schwarze Linien verbinden Beobachtungen einer Parzelle.  Farben deuten die jeweilige Ertragsklasse an.}
+      \end{minipage}}}
+
+  \only<\theThirdElement>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TopHeightBasalAreaObservationsGAMLSSUnconstrainedPredictions.pdf}
+        \captionsep{}
+        \mycaption{Abbildung 5}{Beobachtete (Punkte) und durch unbeschränkte GAMLSS vorhergesagte (farbige Linien) Grundfläche (\(G\)) über Oberhöhe (\(h_{100}\)) bei Buche (links) und Fichte (rechts). Schwarze Linien verbinden Beobachtungen einer Parzelle. Farben deuten die jeweilige Ertragsklasse an.}
       \end{minipage}}}
 \end{frame}
 
-\begin{frame}[c]
-  \visible<\theFirstElement->{
-    \centerline{
-      \begin{minipage}{0.9\textwidth}
-        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TopHeightBasalAreaObservationsGAM2PredictionsBeech.pdf}
-        \captionsep{}
-        \mycaption{Abbildung 4}{Beobachtete (Punkte) und durch GAM vorhergesagte (farbige Linien) Grundfläche \(G\) über Oberhöhe \(h_{100}\) bei Buche. Farben deuten die jeweilige EKL an.}
-      \end{minipage}}}
-\end{frame}
+\subsection{Beschränkte GAMLSS \textendash{} Ergebnisse}
 
 \begin{frame}[c]
-  \visible<\theFirstElement->{
+  \only<\theFirstElement>{
     \centerline{
       \begin{minipage}{0.9\textwidth}
-        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/AgeBasalAreaObservationsGAMLSS3PredictionsBeech.pdf}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TermEffectsGAMLSSConstrained.pdf}
         \captionsep{}
-        \mycaption{Abbildung 5}{Beobachtete (Punkte) und durch GAMLSS vorhergesagte (farbige Linien) Grundfläche \(G\) über Alter bei Buche. Farben deuten die jeweilige EKL an.}
+        \mycaption{Abbildung 6}{Effekt der Entwicklungsstufenvariable (\texttt{h100.EKL.I}, oben) und der Bonitätsvariable (\texttt{SI.h100.diff.EKL.I}, unten) im beschränkten GAMLSS für Buche (links) und Fichte (rechts).  Gestrichelte orange Linien markieren den Standardfehler.  Senkrechte graue Striche repräsentieren beobachtete Variablenwerte.}
       \end{minipage}}}
-\end{frame}
 
-\begin{frame}[c]
-  \visible<\theFirstElement->{
+  \only<\theSecondElement>{
     \centerline{
       \begin{minipage}{0.9\textwidth}
-        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TopHeightBasalAreaObservationsGAMLSS3PredictionsBeech.pdf}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/StandAgeBasalAreaObservationsGAMLSSConstrainedPredictions.pdf}
         \captionsep{}
-        \mycaption{Abbildung 6}{Beobachtete (Punkte) und durch GAMLSS vorhergesagte (farbige Linien) Grundfläche \(G\) über Oberhöhe \(h_{100}\) bei Buche. Farben deuten die jeweilige EKL an.}
+        \mycaption{Abbildung 7}{Beobachtete (Punkte) und durch beschränkte GAMLSS vorhergesagte (farbige Linien) Grundfläche (\(G\)) über Alter bei Buche (links) und Fichte (rechts). Schwarze Linien verbinden Beobachtungen einer Parzelle. Farben deuten die jeweilige Ertragsklasse an.}
+      \end{minipage}}}
+
+  \only<\theThirdElement>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}
+        \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/TopHeightBasalAreaObservationsGAMLSSConstrainedPredictions.pdf}
+        \captionsep{}
+        \mycaption{Abbildung 8}{Beobachtete (Punkte) und durch beschränkte GAMLSS vorhergesagte (farbige Linien) Grundfläche (\(G\)) über Oberhöhe (\(h_{100}\)) bei Buche (links) und Fichte (rechts). Schwarze Linien verbinden Beobachtungen einer Parzelle. Farben deuten die jeweilige Ertragsklasse an.}
       \end{minipage}}}
 \end{frame}
 

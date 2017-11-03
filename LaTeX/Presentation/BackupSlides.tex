@@ -1,6 +1,6 @@
 \section*{}
-\begin{frame}[plain]
 
+\begin{frame}[plain]
   \begin{center}
     \begin{minipage}{0.33\linewidth}
       \mycaption{Tabelle S1}{Für den Auswahlmechanismus verwendete Schwellwerte ,,erlaubter`` Steigungen.}
@@ -12,10 +12,12 @@
         Fichte & -2.82 & -0.65 \\
         \bottomrule
       \end{tabular}
-
-      \vspace{5mm}
-      
-      \mycaption{Tabelle S2}{In [2] wiedergegebene Steigungen für \textbf{Gleichung 1}.}
+    \end{minipage}
+  \end{center}
+  
+  \begin{center}
+    \begin{minipage}{0.32\linewidth}
+      \mycaption{Tabelle S2}{In \VospernikSterba{} wiedergegebene Steigungen für \textbf{Gleichung 1}.}
       \begin{tabular}{l l l}
         \toprule
         Art & Min. & Max. \\
@@ -27,24 +29,21 @@
     \end{minipage}
   \end{center}
 
-\end{frame}
-
-\begin{frame}[plain]  %% The following emtpy line is required to prevent the "frame" environment from assuming the "{\scriptsize...}" call to be the frame title.
-  
+  \begin{center}
+    \begin{minipage}{0.4\linewidth}
       {\scriptsize
-      \mycaption{Tabelle S3}{Auswahl der in \texttt{R} verwendeten Einstellungen für die gezeigten Modelle.}
-      \begin{tabular}{l l l}
-        \toprule
-        Modell & Formel & Verteilung u. Links \\
-        \midrule
-        GAM & \mu{}: \texttt{gha \textasciitilde{} s(h100.EKL.I) + SI.h100.diff.EKL.I} & \multirow{2}{*}{\begin{tabular}{l} Gamma \\ \mu{}-Link: log \end{tabular}} \\
-        \\
-        GAMLSS & \mu{}: \texttt{gha \textasciitilde{} pbm(h100.EKL.I) + SI.h100.diff.EKL.I} & \multirow{4}{*}{\begin{tabular}{l}Box-Cox-Cole-Greene \\ \mu{}-Link: log \\ \sigma{}-Link: log \\ \nu{}-Link: identity \end{tabular}} \\
-        & \sigma{}: \texttt{gha \textasciitilde{} 1} \\
-        & \nu{}: \texttt{gha \textasciitilde{} 1}\\
-        \\
-        \bottomrule
-      \end{tabular}}
+        \mycaption{Tabelle S3}{Linkfunktionen für die Verteilungsparameter der \texttt{BCCGo()}-Verteilung.}
+        \begin{tabular}{l l}
+          \toprule
+          Verteilungsparameter & Linkfunktion \\
+          \midrule
+          \(\mu\) & Logarithmus \\
+          \(\sigma\) & Logarithmus \\
+          \(\nu\) & Identität \\
+          \bottomrule
+        \end{tabular}}
+    \end{minipage}
+  \end{center}
 \end{frame}
 
 %%% Local Variables:

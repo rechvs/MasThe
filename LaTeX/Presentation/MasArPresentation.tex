@@ -22,8 +22,16 @@
 % \newcommand{\NagelFunctionSolvedForSI}{h_{100}(100) = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}\)}
 \newcommand{\NagelFunctionSolvedForSI}{SI = \frac{h_{100}(\text{Alter}) + 49.872 - 7.3309 \cdot \ln(\text{Alter}) - 0.77338 \cdot \ln(\text{Alter})^2 }{0.52684 + 0.10542 \cdot \ln(\text{Alter})}}
 \newcommand{\NagelFunctionSimpleSolvedForSI}{SI = \frac{h_{100}(\text{Alter}) + \beta_0 + \beta_1 \cdot \ln(\text{Alter}) + \beta_2 \cdot \ln(\text{Alter})^2 }{\beta_3 + \beta_4 \cdot \ln(\text{Alter})}}
-\newcommand{\NagelFunctionSimpleSolvedForh}{h_{100}(Alter) = SI \cdot (\beta_3 + \beta_4 \cdot ln(\text{Alter})) - \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
-\newcommand{\NagelFunctionSimpleSolvedForhSIIEKL}{h_{100}(Alter) =~ &SI_{\text{I. EKL}} \cdot (\beta_3 + \beta_4 \cdot ln(\text{Alter})) \\ &- \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
+\newcommand{\NagelFunctionSimpleSolvedForh}{h_{100}(\text{Alter}) = SI \cdot (\beta_3 + \beta_4 \cdot \ln(\text{Alter})) - \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
+\newcommand{\NagelFunctionSimpleSolvedForhSIIEKL}{h_{100}(\text{Alter}) =~ &SI_{\text{I. EKL}} \cdot (\beta_3 + \beta_4 \cdot \ln(\text{Alter})) \\ &- \beta_0 - \beta_1 \cdot \ln(\text{Alter}) - \beta_2 \cdot \ln(\text{Alter})^2}
+\newcommand{\DoebbelerSpellmann}{[1]}
+\newcommand{\SpellmannEtAl}{[2]}
+\newcommand{\Reineke}{[3]}
+\newcommand{\VospernikSterba}{[4]}
+\newcommand{\Nagel}{[5]}
+\newcommand{\Schober}{[6]}
+\newcommand{\Sterba}{[7]}
+\newcommand{\Woerdehoff}{[8]}
 
 %% Define slide numbers for managing element visibility.
 \newcounter{firstElement}
@@ -84,7 +92,7 @@
 \appendix{}
 
 \setbeamertemplate{footline}{}  %% Deaktivieren der Anzeiger der Foliennummer in der Fußzeile.
-\addtocounter{framenumber}{-2} %% Reduktion der Folienzahl (-1 je Backupfolie)
+\addtocounter{framenumber}{-1} %% Reduktion der Folienzahl (-1 je Backupfolie)
 \input{BackupSlides.tex}
 
 \end{document}

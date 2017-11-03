@@ -1,76 +1,53 @@
 \section{Trennung der Effekte}
-\begin{frame}[c]
 
+\begin{frame}[c]
   \begin{itemize}
   \item<\theFirstElement-> Problem: \\
-    \(h_{100}\) als Prädiktor ungeeignet, da sie (bei geringem Datenumfang) keine Trennung von Entwicklungsstufen- und Bonitätseffekt zulässt
+    Oberhöhe (\(h_{100}\)) als Prädiktor ungeeignet, da sie (bei geringem Datenumfang) keine Trennung von Entwicklungsstufen- und Bonitätseffekt zulässt
   \item<\theFirstElement-> Lösungsansatz: \\
-    Separate Berechung von Entwicklungsstufen- und Bonitätseffekten
+    Separate Berechnung einer Entwicklungsstufen- und einer Bonitätsvariable
   \end{itemize}
-
-  % \begin{center}
-  %   \begin{minipage}{0.75\linewidth}
-  %     \centerline{\visible<\theFirstElement->{\NagelFunctionSolvedForSI{}}}
-  %     \vspace{\captiondistance}
-  %     \mycaption{Gleichung 2}{Absolute Bonität \(SI\) in Abhängigkeit von \(h_{100}\) und Alter (Quelle: [3]).}
-  %   \end{minipage}
-  % \end{center}
-
 \end{frame}
 
-\subsection{Entwicklungsstufeneffekt}
+\subsection{Entwicklungsstufenvariable}
 
 \begin{frame}[c]
-  \visible<\theFirstElement->{Vorgehensweise:}
-  \begin{enumerate}
-  \item Berechnung der Oberhöhe \(h_{100}\) mittels \textbf{Gleichung 3}
-  \end{enumerate}
+  \visible<\theFirstElement->{Vorgehensweise: \\
+  Berechnung der Oberhöhe (\(h_{100}\)) mittels \textbf{Gleichung 2}}
   
     \visible<\theFirstElement->{\begin{center}
       \begin{minipage}{0.665\linewidth}
         \centerline{\(\begin{aligned}[t]\NagelFunctionSimpleSolvedForhSIIEKL{}\end{aligned}\)}
         \vspace{\captiondistance}
-        \mycaption{Gleichung 3}{\(h_{100}\) in Abhängigkeit von absoluter Bonität \(SI\) und Alter, unterstellt der Bestand sei I. EKL (Quelle: [3]). \\
+        \mycaption{Gleichung 2}{Oberhöhe in Abhängigkeit von absoluter Bonität und Alter, unterstellt der Bestand sei I. Ertragsklasse (Quelle: \Nagel{}). \\
           \(h_{100}(x)\): Oberhöhe im Alter \(x\) [\si{\meter}]\\
-          \(SI_{\text{I. EKL}}\): \(h_{100}\) im Alter \SI{100}{a} der I. EKL (Quelle: [4]) [\si{\meter}]\\
+          \(SI_{\text{I. EKL}}\): \(h_{100}\) im Alter \SI{100}{a} der I. Ertragsklasse [\si{\meter}] (Quelle: \Schober{}) \\
           \(\ln\): natürlicher Logarithmus \\
         \(\beta_0, \ldots, \beta_4\): Koeffizienten}
       \end{minipage}
     \end{center}}
 \end{frame}
 
-\subsection{Bonitätseffekt}
+\subsection{Bonitätsvariable}
 
 \begin{frame}[c]
   \visible<\theFirstElement->{Vorgehensweise:
   \begin{enumerate}
-  \item Berechnung der absoluten Bonität \(SI\) mittels \textbf{Gleichung 2}
-  \item Berechnung der Differenz zwischen 1. und \(SI_{\text{I. EKL}}\) (Quelle: [4])
+  \item Berechnung der absoluten Bonität (\(SI\)) mittels \textbf{Gleichung 3}
+  \item Berechnung der Differenz zwischen 1. und \(SI_{\text{I. EKL}}\) (Quelle: \Schober{})
   \end{enumerate}}
 
   \visible<\theFirstElement->{\begin{center}
       \begin{minipage}{0.5\linewidth}
         \centerline{\(\NagelFunctionSimpleSolvedForSI{}\)}
         \vspace{\captiondistance}
-        \mycaption{Gleichung 2}{Absolute Bonität \(SI\) in Abhängigkeit von \(h_{100}\) und Alter (Quelle: [3]). \\
+        \mycaption{Gleichung 3}{Absolute Bonität in Abhängigkeit von Oberhöhe und Alter (Quelle: \Nagel{}). \\
           \(SI\): \(h_{100}\) im Alter \SI{100}{a} [\si{\meter}]\\
           \(h_{100}(x)\): Oberhöhe im Alter \(x\) [\si{\meter}]\\
           \(\ln\): natürlicher Logarithmus \\
         \(\beta_0, \ldots, \beta_4\): Koeffizienten}
       \end{minipage}
     \end{center}}
-
-  % \visible<\theSecondElement->{Beispiel:
-  %   \begin{itemize}
-  %     % \item Alter = \SI{91}{a}
-  %   \item \(h_{100}(91) = \SI{29.4}{\meter}\) \\
-  %     \(\Rightarrow SI = \SI{30.39}{\meter}\)
-  %   \item \(SI_{\text{I. EKL}} = \SI{32.4}{\meter}\)
-  %   \item \(\begin{aligned}[t]
-  %       \Delta_{SI} &= \SI{30.39}{\meter} - \SI{32.4}{\meter} \\
-  %       &= \SI{-2.01}{\meter} \\
-  %     \end{aligned}\)
-  %   \end{itemize}}
 \end{frame}
 
 %%% Local Variables:

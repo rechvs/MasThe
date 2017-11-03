@@ -6,11 +6,12 @@
       \begin{minipage}{0.40\textwidth}
         \centerline{\(\mylog(N) = \textcolor{red}{s} \log(D) + k\)}
         \vspace{\captiondistance}
-        \mycaption{Gleichung 1}{Bestandesdichte in Abhängigkeit von mittlerem Durchmesser (Quelle: [1]). \\
+        \mycaption{Gleichung 1}{Bestandesdichte in Abhängigkeit von mittlerem Durchmesser (Quelle: \Reineke{}). \\
           \(N\): Bestandesdichte [\si{\per\hectare}] \\
           \(s\): \textcolor{red}{Steigung} \\
           \(D\): Durchmesser des Grundflächenmittelstammes [\si{\centi\meter}] \\
-          \(k\): Konstante (artabhängig)}
+          \(k\): Konstante (artabhängig) \\
+          \(\log\): dekadischer Logarithmus}
       \end{minipage}
     \end{center}
 
@@ -24,7 +25,7 @@
 
   \begin{itemize}
   \item<\theSecondElement-> Literatur: \\
-    Steigung scheint art- und standortabhängig zu sein (s. z.B. [2])
+    Steigung scheint art- und standortabhängig zu sein (s. z.B. \VospernikSterba{})
   \item<\theSecondElement-> Lösungsansatz: \\
     artabhängiger Korridor ,,erlaubter`` Steigungen, begrenzt durch unteren Schwellwert (\(m_u\)) und oberen Schwellwert (\(m_o\))
   \end{itemize}
@@ -52,7 +53,7 @@
           \visible<\theSecondElement->{\draw[magenta,thick] (Pi-1) -- ++(280:2cm);}
           \visible<\theSecondElement->{\draw[blue,thick] (Pi-1) -- (Pi);}
           \visible<\theThirdElement->{\draw[cyan,thick,dashed] (Pi) -- ++(330:2cm);}
-          \visible<\theThirdElement->{\draw[brown,thick,dashed] (Pi) -- (Pi+1);}
+          \visible<\theThirdElement->{\draw[brown,thick,dashed, preaction={draw,line width=2pt,white}] (Pi) -- (Pi+1);}
 
           %% Points.
           \fill[gray] (Pi-1) circle (0.1);
@@ -66,7 +67,9 @@
 
         \end{tikzpicture}
         \captionsep{}
-        \mycaption{Abbildung 1}{Schematische Darstellung der Funktionsweise des Auswahlmechanismus.}
+        \mycaption{Abbildung 1}{Schematische Darstellung der Funktionsweise des Auswahlmechanismus.  \\
+          \(N\): Bestandesdichte [\si{\per\hectare}] \\
+          \(D\): Durchmesser des Grundflächenmittelstammes [\si{\centi\meter}]}
       }
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -87,7 +90,7 @@
       \begin{minipage}{0.9\textwidth}
         \includegraphics[width=1.0\textwidth]{../../Graphics/Presentation/logDlogNPlotsBeforeAfterDataSelectionBeech.pdf}
         \captionsep{}
-        \mycaption{Abbildung 2}{Beobachteter Zusammenhang zwischen Bestandesdichte \(N\) und mittlerem Durchmesser \(D\).  Farbige Linien verbinden Beobachtungen eines Bestandes. Gestrichelte bzw. durchgezogene schwarze Linien stellen den oberen bzw. unteren Schwellwert der noch ,,erlaubten`` Steigungen beispielhaft dar. \\
+        \mycaption{Abbildung 2}{Beobachteter Zusammenhang zwischen Bestandesdichte (\(N\)) und mittlerem Durchmesser (\(D\)) bei Buche.  Farbige Linien verbinden Beobachtungen einer Parzelle. Gestrichelte bzw. durchgezogene schwarze Linien stellen den oberen bzw. unteren Schwellwert der noch ,,erlaubten`` Steigungen beispielhaft dar. \\
           A: vor Anwendung des Auswahlmechanismus \\
           B: nach Anwendung des Auswahlmechanismus}
       \end{minipage}}}
