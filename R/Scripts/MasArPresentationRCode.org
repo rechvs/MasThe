@@ -764,7 +764,7 @@
 			  times = length(x = SI.h100.yield.class.values[["yield.class"]])))
         ## Set position of legend, depending on species.
         if (cur.species.name == "beech") {
-	  legend.x <- "topright"
+	  legend.x <- "topleft"
         }
         if (cur.species.name == "spruce") {
 	  legend.x <- "bottomright"
@@ -1064,7 +1064,7 @@
 		        times = length(x = SI.h100.yield.class.values[["yield.class"]])))
         ## Set position of legend, depending on species.
         if (cur.species.name == "beech") {
-	  legend.x <- "topright"
+	  legend.x <- "topleft"
         }
         if (cur.species.name == "spruce") {
 	  legend.x <- "bottomright"
@@ -1373,7 +1373,7 @@
 			  times = length(x = SI.h100.yield.class.values[["yield.class"]])))
         ## Set position of legend, depending on species.
         if (cur.species.name == "beech") {
-	  legend.x <- "topright"
+	  legend.x <- "topleft"
         }
         if (cur.species.name == "spruce") {
 	  legend.x <- "bottomright"
@@ -1684,7 +1684,7 @@
 		        times = length(x = SI.h100.yield.class.values[["yield.class"]])))
         ## Set position of legend, depending on species.
         if (cur.species.name == "beech") {
-	  legend.x <- "topright"
+	  legend.x <- "topleft"
         }
         if (cur.species.name == "spruce") {
 	  legend.x <- "bottomright"
