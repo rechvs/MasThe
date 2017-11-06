@@ -25,12 +25,14 @@ titlepage]
 
 %% Define custom commands (in alphabetical order of command name). Note: macro names may not contain non-letters.
 \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
+\DeclareMathOperator{\diag}{diag}
 \newcommand{\logNlogDcurve}{log(\(N\))-log(\(D\))-curve}
 \newcommand{\NWFVA}{Northwest German Forest Research Institute}
 \newcommand{\Ponderosa}[0]{Ponderosa pine (\emph{Pinus ponderosa} \textsc{Douglas})}
 \newcommand{\RefEq}[1]{equation~(\ref{#1})}
 \newcommand{\RefTab}[1]{Table~\ref{#1}}
 \newcommand{\RefFig}[1]{Figure~\ref{#1}}
+\DeclareMathOperator{\sign}{sign}
 \newcommand{\Spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\TopHeight}[0]{h_{100}}
 
@@ -51,9 +53,10 @@ titlepage]
 \section{Introduction}
 
 \section{Material and Methods}
-\input{DataSelection.tex}
-\input{DataDescription.tex}
+% \input{DataSelection.tex}
+% \input{DataDescription.tex}
 \input{GAMsExplanation.tex}
+\input{SCAMsExplanation.tex}
 
 \newpage{}
 \input{Bibliography.tex}

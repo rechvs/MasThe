@@ -29,13 +29,13 @@ where \(a\), \(b\), and \(c\) are arbitrary functions, \(\Phi\) is an arbitrary 
 
 Building upon GLMs, a GAM has a structure similar to
 \begin{equation}
-  \label{eq:GeneralizedAdditiveModel}
+  \label{eq:GAM}
   g\bigl(\mu_i\bigr) = \symbf{x}_i^* \symbf{\theta} + f_{1}\bigl(x_{1i}\bigr) + f_{2}\bigl(x_{2i}\bigr) + f_{3}\bigl(x_{3i}, x_{4i}\bigr) + \ldots~,
 \end{equation}
 where \(\mu_i\) again is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), the response variable \(Y_i\) follows any exponential family distribution, \(\symbf{x}_i^*\) is a row of the model matrix for any strictly parametric model components, \(\symbf{\theta}\) is the corresponding parameter vector, and the \(f_j\) are smooth functions of the covariates, \(x_k\) \parencite{Wood2006}.  A smooth function may be considered an estimate of the acutal functional relationship between the response variable and the predictor variable to which the smooth function is applied \parencite{Hastie1991}.  Unlike LMs or GLMs, a smooth function is nonparametric, i.e., it does not assume the response variable to follow any specific distribution.
 As an explanatory example, consider a model containing one smooth function of one predictor variable with the identity function as the link function,
 \begin{equation}
-  \label{eq:GeneralizedAdditiveModelSimple}
+  \label{eq:GAMSimple}
   y_i = f\bigl(x_i\bigr) + \varepsilon_i~,
 \end{equation}
 where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is a smooth function, and the \(\varepsilon_i\) follow the normal distribution with a mean of zero and a variance of \(\sigma^2\) \parencite{Wood2006}.  The \(x_i\) lie in the interval \([0, 1]\).  In order to be able to estimate \(f\), a space of known functions, of which \(f\) (or its estimate) is assumed to be an element, needs to be chosen, such that
@@ -43,7 +43,7 @@ where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is 
   \label{eq:SmoothFunctionBasis}
   f(x) = \sum_{i=1}^q b_i(x)\beta_i~,
 \end{equation}
-where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GeneralizedAdditiveModelSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
+where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GAMSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
 The GAMs used in the present study employ thin plate regression splines \parencite{Wood2003} for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines \parencite{Duchon1977}.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
 \begin{equation}

@@ -101,7 +101,7 @@ Maximization of the penalized log-likelihood is then achieved in the following w
 \item Hence define \(\symbf{P} = \symbf{R}^{-1} \symbf{U}(\symbf{I} - \symbf{\Lambda})^{-1/2}\) and \(\symbf{K} = \symbf{Q}_1 \symbf{U} (\symbf{I} - \symbf{\Lambda})^{-1/2}\).
 \item Update the estimate of \(\symbf{\beta}\) as \(\symbf{\beta}^{[k + 1]} = \symbf{\beta}^{[k]} + \symbf{P} \symbf{K}^{\text{T}} \sqrt{\tilde{\symbf{W}}} \tilde{\symbf{z}} - \symbf{P} \symbf{P}^{\text{T}} \symbf{S}_\uplambda \symbf{\beta}^{[k]}\) and increment \(k\).
 \end{enumerate}
-The SCAMs presented in this study use GCV/UBRE score optimization for selecting the estimate of the smoothing parameter vector \(\mathbf{\uplambda}\).
+The SCAMs presented in this study optimize the GCV/un-biased risk estimator \parencite{Craven1979,Wahba1990} score for selecting the estimate of the smoothing parameter vector \(\mathbf{\uplambda}\).
 
 
 %%% Local Variables:
