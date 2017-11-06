@@ -30,6 +30,14 @@
     '("symbf" 1)))  ;; See "unicode-math" manual, p. 11.
  LaTeX-dialect)
 
+;; Make certain macros known to AUCTeX as macros which require 2 mandatory arguments.
+(TeX-add-style-hook
+ "MasArThesis"
+ (lambda ()
+   (TeX-add-symbols
+    '("interval" 2)))  ;; See package "interval".
+ LaTeX-dialect)
+
 ;; Make macro "\RefTab" known to AUCTeX as a macro requiring a label as the argument. See AUCTeX info Adding Macros. See variable "TeX-symbol-list" (which is buffer local, so you have to issue "C-h v" in the buffer visiting a tex file related to the master file in question) if it worked as intended.
 (TeX-add-style-hook
  "MasArThesis"
