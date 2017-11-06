@@ -1,0 +1,110 @@
+\subsection{Explanation of SCAMs}
+
+Shape constrained additive models (SCAMs) \parencite{Pya2015} are an extenstion of GAMs utilizing P-splines \parencite{Eilers1996}, which in turn build upon B-splines.  A SCAM may have a structure like
+\begin{equation}
+  \label{eq:SCAM}
+  g\bigl(\mu_i\bigr) = \symbf{A} \symbf{\theta} + \sum_j f_j\bigl(z_{j i}\bigr) + \sum_k m_k\bigl(x_{k i}\bigr)~,
+\end{equation}
+where \(g\) is a known smooth monotonic link function, \(\mu_i\) is the mean of univariate response variable which follows an exponential family distribution, \(\symbf{A}\) is the model matrix, \(\theta\) is a vector of unknown parameters, \(f_j\) is an unknown smooth function of predictor variable \(z_j\) and \(m_k\) is an unknown shape constrained smooth function of predictor variable \(x_k\).
+
+In order to explain shape constrained smooth functions, consider the case of a monotonically increasing smooth, \(m\), using a B-spline basis.  Let
+\begin{equation}
+  \label{eq:SCAMMonotonicallyIncreasingSmooth}
+  m(x) = \sum_{j = 1}^q \gamma_j B_j(x)~,
+\end{equation}
+where \(q\) is the number of basis functions, the \(B_j\) are B-spline basis functions of at least second order for representing smooth functions over interval \(\interval{a}{b}\), based on equally spaced knots, and the \(\gamma_j\) are spline coefficients.  A sufficient condition for ensuring the smooth function \(m\) to be monotonically increasing (i.e., for \(m'(x) \geq 0\)) over \(\interval{a}{b}\) is that \(\gamma_j \geq \gamma_{j -1} \forall j\).  This condition can be imposed by reparameterizing, so that
+\begin{equation}
+  \label{eq:SCAMReparameterizedGamma}
+  \symbf{\gamma} = \symbf{\Sigma} \tilde{\symbf{\beta}}~,
+\end{equation}
+where \(\symbf{\beta} = \bigl[\beta_1, \beta_2, \ldots, \beta_q\bigr]^{\text{T}}\) and \(\tilde{\symbf{\beta}} = \bigl[\beta_1, \exp(\beta_2), \ldots, \exp(\beta_q)\bigr]^{\text{T}}\), while \(\Sigma_{i j} = 0\) if \(i < j\) and \(\Sigma_{i j} = 1\) if \(i \geq j\).  Thus, if \(\symbf{m} = [m(x_1), m(x_2), \ldots, m(x_n)]^{\text{T}}\) is the vector of \(m\) values at the observed points \(x_i\), and \(\symbf{X}\) is a matrix such that \(X_{i j} = B_j(x_i)\), then
+\begin{equation}
+  \label{eq:SCAMConstrainedSmootherVector}
+  \symbf{m} = \symbf{X} \symbf{\Sigma} \tilde{\symbf{\beta}}~.
+\end{equation}
+Smoothness of \(m\) is ensured by penalizing the squared difference between adjacent \(\beta_j\), starting from \(\beta_2\), using \(\norm{\symbf{D} \symbf{\beta}}^2\), where \(\symbf{D}\) is the \((q-2) \times q\) matrix which is all zero except that \(D_{i, i + 1} = - D_{i, i + 2} = 1\) for \(i = 1, \ldots, q - 2\).  This penalty becomes zero when all \(\beta_j\) following \(b_1\) are equal, thus ensuring the \(\gamma_j\) to form a uniformly increasing sequence and \(m(x)\) to form an increasing straight line.
+
+Embedding the shape constrained smooth function \(m(x)\) in a larger model requires an additional constraint on \(m(x)\) in order to avoid it being confused with the intercept of the larger model.  This can be achieved by imposing centering constraints on the model matrix columns, i.e., by setting the sum of the values of the smooth to zero: \(\sum_{i = 1}^n m(x_i) = 0\).
+
+The SCAMs used in the present study constrain the smooth function to be monotonically increasing and concave.  For this constraint, matrix \(\symbf{\Sigma}\) has to be adjusted so that
+\begin{equation}
+  \label{eq:SCAMAdjustedSigma}
+  \Sigma_{i j} =
+  \begin{cases}
+    0 &\text{if } i = 1,~ j \geq 2 \\
+    1 &\text{if } i \geq 1,~ j = 1 \\
+    i - 1 &\text{if } i \geq 2,~ j = 2, \ldots, q - 1 + 2 \\
+    q - j + 1 &\text{if } i \geq 2,~ j = q - i + 3, \ldots, q\\
+  \end{cases}~,
+\end{equation}
+while matrix \(\symbf{D}\) has to be adjusted so that
+\begin{equation}
+  \label{eq:SCAMAdjustedD}
+  D_{i j} = 
+  \begin{cases}
+    - D_{i j + 1} = 1 &\text{if } i = 1, \ldots, q - 3,~ j = i + 2 \\
+    0 &\text{otherwise}
+  \end{cases}~.
+\end{equation}
+
+In order to represent \RefEq{eq:SCAM} for computation, the following paragraphs use basis expansion, penalties, and identifiability constraints for all \(f_j\) as described in \textcite{Wood2006}.  Thus, 
+\begin{equation}
+  \label{eq:SCAMCombinedModelMatricesfk}
+  \sum_j f_j\bigl(z_{j i}\bigr) = \symbf{F}_i \symbf{\gamma}~,
+\end{equation}
+where \(\symbf{F}\) is a model matrix determined by the basis functions and the constraints and \(\symbf{\gamma}\) is a vector of coefficients to be estimated.  The penalties on the \(f_j\) are quadratic in \(\symbf{\gamma}\).  Each \(m_k\) is represented by a model matrix of the form \(\symbf{X} \symbf{\Sigma}\) and a corresponding coefficient vector.  The model matrices for all \(m_k\) are then combined so that
+\begin{equation}
+  \label{eq:SCAMCombinedModelMatricesMk}
+  \sum_k m_k\bigl(x_{k i}\bigr) = \symbf{M}_i \tilde{\symbf{\beta}}~,
+\end{equation}
+where \(\symbf{M}\) is a model matrix and \(\tilde{\symbf{\beta}}\) is a vector containing both model coefficients (\(\beta_i\)) and exponentiated model coefficients (\(\exp(\beta_i)\)).  The penalties are quadratic in the coefficients \(\symbf{\beta}\) (not in the \(\tilde{\symbf{\beta}}\)).  Thus, \RefEq{eq:SCAM} becomes
+\begin{equation}
+  \label{eq:SCAMComputationalRepresentation01}
+  g\bigl(\mu_i\bigr) = \symbf{A}_i \symbf{\theta} + \symbf{F}_i \symbf{\gamma} + \symbf{M}_i \tilde{\symbf{\beta}}~.
+\end{equation}
+For fitting purposes, the model matrices may be combined column-wise into a single model matrix \(\symbf{X}\). Thus, \RefEq{eq:SCAMComputationalRepresentation01} becomes
+\begin{equation}
+  \label{eq:SCAMComputationalRepresentation02}
+  g\bigl(\mu_i\bigr) = \symbf{X}_i \tilde{\symbf{\beta}}~,
+\end{equation}
+where \(\tilde{\symbf{\beta}}\) has been enlarged to now contain \(\symbf{\theta}\), \(\symbf{\gamma}\), and the original \(\tilde{\symbf{\beta}}\).  Similarly there is a corresponding expanded model coefficient vector \(\symbf{\beta}\) containing \(\symbf{\theta}\), \(\symbf{\gamma}\), and the original \(\symbf{\beta}\).  The penalties on the terms have the general form \(\symbf{\beta}^{\text{T}} \symbf{S}_\lambda \symbf{\beta}\), where \(\symbf{S}_\lambda = \sum_k \uplambda_k \symbf{S}_k\), and the \(\symbf{S}_k\) are the original penalty matrices expanded with zeros everywhere except for the elements which correspond to the coefficients of the \(k\)th smooth.
+
+The chosen probability distribution determines the form of the log-likelihood \(l(\symbf{\beta})\) of the model.  In order to control model smoothness, the penalized version of the log-likelihood
+\begin{equation}
+  \label{eq:SCAMPenalizedLogLikelihood}
+  l_p(\symbf{\beta}) = l(\symbf{\beta}) - \frac{\symbf{\beta}^{\text{T}} \symbf{S}_\uplambda}{2}
+\end{equation}
+needs to be maximized.  For this, let \(V(\mu)\) be the variance of the chosen probability distribution, and define
+\begin{equation}
+  \label{eq:SCAMVarianceAlpha}
+  \alpha \bigl(\mu_i\bigr) = 1 + \bigl(y_i - \mu_i\bigr)\Biggl\{\frac{V'\bigl(\mu_i\bigr)}{V\bigl(\mu_i\bigr)} + \frac{g''\bigl(\mu_i\bigr)}{g'\bigl(\mu_i\bigr)}\Biggr\}~.
+\end{equation}
+Maximization of the penalized log-likelihood is then achieved in the following way:
+\begin{enumerate}
+\item Obtain an initial estimate of \(\symbf{\beta}\) by minimizing \(\norm{g(\symbf{y}) - \symbf{X} \tilde{\symbf{\beta}}}^2 + {\tilde{\symbf{\beta}}}^{\text{T}} S_\uplambda \tilde{\symbf{\beta}}\) with respect to \(\tilde{\symbf{\beta}}\), subject to linear inequality constraints which ensure that \(\tilde{\beta}_j > 0\) whenever \(\tilde{\beta}_j = \exp(\tilde{\beta})\).
+\item Set \(k = 0\) and repeat the steps 3--11 until convergence.
+\item Evaluate \(z_i = \left. \bigl(y_i - \mu_i\bigr) g'\bigl(\mu_i\bigr) \middle/ \alpha\bigl(\mu_i\bigr) \right.\) and \(w_i = \left. \omega_i \alpha\bigl(\mu_i\bigr) \middle/ \bigl\{V\bigl(\mu_i\bigr) g'^2\bigl(\mu_i\bigr)\bigr\} \right.\), using the current estimate of \(\mu_i\).
+\item Evaluate vectors \(\tilde{\symbf{w}} = |\symbf{w}|\) and \(\tilde{\symbf{z}}\), where \(\tilde{z}_i = \sign\left(w_i\right) z_i\).
+\item Evaluate diagonal matrix \(\symbf{C}\) such that \(C_{j j} = 1\) if \(\tilde{\beta}_j = \beta_j\), and \(C_{j j} = \exp\bigl(\beta_j\bigr)\) otherwise.
+\item Evaluate diagonal matrix \(\symbf{E}\) such that \(E_{j j} = 0\) if \(\tilde{\beta}_j = \beta_j\), and \\
+  \(E_{j j} = \left. \sum_i^n w_i g'\bigl(\mu_i\bigr) [\symbf{X} \symbf{C}]_{i j} \bigl(y_i - \mu_i\bigr) \middle/ \alpha\bigl(\mu_i\bigr) \right.\) otherwise.
+\item Let \(\symbf{I}^-\) be a diagonal matrix such that \(I_{i i}^- = 1\) if \(w_i < 0\) and \(I_{i i}^- = 0\) otherwise.
+\item Letting \(\tilde{\symbf{W}}\) denote \(\diag\bigl(\tilde{\symbf{w}}\bigr)\), form the QR decomposition \(
+  \begin{bmatrix}
+    \sqrt{\tilde{\symbf{W}}} \symbf{X} \symbf{C} \\
+    \symbf{B}
+  \end{bmatrix}
+  = \symbf{Q} \symbf{R}
+\)
+\item Letting \(\symbf{Q}_1\) denote the first \(n\) rows of \(\symbf{Q}\), form the symmetric eigen-decomposition \\
+  \(\symbf{Q}_1^{\text{T}} \symbf{I}^- \symbf{Q}_1 + \symbf{R}^{-\text{T}} \symbf{E} \symbf{R}^{-1} = \symbf{U} \symbf{\Lambda} \symbf{U}^{\text{T}}\).
+\item Hence define \(\symbf{P} = \symbf{R}^{-1} \symbf{U}(\symbf{I} - \symbf{\Lambda})^{-1/2}\) and \(\symbf{K} = \symbf{Q}_1 \symbf{U} (\symbf{I} - \symbf{\Lambda})^{-1/2}\).
+\item Update the estimate of \(\symbf{\beta}\) as \(\symbf{\beta}^{[k + 1]} = \symbf{\beta}^{[k]} + \symbf{P} \symbf{K}^{\text{T}} \sqrt{\tilde{\symbf{W}}} \tilde{\symbf{z}} - \symbf{P} \symbf{P}^{\text{T}} \symbf{S}_\uplambda \symbf{\beta}^{[k]}\) and increment \(k\).
+\end{enumerate}
+The SCAMs presented in this study use GCV/UBRE score optimization for selecting the estimate of the smoothing parameter vector \(\mathbf{\uplambda}\).
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
