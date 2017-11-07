@@ -127,12 +127,12 @@ Substituting \RefEq{eq:CrossValidationFormalDefinitionOfJackknifedFit3} into \Re
   \label{eq:CrossValidationSumOfSquares02}
   CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}\Biggr)^2~.
 \end{equation}
-GCV replaces \(S_{ii}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} with its mean value \(\text{tr}\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
+GCV replaces \(S_{ii}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} with its mean value \(\tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
 \begin{equation}
   \label{eq:GeneralizedCrossValidation}
-  GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \text{tr}\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2~,
+  GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2~,
 \end{equation}
-where \(\text{tr}(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\).
+where \(\tr(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\).
 
 %%% Local Variables:
 %%% mode: latex
