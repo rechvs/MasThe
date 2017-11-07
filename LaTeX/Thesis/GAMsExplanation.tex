@@ -1,6 +1,6 @@
 \subsection{Explanation of GAMs}
 
-Generalized Additive Models (GAMs) are an extension of Generalized Linear Models (GLMs), which in turn build upon Linear Models (LMs).
+Generalized Additive Models (GAMs) \parencite{Wood2006,Hastie1991} are an extension of Generalized Linear Models (GLMs) \parencite{Nelder1972}, which in turn build upon Linear Models (LMs).
 % In order to explain GAMs, I will therefore first describe LMs and GLMs, before going into detail about GAMs.
 
 % \subsubsection{Distributional assumptions in Linear Models}
@@ -17,43 +17,43 @@ where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\
 A GLM has the structure
 \begin{equation}
   \label{eq:GeneralizedLinearModel}
-  g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta}~,  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
+  g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta},  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
 \end{equation}
 where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\symbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\symbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006,Nelder1972}.
 GLMs are an extension of LMs insofar as they also also center around a ``linear predictor'', \(\symbf{X}\symbf{\beta}\), but allow other link functions than the identity function and allow the distribution of the dependent variable to be any distribution from the exponential family, instead of only the normal distribution.  The exponential family consists of distributions whose probability density function can be written as
 \begin{equation}
   \label{eq:ExponentialFamilyProbabilityDensityFunction}
-  f_{\theta}\bigl(y\bigr) = \exp \bigg( \frac{y \theta - b(\theta)}{a(\Phi)} + c(y, \Phi)\bigg)~,
+  f_{\theta}\bigl(y\bigr) = \exp \bigg( \frac{y \theta - b(\theta)}{a(\Phi)} + c(y, \Phi)\bigg),
 \end{equation}
 where \(a\), \(b\), and \(c\) are arbitrary functions, \(\Phi\) is an arbitrary ``scale'' parameter, and \(\theta\) is the so-called ``canonical parameter'' of the distribution \parencite{Wood2006}.
 
 Building upon GLMs, a GAM has a structure similar to
 \begin{equation}
   \label{eq:GAM}
-  g\bigl(\mu_i\bigr) = \symbf{x}_i^* \symbf{\theta} + f_{1}\bigl(x_{1i}\bigr) + f_{2}\bigl(x_{2i}\bigr) + f_{3}\bigl(x_{3i}, x_{4i}\bigr) + \ldots~,
+  g\bigl(\mu_i\bigr) = \symbf{x}_i^* \symbf{\theta} + f_{1}\bigl(x_{1i}\bigr) + f_{2}\bigl(x_{2i}\bigr) + f_{3}\bigl(x_{3i}, x_{4i}\bigr) + \ldots,
 \end{equation}
 where \(\mu_i\) again is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), the response variable \(Y_i\) follows any exponential family distribution, \(\symbf{x}_i^*\) is a row of the model matrix for any strictly parametric model components, \(\symbf{\theta}\) is the corresponding parameter vector, and the \(f_j\) are smooth functions of the covariates, \(x_k\) \parencite{Wood2006}.  A smooth function may be considered an estimate of the acutal functional relationship between the response variable and the predictor variable to which the smooth function is applied \parencite{Hastie1991}.  Unlike LMs or GLMs, a smooth function is nonparametric, i.e., it does not assume the response variable to follow any specific distribution.
 As an explanatory example, consider a model containing one smooth function of one predictor variable with the identity function as the link function,
 \begin{equation}
   \label{eq:GAMSimple}
-  y_i = f\bigl(x_i\bigr) + \varepsilon_i~,
+  y_i = f\bigl(x_i\bigr) + \varepsilon_i,
 \end{equation}
 where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is a smooth function, and the \(\varepsilon_i\) follow the normal distribution with a mean of zero and a variance of \(\sigma^2\) \parencite{Wood2006}.  The \(x_i\) lie in the interval \([0, 1]\).  In order to be able to estimate \(f\), a space of known functions, of which \(f\) (or its estimate) is assumed to be an element, needs to be chosen, such that
 \begin{equation}
   \label{eq:SmoothFunctionBasis}
-  f(x) = \sum_{i=1}^q b_i(x)\beta_i~,
+  f(x) = \sum_{i=1}^q b_i(x)\beta_i,
 \end{equation}
 where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GAMSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
 The GAMs used in the present study employ thin plate regression splines \parencite{Wood2003} for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines \parencite{Duchon1977}.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
 \begin{equation}
   \label{eq:ThinPlateSplinesModel}
-  y_i = g(\symbf{x}_i) + \varepsilon_i~,
+  y_i = g(\symbf{x}_i) + \varepsilon_i,
 \end{equation}
 where \(\varepsilon_i\) is a random error term and where \(\symbf{x}\) is a \(d\)-vector \((d \leq n)\) \parencite{Wood2006}.  Function \(g\) is then estimated by finding the function \(\hat{f}\) which minimizes
 \begin{equation}
   \label{eq:ThinPlateSplinesTermToMinimize}
-  \norm{\symbf{y} - \symbf{f}}^2 + \uplambda J_{md}(f)~,
+  \norm{\symbf{y} - \symbf{f}}^2 + \uplambda J_{md}(f),
 \end{equation}
 where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
 \begin{equation}
@@ -63,7 +63,7 @@ where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\s
 \parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \RefEq{eq:ThinPlateSplinesTermToMinimize} has the form
 \begin{equation}
   \label{eq:ThinPlateSplinesMinimizingFunctionForm}
-  \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{md}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x})~,
+  \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{md}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x}),
 \end{equation}
 where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\symbf{\delta}\) being subject to the linear constraints that \(\symbf{T}^{\text{T}}\symbf{\delta} = 0\), where \(T_{ij} = \Phi_j\bigl(\symbf{x}_i\bigr)\).
 The \(M = \dbinom{m + d - 1}{d}\) functions, \(\Phi_i\), are linearly independent polynomials spanning the space of polynomials \(\mathfrak{R}^d\) of degree less than \(m\).  %% I need to use "\dbinom...", because XITS Math (and all OpenType fonts for that matter) in combination with my version of LuaLaTeX cannot properly place the binomial coefficients when using "\tbinom...".
@@ -80,7 +80,7 @@ The \(\Phi_i\) span the space of functions for which \(J_{md}\) is zero.  The \(
 
 \begin{equation}
   \label{eq:ThinPlateSplineSimplifiedFittingProblem}
-  \text{minimize } \norm{\symbf{y} - \symbf{E}\symbf{\delta} - \symbf{T}\symbf{\alpha}}^2 + \uplambda \symbf{\delta}^{\text{T}}\symbf{E}\symbf{\delta} \text{ subject to } \symbf{T}^{\text{T}}\symbf{\delta} = 0~,
+  \text{minimize } \norm{\symbf{y} - \symbf{E}\symbf{\delta} - \symbf{T}\symbf{\alpha}}^2 + \uplambda \symbf{\delta}^{\text{T}}\symbf{E}\symbf{\delta} \text{ subject to } \symbf{T}^{\text{T}}\symbf{\delta} = 0,
 \end{equation}
 with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\).
 
@@ -99,38 +99,38 @@ with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\).
 Estimation of the smoothing parameter \(\uplambda\) for each smooth function is achieved via generalized cross validation (GCV), which builds upon cross validation.  In cross validation, each pair of observations \(\bigl(x_i, y_i\bigr)\) is left out one at a time while estimating the smooth function at \(x_i\) using the remaining \(n - 1\) observations.  This way, cross validation mimics the use of training and test data for model fitting.  The quantity of interest is the cross validation sum of squares
 \begin{equation}
   \label{eq:CrossValidationSumOfSquares01}
-  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Bigl(y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\Bigr)^2~,
+  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Bigl(y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\Bigr)^2,
 \end{equation}
 where \(n\) is the total number of observations, \(y_i\) is the \(i^{\text{th}}\) observation of the response variable \(Y\), \(x_i\) is the \(i^{\text{th}}\) observation of the response variable \(X\), and \(\hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\) is the smooth function fit at \(x_i\), obtained with smoothing parameter \(\uplambda\) and by leaving out \(\bigl(x_i, y_i\bigr)\) \parencite{Hastie1991}.  The cross validation sum of squares is computed for several values of \(\uplambda\) over a suitable range and the smoothing parameter value \(\hat{\uplambda}\) which minimizes \(CV(\uplambda)\) is selected.  A formal definition of \(\hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\) for linear smoothers is
 \begin{equation}
   \label{eq:CrossValidationFormalDefinitionOfJackknifedFit1}
-  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n \frac{S_{i j}(\uplambda)}{1 - S_{i i}(\uplambda)} y_i~,
+  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n \frac{S_{i j}(\uplambda)}{1 - S_{i i}(\uplambda)} y_i,
 \end{equation}
 where \(S_{i j}(\uplambda)\) is the element of row \(i\) and column \(j\) of the smoother matrix \(\symbf{S}_\uplambda\) for smoothing parameter \(\uplambda\).  The smoother matrix \(\symbf{S}\) is the matrix which satisfies the equation
 \begin{equation}
   \label{eq:SmootherMatrixDefinition}
-  \hat{\symbf{f}} = \symbf{S} \symbf{y}~,
+  \hat{\symbf{f}} = \symbf{S} \symbf{y},
 \end{equation}
 where \(\hat{\symbf{f}}\) is the vector of smooth function fits at observations \(x_1, \ldots, x_n\) and \(\symbf{y}\) is the vector of observations of the response variable.
 Equation \ref{eq:CrossValidationFormalDefinitionOfJackknifedFit1} implies that
 \begin{equation}
   \label{eq:CrossValidationFormalDefinitionOfJackknifedFit2}
-  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n S_{i j}(\uplambda) y_i +S_{i i}(\uplambda) \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)~,
+  \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n S_{i j}(\uplambda) y_i +S_{i i}(\uplambda) \hat{f}_\uplambda^{-i}\bigl(x_i\bigr),
 \end{equation}
 which in turn implies that
 \begin{equation}
   \label{eq:CrossValidationFormalDefinitionOfJackknifedFit3}
-  y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}~.
+  y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}.
 \end{equation}
 Substituting \RefEq{eq:CrossValidationFormalDefinitionOfJackknifedFit3} into \RefEq{eq:CrossValidationSumOfSquares01} yields
 \begin{equation}
   \label{eq:CrossValidationSumOfSquares02}
-  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}\Biggr)^2~.
+  CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i i}(\uplambda)}\Biggr)^2.
 \end{equation}
 GCV replaces \(S_{ii}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} with its mean value \(\tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
 \begin{equation}
   \label{eq:GeneralizedCrossValidation}
-  GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2~,
+  GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2,
 \end{equation}
 where \(\tr(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\).
 
