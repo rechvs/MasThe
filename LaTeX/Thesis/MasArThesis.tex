@@ -26,7 +26,6 @@ titlepage]
 %% Define custom commands (in alphabetical order of command name). Note: macro names may not contain non-letters.
 \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
 \DeclareMathOperator{\diag}{diag}
-% \newcommand{\loglikelihood}{\mathcal{l}}
 \newcommand{\loglikelihood}{\ell}
 \newcommand{\logNlogDcurve}{log(\(N\))-log(\(D\))-curve}
 \newcommand{\NWFVA}{Northwest German Forest Research Institute}
@@ -35,6 +34,7 @@ titlepage]
 \newcommand{\RefTab}[1]{Table~\ref{#1}}
 \newcommand{\RefFig}[1]{Figure~\ref{#1}}
 \DeclareMathOperator{\sign}{sign}
+\newcommand{\SIWrittenTerm}{absolute productivity index of stand}
 \newcommand{\Spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\TopHeight}[0]{h_{100}}
 \DeclareMathOperator{\tr}{tr}
@@ -57,7 +57,8 @@ titlepage]
 
 \section{Material and Methods}
 % \input{DataSelection.tex}
-% \input{DataDescription.tex}
+\input{DataDescription.tex}
+\input{ModelsOverview.tex}
 \input{GAMsExplanation.tex}
 \input{SCAMsExplanation.tex}
 \input{GAMLSSsExplanation.tex}

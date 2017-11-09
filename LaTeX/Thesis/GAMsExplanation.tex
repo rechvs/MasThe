@@ -55,7 +55,7 @@ where \(\varepsilon_i\) is a random error term and where \(\symbf{x}\) is a \(d\
   \label{eq:ThinPlateSplinesTermToMinimize}
   \norm{\symbf{y} - \symbf{f}}^2 + \uplambda J_{md}(f),
 \end{equation}
-where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
+where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{md}(f)\) is a penalty functional measuring the ``roughness'' of \(f\).  The penalty is defined as
 \begin{equation}
   \label{eq:ThinPlateSplinesPenalty}
   J_{md} = \int{\hspace{-3mm}}\cdots\int_{\mathfrak{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
@@ -132,7 +132,7 @@ GCV replaces \(S_{ii}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} w
   \label{eq:GeneralizedCrossValidation}
   GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2,
 \end{equation}
-where \(\tr(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\).
+where \(\tr(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\) \parencite{Hastie1991}.
 
 %%% Local Variables:
 %%% mode: latex

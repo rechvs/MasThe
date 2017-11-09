@@ -4,7 +4,7 @@ The data set size for \Beech{} is reported in \RefTab{tab:ObservationsCountPerEd
 
 The geographical location and the altitude above sea level of sample plots are reported in \RefFig{fig:LocationsSamplePlots} and \RefFig{fig:SpeciesAltitudeOfSamplePlots}, respectively.  The dots in the plots of both figures do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the same geographical location and altitude.  In the \Beech{} data set, altitude above sea level spans \SI{525}{\meter}, ranging from \SIrange{40}{565}{\meter}, with a mean of \SI{313.2}{\meter}.  In the case of \Spruce{} it spans \SI{730}{\meter}, ranging from \SIrange{20}{750}{\meter}, with a mean of \SI{410.5}{\meter}.
 
-In Figures \ref{fig:StandAgeTopHeightYieldClassClassification}, \ref{fig:StandAgeSiteIndexYieldClassClassification}, and \ref{fig:StandAgeBasalAreaYieldClassClassification}, dot color signifies the (fractional) yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the absolute site index \(SI\) in \si{\meter} was computed using the equation
+In Figures \ref{fig:StandAgeTopHeightYieldClassClassification}, \ref{fig:StandAgeSiteIndexYieldClassClassification}, and \ref{fig:StandAgeBasalAreaYieldClassClassification}, dot color signifies the (fractional) yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the \SIWrittenTerm{} (\(SI\)) in \si{\meter} was computed using the equation
 \begin{equation}
   \label{eq:NagelFunctionSolvedForSI}
   SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)} ,
@@ -118,7 +118,7 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeTopHeightYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and top height \(\TopHeight\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and top height (\(\TopHeight\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeTopHeightYieldClassClassification}
 \end{figure}
 
@@ -126,7 +126,7 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeSiteIndexYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and site index \(SI\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Solid black lines connect observations belonging to the same sample plot.  Dashed lines mark the \(SI\) of yield classes.  Color of dots and dashed lines signifies the (fractional) yield class of the respective \(SI\), ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and \SIWrittenTerm{} (\(SI\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Solid black lines connect observations belonging to the same sample plot.  Dashed lines mark the \(SI\) of yield classes.  Color of dots and dashed lines signifies the (fractional) yield class of the respective \(SI\), ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeSiteIndexYieldClassClassification}
 \end{figure}
 
@@ -134,7 +134,7 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeBasalAreaYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and basal area \(G\) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and basal area (\(G\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeBasalAreaYieldClassClassification}
 \end{figure}
 
