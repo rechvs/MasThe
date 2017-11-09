@@ -1,0 +1,60 @@
+\subsection{Formulas of presented models}
+
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l l L}
+      \caption{Overview of the \texttt{R} functions and formulas used for fitting the models presented in this study. The overview includes
+        the model ID,
+        the name of the \texttt{R} package (and its version number) which provided the model fitting function,
+        the name of the \texttt{R} model fitting function,
+        and the formula used in the model fitting function call.
+        In the case of GAMLSS1, GAMLSS2, and GAMLSS3, the formula applies only to the location parameter of the assumed probability distribution.
+        For all other distribution parameters, the formula was \texttt{gha \textasciitilde{} 1}. \\
+        \texttt{gha}: basal area variable \\
+        \texttt{h100.EKL.I}: age variable \\
+        \texttt{SI.h100.diff.EKL.I}: site class variable
+        \label{tab:PresentedModelsOverview}} \\
+      \toprule
+      Model ID & Package (Version) & Function & Formula \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(h100.EKL.I) + s(SI.h100.diff.EKL.I)} \\
+      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(h100.EKL.I) + SI.h100.diff.EKL.I} \\
+      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(h100.EKL.I, bs = "micv") + SI.h100.diff.EKL.I} \\
+      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)} \\
+      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + SI.h100.diff.EKL.I} \\
+      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(h100.EKL.I) + SI.h100.diff.EKL.I} \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l L}
+      \caption{Overview of the \texttt{R} distribution functions used for the models presented in this study.  The overview includes
+        the model ID,
+        the name of the \texttt{R} package (and its version number) which provided the distribution function,
+        and the \texttt{R} call of the distribution function.
+        \label{tab:PresentedModelsOverview}} \\
+      \toprule
+      Model ID & Package (Version) & Function call \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      GAM1 & \texttt{stats} (3.3.3) & \texttt{Gamma(link = "log")} \\
+      GAM2 & As above & As above \\
+      SCAM1 & As above & As above \\
+      GAMLSS1 & \texttt{gamlss.dist} (5.0.3) & \texttt{BCCGo()} \\
+      GAMLSS2 & As above & As above \\
+      GAMLSS3 & As above & As above \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
