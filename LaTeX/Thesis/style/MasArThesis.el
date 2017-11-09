@@ -18,6 +18,7 @@
     '("logNlogDcurve" nil)
     '("NWFVA" nil)
     '("Ponderosa" nil)
+    '("SIWrittenTerm" nil)
     '("Spruce" nil)
     '("Topheight" nil)))
  LaTeX-dialect)
