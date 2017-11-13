@@ -2,21 +2,6 @@
 
 Generalized Additive Models for Location, Scale, and Shape (GAMLSSs) \parencite{Rigby2001,Akanztiliotou2002,Rigby2005} are an extension of GAMs and GLMs.  In the case of GAMs and GLMs, only the mean of the response variable (i.e., the location parameter of the assumed probability distribution) is estimated directly from the predictor variables.  Variance, skewness, and kurtosis (i.e., the scale and shape parameters of the assumed probability distribution), on the other hand, are in general functions of both the mean and a constant dispersion parameter and are thus estimated only indirectly through their dependence on the mean of the response variable \parencite{Rigby2001}.  GAMLSSs allow direct estimation of these distribution parameters as well.
 
-% Let \(\symbf{y}^{\text{T}} = (y_1, y_2, \ldots, y_n)\) be the vector of independent observations \(y_i\) of the response variable.  Further, let the \(y_i\) follow the probability density function \(f(y_i|\symbf{\theta}^i)\) conditional on the vector of distribution parameters \(\symbf{\theta}^i = (\theta_{i, 1}, \theta_{i, 2}, \ldots, \theta_{i, p})\), where \(p\) is the number of distribution parameters.  Let \(g_k(\cdot)\) be a known monotonic link function and \(h_{j, k}\) be either a linear or a non-parametric additive function.  Finally, let \(J_k\) be the number of explanatory variables related to the \(k\)th distribution parameter \(\symbf{\theta}_k\) and \(\symbf{x}_{j, k}\) be the vector of observations of the explanatory variable \(X_{j, k}\).  Then a GAMLSS may be written as
-% \begin{equation}
-  % \label{eq:GAMLSSSimple}
-  % \begin{aligned}[t]
-    % g_k\bigl(\symbf{\theta}_k\bigr) &= \symbf{\eta}_k \\
-    % &= \sum_{j = 1}^{J_k} h_{j, k}\bigl(\symbf{x}_{j, k}\bigr) \quad \text{for } k = 1, 2, \ldots, p,
-% \end{aligned}
-% \end{equation}
-% where \(\symbf{\theta}_k\), \(\symbf{\eta}_k\), and \(\symbf{x}_{j, k}\) are vectors of length \(n\) \parencite{Rigby2001}.  Selection of the additive terms \(h_{j, k}\) is based on maximizing a penalized likelihood function given by
-% \begin{equation}
-  % \label{eq:GAMLSSPenalizedLikelihoodFunction}
-  % \loglikelihood_p = \loglikelihood - \frac{1}{2} \sum_{k = 1}^p \sum_{j = 1}^{J_k} \uplambda_{j, k} \symbf{Q}_{j, k}\bigl(\symbf{h}_{j, k}\bigr),
-% \end{equation}
-% where \(\loglikelihood = \sum_{i = 1}^n \log\bigl(f\bigl(y_i | \symbf{\theta}^i\bigr)\bigr)\) is the log-likelihood function, \(\symbf{h}_{j, k} = h_{i, j}\bigl(\symbf{x}_{j, k}\bigr)\) is the vector of evaluation of function \(h_{j, i}\) at \(\symbf{x}_{j, k}\), and \(\symbf{Q}_{j, k}\bigl(\symbf{h}_{j, k}\bigr)\) are appropriate quadratic penalties introduced to penalized undesirable properties in the \(h_{j, k}\) functions and to provide unique solutions for the functions \(h_{j, k}\) to the otherwise ill-posed problem.  The form of \(\symbf{Q}_{j, k}\bigl(\symbf{h}_{j, k}\bigr)\) depends on the types of additive terms required.  Quadratic penalties are applied if either (a) a normally distributed random effect is assumed to exist in the linear predictor, or (b) linear restrictions are imposed on the coefficients of linear terms in the linear predictor \parencite{Rigby2001}.  The GAMLSSs presented in this study were fitted using the algorithm laid out by \textcite{Rigby1996}.
-
 Let \(\symbf{y}^{\text{T}} = (y_1, y_2, \ldots, y_n)\) be the vector of independent observations \(y_i\) of the response variable.  Further, let the \(y_i\) follow the probability density function \(f(y_i|\symbf{\theta}^i)\) conditional on the vector of distribution parameters \(\symbf{\theta}^{i \text{T}} = (\theta_{i, 1}, \theta_{i, 2}, \ldots, \theta_{i, p})\), where \(p\) is the number of distribution parameters. Let \(J_k\) be the number of explanatory variables related to the \(k\)th distribution parameter \(\symbf{\theta}_k\).  A GAMLSS is then given by a known monotonic link function \(g_k(\cdot)\) relating \(\symbf{\theta}_k\) to explanatory variables and random effects through the additive model 
 \begin{equation}
   \label{eq:GAMLSSRigbyStasinopoulos2005}
@@ -37,7 +22,9 @@ where \(\loglikelihood = \sum_{i = 1}^n \log\bigl(f\bigl(y_i | \symbf{\theta}^i\
   \label{eq:GAMLSSRigbyStasinopoulos2005BackfittingAlgorithm}
   \symbf{S}_{j, k} = \symbf{Z}_{j, k} \bigl(\symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k} \symbf{Z}_{j, k} + \symbf{G}_{j, k}\bigr)^{-1} \symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k}
 \end{equation}
-for \(j = 1, 2, \ldots, J_k\) and \(k = 1, 2, \ldots, p\), where \(\symbf{W}_{k, k}\) is a diagonal matrix of iterative weights.  Different types of additive terms in the linear predictor \(\symbf{\eta}_k\) lead to different forms of \(\symbf{Z}_{j, k}\) and \(\symbf{G}_{j, k}\).  The GAMLSSs presented in this study employ P-splines, either unconstrained \parencite{Eilers1996} or with a constraint of being monotone increasing.  Unconstrained P-splines have already been discussed \SeeSection{sec:BSplinesPSplines}.  To impose a monotone increasing constraint on a P-spline, an additional asymmetric penalty on the first-order differences has to be added to \RefEq{eq:PSplineOLS}.  The least squares objective function to minimize thus becomes
+for \(j = 1, 2, \ldots, J_k\) and \(k = 1, 2, \ldots, p\), where \(\symbf{W}_{k, k}\) is a diagonal matrix of iterative weights.  Different types of additive terms in the linear predictor \(\symbf{\eta}_k\) lead to different forms of \(\symbf{Z}_{j, k}\) and \(\symbf{G}_{j, k}\).
+
+The GAMLSSs presented in this study employ P-splines as the basis of their smooth functions, either unconstrained \parencite{Eilers1996} or with a constraint of being monotone increasing \parencite{Bollaerts2006}.  Unconstrained P-splines have already been discussed \SeeSection{sec:BSplinesPSplines}.  To impose a monotone increasing constraint on a P-spline, an additional asymmetric penalty on the first-order differences has to be added to \RefEq{eq:PSplineOLS}.  The least squares objective function to minimize thus becomes
 \begin{equation}
   \label{eq:PSplineOLSMonotoneIncreasingConstraint}
   S =
