@@ -98,7 +98,7 @@ This penalty becomes zero when all \(\beta_j\) following \(b_1\) are equal, thus
 
 Embedding the shape constrained smooth function \(m(x)\) in a larger model requires an additional constraint on \(m(x)\) in order to avoid it being confused with the intercept of the larger model.  This can be achieved by imposing centering constraints on the model matrix columns, i.e., by setting the sum of the values of the smooth to zero: \(\sum_{i = 1}^n m(x_i) = 0\) \parencite{Pya2015}.
 
-The SCAMs used in the present study constrain the smooth function to be monotonically increasing and concave.  For this constraint, matrix \(\symbf{\Sigma}\) has to be adjusted so that
+The SCAMs presented in this study constrain the smooth function to be monotonically increasing and concave.  For this constraint, matrix \(\symbf{\Sigma}\) has to be adjusted so that
 \begin{equation}
   \label{eq:SCAMSigmaMonotoneIncreasingConcave}
   \Sigma_{i, j} =
