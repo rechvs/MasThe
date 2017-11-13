@@ -3,46 +3,47 @@
 Shape constrained additive models (SCAMs) \parencite{Pya2010,Pya2015} are an extenstion of GAMs utilizing penalized splines (P-splines) \parencite{Eilers1996}, which in turn build upon basis splines (B-splines) \parencite{Boor2001,Curry1947}.
 
 \subsubsection{B-splines and P-splines}
+\label{sec:BSplinesPSplines}
 
 A B-spline is a pieceweise polyonmial.  Adjacent polynomial pieces are joined at the so-called knots in a specific manner:  both the ordinates as well as the first derivatives of the polynomials are equal \parencite{Eilers1996}.  This ensures that the resulting B-spline is continuous in its value and first derivative.  To define a B-spline, let the knot vector \(\symbf{T} = \bigl(t_0, t_1, \ldots, t_m\bigr)\) be a nondecreasing sequence with \(t_i \in [0, 1]\) and define the control points \(\symbf{P}_0, \ldots, \symbf{P}_n\).  The degree is defined as \(p \equiv m - n - 1\).  Each control point is associated with a basis function, which is given by
 \begin{equation}
   \label{eq:BSplineBasisFunctionsDegreeZero}
-  N_{i, 0}(t) =
+  N_{i, 0}(x) =
   \begin{cases}
-    1 &\text{if } t_i \leq t < t_{i + 1} \text{ and } t_i < t_{i + 1} \\
+    1 &\text{if } t_i \leq x < t_{i + 1} \text{ and } t_i < t_{i + 1} \\
     0 &\text{otherwise}
   \end{cases},
 \end{equation}
 and
 \begin{equation}
   \label{eq:BSplineBasisFunctionsDegreeNonzero}
-  N_{i, j}(t) = \frac{t - t_i}{t_{i + j} - t_i} N_{i, j - 1}(t) + \frac{t_{i + j + 1} - t}{t_{i + j + 1} - t_{i + 1}} N_{i + 1, j - 1}(t) \quad \text{for } j = 1, 2, \ldots, p.
+  N_{i, j}(x) = \frac{x - t_i}{t_{i + j} - t_i} N_{i, j - 1}(x) + \frac{t_{i + j + 1} - x}{t_{i + j + 1} - t_{i + 1}} N_{i + 1, j - 1}(x) \quad \text{for } j = 1, 2, \ldots, p.
 \end{equation}
 Then the curve defined by
 \begin{equation}
   \label{eq:BSplineCurveDefinition}
-  \symbf{C}(t) = \sum_{i = 0}^n \symbf{P}_i N_{i, p}(t)
+  \symbf{C}(x) = \sum_{i = 0}^n \symbf{P}_i N_{i, p}(x)
 \end{equation}
-is a B-spline \parencite{Weisstein2017a}.  This can then be used for regression by estimating the vector of control points, commonly done via the method of ordinary least squares \parencite{Bollaerts2006}:  for \(q\) observations \((x_j, y_j)\), determine the control points which minimize
+is a B-spline \parencite{Weisstein2017a}.  This can then be used for regression by estimating the vector of control points.  Commonly, this is done via the method of ordinary least squares \parencite{Bollaerts2006} by estimating the control points which, for \(q\) observations \((x_j, y_j)\), which minimize the equation
 \begin{equation}
   \label{eq:BSplineOLS}
-  S_B =
+  S =
   \sum_{j = 1}^q 
   \Biggl(
   y_j - \sum_{i = 0}^n \symbf{P}_i N_{i, p}\bigl(x_j\bigr)
   \Biggr)^2.
 \end{equation}
-The concept of P-splines adds a penalty to \RefEq{eq:BSplineOLS}.  This penalty is based on high-order (\(k \geq 2\)) finite differences between the coefficients of adjacent B-splines.  The least squares objective function to minimize thus becomes
+The concept of P-splines extends B-splines in 2 ways: on the one hand it sets a large number of equidistant knots, while on the other hand adding a penalty to \RefEq{eq:BSplineOLS} in order to prevent overfitting.  This penalty is based on high-order (\(k \geq 2\)) finite differences between the coefficients of adjacent B-splines.  The least squares objective function to minimize thus becomes
 \begin{equation}
   \label{eq:PSplineOLS}
-  S_P =
+  S =
   \sum_{j = 1}^q 
   \Biggl(
   y_j - \sum_{i = 0}^n \symbf{P}_i N_{i, p}\bigl(x_j\bigr)
   \Biggr)^2
   + \lambda \sum_{i = k + 1}^n \bigl(\upDelta^k \symbf{P}_i\bigr)^2
 \end{equation}
-\parencite{Eilers1996}, with \(\upDelta^k \symbf{P}_i\) being the \(k\)th-order differences, i.e., \(\upDelta^k\symbf{P}_i = \upDelta^1 \bigl(\upDelta^{d - 1} \symbf{P}_i\bigr)\) with \(\upDelta^1 \symbf{P}_i = \symbf{P}_i - \symbf{P}_{i - 1}\) and with \(\lambda\) being a smoothness parameter \parencite{Bollaerts2006}.
+\parencite{Eilers1996}, with \(\upDelta^k \symbf{P}_i\) being the \(k\)th-order differences, i.e., \(\upDelta^k\symbf{P}_i = \upDelta^1 \bigl(\upDelta^{k - 1} \symbf{P}_i\bigr)\) with \(\upDelta^1 \symbf{P}_i = \symbf{P}_i - \symbf{P}_{i - 1}\) and with \(\lambda\) being a smoothness parameter \parencite{Bollaerts2006}.
 
 \subsubsection{SCAMs}
 
