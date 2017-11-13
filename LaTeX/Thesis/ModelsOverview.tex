@@ -1,4 +1,6 @@
-\subsection{Formulas of presented models}
+\subsection{Model overview}
+
+\RefTab{tab:PresentedModelsOverviewFormulas} provides an overview of the settings used for fitting the models presented in this study.  For each species, 6 different models were fitted: 2 GAMs, one SCAM, and 3 GAMLSSs.  The settings for a given model were the same for both \Beech{} and \Spruce{}.
 
 \begin{table}[H]
   {\tabulinesep=2mm
@@ -11,24 +13,51 @@
         In the case of GAMLSS1, GAMLSS2, and GAMLSS3, the formula applies only to the location parameter of the assumed probability distribution.
         For all other distribution parameters, the formula was \texttt{gha \textasciitilde{} 1}. \\
         \texttt{gha}: basal area variable \\
-        \texttt{h100.EKL.I}: age variable \\
-        \texttt{SI.h100.diff.EKL.I}: site class variable
-        \label{tab:PresentedModelsOverview}} \\
+        \StandAgeVariableR{}: stand age variable \\
+        \SiteClassVariableR{}: site class variable
+        \label{tab:PresentedModelsOverviewFormulas}} \\
       \toprule
       Model ID & Package (Version) & Function & Formula \\
       \midrule
       \endhead
       \bottomrule
       \endlastfoot
-      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(h100.EKL.I) + s(SI.h100.diff.EKL.I)} \\
-      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(h100.EKL.I) + SI.h100.diff.EKL.I} \\
-      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(h100.EKL.I, bs = "micv") + SI.h100.diff.EKL.I} \\
-      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + ps(SI.h100.diff.EKL.I)} \\
-      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(h100.EKL.I) + SI.h100.diff.EKL.I} \\
-      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(h100.EKL.I) + SI.h100.diff.EKL.I} \\
+      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + s(\SiteClassVariableR{})} \\
+      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
+      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}, bs = "micv") + \SiteClassVariableR{}} \\
+      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + ps(\SiteClassVariableR{})} \\
+      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
+      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
       \bottomrule
     \end{longtabu}}
 \end{table}
+
+One main goal in model formulation was to ensure that the fitted models were capable of separating the effects of stand age and site class on predicted basal area.  However, top height (\(h_{100}\)) as the predictor variable was considered unsuited for achieving this goal, since past experience had shown that using this dimension as the predictor variable does not allow inclusion of a separate site class-effect in the model.  Therefore, 2 new variables were calculated:  a stand age variable and a site class variable, each of which was calculated in such a way as to exclude the effect of the other. The stand age variable was calculated using the equation
+\begin{equation}
+  \label{eq:StandAgeVariable}
+  h_{100}(x)_{\text{I. YC}} = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + SI_{\text{I. YC}} \cdot \bigl(\beta_3 + \beta_4 \cdot \ln(x)\bigr)
+\end{equation}
+\parencite{Nagel1999}, where \(h_{100}(x)_{\text{I. YC}}\) is the top height in \si{\meter} at age \(x\) if the stand were yield class I, \(SI_{\text{I. YC}}\) is the species-specific top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I and all other terms have the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI}.  The values for \(SI_{\text{I. YC}}\) were taken from \textcite{Schober1995} and are reported in table \RefTab{tab:SIYieldClassI}.  By setting \(SI_{\text{I. YC}}\) to a species-specific constant, it was possible to exclude any site class-effects from \RefEq{eq:StandAgeVariable}.  Thus, \(h_{100}(x)_{\text{I. YC}}\) only depends on stand age and was therefore chosen as the stand age variable for model fitting.
+
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{l S L}
+      \caption{Species-specific \(SI_{\text{I. YC}}\) values used in \RefEq{eq:StandAgeVariable}.  Values are top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I as reported in \textcite{Schober1995}
+        \label{tab:SIYieldClassI}} \\
+      \toprule
+      Species & {\(SI_{\text{I. YC}}\) [\si{\meter}]} & \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Beech & 32.4 \\
+      Spruce & 35.1 \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+
+
 
 \begin{table}[H]
   {\tabulinesep=2mm
@@ -37,7 +66,7 @@
         the model ID,
         the name of the \texttt{R} package (and its version number) which provided the distribution function,
         and the \texttt{R} call of the distribution function.
-        \label{tab:PresentedModelsOverview}} \\
+        \label{tab:PresentedModelsOverviewDistributions}} \\
       \toprule
       Model ID & Package (Version) & Function call \\
       \midrule
