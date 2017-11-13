@@ -23,7 +23,8 @@ titlepage]
 %% Define custom SI units.
 \DeclareSIUnit\year{a}
 
-%% Define custom commands (in alphabetical order of command name). Note: macro names may not contain non-letters.
+%% Define custom commands/math operators (in alphabetical order). Note: command names may not contain non-letters.
+\newcommand{\StandAgeVariableR}{\texttt{h100.EKL.I}}
 \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
 \DeclareMathOperator{\diag}{diag}
 \newcommand{\loglikelihood}{\ell}
@@ -36,6 +37,7 @@ titlepage]
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
+\newcommand{\SiteClassVariableR}{\texttt{SI.h100.diff.EKL.I}}
 \newcommand{\SIWrittenTerm}{absolute productivity index of stand}
 \newcommand{\Spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\TopHeight}[0]{h_{100}}
@@ -60,10 +62,11 @@ titlepage]
 \section{Material and Methods}
 \input{DataSelection.tex}
 \input{DataDescription.tex}
-\input{ModelsOverview.tex}
+\input{MethodsIntroduction.tex}
 \input{GAMsExplanation.tex}
 \input{SCAMsExplanation.tex}
 \input{GAMLSSsExplanation.tex}
+\input{ModelsOverview.tex}
 
 \newpage{}
 \input{Bibliography.tex}
