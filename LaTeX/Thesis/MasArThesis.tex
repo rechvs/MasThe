@@ -33,6 +33,8 @@ titlepage]
 \newcommand{\RefEq}[1]{equation~(\ref{#1})}
 \newcommand{\RefTab}[1]{Table~\ref{#1}}
 \newcommand{\RefFig}[1]{Figure~\ref{#1}}
+\newcommand{\SeePage}[1]{(see page \pageref{#1})}
+\newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
 \newcommand{\SIWrittenTerm}{absolute productivity index of stand}
 \newcommand{\Spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
@@ -56,7 +58,7 @@ titlepage]
 \section{Introduction}
 
 \section{Material and Methods}
-% \input{DataSelection.tex}
+\input{DataSelection.tex}
 \input{DataDescription.tex}
 \input{ModelsOverview.tex}
 \input{GAMsExplanation.tex}
