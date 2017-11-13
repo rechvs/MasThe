@@ -7,9 +7,12 @@ The geographical location and the altitude above sea level of sample plots are r
 In Figures \ref{fig:StandAgeTopHeightYieldClassClassification}, \ref{fig:StandAgeSiteIndexYieldClassClassification}, and \ref{fig:StandAgeBasalAreaYieldClassClassification}, dot color signifies the (fractional) yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the \SIWrittenTerm{} (\(SI\)) in \si{\meter} was computed using the equation
 \begin{equation}
   \label{eq:NagelFunctionSolvedForSI}
-  SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)} ,
+  % SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)}
+  SI = \frac{\TopHeight(x) + \beta_0 - \beta_1 \cdot \ln(x) - \beta_2 \cdot \ln(x)^2 }{\beta_3 + \beta_4 \cdot \ln(x)}
 \end{equation}
-\parencite{Nagel1999} where \(x\) is stand age and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\).  Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\) and the worst yield class needed to include the highest observed \(SI\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(SI\) was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  Considering \RefFig{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
+\parencite{Nagel1999}, where \(x\) is stand age and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\) and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients.  The coefficients were taken from \textcite{Nagel1999} and are reported in \RefTab{tab:NagelFunctionCoefficients}.
+
+Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\) and the worst yield class needed to include the highest observed \(SI\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(SI\) was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  Considering \RefFig{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
 
 As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist.  In the former, stands are notably older and cover a wider range of ages, with stand age ranging from \SIrange{35}{153.6}{\year} (difference: \SI{118.6}{\year}), whereas in the latter it ranges from \SIrange{15}{113}{\year} (difference: \SI{98}{\year}).  Consequently, stands in the \Beech{} data set have a higher top height, with \(\TopHeight\) ranging from \SIrange{16.3}{39.2}{\meter} (difference: \SI{22.9}{\meter}), but \Spruce{} stands cover a slightly wider range of top heights, with \(\TopHeight{}\) ranging from \SIrange{9.1}{33.3}{\meter} (difference: \SI{24.2}{\meter}).   In the case of \Beech{}, the maximal top height of all observations was reached by a sample plot of intermediate yield class (\(\approx{} 1\)) compared to the other sample plots in the data set.   In the case of \Spruce{}, the maximal top height of all observations was reached by a sample plot of bad yield class (\(\approx{} 2\)) compared to the other sample plots in the data set.
 
@@ -96,6 +99,22 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
       Total & 28 & 100 \\
       % Mean & & 3.6 \\
       % Media & & 3 \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{l S S S S S L}
+      \caption{Species-specific coefficients of \RefEq{eq:NagelFunctionSolvedForSI} as reported in \textcite{Nagel1999}.  \label{tab:NagelFunctionCoefficients}} \\
+      \toprule
+      Species & {\(\beta_0\)} & {\(\beta_1\)} & {\(\beta_2\)} & {\(\beta_3\)} & {\(\beta_4\)} & \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Beech & -75.659 & 23.192 & -1.468 & 0 & 0.2152 \\
+      Spruce & -49.872 & 7.3309 & 0.77338 & 0.52684 & 0.10542 \\
     \end{longtabu}
   }
 \end{singlespace}
