@@ -37,7 +37,27 @@ where \(\loglikelihood = \sum_{i = 1}^n \log\bigl(f\bigl(y_i | \symbf{\theta}^i\
   \label{eq:GAMLSSRigbyStasinopoulos2005BackfittingAlgorithm}
   \symbf{S}_{j, k} = \symbf{Z}_{j, k} \bigl(\symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k} \symbf{Z}_{j, k} + \symbf{G}_{j, k}\bigr)^{-1} \symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k}
 \end{equation}
-for \(j = 1, 2, \ldots, J_k\) and \(k = 1, 2, \ldots, p\), where \(\symbf{W}_{k, k}\) is a diagonal matrix of iterative weights.  Different types of additive terms in the linear predictor \(\symbf{\eta}_k\) lead to different forms of \(\symbf{Z}_{j, k}\) and \(\symbf{G}_{j, k}\).  The GAMLSSs presented in this study employ P-splines, either unconstrained \parencite{Eilers1996} or with a constraint of being monotone increasing \parencite{Bollaerts2006}.  %% CONTINUE HERE by explaining P-splines under a monotone increasing-constraint (cp. Bollaerts et al. (2006))
+for \(j = 1, 2, \ldots, J_k\) and \(k = 1, 2, \ldots, p\), where \(\symbf{W}_{k, k}\) is a diagonal matrix of iterative weights.  Different types of additive terms in the linear predictor \(\symbf{\eta}_k\) lead to different forms of \(\symbf{Z}_{j, k}\) and \(\symbf{G}_{j, k}\).  The GAMLSSs presented in this study employ P-splines, either unconstrained \parencite{Eilers1996} or with a constraint of being monotone increasing.  Unconstrained P-splines have already been discussed \SeeSection{sec:BSplinesPSplines}.  To impose a monotone increasing constraint on a P-spline, an additional asymmetric penalty on the first-order differences has to be added to \RefEq{eq:PSplineOLS}.  The least squares objective function to minimize thus becomes
+\begin{equation}
+  \label{eq:PSplineOLSMonotoneIncreasingConstraint}
+  S =
+  \sum_{j = 1}^q 
+  \Biggl(
+  y_j - \sum_{i = 0}^n \symbf{P}_i N_{i, p}\bigl(x_j\bigr)
+  \Biggr)^2
+  + \lambda \sum_{i = k + 1}^n \bigl(\upDelta^k \symbf{P}_i\bigr)^2
+  + \kappa \sum_{i = 2}^n w_{(\symbf{P}_i)}\bigl(\upDelta^1 \symbf{P}_i\bigr)^2
+\end{equation}
+with
+\begin{equation}
+  \label{eq:PSlineOLSMonotoneIncreasingConstraintWFunction}
+  w_{(\symbf{P}_i)} =
+  \begin{cases}
+    0 &\text{if } \upDelta^1 \symbf{P}_i \geq 0 \\
+    1 &\text{otherwise}
+  \end{cases}
+\end{equation}
+\parencite{Bollaerts2006}, where \(\kappa\) is a user-defined constraint parameter for fine-tuning the constraint strength and where all other symbols retain the same meaning as in \RefEq{eq:PSplineOLS}.
 
 %%% Local Variables:
 %%% mode: latex
