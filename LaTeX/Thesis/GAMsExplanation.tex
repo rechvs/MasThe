@@ -1,9 +1,6 @@
 \subsection{Explanation of GAMs}
 
 Generalized Additive Models (GAMs) \parencite{Wood2006,Hastie1991} are an extension of Generalized Linear Models (GLMs) \parencite{Nelder1972}, which in turn build upon Linear Models (LMs).
-% In order to explain GAMs, I will therefore first describe LMs and GLMs, before going into detail about GAMs.
-
-% \subsubsection{Distributional assumptions in Linear Models}
 
 A simple LM assumes a metric random variable \(Y\) to linearly depend upon the metric variable \(X\), such that
 \begin{equation}
@@ -12,12 +9,10 @@ A simple LM assumes a metric random variable \(Y\) to linearly depend upon the m
 \end{equation}
 where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\) is an independent random variable such that \(\mathbb{E}\bigl(\varepsilon_i\bigr) = 0\) and \(\mathbb{E}\bigl(\varepsilon_i^2\bigr) = \sigma^2\).  To allow testing of hypotheses related to the model described by \RefEq{eq:LinearModel}, additional assumptions about the distribution of \(Y\) and \(\varepsilon\) need to be made.  Specifically, 2 assumptions are made: the residual term \(\varepsilon\) is assumed to follow normal distribution with a mean of zero and a variance of \(\sigma^2\): \(\varepsilon \sim N\bigl(0, \sigma^2\bigr)\); and the response variable \(Y\) is assumed to follow normal distribution with a mean equal to the product of independent variable \(X\) and parameter \(\beta\) and a variance of \(\sigma^2\): \(Y \sim N\bigl(X \beta, \sigma^2\bigr) \) \parencite{Wood2006,Burkschat2012}.
 
-% \subsubsection{Distributional assumptions in Generalized Linear Models}
-
 A GLM has the structure
 \begin{equation}
   \label{eq:GeneralizedLinearModel}
-  g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta},  %% Command "\symbf" is provided by package "unicode-math" (see unicode-math manual p. 11)
+  g\bigl(\mu_i\bigr) = \symbf{x}_i \symbf{\beta},
 \end{equation}
 where \(\mu_i\) is the expectation of response variable \(Y_i\), i.e., \(\mu_i \equiv \mathbb{E}\bigl(Y_i\bigr)\), \(g\) is a smooth monotonic ``link function'', \(\symbf{x}_i\) is the \(i^{\text{th}}\) row of model matrix \(\symbf{X}\), and \(\symbf{\beta}\) is a vector of unknown parameters \parencite{Wood2006,Nelder1972}.
 GLMs are an extension of LMs insofar as they also also center around a ``linear predictor'', \(\symbf{X}\symbf{\beta}\), but allow other link functions than the identity function and allow the distribution of the dependent variable to be any distribution from the exponential family, instead of only the normal distribution.  The exponential family consists of distributions whose probability density function can be written as
@@ -45,7 +40,9 @@ where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is 
 \end{equation}
 where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GAMSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
-The GAMs used in the present study employ thin plate regression splines \parencite{Wood2003} for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines \parencite{Duchon1977}.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
+\subsubsection{Thin-plate regression splines}
+
+The GAMs presented in this study employ thin plate regression splines \parencite{Wood2003} for creating the basis of all their smooth functions.  Thin plate regression splines are based on thin plate splines \parencite{Duchon1977}.  In order to explain thin plate splines, consider the problem of estimating the smooth function \(g(x)\), based on \(n\) observations \((y_i, \symbf{x}_i)\) such that
 \begin{equation}
   \label{eq:ThinPlateSplinesModel}
   y_i = g(\symbf{x}_i) + \varepsilon_i,
@@ -55,7 +52,7 @@ where \(\varepsilon_i\) is a random error term and where \(\symbf{x}\) is a \(d\
   \label{eq:ThinPlateSplinesTermToMinimize}
   \norm{\symbf{y} - \symbf{f}}^2 + \uplambda J_{m, d}(f),
 \end{equation}
-where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{m, d}(f)\) is a penalty functional measuring the ``roughness'' of \(f\).  The penalty is defined as
+where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\symbf{x}_1\bigr), f\bigl(\symbf{x}_2\bigr), \ldots, f\bigl(\symbf{x}_n\bigr)\bigr)^{\text{T}}\), \(\uplambda\) is a smoothing parameter controlling the tradeoff between data fitting and smoothness of \(f\), and \(J_{m, d}(f)\) is a penalty functional measuring the ``roughness'' of \(f\) \parencite{Wood2006}.  The penalty is defined as
 \begin{equation}
   \label{eq:ThinPlateSplinesPenalty}
   J_{m, d} = \int{\hspace{-3mm}}\cdots\int_{\mathfrak{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
@@ -65,7 +62,7 @@ where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\s
   \label{eq:ThinPlateSplinesMinimizingFunctionForm}
   \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{m, d}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x}),
 \end{equation}
-where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\symbf{\delta}\) being subject to the linear constraints that \(\symbf{T}^{\text{T}}\symbf{\delta} = 0\), where \(T_{i, j} = \Phi_j\bigl(\symbf{x}_i\bigr)\).
+where \(\symbf{\delta}\) and \(\symbf{\alpha}\) are vectors of coefficients to be estimated, \(\symbf{\delta}\) being subject to the linear constraints that \(\symbf{T}^{\text{T}}\symbf{\delta} = 0\), where \(T_{i, j} = \Phi_j\bigl(\symbf{x}_i\bigr)\) \parencite{Wood2006}.
 The \(M = \dbinom{m + d - 1}{d}\) functions, \(\Phi_i\), are linearly independent polynomials spanning the space of polynomials \(\mathfrak{R}^d\) of degree less than \(m\).  %% I need to use "\dbinom...", because XITS Math (and all OpenType fonts for that matter) in combination with my version of LuaLaTeX cannot properly place the binomial coefficients when using "\tbinom...".
 The \(\Phi_i\) span the space of functions for which \(J_{m, d}\) is zero.  The \(\eta_{m, d}\) functions are defined as
 \begin{equation}
@@ -82,21 +79,23 @@ The \(\Phi_i\) span the space of functions for which \(J_{m, d}\) is zero.  The 
   \label{eq:ThinPlateSplineSimplifiedFittingProblem}
   \text{minimize } \norm{\symbf{y} - \symbf{E}\symbf{\delta} - \symbf{T}\symbf{\alpha}}^2 + \uplambda \symbf{\delta}^{\text{T}}\symbf{E}\symbf{\delta} \text{ subject to } \symbf{T}^{\text{T}}\symbf{\delta} = 0,
 \end{equation}
-with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\).
+with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\) \parencite{Wood2006}.
 
-Thin plate regression splines build upon thin plate splines by truncating the space of the components with parameter \(\symbf{\delta}\), without changing the \(\symbf{\alpha}\) components \parencite{Wood2006}.  Let \(\symbf{E} = \symbf{U D U}^{\text{T}}\) be the eigen-decomposition of \(\symbf{E}\), so that \(\symbf{D}\) is a diagonal matrix of eigenvalues of \(\symbf{E}\) arranged so that \(\abs{D_{i, i}} \geq \abs{D_{i - 1, i - 1}}\) and the columns of \(\symbf{U}\) are the corresponding eigenvectors. Furthermore, let \(\symbf{U}_k\) denote the matrix consisting of the first \(k\) columns of \(\symbf{U}\) and let \(\symbf{D}_k\) denote the top right \(k \times k\) submatrix of \(\symbf{D}\).  By writing \(\symbf{\delta} = \symbf{U}_k \symbf{\delta}_k\), one can restrict \(\symbf{\delta}\) to the columns space of \(\symbf{U}_k\), by which \RefEq{eq:ThinPlateSplineSimplifiedFittingProblem} becomes
+Thin plate regression splines build upon thin plate splines by truncating the space of the components with parameter \(\symbf{\delta}\), without changing the \(\symbf{\alpha}\) components.  Let \(\symbf{E} = \symbf{U D U}^{\text{T}}\) be the eigen-decomposition of \(\symbf{E}\), so that \(\symbf{D}\) is a diagonal matrix of eigenvalues of \(\symbf{E}\) arranged so that \(\abs{D_{i, i}} \geq \abs{D_{i - 1, i - 1}}\) and the columns of \(\symbf{U}\) are the corresponding eigenvectors. Furthermore, let \(\symbf{U}_k\) denote the matrix consisting of the first \(k\) columns of \(\symbf{U}\) and let \(\symbf{D}_k\) denote the top right \(k \times k\) submatrix of \(\symbf{D}\).  By writing \(\symbf{\delta} = \symbf{U}_k \symbf{\delta}_k\), one can restrict \(\symbf{\delta}\) to the columns space of \(\symbf{U}_k\), by which \RefEq{eq:ThinPlateSplineSimplifiedFittingProblem} becomes
 \begin{equation}
   \label{eq:ThinPlateRegressionSplinesSimplifiedFittingProblem}
   \text{minimize } \norm{\symbf{y} - \symbf{U}_k\symbf{D}_k\symbf{\delta}_k - \symbf{T \alpha}}^2 + \uplambda \symbf{\delta}_k^{\text{T}} \symbf{D}_k \symbf{\delta}_k \text{ subject to } \symbf{T}^{\text{T}} \symbf{U}_k \symbf{\delta}_k = 0
 \end{equation}
-with respect to \(\symbf{\delta}_k\) and \(\symbf{\alpha}\).  In order to absorb the constraints, an orthogonal column basis \(\symbf{Z}_k\) must be found, such that \(\symbf{T}^{\text{T}} \symbf{U}_k \symbf{Z}_k = 0\).  By writing \(\symbf{\delta}_k = \symbf{Z}_k \tilde{\symbf{\delta}}\) one can restrict \(\symbf{\delta}_k\) to this space.  This yields the unconstrained problem that must be solved to fit the rank \(k\) approximation to the smoothing spline:
+with respect to \(\symbf{\delta}_k\) and \(\symbf{\alpha}\) \parencite{Wood2006}.  In order to absorb the constraints, an orthogonal column basis \(\symbf{Z}_k\) must be found, such that \(\symbf{T}^{\text{T}} \symbf{U}_k \symbf{Z}_k = 0\).  By writing \(\symbf{\delta}_k = \symbf{Z}_k \tilde{\symbf{\delta}}\) one can restrict \(\symbf{\delta}_k\) to this space.  This yields the unconstrained problem that must be solved to fit the rank \(k\) approximation to the smoothing spline:
 \begin{equation}
   \label{eq:ThinPlateRegressionSplinesUnconstrainedFittingProblem}
   \text{minimize } \norm{\symbf{y} - \symbf{U}_k \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}} - \symbf{T} \symbf{\alpha}}^2 + \uplambda \tilde{\symbf{\delta}}^{\text{T}} \symbf{Z}_k^{\text{T}} \symbf{D}_k \symbf{Z}_k \tilde{\symbf{\delta}}
 \end{equation}
-with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\).
+with respect to \(\tilde{\symbf{\delta}}\) and \(\symbf{\alpha}\) \parencite{Wood2006}.
 
-Estimation of the smoothing parameter \(\uplambda\) for each smooth function is achieved via generalized cross validation (GCV), which builds upon cross validation.  In cross validation, each pair of observations \(\bigl(x_i, y_i\bigr)\) is left out one at a time while estimating the smooth function at \(x_i\) using the remaining \(n - 1\) observations.  This way, cross validation mimics the use of training and test data for model fitting.  The quantity of interest is the cross validation sum of squares
+\subsubsection{Generalized cross validation}
+
+For the GAMs presented in this study, estimation of the smoothing parameter \(\uplambda\) for each smooth function was achieved via generalized cross validation (GCV), which builds upon cross validation.  In cross validation, each pair of observations \(\bigl(x_i, y_i\bigr)\) is left out one at a time while estimating the smooth function at \(x_i\) using the remaining \(n - 1\) observations.  This way, cross validation mimics the use of training and test data for model fitting.  The quantity of interest is the cross validation sum of squares
 \begin{equation}
   \label{eq:CrossValidationSumOfSquares01}
   CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Bigl(y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr)\Bigr)^2,
