@@ -24,22 +24,25 @@ titlepage]
 \DeclareSIUnit\year{a}
 
 %% Define custom commands/math operators (in alphabetical order). Note: command names may not contain non-letters.
-\newcommand{\StandAgeVariableR}{\texttt{h100.EKL.I}}
 \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
 \DeclareMathOperator{\diag}{diag}
 \newcommand{\loglikelihood}{\ell}
 \newcommand{\logNlogDcurve}{log(\(N\))-log(\(D\))-curve}
 \newcommand{\NWFVA}{Northwest German Forest Research Institute}
 \newcommand{\Ponderosa}[0]{Ponderosa pine (\emph{Pinus ponderosa} \textsc{Douglas})}
-\newcommand{\RefEq}[1]{equation~(\ref{#1})}
+\newcommand{\RefEq}[1]{Equation~(\ref{#1})}
 \newcommand{\RefTab}[1]{Table~\ref{#1}}
 \newcommand{\RefFig}[1]{Figure~\ref{#1}}
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
-\newcommand{\SiteClassVariableR}{\texttt{SI.h100.diff.EKL.I}}
-\newcommand{\SIWrittenTerm}{absolute productivity index of stand}
+\newcommand{\ProductivityIndexText}{absolute productivity index of stand}
+\newcommand{\ProductivityIndexVariableMath}{SI_{\text{diff}}}
+\newcommand{\ProductivityIndexVariableR}{\texttt{SI.h100.diff.EKL.I}}
+\newcommand{\ProductivityIndexYieldClassIMath}{SI_{\text{I. YC}}}
 \newcommand{\Spruce}[0]{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
+\newcommand{\StandAgeVariableMath}{h_{100}(x)_{\text{I. YC}}}
+\newcommand{\StandAgeVariableR}{\texttt{h100.EKL.I}}
 \newcommand{\TopHeight}[0]{h_{100}}
 \DeclareMathOperator{\tr}{tr}
 
@@ -60,12 +63,12 @@ titlepage]
 \section{Introduction}
 
 \section{Material and Methods}
-\input{DataSelection.tex}
+% \input{DataSelection.tex}
 \input{DataDescription.tex}
-\input{MethodsIntroduction.tex}
-\input{GAMsExplanation.tex}
-\input{SCAMsExplanation.tex}
-\input{GAMLSSsExplanation.tex}
+% \input{MethodsIntroduction.tex}
+% \input{GAMsExplanation.tex}
+% \input{SCAMsExplanation.tex}
+% \input{GAMLSSsExplanation.tex}
 \input{ModelsOverview.tex}
 
 \newpage{}
