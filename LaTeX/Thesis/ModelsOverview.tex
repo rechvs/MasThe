@@ -1,6 +1,6 @@
 \subsection{Model overview}
 
-\RefTab{tab:PresentedModelsOverviewFormulas} provides an overview of the settings used for fitting the models presented in this study.  For each species, 6 different models were fitted: 2 GAMs, one SCAM, and 3 GAMLSSs.  The settings for a given model were the same for both \Beech{} and \Spruce{}.
+\RefTab{tab:PresentedModelsOverviewFormulas} provides an overview of the settings used for fitting the models presented in this study.  For each species, 6 different models were fitted: 2 GAMs, one SCAM, and 3 GAMLSSs.  The settings for a given model were the same for \Beech{} and \Spruce{}.  In the case of GAM1 and GAM2, the \texttt{s(\textnormal{\ldots})} formula terms are smooth functions using thin plate regression splines as their function basis.  In the case of SCAM1, the \texttt{s(\textnormal{\ldots}, bs = "micv")} formula term is a smooth function using P-splines constrained to be increasing and concave as its function basis.  In all smooth functions of the GAMS and SCAM, the setting of basis dimension and order of penalty is left to the smooth function.  In the case of GAMLSS1 and GAMLSS2, the \texttt{ps(\textnormal{\ldots})} formula terms are smooth functions using P-splines as their function basis.  In the case of GAMLSS3, the \texttt{pbm(\ldots{})} term is a smooth function using P-splines constrained to be montonone increasing as its function basis.  In all smooth functions of the 3 GAMLSSs, function basis degree was set to 3, function basis order was set to 2, the number of spline knots was set to 20, while selection of the smoothing parameter was left to the smooth function. For all GAMLSSs, the formula reported in \RefTab{tab:PresentedModelsOverviewFormulas} applies only to the location parameter of the assumed probability distribution. All other distribution parameters were modelled as constants (i.e., with formula \texttt{gha \textasciitilde{} 1}).  None of the 6 models assume interaction between the predictor variables.
 
 \begin{table}[H]
   {\tabulinesep=2mm
@@ -13,51 +13,31 @@
         In the case of GAMLSS1, GAMLSS2, and GAMLSS3, the formula applies only to the location parameter of the assumed probability distribution.
         For all other distribution parameters, the formula was \texttt{gha \textasciitilde{} 1}. \\
         \texttt{gha}: basal area variable \\
-        \StandAgeVariableR{}: stand age variable \\
-        \SiteClassVariableR{}: site class variable
+        \StandAgeVariableR{}: stand age variable (cp. \RefEq{eq:StandAgeVariable}) \\
+        \ProductivityIndexVariableR{}: productivity index variable (cp. \RefEq{eq:SiteClassVariable})
         \label{tab:PresentedModelsOverviewFormulas}} \\
       \toprule
-      Model ID & Package (Version) & Function & Formula \\
+      Model ID & Package (Version) & Fitting function & Formula \\
       \midrule
       \endhead
       \bottomrule
       \endlastfoot
-      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + s(\SiteClassVariableR{})} \\
-      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
-      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}, bs = "micv") + \SiteClassVariableR{}} \\
-      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + ps(\SiteClassVariableR{})} \\
-      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
-      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(\StandAgeVariableR{}) + \SiteClassVariableR{}} \\
+      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + s(\ProductivityIndexVariableR{})} \\
+      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
+      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}, bs = "micv") + \ProductivityIndexVariableR{}} \\
+      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + ps(\ProductivityIndexVariableR{})} \\
+      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
+      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
       \bottomrule
     \end{longtabu}}
 \end{table}
 
-One main goal in model formulation was to ensure that the fitted models were capable of separating the effects of stand age and site class on predicted basal area.  However, top height (\(h_{100}\)) as the predictor variable was considered unsuited for achieving this goal, since past experience had shown that using this dimension as the predictor variable does not allow inclusion of a separate site class-effect in the model.  Therefore, 2 new variables were calculated:  a stand age variable and a site class variable, each of which was calculated in such a way as to exclude the effect of the other. The stand age variable was calculated using the equation
+\RefTab{tab:PresentedModelsOverviewDistributions} provides an overview of the probability distributions and link functions employed in the presented models.  Models GAM1, GAM2, and SCAM1 assume basal area to follow Gamma distribution.  The cumulative distribution function of a variable following Gamma distribution is given by
 \begin{equation}
-  \label{eq:StandAgeVariable}
-  h_{100}(x)_{\text{I. YC}} = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + SI_{\text{I. YC}} \cdot \bigl(\beta_3 + \beta_4 \cdot \ln(x)\bigr)
+  \label{eq:GammaDistributionProbabilityDensityFunction}
+  P(X = x|k, \theta) = x^{k - 1} \frac{\exp{\Bigl(\frac{-x}{\theta}\Bigr)}}{\theta^k \upGamma(k)},
 \end{equation}
-\parencite{Nagel1999}, where \(h_{100}(x)_{\text{I. YC}}\) is the top height in \si{\meter} at age \(x\) if the stand were yield class I, \(SI_{\text{I. YC}}\) is the species-specific top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I and all other terms have the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI}.  The values for \(SI_{\text{I. YC}}\) were taken from \textcite{Schober1995} and are reported in table \RefTab{tab:SIYieldClassI}.  By setting \(SI_{\text{I. YC}}\) to a species-specific constant, it was possible to exclude any site class-effects from \RefEq{eq:StandAgeVariable}.  Thus, \(h_{100}(x)_{\text{I. YC}}\) only depends on stand age and was therefore chosen as the stand age variable for model fitting.
-
-\begin{table}[H]
-  {\tabulinesep=2mm
-    \begin{longtabu}{l S L}
-      \caption{Species-specific \(SI_{\text{I. YC}}\) values used in \RefEq{eq:StandAgeVariable}.  Values are top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I as reported in \textcite{Schober1995}
-        \label{tab:SIYieldClassI}} \\
-      \toprule
-      Species & {\(SI_{\text{I. YC}}\) [\si{\meter}]} & \\
-      \midrule
-      \endhead
-      \bottomrule
-      \endlastfoot
-      Beech & 32.4 \\
-      Spruce & 35.1 \\
-      \bottomrule
-    \end{longtabu}}
-\end{table}
-
-
-
+where \(k\) and \(\theta\) are the shape and scale parameter, respectively, and \(\upGamma\) is the Gamma function \parencite{Dormann2013}.  To avoid implausible negative predictions of basal area, the logarithm function was chosen as the link function, rather than the default inverse function.  Models GAMLSS1, GAMLSS2, and GAMLSS3 assume basal area to follow Box-Cox-Cole-Green distribution.  %% CONTINUE HERE with describing the CDF of the BCCG distribution.
 
 \begin{table}[H]
   {\tabulinesep=2mm
@@ -65,10 +45,10 @@ One main goal in model formulation was to ensure that the fitted models were cap
       \caption{Overview of the \texttt{R} distribution functions used for the models presented in this study.  The overview includes
         the model ID,
         the name of the \texttt{R} package (and its version number) which provided the distribution function,
-        and the \texttt{R} call of the distribution function.
+        and the \texttt{R} call of the distribution function used in model fitting.
         \label{tab:PresentedModelsOverviewDistributions}} \\
       \toprule
-      Model ID & Package (Version) & Function call \\
+      Model ID & Package (Version) & Distribution function call \\
       \midrule
       \endhead
       \bottomrule
@@ -82,6 +62,37 @@ One main goal in model formulation was to ensure that the fitted models were cap
       \bottomrule
     \end{longtabu}}
 \end{table}
+
+One main goal in model formulation was to ensure that the fitted models were capable of separating the effects of stand age and productivity index on predicted basal area.  Top height (\(h_{100}\)) was considered an unsuited predictor variable for achieving this goal, since past experience had shown that using this dimension as the predictor variable does not allow identification of a separate productivity index-effect in the model, at least when data set size is rather limited as is the case in the present study.  Therefore, 2 new variables were calculated:  a stand age variable and a productivity index variable, each of which was calculated in such a way as to exclude the effect of the other. The stand age variable was calculated using the equation
+\begin{equation}
+  \label{eq:StandAgeVariable}
+  \StandAgeVariableMath{} = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + \ProductivityIndexYieldClassIMath{} \cdot \bigl(\beta_3 + \beta_4 \cdot \ln(x)\bigr),
+\end{equation}
+where \(\StandAgeVariableMath{}\) is the top height in \si{\meter} at age \(x\) if the stand were yield class I, \(\ProductivityIndexYieldClassIMath{}\) is the species-specific top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I and all other terms have the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI} \parencite{Nagel1999}.  The values for \(\ProductivityIndexYieldClassIMath{}\) were taken from \textcite{Schober1995} and are reported in \RefTab{tab:SIYieldClassI}.  By setting \(\ProductivityIndexYieldClassIMath{}\) to a species-specific constant, it was possible to exclude any productivity index-effects from .  Thus, \(h_{100}(x)_{\text{I. YC}}\) only depends on stand age and was therefore chosen as the stand age variable.
+
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{l S L}
+      \caption{Species-specific values of top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I as reported in \textcite{Schober1995}
+        \label{tab:SIYieldClassI}} \\
+      \toprule
+      Species & {\(\ProductivityIndexYieldClassIMath{}\) [\si{\meter}]} & \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Beech & 32.4 \\
+      Spruce & 35.1 \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+The productivity index variable was calculated in 2 steps.  First, the \ProductivityIndexText{} was calculated using \RefEq{eq:NagelFunctionSolvedForSI}.  Subsequently, this value was subtracted from the \ProductivityIndexText{} of yield class I using the equation
+\begin{equation}
+  \label{eq:SiteClassVariable}
+  \ProductivityIndexVariableMath{} = SI - \ProductivityIndexYieldClassIMath{},
+\end{equation}
+where \(\ProductivityIndexVariableMath{}\) is the productivity index variable, \(SI\) has the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI}, and \(\ProductivityIndexYieldClassIMath{}\) has the same meaning as in \RefEq{eq:StandAgeVariable}.  \(\ProductivityIndexVariableMath{}\) is a measure of the performance of a stand relative to a reference stand (here: a stand of yield class I according to \textcite{Schober1995}): high values signify stands which outperform the reference stand, whereas low values indicate low performance stands.  Since both \(SI\) and \(\ProductivityIndexYieldClassIMath{}\) refer to a specific stand age (here: 100 \si{\year}) rather than a variable one, \(\ProductivityIndexVariableMath{}\) is only influenced by stand productivity and not by stand age.  Thus, it is free of any stand age-effects and was therefore chosen as the productivity index variable.
 
 %%% Local Variables:
 %%% mode: latex
