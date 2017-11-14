@@ -41,9 +41,9 @@ The concept of P-splines extends B-splines in 2 ways: on the one hand it sets a 
   \Biggl(
   y_j - \sum_{i = 0}^n \symbf{P}_i N_{i, p}\bigl(x_j\bigr)
   \Biggr)^2
-  + \lambda \sum_{i = k + 1}^n \bigl(\upDelta^k \symbf{P}_i\bigr)^2
+  + \lambda \sum_{i = k + 1}^n \bigl(\upDelta^k \symbf{P}_i\bigr)^2,
 \end{equation}
-\parencite{Eilers1996}, with \(\upDelta^k \symbf{P}_i\) being the \(k\)th-order differences, i.e., \(\upDelta^k\symbf{P}_i = \upDelta^1 \bigl(\upDelta^{k - 1} \symbf{P}_i\bigr)\) with \(\upDelta^1 \symbf{P}_i = \symbf{P}_i - \symbf{P}_{i - 1}\) and with \(\lambda\) being a smoothness parameter \parencite{Bollaerts2006}.
+with \(\upDelta^k \symbf{P}_i\) being the \(k\)th-order differences, i.e., \(\upDelta^k\symbf{P}_i = \upDelta^1 \bigl(\upDelta^{k - 1} \symbf{P}_i\bigr)\) with \(\upDelta^1 \symbf{P}_i = \symbf{P}_i - \symbf{P}_{i - 1}\) and with \(\lambda\) being a smoothness parameter \parencite{Eilers1996, Bollaerts2006}.
 
 \subsubsection{SCAMs}
 
@@ -98,9 +98,9 @@ This penalty becomes zero when all \(\beta_j\) following \(b_1\) are equal, thus
 
 Embedding the shape constrained smooth function \(m(x)\) in a larger model requires an additional constraint on \(m(x)\) in order to avoid it being confused with the intercept of the larger model.  This can be achieved by imposing centering constraints on the model matrix columns, i.e., by setting the sum of the values of the smooth to zero: \(\sum_{i = 1}^n m(x_i) = 0\) \parencite{Pya2015}.
 
-The SCAMs presented in this study constrain the smooth function to be monotonically increasing and concave.  For this constraint, matrix \(\symbf{\Sigma}\) has to be adjusted so that
+The SCAMs presented in this study constrain the smooth function to be increasing and concave.  For this constraint, matrix \(\symbf{\Sigma}\) has to be adjusted so that
 \begin{equation}
-  \label{eq:SCAMSigmaMonotoneIncreasingConcave}
+  \label{eq:SCAMSigmaIncreasingConcave}
   \Sigma_{i, j} =
   \begin{cases}
     0 &\text{if } i = 1,~ j \geq 2 \\
@@ -111,7 +111,7 @@ The SCAMs presented in this study constrain the smooth function to be monotonica
 \end{equation}
 while matrix \(\symbf{D}\) has to be adjusted so that
 \begin{equation}
-  \label{eq:SCAMDMonotoneIncreasingConcave}
+  \label{eq:SCAMDIncreasingConcave}
   D_{i, j} = 
   \begin{cases}
     - D_{i, j + 1} = 1 &\text{if } i = 1, \ldots, q - 3,~ j = i + 2 \\
