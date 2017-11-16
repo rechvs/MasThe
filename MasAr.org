@@ -1,5 +1,7 @@
 * TODO [7/14]
 ** CURRENT Read literature for “Introduction”
+*** CURRENT Acquire Spellmann et al. (1999) [cp. Döbbeler & Spellmann (2002)]
+    + Article might be of interest (cp. Döbbeler & Spellmann (2002)) in terms of a model which utilizes maximum basal area as a reference for silvicultural treatment (and which supposedly disregards differences between yield classes).
 *** CURRENT Acquire Assmann (1974) (cp. Schütz & Zingg (2010), p. 507p2)
     + Article might be of interest in terms of the possible variation of stand density between different fully closed [i.e., maximum density?] stands.
 *** CURRENT Acquire Del Río & Sterba (2009) (cp.  Huber et al. (2014), p. 1286)
@@ -316,14 +318,35 @@
 * NOTES
 ** Layout of Thesis
 *** Introduction
-**** Sterba’s approach
-*** Material and Methods
-**** Description of data sets
-     + Location of sample plots
-**** Mechanism for selecting data
+*** Material and Methods [0/0]
+**** Data Selection [1/2]
+     + [X] Discussion of the data selection mechanism should go into section “Discussion”
+     + [ ] Report min, mean, and max of slopes of observations which were selected by the data selection mechanism.
+**** Description of data sets [7/7]
+     + [X] Total number of observations per sample plot
+     + [X] Geographical location of sample plots
+     + [X] Altitude above sea level of sample plots
+     + [X] Method for yield class classification of observations
+     + [X] Top height over stand age (observations classified into yield classes)
+     + [X] Site index over stand age (observations classified into yield classes)
+     + [X] Basal area over stand age (observations classified into yield classes)
+**** Description of explanatory variables used in the models
+     + [ ] Computation of age variable
+     + [ ] Computation of site class variable
+     + [ ] Figure: Site class variable over stand age (observations classified into yield classes) [Might be a bit redundant when compared to the figure of site index over stand age.]
+**** Explanation of GAMs [0/1]
+     + [ ] Why did I choose gamma distribution?
+**** Explanation of SCAMs [0/2]
+     + [ ] Explanation of B-splines (cp. de Boor (2001))
+     + [ ] Explanation of P-splines (cp. Eilers & Marx (1996))
+**** Explanation of GAMLSSs [0/1]
+     + [ ] Explanation of shape constrained P-splines (cp. Boaerts et al. (2006))
 *** Discussion
     + Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
-    + 
+**** Show validity of assumed probability distributions via Q-Q-Plots
+**** Compare results to Sterba’s approach
+**** Discuss data selection mechanism
+     + Compare mean of observed slope with slopes reported in literature and point out that the data selection mechanism is rather generous in terms of maximum allowed slopes.
 ** R Code Style Guidelines
 *** Where to find Google’s R Style Guide?
     + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
@@ -364,7 +387,7 @@
    + Each block should contain the name of the TEX file which incorporates the figure/numbers produced by the block.
 *** Convention for naming headings
     + A heading should have the same name as the org block contained in it.
-*** Convention for naming headings and blocks
+*** Convention for naming blocks
     + A block should have the same name as the file produced by the block (including the file name suffix).
     + If a block produces 2 files, the species name in the block name should be replaced by the string “SPECIES”.
 *** Conventions for naming figure/output files
@@ -515,7 +538,19 @@
     | beech              | information regarding beech (Fagus sylvatica)                 |
     | spruce             | information regarding spruce (Picea abies)                    |
     | density            | information regarding stand density                           |
+    | scam               | explanation of SCAM                                           |
 ** TEX files
+*** Conventions regarding tables
+    + First words in column and row headings are always capitalized.
+    + Tables should always stretch the whole text width, with EITHER
+      the row heading column taking up any rubber space
+      OR
+      with the rubber space being equally distributed over all columns except the row heading column.
+    + Cells of text columns should be left aligned.
+    + Cells of number columns should be right aligned with numbers being centered on decimal points.
+      This includes the cell containing the column heading.
+    + Text and numbers should NOT be mixed in a column.
+    + The number of rows (excluding the colum heading row) must NEVER exceed the number of columns.
 *** Convention for naming files
     + General convention: “TopicCoveredInFile.tex”
     + File names should loosely be based on the topic covered in the file.
@@ -525,3 +560,29 @@
 *** Convention for naming labels
     + General convention: “type:LabelName”
     + Figure labels: “fig:NameOfFigureFileExcludingSuffix”
+** Email by Robert Rigby from [2017-11-15 Mi] on BCCG distribution:
+   Hi Renke,
+
+
+   The Box-Cox Cole and Green distribution,
+   (BCCG and BCCGo, which are the same distribution but BCCG uses an identity link for mu, while BCCGo uses a log link for mu),
+   is a special case of the Box-Cox power exponential distribution (BCPE and BCPEo), given by setting its tau parameter to 2.
+
+   The Box-Cox power exponential distribution was originally published in the following (unfortunately the link does not appear to work):
+
+   Rigby, R. A. and Stasinopoulos D. M. (2004). Smooth centile curves for skew and kurtotic data modelled using the Box-Cox Power Exponential distribution, Statistics in Medicine, 23, pp 3053-3076.
+
+   Results for BCCG can be obtained from the above paper by setting tau=2.
+   The original BCCG was developed by Cole and Green (1992) in Statistics in Medicine,
+   although they did not call it BCCG.
+
+
+   The BCCG is also a limiting case of the BCT (Box-Cox t) distribution, given by letting its tau tend to infinity.
+   The BCT distribution was originally published in the following (unfortunately this link also does not appear to work):
+
+   Rigby, R. A. and Stasinopoulos D. M. (2006). Using the Box-Cox t distribution in GAMLSS to model skewness and kurtosis, Statistical Modelling, 6, pp 209-229.
+
+   I hope this helps.
+   If you have any further questions please email us.
+
+   Robert Rigby
