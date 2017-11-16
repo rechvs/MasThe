@@ -482,7 +482,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.85,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -678,7 +678,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -818,7 +818,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1065,7 +1065,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1204,7 +1204,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1358,6 +1358,54 @@
         fill = FALSE)
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* CorrelationCoefficients.txt
+  #+NAME: CorrelationCoefficients.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Preamble.
+    kNamesOfColumnsToEvaluate <- c("alt", "SI.h100.diff.EKL.I")
+    ## Initiate list in which to store results for all species.
+    results.list <- vector(mode = "list")
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Initiate data frame in which to store results of current species.
+        cur.species.results.df <- data.frame(matrix(data = NA,
+					  nrow = length(x = kNamesOfColumnsToEvaluate),
+					  ncol = length(x = kNamesOfColumnsToEvaluate)))
+        colnames(x = cur.species.results.df) <- kNamesOfColumnsToEvaluate
+        rownames(x = cur.species.results.df) <- kNamesOfColumnsToEvaluate
+        ## Get source data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Loop over all rows in "cur.species.results.df".
+        for (cur.row.index in seq_len(length.out = nrow(x = cur.species.results.df))) {
+	  ## Loop over all columns in "cur.species.results.df".
+	  for (cur.col.index in seq_len(length.out = ncol(x = cur.species.results.df))) {
+	      ## Calclulate correlation coefficient between source data frame columns of interest.
+	      cur.x.col.name <- colnames(x = cur.species.results.df)[cur.col.index]
+	      cur.y.col.name <- rownames(x = cur.species.results.df)[cur.row.index]
+	      cur.cor <- cor(x = cur.data.frame[[cur.x.col.name]],
+			 y = cur.data.frame[[cur.y.col.name]])
+	      ## Store result in appropriate cell of "cur.species.results.df".
+	      cur.species.results.df[cur.row.index, cur.col.index] <- cur.cor
+	  }}
+        ## Append "cur.species.results.df" to "results.list".
+        if (length(x = results.list) == 0) {
+	  results.list <- list(cur.species.results.df)
+        } else {
+	  results.list <- c(results.list,
+			list(cur.species.results.df))
+        }}
+    ## Set names of "results.list".
+    names(x = results.list) <- kSpeciesNamesCapitalized
+    ## Store printing of "results.list" in "cur.output", while left justifying output.
+    cur.output <- capture.output(print(x = results.list,
+			         row.names = TRUE))
+    ## Output results to file.
+    cat(cur.output,
+        file = paste0(kOutputSubdir, "CorrelationCoefficients.txt"),
+        sep = "\n",
+        fill = FALSE)
   #+END_SRC
 * File local variables
   # Local Variables:
