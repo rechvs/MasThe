@@ -7,7 +7,7 @@
     setwd(dir = "~/laptop02_MasAr")
     kDataDir <- "Data/"
     ## Load data set.
-    kBaseFileVersion <- "5.3"
+    kBaseFileVersion <- "5.4"
     kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
     kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
     ## Set dimensions of PDF device.
@@ -233,12 +233,27 @@
 	        lwd = kLineWidth,
 	        col = cur.point.line.col)
         }
-        ## Update legend components.
+        ## Calculate number of observations in current data frame.
+        cur.n <- nrow(x = cur.data.frame)
+        ## Calculate number of sample plots in current data frame.
+        cur.sample.plots.n <- length(x = levels(x = droplevels(x = cur.data.frame[["edvid"]])))
+        ## Update legend components. I am adding 2 elements to each legend component because it’s the only way to insert a line break between the string "Beobachtungen" and the expression containing "cur.n" and "cur.sample.plots.n".
         legend.legend <- c(legend.legend, paste0("observations ", cur.species.name))
         legend.pch <- c(legend.pch, kPointCharacter)
         legend.lty <- c(legend.lty, kLineType)
         legend.lwd <- c(legend.lwd, kLineWidth)
         legend.col <- c(legend.col, cur.point.line.col)
+        legend.legend <- c(legend.legend,
+		       mapply(FUN = function(expr1, numbr1, expr2, numbr2) { as.expression(x = bquote(.(expr1)*.(numbr1)*", "*.(expr2)*.(numbr2)*")")) },
+			    expr1 = expression("("*italic("n")["obs"]*" = "),
+			    numbr1 = cur.n,
+			    expr2 = expression(italic("n")["sp"]*" = "),
+			    numbr2 = cur.sample.plots.n
+			    ))
+        legend.pch <- c(legend.pch, NA)
+        legend.lty <- c(legend.lty, NA)
+        legend.lwd <- c(legend.lwd, NA)
+        legend.col <- c(legend.col, NA)
         ## Add legend.
         legend(x = "bottomleft",
 	     legend = legend.legend,
@@ -532,7 +547,7 @@
 				   by = 10),
 			     h  = seq(from = kYLim[1],
 				    to = kYLim[2],
-				    by = 10),
+				    by = 5),
 			     lty = kGridLineType,
 			     lwd = kGridLineWidth,
 			     col = kGridLineCol))
@@ -952,12 +967,14 @@
 			 "h100",
 			 "gha",
 			 "SI.h100",
-			 "hnn.neu")
+			 "hnn.neu",
+			 "Reineke.slope")
     kStatisticFunctionsNames <- c("min",  ## All functions need to accept argument "x" as their input and argument "na.rm = TRUE".
 			    "median",
 			    "mean",
 			    "max",
 			    "span")
+    kRoundDigits <- c("Reineke.slope" = 3)
     span <- function(x, na.rm = TRUE) {
         var.min <- min(x = x,
 		   na.rm = na.rm)
@@ -986,10 +1003,16 @@
 	  for (cur.stat.fun.name in kStatisticFunctionsNames) {
 	      ## Get current statistic function.
 	      cur.stat.fun <- get(x = cur.stat.fun.name)
+	      ## If a number of decimal digits for rounding has been set for the current column, use that, otherwise set it to 1.
+	      if (cur.col.name %in% names(x = kRoundDigits)) {
+		cur.round.digits <- kRoundDigits[[cur.col.name]]
+	      } else {
+		cur.round.digits <- 1
+	      }
 	      ## Calclulate current statistic and store it in the appropriate row and column of "cur.species.results.df".
 	      cur.species.results.df[cur.species.results.df[["statistic"]] == cur.stat.fun.name, cur.col.name] <- round(x = cur.stat.fun(x = cur.data.frame[[cur.col.name]],
 													         na.rm = TRUE),
-												  digits = 1)
+												  digits = cur.round.digits)
 	  }}
 
         ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
@@ -1003,6 +1026,325 @@
 	  sep = "\n",
 	  fill = FALSE)
     }
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* StandAgeStandAgeVariableYieldClassClassification.pdf
+  #+NAME: StandAgeStandAgeVariableYieldClassClassification.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kLegendX <- "bottomright"
+    kXLim <- c(0, 160)
+    kYLim <- c(0, 50)
+    ## Define color palette generating function.
+    kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+    ## Set best yield class level for which to interpolate SI.h100 values
+    kBestYieldClassLevel <- -2
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "StandAgeStandAgeVariableYieldClassClassification.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.90,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
+        SI.h100.yield.class.values <- data.frame("yield.class" = seq(from = 4, to = kBestYieldClassLevel, by = -1),
+				         "SI.h100" = NA)
+        ## Set SI.h100 values for yield classes 4, 3, 2, and 1 based on Schober (1995) (moderate thinning).
+        if (cur.species.name == "beech") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 20.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 24.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 28.6
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 32.4
+        }
+        if (cur.species.name == "spruce") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 23.5
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 27.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
+        }
+        ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+        for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
+	  SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
+	  SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
+        }
+        ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
+        SI.h100.min <- min(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        SI.h100.max <- max(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+        index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+        ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+        SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
+				  to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+				  by = 0.1),
+			    digits = 1)
+        ## Generate a color palette of the same length as "SI.h100.sequence".
+        cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Create empty plot.
+        plot(x = bart.cur.species.clean.1.8[["alt"]],
+	   type = "n",
+	   xlim = kXLim,
+	   ylim = kYLim,
+	   xlab = "stand age [a]",
+	   ylab = expression(italic("h")[100]*"("*italic("x")*")"["I. YC"]*" [m]"),
+	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+					x = kSpeciesNamesCapitalized,
+					ignore.case = TRUE)],
+	   mgp = kPlotMgp,
+	   xaxs = "i",
+	   yaxs = "i",
+	   panel.first = abline(v = seq(from = kXLim[1],
+				  to = kXLim[2],
+				  by = 10),
+			    h  = seq(from = kYLim[1],
+				   to = kYLim[2],
+				   by = 5),
+			    lty = kGridLineType,
+			    lwd = kGridLineWidth,
+			    col = kGridLineCol))
+        ## Loop over all evdids.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Add lines for observations belonging to current edvid.
+	  ## lines(x =edvid.subset[["alt"]],
+	        ## y = edvid.subset[["h100.EKL.I"]],
+	        ## lwd = kLineWidth,
+	        ## lty = kLineType)
+        }
+        ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	  SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+				         table = SI.h100.sequence)
+	  ## Add points to plot.
+	  points(x = edvid.subset[["alt"]],
+	         y = edvid.subset[["h100.EKL.I"]],
+	         col = cur.species.color.palette[SI.h100.rounded.color.index],
+	         pch = kPointCharacter)
+        }
+        ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						      digits = 1),
+					      table = SI.h100.sequence)
+        ## Add legend.
+        legend.legend <- c(paste0("yield class ",
+			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+        legend.pch <- kPointCharacter
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     col = legend.col,
+	     pch = legend.pch,
+	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* StandAgeProductivityIndexVariableYieldClassClassification.pdf
+  #+NAME: StandAgeProductivityIndexVariableYieldClassClassification.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kLegendX <- "topright"
+    kXLim <- c(0, 160)
+    kYLim <- c(-20, 20)
+    ## Define color palette generating function.
+    kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+    ## Set best yield class level for which to interpolate SI.h100 values
+    kBestYieldClassLevel <- -2
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "StandAgeProductivityIndexVariableYieldClassClassification.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.90,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
+        SI.h100.yield.class.values <- data.frame("yield.class" = seq(from = 4, to = kBestYieldClassLevel, by = -1),
+				         "SI.h100" = NA)
+        ## Set SI.h100 values for yield classes 4, 3, 2, and 1 based on Schober (1995) (moderate thinning).
+        if (cur.species.name == "beech") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 20.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 24.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 28.6
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 32.4
+        }
+        if (cur.species.name == "spruce") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 23.5
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 27.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
+        }
+        ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+        for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
+	  SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
+	  SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
+        }
+        ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
+        SI.h100.min <- min(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        SI.h100.max <- max(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+        index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+        ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+        SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
+				  to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+				  by = 0.1),
+			    digits = 1)
+        ## Generate a color palette of the same length as "SI.h100.sequence".
+        cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Create empty plot.
+        plot(x = bart.cur.species.clean.1.8[["alt"]],
+	   type = "n",
+	   xlim = kXLim,
+	   ylim = kYLim,
+	   xlab = "stand age [a]",
+	   ylab = expression(italic("SI")["diff"]*" [m]"),
+	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+					x = kSpeciesNamesCapitalized,
+					ignore.case = TRUE)],
+	   mgp = kPlotMgp,
+	   xaxs = "i",
+	   yaxs = "i",
+	   panel.first = abline(v = seq(from = kXLim[1],
+				  to = kXLim[2],
+				  by = 10),
+			    h  = seq(from = kYLim[1],
+				   to = kYLim[2],
+				   by = 5),
+			    lty = kGridLineType,
+			    lwd = kGridLineWidth,
+			    col = kGridLineCol))
+        ## Loop over all evdids.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Add lines for observations belonging to current edvid.
+	  lines(x =edvid.subset[["alt"]],
+	        y = edvid.subset[["SI.h100.diff.EKL.I"]],
+	        lwd = kLineWidth,
+	        lty = kLineType)
+        }
+        ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	  SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+				         table = SI.h100.sequence)
+	  ## Add points to plot.
+	  points(x = edvid.subset[["alt"]],
+	         y = edvid.subset[["SI.h100.diff.EKL.I"]],
+	         col = cur.species.color.palette[SI.h100.rounded.color.index],
+	         pch = kPointCharacter)
+        }
+        ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						      digits = 1),
+					      table = SI.h100.sequence)
+        ## Add legend.
+        legend.legend <- c(paste0("yield class ",
+			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+        legend.pch <- kPointCharacter
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     col = legend.col,
+	     pch = legend.pch,
+	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* ProductivityIndexVariableCounts.txt
+  #+NAME: ProductivityIndexVariableCounts.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Preamble.
+    res.df.col.names <- c("Species",
+		      "n.SI.h100.diff.EKL.I.geq.0",
+		      "n.SI.h100.diff.EKL.I.less.0")
+    ## Create data frame in which to store results for output.
+    res.df <- data.frame(matrix(data = NA,
+			  nrow = length(x = kSpeciesNames),
+			  ncol = length(x = res.df.col.names)))
+    colnames(x = res.df) <- res.df.col.names
+    ## Set species names in "res.df".
+    res.df[["Species"]] <- kSpeciesNamesCapitalized
+    ## Loop over species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get capitalized species name.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
+        ## Get data frame for current species.
+        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Count occurrence of SI.h100.diff.EKL.I >= 0.
+        res.df[res.df[["Species"]] == cur.species.name.capitalized, "n.SI.h100.diff.EKL.I.geq.0"] <- length(x = which(x = cur.data.frame[["SI.h100.diff.EKL.I"]] >= 0))
+        ## Count occurrence of SI.h100.diff.EKL.I < 0.
+        res.df[res.df[["Species"]] == cur.species.name.capitalized, "n.SI.h100.diff.EKL.I.less.0"] <- length(x = which(x = cur.data.frame[["SI.h100.diff.EKL.I"]] < 0))
+    }
+    ## Store printing of "res.df" in "output", while left justifying output.
+    output <- capture.output(print(x = format(x = res.df,
+				      justify="left",
+				      scientific = FALSE),
+			     row.names = TRUE))
+    ## Output results to file.
+    cat(output,
+        file = paste0(kOutputSubdir, "ProductivityIndexVariableCounts.txt"),
+        sep = "\n",
+        fill = FALSE)
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
