@@ -1,0 +1,10 @@
+$Beech
+                          alt SI.h100.diff.EKL.I
+alt                 1.0000000         -0.6647333
+SI.h100.diff.EKL.I -0.6647333          1.0000000
+
+$Spruce
+                          alt SI.h100.diff.EKL.I
+alt                 1.0000000         -0.7370642
+SI.h100.diff.EKL.I -0.7370642          1.0000000
+
