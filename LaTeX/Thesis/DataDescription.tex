@@ -2,32 +2,13 @@
 
 The data set size for \Beech{} is reported in \RefTab{tab:ObservationsCountPerEdvidBeech}.  The data set comprises 18 sample plots, with a total of 63 observations and a mean of \num{3.5} observations per sample plot.  The data set size for \Spruce{} is reported in \RefTab{tab:ObservationsCountPerEdvidSpruce}.  The data set comprises 28 sample plots, with a total of 100 observations and a mean of \num{3.6} observations per sample plot.  In both data sets, the number of observations per sample plot ranges from \numrange{2}{8}.
 
-The geographical location and the altitude above sea level of sample plots are reported in \RefFig{fig:LocationsSamplePlots} and \RefFig{fig:SpeciesAltitudeOfSamplePlots}, respectively.  The dots in the plots of both figures do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the same geographical location and altitude.  In the \Beech{} data set, altitude above sea level spans \SI{525}{\meter}, ranging from \SIrange{40}{565}{\meter}, with a mean of \SI{313.2}{\meter}.  In the case of \Spruce{} it spans \SI{730}{\meter}, ranging from \SIrange{20}{750}{\meter}, with a mean of \SI{410.5}{\meter}.
-
-In Figures \ref{fig:StandAgeTopHeightYieldClassClassification}, \ref{fig:StandAgeSiteIndexYieldClassClassification}, and \ref{fig:StandAgeBasalAreaYieldClassClassification}, dot color signifies the (fractional) yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the \ProductivityIndexText{} (\(SI\)) in \si{\meter} was computed using the equation
-\begin{equation}
-  \label{eq:NagelFunctionSolvedForSI}
-  % SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)}
-  SI = \frac{\TopHeight(x) - \beta_0 - \beta_1 \cdot \ln(x) - \beta_2 \cdot \ln(x)^2 }{\beta_3 + \beta_4 \cdot \ln(x)},
-\end{equation}
-where \(SI\) is top height (\(h_{100}\)) in \si{\meter} at age \SI{100}{\year}, \(x\) is stand age, and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\) and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients \parencite{Nagel1999}.  The coefficients were taken from \textcite{Nagel1999} and are reported in \RefTab{tab:NagelFunctionCoefficients}.
-
-Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\) and the worst yield class needed to include the highest observed \(SI\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(SI\) was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  Considering \RefFig{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
-
-As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist.  In the former, stands are notably older and cover a wider range of ages, with stand age ranging from \SIrange{35}{153.6}{\year} (difference: \SI{118.6}{\year}), whereas in the latter it ranges from \SIrange{15}{113}{\year} (difference: \SI{98}{\year}).  Consequently, stands in the \Beech{} data set have a higher top height, with \(\TopHeight\) ranging from \SIrange{16.3}{39.2}{\meter} (difference: \SI{22.9}{\meter}), but \Spruce{} stands cover a slightly wider range of top heights, with \(\TopHeight{}\) ranging from \SIrange{9.1}{33.3}{\meter} (difference: \SI{24.2}{\meter}).   In the case of \Beech{}, the maximal top height of all observations was reached by a sample plot of intermediate yield class (\(\approx{} 1\)) compared to the other sample plots in the data set.   In the case of \Spruce{}, the maximal top height of all observations was reached by a sample plot of bad yield class (\(\approx{} 2\)) compared to the other sample plots in the data set.
-
-\RefFig{fig:StandAgeSiteIndexYieldClassClassification} shows the observed development of site index \(SI\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  For all sample plots in both data sets, the site index changed at least once during stand development.  However, for several sample plots the direction of this change itself differs during stand development and there does not seem to be a general direction to which site index changes adhered.  The \Beech{} data set covers a narrower range of site indices and consequently yield classes than the \Spruce{} one, with \(SI\) ranging from \SIrange{23.7}{38.3}{\meter} (difference: \SI{14.6}{\meter}) and yield class ranging from \numrange{4}{-1} in the former, whereas for \Spruce{} \(SI\) ranges from \SIrange{24.1}{45.2}{\meter} (difference: \SI{21.1}{\meter}) and yield class from \numrange{4}{-2}.
-
-\RefFig{fig:StandAgeBasalAreaYieldClassClassification} depicts the observed development of basal area \(G\) over stand age for \Beech{} (top) and \Spruce{} (bottom).
-The \Beech{} data set has a higher minimal and a lower maximal basal area and covers a narrower range of basal areas compared to the \Spruce{} one, with \(G\) ranging from \SIrange{12.6}{51.3}{\square\meter} (difference: \SI{38.7}{\square\meter}) in the former, and from \SIrange{10.8}{79.8}{\square\meter} (difference: \SI{69}{\square\meter}) in the latter.
-
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
   {\tabulinesep=2mm
-    \begin{longtabu}{l l S L}
+    \begin{longtabu}{l L S[table-figures-decimal = 0]}
       \caption{Number of observations per sample plot, total number of sample plots, and total number of observations in the \Beech{} data set. \label{tab:ObservationsCountPerEdvidBeech}} \\
       \toprule
-      & Sample plot ID & {Number of observations} &  \\
+      & Sample plot ID & {Number of observations} \\
       \midrule
       \endhead
       \bottomrule
@@ -60,10 +41,10 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
 \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
   {\tabulinesep=2mm
-    \begin{longtabu}{l l S L}
+    \begin{longtabu}{l L S[table-figures-decimal = 0]}
       \caption{Number of observations per sample plot, total number of sample plots, and total number of observations in the \Spruce{} data set. \label{tab:ObservationsCountPerEdvidSpruce}} \\
       \toprule
-      & Sample plot ID & {Number of observations} &  \\
+      & Sample plot ID & {Number of observations}  \\
       \midrule
       \endhead
       \bottomrule
@@ -103,12 +84,36 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
   }
 \end{singlespace}
 
+The geographical location and the altitude above sea level of sample plots are reported in \RefFig{fig:LocationsSamplePlots} and \RefFig{fig:SpeciesAltitudeOfSamplePlots}, respectively.  The dots in the plots of both figures do not add up to the total number of sample plots of the respective species because some sample plots were part of the same trial and therefore shared the same geographical location and altitude.  In the \Beech{} data set, altitude above sea level spans \SI{525}{\meter}, ranging from \SIrange{40}{565}{\meter}, with a mean of \SI{313.2}{\meter}.  In the case of \Spruce{} it spans \SI{730}{\meter}, ranging from \SIrange{20}{750}{\meter}, with a mean of \SI{410.5}{\meter}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/LocationsSamplePlots.pdf}
+  \caption{Geographical location of the sample plots of \Beech{} (left) and \Spruce{} (right) in Germany.}
+  \label{fig:LocationsSamplePlots}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../../Graphics/Thesis/SpeciesAltitudeOfSamplePlots.pdf}
+  \caption{Altitude above sea level of sample plots.}
+  \label{fig:SpeciesAltitudeOfSamplePlots}
+\end{figure}
+
+In Figures \ref{fig:StandAgeTopHeightYieldClassClassification}, \ref{fig:StandAgeSiteIndexYieldClassClassification}, and \ref{fig:StandAgeBasalAreaYieldClassClassification}, dot color signifies the (fractional) yield class of the respective observation.  Classification of observations into yield classes required multiple steps, which were undertaken separately for each species.  First, for all observations the \ProductivityIndexText{} (\(SI\)) in \si{\meter} was computed using the equation
+\begin{equation}
+  \label{eq:NagelFunctionSolvedForSI}
+  % SI = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)}
+  SI = \frac{\TopHeight(x) - \beta_0 - \beta_1 \cdot \ln(x) - \beta_2 \cdot \ln(x)^2 }{\beta_3 + \beta_4 \cdot \ln(x)},
+\end{equation}
+where \(SI\) is top height (\(h_{100}\)) in \si{\meter} at age \SI{100}{\year}, \(x\) is stand age, and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\) and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients \parencite{Nagel1999}.  The coefficients were taken from \textcite{Nagel1999} and are reported in \RefTab{tab:NagelFunctionCoefficients}.
+
 \begin{singlespace}
   {\tabulinesep=2mm
-    \begin{longtabu}{l S S S S S L}
+    \begin{longtabu}{L S[table-figures-decimal = 3] S[table-figures-decimal = 4] S[table-figures-decimal = 5] S[table-figures-decimal = 5] S[table-figures-decimal = 5]}
       \caption{Species-specific coefficients of \RefEq{eq:NagelFunctionSolvedForSI} as reported in \textcite{Nagel1999}.  \label{tab:NagelFunctionCoefficients}} \\
       \toprule
-      Species & {\(\beta_0\)} & {\(\beta_1\)} & {\(\beta_2\)} & {\(\beta_3\)} & {\(\beta_4\)} & \\
+      Species & {\(\beta_0\)} & {\(\beta_1\)} & {\(\beta_2\)} & {\(\beta_3\)} & {\(\beta_4\)} \\
       \midrule
       \endhead
       \bottomrule
@@ -119,42 +124,77 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
   }
 \end{singlespace}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/LocationsSamplePlots.pdf}
-  \caption{Geographical location of the sample plots of \Beech{} (left) and \Spruce{} (right) in Germany.}
-  \label{fig:LocationsSamplePlots}
-\end{figure}
+Next, a sequence of \(\TopHeight{}\)-values at age \SI{100}{\year} was generated, ranging from yield class \num{4} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} for moderately thinned stands of the respective species, while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(SI\) and the worst yield class needed to include the highest observed \(SI\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(SI\) was then mapped to the color representing the corresponding \(\TopHeight{}\)-value.  Considering \RefFig{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{../../Graphics/Thesis/SpeciesAltitudeOfSamplePlots.pdf}
-  \caption{Altitude above sea level of sample plots.}
-  \label{fig:SpeciesAltitudeOfSamplePlots}
-\end{figure}
+As can be seen from \RefFig{fig:StandAgeTopHeightYieldClassClassification}, several differences between the \Beech{} data set and the \Spruce{} data set exist.  In the former, stands are notably older and cover a wider range of ages, with stand age ranging from \SIrange{35}{153.6}{\year} (difference: \SI{118.6}{\year}), whereas in the latter it ranges from \SIrange{15}{113}{\year} (difference: \SI{98}{\year}).  Consequently, stands in the \Beech{} data set have a higher top height, with \(\TopHeight\) ranging from \SIrange{16.3}{39.2}{\meter} (difference: \SI{22.9}{\meter}), but \Spruce{} stands cover a slightly wider range of top heights, with \(\TopHeight{}\) ranging from \SIrange{9.1}{33.3}{\meter} (difference: \SI{24.2}{\meter}).   In the case of \Beech{}, the maximal top height of all observations was reached by a sample plot of intermediate yield class (\(\approx{} 1\)) compared to the other sample plots in the data set.   In the case of \Spruce{}, the maximal top height of all observations was reached by a sample plot of bad yield class (\(\approx{} 2\)) compared to the other sample plots in the data set.
 
-\newpage{}
-\begin{figure}[H]
-  \centering
+% \newpage{}
+\begin{figure}[t]
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeTopHeightYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and top height (\(\TopHeight\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and top height (\(\TopHeight\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeTopHeightYieldClassClassification}
 \end{figure}
 
-\newpage{}
-\begin{figure}[H]
-  \centering
+\RefFig{fig:StandAgeSiteIndexYieldClassClassification} shows the observed development of site index \(SI\) over stand age for \Beech{} (top) and \Spruce{} (bottom).  For all sample plots in both data sets, the site index changed at least once during stand development.  However, for several sample plots the direction of this change itself differs during stand development and there does not seem to be a general direction to which site index changes adhered.  The \Beech{} data set covers a narrower range of site indices and consequently yield classes than the \Spruce{} one, with \(SI\) ranging from \SIrange{23.7}{38.3}{\meter} (difference: \SI{14.6}{\meter}) and yield class ranging from \numrange{4}{-1} in the former, whereas for \Spruce{} \(SI\) ranges from \SIrange{24.1}{45.2}{\meter} (difference: \SI{21.1}{\meter}) and yield class from \numrange{4}{-2}.
+
+% \newpage{}
+\begin{figure}[t]
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeSiteIndexYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and \ProductivityIndexText{} (\(SI\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Solid black lines connect observations belonging to the same sample plot.  Dashed lines mark the \(SI\) of yield classes.  Color of dots and dashed lines signifies the (fractional) yield class of the respective \(SI\), ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and \ProductivityIndexText{} (\(SI\)) for \Beech{} (top) and \Spruce{} (bottom).  Dashed lines mark the \(SI\) of yield classes.  Dots, black lines, and dot color have the same meaning as in \RefFig{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeSiteIndexYieldClassClassification}
 \end{figure}
 
-\newpage{}
-\begin{figure}[H]
-  \centering
+\RefFig{fig:StandAgeBasalAreaYieldClassClassification} depicts the observed development of basal area \(G\) over stand age for \Beech{} (top) and \Spruce{} (bottom).
+The \Beech{} data set has a higher minimal and a lower maximal basal area and covers a narrower range of basal areas compared to the \Spruce{} one, with \(G\) ranging from \SIrange{12.6}{51.3}{\square\meter} (difference: \SI{38.7}{\square\meter}) in the former, and from \SIrange{10.8}{79.8}{\square\meter} (difference: \SI{69}{\square\meter}) in the latter.
+
+% \newpage{}
+\begin{figure}[t]
   \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeBasalAreaYieldClassClassification.pdf}
-  \caption{Observed relationship between stand age and basal area (\(G\)) for \Beech{} (top) and \Spruce{} (bottom).  Each dot represents one observation.  Lines connect observations belonging to the same sample plot.  The dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \caption{Observed relationship between stand age and basal area (\(G\)) for \Beech{} (top) and \Spruce{} (bottom).  Dots, black lines, and dot color have the same meaning as in \RefFig{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
   \label{fig:StandAgeBasalAreaYieldClassClassification}
+\end{figure}
+
+One chief goal of this study was to ensure that the fitted models were capable of separating the effects of stand age and of productivity index on predicted basal area.  However, this requires that corresponding predictor variables are already available for model training.  Top height (\(h_{100}\)) was considered an unsuited predictor variable for this, since past experience had shown that using this dimension as the predictor variable does not allow identification of a separate productivity index-effect in the model, at least when data set size is rather limited as is the case in the present study.  Therefore, 2 new variables were calculated:  a stand age variable and a productivity index variable, each of which was calculated in such a way as to exclude the effect of the other. The stand age variable was calculated using the equation
+\begin{equation}
+  \label{eq:StandAgeVariable}
+  \StandAgeVariableMath{} = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + \ProductivityIndexYieldClassIMath{} \cdot \bigl(\beta_3 + \beta_4 \cdot \ln(x)\bigr),
+\end{equation}
+where \(\StandAgeVariableMath{}\) is the top height in \si{\meter} at age \(x\) if the stand were yield class I, \(\ProductivityIndexYieldClassIMath{}\) is the species-specific top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I and all other terms have the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI} \parencite{Nagel1999}.  The values for \(\ProductivityIndexYieldClassIMath{}\) were taken from \textcite{Schober1995} and are reported in \RefTab{tab:SIYieldClassI}.  By setting \(\ProductivityIndexYieldClassIMath{}\) to a species-specific constant, it was possible to exclude any productivity index-effects from .  Thus, \(h_{100}(x)_{\text{I. YC}}\) only depends on stand age and was therefore chosen as the stand age variable.  The independence of the stand age variable from productivity index-effects is made apparent by \RefFig{fig:StandAgeStandAgeVariableYieldClassClassification}, which depicts the observed relationship between stand age and stand age variable:  for each species, all observations follow the same curve, regardless of yield class.
+
+\begin{table}[h]
+  {\tabulinesep=2mm
+    \begin{longtabu}{L S}
+      \caption{Species-specific values of top height (\(h_{100}\)) at age \SI{100}{\year} of a stand of yield class I as reported in \textcite{Schober1995}
+        \label{tab:SIYieldClassI}} \\
+      \toprule
+      Species & {\(\ProductivityIndexYieldClassIMath{}\) [\si{\meter}]} \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Beech & 32.4 \\
+      Spruce & 35.1 \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+\begin{figure}[t]
+  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeStandAgeVariableYieldClassClassification.pdf}
+  \caption{Observed relationship between stand age and stand age variable (\(\StandAgeVariableMath{}\)) for \Beech{} (top) and \Spruce{} (bottom).  Dots and dot color have the same meaning as in \RefFig{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \label{fig:StandAgeStandAgeVariableYieldClassClassification}
+\end{figure}
+
+The productivity index variable was calculated in 2 steps.  First, the \ProductivityIndexText{} was calculated using \RefEq{eq:NagelFunctionSolvedForSI}.  Subsequently, this value was subtracted from the \ProductivityIndexText{} of yield class I using the equation
+\begin{equation}
+  \label{eq:SiteClassVariable}
+  \ProductivityIndexVariableMath{} = SI - \ProductivityIndexYieldClassIMath{},
+\end{equation}
+where \(\ProductivityIndexVariableMath{}\) is the productivity index variable, \(SI\) has the same meaning as in \RefEq{eq:NagelFunctionSolvedForSI}, and \(\ProductivityIndexYieldClassIMath{}\) has the same meaning as in \RefEq{eq:StandAgeVariable}.  \(\ProductivityIndexVariableMath{}\) is a measure of the performance of a stand relative to a reference stand (here: a stand of yield class I according to \textcite{Schober1995}): high values signify stands which outperform the reference stand, whereas low values indicate low performance stands.  Since both \(SI\) and \(\ProductivityIndexYieldClassIMath{}\) refer to a specific stand age (here: 100 \si{\year}) rather than a variable one, \(\ProductivityIndexVariableMath{}\) is only influenced by stand productivity and not by stand age.  Thus, it is free of any stand age-effects and was therefore chosen as the productivity index variable.  \RefFig{fig:StandAgeProductivityIndexVariableYieldClassClassification} depicts the observed relationship between stand age and productivity index variable.  While being technically independent from stand age, the producitivity index variable nevertheless exhibits an evident negative correlation with stand age, in that older stands tend to have lower \(\ProductivityIndexVariableMath{}\) values. The correlation coefficient was \num{-0.665} for \Beech{} and \num{-0.737} for \Spruce{}. 
+
+\begin{figure}[t]
+  \includegraphics[width=1\textwidth]{../../Graphics/Thesis/StandAgeProductivityIndexVariableYieldClassClassification.pdf}
+  \caption{Observed relationship between stand age and productivity index variable (\(\ProductivityIndexVariableMath{}\)) for \Beech{} (top) and \Spruce{} (bottom).  Dots, black lines, and dot color have the same meaning as in \RefFig{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Dot color signifies the (fractional) yield class of the respective observation, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Yield class classification was based on \textcite{Schober1995} (moderately thinned stands).  Note the different yield class ranges in both plots.}
+  \label{fig:StandAgeProductivityIndexVariableYieldClassClassification}
 \end{figure}
 
 % \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
@@ -175,6 +215,8 @@ The \Beech{} data set has a higher minimal and a lower maximal basal area and co
     % \end{longtabu}
   % }
 % \end{singlespace}
+
+\clearpage{}
 
 %%% Local Variables:
 %%% mode: latex
