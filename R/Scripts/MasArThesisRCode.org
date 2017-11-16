@@ -985,40 +985,51 @@
     }
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Initiate list in which to store results for current species.
+        cur.species.results.list <- vector(mode = "list")
         ## Extract capitalized version of current species name.
         cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
 							x = kSpeciesNamesCapitalized,
 							ignore.case = TRUE)]
-        ## Get data frame for current species.
-        cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
-        ## Initiate object in which to store results for current species.
-        cur.species.results.df <- data.frame(matrix(data = NA,
-					  nrow = length(x = kStatisticFunctionsNames),
-					  ncol = 1 + length(x = kVariablesColumnNames)))
-        colnames(x = cur.species.results.df) <- c("statistic", kVariablesColumnNames)
-        cur.species.results.df[["statistic"]] <- kStatisticFunctionsNames
-        ## Loop over all column names of the variables of interest.
-        for (cur.col.name in kVariablesColumnNames) {
-	  ## Loop over all statistic function names.
-	  for (cur.stat.fun.name in kStatisticFunctionsNames) {
-	      ## Get current statistic function.
-	      cur.stat.fun <- get(x = cur.stat.fun.name)
-	      ## If a number of decimal digits for rounding has been set for the current column, use that, otherwise set it to 1.
-	      if (cur.col.name %in% names(x = kRoundDigits)) {
-		cur.round.digits <- kRoundDigits[[cur.col.name]]
-	      } else {
-		cur.round.digits <- 1
-	      }
-	      ## Calclulate current statistic and store it in the appropriate row and column of "cur.species.results.df".
-	      cur.species.results.df[cur.species.results.df[["statistic"]] == cur.stat.fun.name, cur.col.name] <- round(x = cur.stat.fun(x = cur.data.frame[[cur.col.name]],
-													         na.rm = TRUE),
-												  digits = cur.round.digits)
+        ## Loop over the names of all appropriate data frames.
+        data.frame.names <- ls(pattern = paste0("bart.", cur.species.name, ".clean.1.[08]"))
+        for (cur.data.frame.name in data.frame.names) {
+	  ## Get current data frame for current species.
+	  cur.data.frame <- get(x = cur.data.frame.name)
+	  ## Initiate object in which to store results for current data frame.
+	  cur.data.frame.results.df <- data.frame(matrix(data = NA,
+					         nrow = length(x = kStatisticFunctionsNames),
+					         ncol = 1 + length(x = kVariablesColumnNames)))
+	  colnames(x = cur.data.frame.results.df) <- c("statistic", kVariablesColumnNames)
+	  cur.data.frame.results.df[["statistic"]] <- kStatisticFunctionsNames
+	  ## Loop over all column names of the variables of interest.
+	  for (cur.col.name in kVariablesColumnNames) {
+	      ## Loop over all statistic function names.
+	      for (cur.stat.fun.name in kStatisticFunctionsNames) {
+		## Get current statistic function.
+		cur.stat.fun <- get(x = cur.stat.fun.name)
+		## If a number of decimal digits for rounding has been set for the current column, use that, otherwise set it to 1.
+		if (cur.col.name %in% names(x = kRoundDigits)) {
+		    cur.round.digits <- kRoundDigits[[cur.col.name]]
+		} else {
+		    cur.round.digits <- 1
+		}
+		## Calclulate current statistic and store it in the appropriate row and column of "cur.data.frame.results.df".
+		cur.data.frame.results.df[cur.data.frame.results.df[["statistic"]] == cur.stat.fun.name, cur.col.name] <- round(x = cur.stat.fun(x = cur.data.frame[[cur.col.name]],
+														         na.rm = TRUE),
+													  digits = cur.round.digits)
+	      }}
+	  ## Append "cur.data.frame.results.df" to "cur.species.results.list".
+	  if (length(x = cur.species.results.list) == 0) {
+	      cur.species.results.list <- list(cur.data.frame.results.df)
+	  } else {
+	      cur.species.results.list <- c(cur.species.results.list,
+				      list(cur.data.frame.results.df))
 	  }}
-
-        ## Store printing of "cur.species.results.df" in "cur.output", while left justifying output.
-        cur.output <- capture.output(print(x = format(x = cur.species.results.df,
-					    justify="left",
-					    scientific = FALSE),
+        ## Set names of "cur.species.results.list".
+        names(x = cur.species.results.list) <- data.frame.names
+        ## Store printing of "cur.species.results.list" in "cur.output", while left justifying output.
+        cur.output <- capture.output(print(x = cur.species.results.list,
 				   row.names = TRUE))
         ## Output results to file.
         cat(cur.output,
