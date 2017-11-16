@@ -2206,3 +2206,66 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.4.RData" ##
+####################################
+## Based on version 5.3.
+## In this version, "bart.SPECIES.clean.1.[0-9]+" contains an additional column which holds the slope of the Reineke equation between the current and the following row.
+kBaseFileVersion <- "5.3"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.4"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Loop over the names of all "bart.SPECIES.clean.1.[0-9]+".
+    for (cur.source.data.frame.name in ls(pattern = paste0("bart.", cur.species.name, ".clean"))) {
+        ## Initiate a vector which will be used as the column to add.
+        Reineke.slope <- vector(mode = "numeric")
+        ## Define slope threshold values for the current species.
+        if (cur.species.name == "beech") {
+            cur.upper.threshold <- -1.80 * 0.5  ## based on literature
+            cur.lower.threshold <- -1.94 * 1.5  ## based on literature
+        }
+        if (cur.species.name == "spruce") {
+            cur.upper.threshold <- -1.30 * 0.5  ## based on literature
+            cur.lower.threshold <- -1.88 * 1.5  ## based on literature
+        }
+        ## Get current data frame.
+        cur.bart.SPECIES.clean <- get(x = cur.source.data.frame.name)
+        ## Loop over all "edvid".
+        for (cur.edvid in levels(x = cur.bart.SPECIES.clean[["edvid"]])) {
+            ## Create subset of "cur.bart.SPECIES.clean" for the current "edvid".
+            cur.subset <- subset(x = cur.bart.SPECIES.clean,
+                                 subset = cur.bart.SPECIES.clean[["edvid"]] == cur.edvid)
+            ## Loop over all rows in "cur.subset".
+            for (cur.row.number in seq_len(length.out = nrow(x = cur.subset))) {
+                if (cur.row.number != nrow(x = cur.subset)) {  ## If we are NOT at the last row, ...
+                    ## ... calculate the slope of the Reineke equation between the current and the following row and append the result to "Reineke.slope".
+                    Reineke.slope <- c(Reineke.slope, cur.slope.following <- (cur.subset[["log.nha"]][cur.row.number + 1] - cur.subset[["log.nha"]][cur.row.number]) / (cur.subset[["log.dg"]][cur.row.number + 1] - cur.subset[["log.dg"]][cur.row.number]))
+                } else {  ## Else ...
+                    ## ... append "NA" to "Reineke.slope".
+                    Reineke.slope <- c(Reineke.slope, NA)
+                }
+            }
+        }
+        ## Append "Reineke.slope" as a column to "cur.bart.SPECIES.clean".
+        cur.bart.SPECIES.clean <- data.frame(cur.bart.SPECIES.clean,
+                                             "Reineke.slope" = Reineke.slope)
+        ## Assign new version of "cur.bart.SPECIES.clean".
+        assign(x = cur.source.data.frame.name,
+               value = cur.bart.SPECIES.clean)
+    }}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
