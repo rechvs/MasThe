@@ -54,36 +54,47 @@ where \(k\) and \(\theta\) are the shape and scale parameter, respectively, \(\u
       \bigl(\left.
         y \middle/ \mu
       \right.\bigr)^\nu - 1}{\nu} &\text{if } \nu \not = 0 \\
-    \log\Bigl(\frac{y}{\mu}\Bigr) &\text{if } \nu = 0,
+    \log\bigl(\left.y \middle/ \mu\right.\bigr) &\text{if } \nu = 0,
   \end{cases}
 \end{equation}
 where \(x\) is the transformed variable, \(\mu\) is the mean of \(y\),
 % \(\sigma\) is the coefficient of variation of \(y\),
-and \(\nu\) is the Box-Cox power \parencite{Cole1992}.
+and \(\nu\) is the Box-Cox power of \(y\) \parencite{Cole1992}.
 The standard deviation score of \(x\) is given by
 \begin{equation}
   \label{eq:BoxCoxColeGreenSDScore}
   z = \frac{x}{\sigma},
 \end{equation}
-where \(z\) is the standard deviation score of \(x\) and \(\sigma\) is the standard deviation of \(x\).  It is assumed that \(z\) follows a normal distribution with mean 0 and variance 1. Thus, the probability density function of \(z\) is given by
+where \(z\) is the standard deviation score of \(x\) and \(\sigma\) is the coefficient of variation of \(y\) .  It is assumed that \(z\) follows a normal distribution with mean 0 and variance 1. Thus, the probability density function of \(z\) is given by
 \begin{equation}
   \label{eq:StandardNormalDistributionPDF}
-  % P(Z = z|\mu, \sigma, \nu) = \frac{\exp\Bigl(-\frac{z^2}{2}\Bigr)}{\sqrt{2 \pi}}
-  % z = \frac{(y / \mu)^\nu - 1}{\nu \sigma}
-  P(Z = z|\mu, \sigma, \nu) =
+  P(Z = z|0, 1) =
+  \frac{\exp{\Bigl(-\frac{z^2}{2}\Bigr)}}{\sqrt{2 \pi}}
+\end{equation}
+while its cumulative distribution function is given by
+\begin{equation}
+  \label{eq:StandardNormalDistributionCDF}
+  D(Z = z|0, 1) =
+  \frac{\erf\biggl(\frac{z}{\sqrt{2}}\biggr) + 1}{2}
+  \end{equation}
+\parencite{Henze2013,Weisstein2017c}.  Substituting \(z\) in \Cref{eq:StandardNormalDistributionPDF,eq:StandardNormalDistributionCDF} using \Cref{eq:BoxCoxColeGreenTransformation,eq:BoxCoxColeGreenSDScore} yields the probabilty density function of \(y\)
+\begin{equation}
+  \label{eq:BoxCoxColeGreenDistributionPDF}
+  P(Y = y|\mu, \sigma, \nu) =
   \begin{cases}
     \frac{\exp\Biggl(-\frac{\bigl(\bigl(\left.y \middle/ \mu\right.\bigr)^\nu - 1\bigr)^2}{2 \nu^2 \sigma^2}\Biggr)}{\sqrt{2 \pi}} &\text{if } \nu \not = 0 \\
     \frac{\exp\Biggl(-\frac{\log\bigl(\left.y \middle/ \mu\right.\bigr)^2}{2 \sigma^2}\Biggr)}{\sqrt{2 \pi}} &\text{if } \nu = 0
-\end{cases}
+  \end{cases}
 \end{equation}
-while its cumulative distribution function is given by
-% \begin{equation}
-  % \label{eq:StandardNormalDistributionCDF}
-  % \end{equation}
-\parencite{Henze2013,Weisstein2017c}
-
-The model first applies a transformation on the dependent variable.  This transformation is based on the transformation suggested by \textcite{Box1964}.  It then uses maximum penalized likelihood to estimate the 3 distribution parameters mean, variance, and Box-Cox power for a given variable value.
-%% ADD proper equations for PDF and CDF as soon as you find a reliable reference for them
+and the cumulative distribution function of \(y\)
+\begin{equation}
+  \label{eq:BoxCoxColeGreenDistributionCDF}
+  D(Y = y|\mu, \sigma, \nu) =
+  \begin{cases}
+    \frac{1}{2} \left(\erf\left(\frac{\left(\left. y \middle/ \mu \right.\right)^\nu - 1}{\sqrt{2} \nu \sigma}\right) + 1\right) &\text{if } \nu \not = 0 \vspace{0.5em} \\
+    \frac{1}{2} \left(\erf\left(\frac{\log\left(\left. y \middle/ \mu \right.\right)}{\sqrt{2} \sigma}\right) + 1\right) &\text{if } \nu = 0.
+  \end{cases}
+\end{equation}
 
 \begin{table}[H]
   {\tabulinesep=2mm
