@@ -1366,7 +1366,7 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
     ## Preamble.
-    kNamesOfColumnsToEvaluate <- c("alt", "SI.h100.diff.EKL.I")
+    kNamesOfColumnsToEvaluate <- c("alt", "SI.h100.diff.EKL.I", "h100.EKL.I")
     ## Initiate list in which to store results for all species.
     results.list <- vector(mode = "list")
     ## Loop over all species names.
