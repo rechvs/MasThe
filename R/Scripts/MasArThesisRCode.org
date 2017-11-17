@@ -877,7 +877,7 @@
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
-	   ylab = expression(italic("SI")*" [m]"),
+	   ylab = expression(italic("PI")*" [m]"),
 	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
 					x = kSpeciesNamesCapitalized,
 					ignore.case = TRUE)],
@@ -904,7 +904,7 @@
         ## Update legend components.
         legend.legend <- c(legend.legend,
 		       mapply(FUN = function(expr, numbr1, numbr2) { as.expression(x = bquote(.(expr)*.(numbr1)*" ("*.(numbr2)*" m)")) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
-			    expr = expression(italic("SI")*" yield class "),
+			    expr = expression(italic("PI")*" yield class "),
 			    numbr1 = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"],
 			    numbr2 = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed:index.best.yield.class.needed])
     )
@@ -1259,7 +1259,7 @@
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
-	   ylab = expression(italic("SI")["diff"]*" [m]"),
+	   ylab = expression(italic("PI")["diff"]*" [m]"),
 	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
 					x = kSpeciesNamesCapitalized,
 					ignore.case = TRUE)],
