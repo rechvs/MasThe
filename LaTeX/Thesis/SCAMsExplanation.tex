@@ -33,7 +33,7 @@ is a B-spline \parencite{Weisstein2017a}.  This can then be used for regression 
   y_j - \sum_{i = 0}^n \symbf{P}_i N_{i, p}\bigl(x_j\bigr)
   \Biggr)^2.
 \end{equation}
-The concept of P-splines extends B-splines in 2 ways: on the one hand it sets a large number of equidistant knots, while on the other hand adding a penalty to \RefEq{eq:BSplineOLS} in order to prevent overfitting.  This penalty is based on high-order (\(k \geq 2\)) finite differences between the coefficients of adjacent B-splines.  The least squares objective function to minimize thus becomes
+The concept of P-splines extends B-splines in 2 ways: on the one hand it sets a large number of equidistant knots, while on the other hand adding a penalty to \Cref{eq:BSplineOLS} in order to prevent overfitting.  This penalty is based on high-order (\(k \geq 2\)) finite differences between the coefficients of adjacent B-splines.  The least squares objective function to minimize thus becomes
 \begin{equation}
   \label{eq:PSplineOLS}
   S =
@@ -120,7 +120,7 @@ while matrix \(\symbf{D}\) has to be adjusted so that
 \end{equation}
 \parencite{Pya2015}.
 
-In order to represent \RefEq{eq:SCAM} for computation, the following paragraphs use basis expansion, penalties, and identifiability constraints for all \(f_j\) as described in \textcite{Wood2006}.  Thus, 
+In order to represent \Cref{eq:SCAM} for computation, the following paragraphs use basis expansion, penalties, and identifiability constraints for all \(f_j\) as described in \textcite{Wood2006}.  Thus, 
 \begin{equation}
   \label{eq:SCAMCombinedModelMatricesfk}
   \sum_j f_j\bigl(z_{j, i}\bigr) = \symbf{F}_i \symbf{\gamma},
@@ -130,12 +130,12 @@ where \(\symbf{F}\) is a model matrix determined by the basis functions and the 
   \label{eq:SCAMCombinedModelMatricesMk}
   \sum_k m_k\bigl(x_{k, i}\bigr) = \symbf{M}_i \tilde{\symbf{\beta}},
 \end{equation}
-where \(\symbf{M}\) is a model matrix and \(\tilde{\symbf{\beta}}\) is a vector containing both model coefficients (\(\beta_i\)) and exponentiated model coefficients (\(\exp(\beta_i)\)).  The penalties are quadratic in the coefficients \(\symbf{\beta}\) (not in the \(\tilde{\symbf{\beta}}\)).  Thus, \RefEq{eq:SCAM} becomes
+where \(\symbf{M}\) is a model matrix and \(\tilde{\symbf{\beta}}\) is a vector containing both model coefficients (\(\beta_i\)) and exponentiated model coefficients (\(\exp(\beta_i)\)).  The penalties are quadratic in the coefficients \(\symbf{\beta}\) (not in the \(\tilde{\symbf{\beta}}\)).  Thus, \Cref{eq:SCAM} becomes
 \begin{equation}
   \label{eq:SCAMComputationalRepresentation01}
   g\bigl(\mu_i\bigr) = \symbf{A}_i \symbf{\theta} + \symbf{F}_i \symbf{\gamma} + \symbf{M}_i \tilde{\symbf{\beta}}.
 \end{equation}
-For fitting purposes, the model matrices may be combined column-wise into a single model matrix \(\symbf{X}\). Thus, \RefEq{eq:SCAMComputationalRepresentation01} becomes
+For fitting purposes, the model matrices may be combined column-wise into a single model matrix \(\symbf{X}\). Thus, \Cref{eq:SCAMComputationalRepresentation01} becomes
 \begin{equation}
   \label{eq:SCAMComputationalRepresentation02}
   g\bigl(\mu_i\bigr) = \symbf{X}_i \tilde{\symbf{\beta}},

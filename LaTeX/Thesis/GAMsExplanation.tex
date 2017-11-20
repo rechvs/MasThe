@@ -7,7 +7,7 @@ A simple LM assumes a metric random variable \(Y\) to linearly depend upon the m
   \label{eq:LinearModel}
   Y = X \beta + \varepsilon,
 \end{equation}
-where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\) is an independent random variable such that \(\mathbb{E}\bigl(\varepsilon_i\bigr) = 0\) and \(\mathbb{E}\bigl(\varepsilon_i^2\bigr) = \sigma^2\).  To allow testing of hypotheses related to the model described by \RefEq{eq:LinearModel}, additional assumptions about the distribution of \(Y\) and \(\varepsilon\) need to be made.  Specifically, 2 assumptions are made: the residual term \(\varepsilon\) is assumed to follow normal distribution with a mean of zero and a variance of \(\sigma^2\): \(\varepsilon \sim N\bigl(0, \sigma^2\bigr)\); and the response variable \(Y\) is assumed to follow normal distribution with a mean equal to the product of independent variable \(X\) and parameter \(\beta\) and a variance of \(\sigma^2\): \(Y \sim N\bigl(X \beta, \sigma^2\bigr) \) \parencite{Wood2006,Burkschat2012}.
+where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\) is an independent random variable such that \(\mathbb{E}\bigl(\varepsilon_i\bigr) = 0\) and \(\mathbb{E}\bigl(\varepsilon_i^2\bigr) = \sigma^2\).  To allow testing of hypotheses related to the model described by \Cref{eq:LinearModel}, additional assumptions about the distribution of \(Y\) and \(\varepsilon\) need to be made.  Specifically, 2 assumptions are made: the residual term \(\varepsilon\) is assumed to follow normal distribution with a mean of zero and a variance of \(\sigma^2\): \(\varepsilon \sim N\bigl(0, \sigma^2\bigr)\); and the response variable \(Y\) is assumed to follow normal distribution with a mean equal to the product of independent variable \(X\) and parameter \(\beta\) and a variance of \(\sigma^2\): \(Y \sim N\bigl(X \beta, \sigma^2\bigr) \) \parencite{Wood2006,Burkschat2012}.
 
 A GLM has the structure
 \begin{equation}
@@ -38,7 +38,7 @@ where \(y_i\) is a response variable, \(x_i\) is a predictor variable, \(f\) is 
   \label{eq:SmoothFunctionBasis}
   f(x) = \sum_{i = 1}^q b_i(x)\beta_i,
 \end{equation}
-where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \RefEq{eq:SmoothFunctionBasis} into \RefEq{eq:GAMSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
+where \(q\) is the number of observations, \(b_i(x)\) is the \(i^{\text{th}}\) element of the chosen function space, and \(\beta_i\) is an unknown parameter \parencite{Wood2006}.  Substituting \Cref{eq:SmoothFunctionBasis} into \Cref{eq:GAMSimple} yields a linear model which can then be fitted using methods for LMs or GLMs.
 
 \subsubsection{Thin-plate regression splines}
 
@@ -57,7 +57,7 @@ where \(\symbf{y}\) is the vector of \(y_i\) data, \(\symbf{f} = \bigl(f\bigl(\s
   \label{eq:ThinPlateSplinesPenalty}
   J_{m, d} = \int{\hspace{-3mm}}\cdots\int_{\mathfrak{R}^d} \sum_{\nu_1 + \ldots + \nu_d = m}\frac{m!}{\nu_1! \ldots \nu_d!} \left(\frac{\partial^mf}{\partial x_1^{\nu_1} \ldots \partial x_d^{\nu_d}}\right)^2 dx_1 \ldots dx_d~
 \end{equation}
-\parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \RefEq{eq:ThinPlateSplinesTermToMinimize} has the form
+\parencite{Wood2006}.  If the restriction \(2m > d\) is imposed, the function minimizing \Cref{eq:ThinPlateSplinesTermToMinimize} has the form
 \begin{equation}
   \label{eq:ThinPlateSplinesMinimizingFunctionForm}
   \hat{f}(\symbf{x}) = \sum_{i = 1}^n \delta_i\eta_{m, d}\left(\norm{\symbf{x} - \symbf{x}_i}\right) + \sum_{j = 1}^M\alpha_j\Phi_j(\symbf{x}),
@@ -81,7 +81,7 @@ The \(\Phi_i\) span the space of functions for which \(J_{m, d}\) is zero.  The 
 \end{equation}
 with respect to \(\symbf{\delta}\) and \(\symbf{\alpha}\) \parencite{Wood2006}.
 
-Thin plate regression splines build upon thin plate splines by truncating the space of the components with parameter \(\symbf{\delta}\), without changing the \(\symbf{\alpha}\) components.  Let \(\symbf{E} = \symbf{U D U}^{\text{T}}\) be the eigen-decomposition of \(\symbf{E}\), so that \(\symbf{D}\) is a diagonal matrix of eigenvalues of \(\symbf{E}\) arranged so that \(\abs{D_{i, i}} \geq \abs{D_{i - 1, i - 1}}\) and the columns of \(\symbf{U}\) are the corresponding eigenvectors. Furthermore, let \(\symbf{U}_k\) denote the matrix consisting of the first \(k\) columns of \(\symbf{U}\) and let \(\symbf{D}_k\) denote the top right \(k \times k\) submatrix of \(\symbf{D}\).  By writing \(\symbf{\delta} = \symbf{U}_k \symbf{\delta}_k\), one can restrict \(\symbf{\delta}\) to the columns space of \(\symbf{U}_k\), by which \RefEq{eq:ThinPlateSplineSimplifiedFittingProblem} becomes
+Thin plate regression splines build upon thin plate splines by truncating the space of the components with parameter \(\symbf{\delta}\), without changing the \(\symbf{\alpha}\) components.  Let \(\symbf{E} = \symbf{U D U}^{\text{T}}\) be the eigen-decomposition of \(\symbf{E}\), so that \(\symbf{D}\) is a diagonal matrix of eigenvalues of \(\symbf{E}\) arranged so that \(\abs{D_{i, i}} \geq \abs{D_{i - 1, i - 1}}\) and the columns of \(\symbf{U}\) are the corresponding eigenvectors. Furthermore, let \(\symbf{U}_k\) denote the matrix consisting of the first \(k\) columns of \(\symbf{U}\) and let \(\symbf{D}_k\) denote the top right \(k \times k\) submatrix of \(\symbf{D}\).  By writing \(\symbf{\delta} = \symbf{U}_k \symbf{\delta}_k\), one can restrict \(\symbf{\delta}\) to the columns space of \(\symbf{U}_k\), by which \Cref{eq:ThinPlateSplineSimplifiedFittingProblem} becomes
 \begin{equation}
   \label{eq:ThinPlateRegressionSplinesSimplifiedFittingProblem}
   \text{minimize } \norm{\symbf{y} - \symbf{U}_k\symbf{D}_k\symbf{\delta}_k - \symbf{T \alpha}}^2 + \uplambda \symbf{\delta}_k^{\text{T}} \symbf{D}_k \symbf{\delta}_k \text{ subject to } \symbf{T}^{\text{T}} \symbf{U}_k \symbf{\delta}_k = 0
@@ -111,7 +111,7 @@ where \(S_{i, j}(\uplambda)\) is the element of row \(i\) and column \(j\) of th
   \hat{\symbf{f}} = \symbf{S} \symbf{y},
 \end{equation}
 where \(\hat{\symbf{f}}\) is the vector of smooth function fits at observations \(x_1, \ldots, x_n\) and \(\symbf{y}\) is the vector of observations of the response variable.
-\RefEq{eq:CrossValidationFormalDefinitionOfJackknifedFit1} implies that
+\Cref{eq:CrossValidationFormalDefinitionOfJackknifedFit1} implies that
 \begin{equation}
   \label{eq:CrossValidationFormalDefinitionOfJackknifedFit2}
   \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \sum_{\substack{j = 1 \\ j \not = i}}^n S_{i, j}(\uplambda) y_i +S_{i, i}(\uplambda) \hat{f}_\uplambda^{-i}\bigl(x_i\bigr),
@@ -121,12 +121,12 @@ which in turn implies that
   \label{eq:CrossValidationFormalDefinitionOfJackknifedFit3}
   y_i - \hat{f}_\uplambda^{-i}\bigl(x_i\bigr) = \frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i, i}(\uplambda)}.
 \end{equation}
-Substituting \RefEq{eq:CrossValidationFormalDefinitionOfJackknifedFit3} into \RefEq{eq:CrossValidationSumOfSquares01} yields
+Substituting \Cref{eq:CrossValidationFormalDefinitionOfJackknifedFit3} into \Cref{eq:CrossValidationSumOfSquares01} yields
 \begin{equation}
   \label{eq:CrossValidationSumOfSquares02}
   CV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - S_{i, i}(\uplambda)}\Biggr)^2.
 \end{equation}
-GCV replaces \(S_{i, i}(\uplambda)\) in \RefEq{eq:CrossValidationSumOfSquares02} with its mean value \(\tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
+GCV replaces \(S_{i, i}(\uplambda)\) in \Cref{eq:CrossValidationSumOfSquares02} with its mean value \(\tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n\), since it is easier to compute:
 \begin{equation}
   \label{eq:GeneralizedCrossValidation}
   GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2,
