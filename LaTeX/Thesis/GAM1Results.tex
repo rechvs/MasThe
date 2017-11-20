@@ -1,0 +1,19 @@
+\subsection{GAM1}
+
+The results of model GAM1 are reported in \Cref{fig:GAM1EffectStandAgeVariable}.
+\Cref{fig:GAM1EffectStandAgeVariable} depicts the estimated effect of the stand age variable smooth function over the stand age variable for both species.
+In both plots, the confidence band does include non-zero values of the estimate.  This suggests that the stand age variable is related to basal area in both species \parencite{Wood2001}.  Due to the fact that the \Beech{} data set does not contain any observations for \(\StandAgeVariableMath{} \leq \SI{12}{\meter}\), standard errors of the estimate increase notably below this value in the top plot.  The \Spruce{} plot exhibits a widening of its confidence bands only at the edges of the depicted interval.  For \Beech{}, the estimated effect reaches its maximum at roughly \SI{27.5}{\meter} (about \SI{80}{\year}).  %% CONTINUE HERE with describing the features of the plotted estimates.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1EffectStandAgeVariable.pdf}
+  \caption{Estimated effect of the stand age variable smooth function (\(s(\StandAgeVariableMath{}, \ldots)\)) over stand age variable (\(\StandAgeVariableMath{}\)) in model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Gray areas mark confidence bands of 2 standard errors width.  Vertical bars mark observed values.  Numbers in the y-axis title are the effective degrees of freedom of the smooth function.}
+  \label{fig:GAM1EffectStandAgeVariable}
+\end{figure}
+
+\clearpage{}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
