@@ -1,20 +1,18 @@
 \subsection{Model overview}
 
-\RefTab{tab:PresentedModelsOverviewFormulas} provides an overview of the settings used for fitting the models presented in this study.  For each species, 6 different models were fitted: 2 GAMs, one SCAM, and 3 GAMLSSs.  The settings for a given model were the same for \Beech{} and \Spruce{}.  In the case of GAM1 and GAM2, the \texttt{s(\textnormal{\ldots})} formula terms are smooth functions using thin plate regression splines as their function basis.  In the case of SCAM1, the \texttt{s(\textnormal{\ldots}, bs = "micv")} formula term is a smooth function using P-splines constrained to be increasing and concave as its function basis.  In all smooth functions of the GAMs and SCAM, the setting of basis dimension and order of penalty is left to the smooth function.  In the case of GAMLSS1 and GAMLSS2, the \texttt{ps(\textnormal{\ldots})} formula terms are smooth functions using P-splines as their function basis.  In the case of GAMLSS3, the \texttt{pbm(\textnormal{\ldots{}})} term is a smooth function using P-splines constrained to be montonone increasing as its function basis.  In all smooth functions of the 3 GAMLSSs, function basis degree was set to 3, function basis order was set to 2, the number of spline knots was set to 20, while selection of the smoothing parameter was left to the smooth function. For all GAMLSSs, the formula reported in \RefTab{tab:PresentedModelsOverviewFormulas} applies only to the location parameter of the assumed probability distribution. All other distribution parameters were modelled as constants (i.e., with formula \texttt{gha \textasciitilde{} 1}).  Models GAM1 and GAMLSS1 use smooth functions for both the stand age variable as well as the \ProductivityIndexVariableText{}.  All other models use smooth functions only for the stand age variable while the \ProductivityIndexVariableText{} is included as a linear predictor.  None of the 6 models consider interactions between the predictor variables.
-
 \begin{table}[H]
   {\tabulinesep=2mm
     \begin{longtabu}{l l l L}
-      \caption{Overview of the \texttt{R} functions and formulas used for fitting the models presented in this study. The overview includes
+      \caption{Overview of the \texttt{R} functions and formulas used for model fitting. The overview includes
         the model ID,
         the name of the \texttt{R} package (and its version number) which provided the model fitting function,
         the name of the \texttt{R} model fitting function,
         and the formula used in the model fitting function call.
         In the case of GAMLSS1, GAMLSS2, and GAMLSS3, the formula applies only to the location parameter of the assumed probability distribution.
-        For all other distribution parameters, the formula was \texttt{gha \textasciitilde{} 1}. \\
-        \texttt{gha}: basal area variable \\
-        \StandAgeVariableR{}: stand age variable (cp. \RefEq{eq:StandAgeVariable}) \\
-        \ProductivityIndexVariableR{}: productivity index variable (cp. \RefEq{eq:SiteClassVariable})
+        For all other distribution parameters, the formula was \texttt{\BasalAreaR{} \textasciitilde{} 1}. \\
+        \BasalAreaR{}: basal area \\
+        \StandAgeVariableR{}: stand age variable (cp. \Cref{eq:StandAgeVariable}) \\
+        \ProductivityIndexVariableR{}: \ProductivityIndexVariableText{} (cp. \eqref{eq:ProductivityIndexVariable})
         \label{tab:PresentedModelsOverviewFormulas}} \\
       \toprule
       Model ID & Package (Version) & Fitting function & Formula \\
@@ -22,17 +20,45 @@
       \endhead
       \bottomrule
       \endlastfoot
-      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + s(\ProductivityIndexVariableR{})} \\
-      GAM2 & As above & As above & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
-      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{gha \textasciitilde{} s(\StandAgeVariableR{}, bs = "micv") + \ProductivityIndexVariableR{}} \\
-      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + ps(\ProductivityIndexVariableR{})} \\
-      GAMLSS2 & As above & As above & \texttt{gha \textasciitilde{} ps(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
-      GAMLSS3 & As above & As above & \texttt{gha \textasciitilde{} pbm(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
+      GAM1 & \texttt{mgcv} (1.8.22) & \texttt{gam} & \texttt{\BasalAreaR{} \textasciitilde{} s(\StandAgeVariableR{}) + s(\ProductivityIndexVariableR{})} \\
+      GAM2 & As above & As above & \texttt{\BasalAreaR{} \textasciitilde{} s(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
+      SCAM1 & \texttt{scam} (1.2.2) & \texttt{scam} & \texttt{\BasalAreaR{} \textasciitilde{} s(\StandAgeVariableR{}, bs = "micv") + \ProductivityIndexVariableR{}} \\
+      GAMLSS1 & \texttt{gamlss} (5.0.4) & \texttt{gamlss} & \texttt{\BasalAreaR{} \textasciitilde{} ps(\StandAgeVariableR{}) + ps(\ProductivityIndexVariableR{})} \\
+      GAMLSS2 & As above & As above & \texttt{\BasalAreaR{} \textasciitilde{} ps(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
+      GAMLSS3 & As above & As above & \texttt{\BasalAreaR{} \textasciitilde{} pbm(\StandAgeVariableR{}) + \ProductivityIndexVariableR{}} \\
       \bottomrule
     \end{longtabu}}
 \end{table}
 
-\RefTab{tab:PresentedModelsOverviewDistributions} provides an overview of the probability distributions and link functions employed in the presented models.  Models GAM1, GAM2, and SCAM1 assume basal area to follow Gamma distribution.  The probability density function and cumulative distribution function of a variable following Gamma distribution are given by
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{l l L}
+      \caption{Overview of the \texttt{R} distribution functions used for model fitting.  The overview includes
+        the model ID,
+        the name of the \texttt{R} package (and its version number) which provided the distribution function,
+        and the \texttt{R} call of the distribution function used in model fitting.
+        \label{tab:PresentedModelsOverviewDistributions}} \\
+      \toprule
+      Model ID & Package (Version) & Distribution function call \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      GAM1 & \texttt{stats} (3.3.3) & \texttt{Gamma(link = "log")} \\
+      GAM2 & As above & As above \\
+      SCAM1 & As above & As above \\
+      GAMLSS1 & \texttt{gamlss.dist} (5.0.3) & \texttt{BCCGo()} \\
+      GAMLSS2 & As above & As above \\
+      GAMLSS3 & As above & As above \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+\Cref{tab:PresentedModelsOverviewFormulas,tab:PresentedModelsOverviewDistributions} provide an overview of the settings used for model fitting:  \Cref{tab:PresentedModelsOverviewFormulas} reports the \texttt{R} functions and formulas used for model fitting, while \Cref{tab:PresentedModelsOverviewDistributions} reports the probability distributions assumed for each model.  For each species, 6 different models were fitted: 2 GAMs, one SCAM, and 3 GAMLSSs.  The settings for a given model were the same for \Beech{} and \Spruce{}.
+In the formulas reported in \Cref{tab:PresentedModelsOverviewFormulas}, the \texttt{\textasciitilde{}} character separates the dependent variable (on the left) from the predictor terms (on the right), while the \texttt{+} character separates individual predictor terms. 
+In the case of GAM1 and GAM2, the \texttt{s(\textnormal{\ldots})} formula terms are smooth functions using thin plate regression splines as their function basis.  In the case of SCAM1, the \texttt{s(\textnormal{\ldots{}}, bs = "micv")} formula term is a smooth function using P-splines constrained to be increasing and concave as its function basis.  In all smooth functions of the GAMs and SCAM, the setting of basis dimension and order of penalty is left to the smooth function.  In the case of GAMLSS1 and GAMLSS2, the \texttt{ps(\textnormal{\ldots})} formula terms are smooth functions using P-splines as their function basis.  In the case of GAMLSS3, the \texttt{pbm(\textnormal{\ldots{}})} term is a smooth function using P-splines constrained to be montonone increasing as its function basis.  In all smooth functions of the 3 GAMLSSs, function basis degree was set to 3, function basis order was set to 2, the number of spline knots was set to 20, while selection of the smoothing parameter was left to the smooth function. For all GAMLSSs, the formula reported in \Cref{tab:PresentedModelsOverviewFormulas} applies only to the location parameter of the assumed probability distribution. All other distribution parameters were modeled as constants (i.e., with formula \texttt{\BasalAreaR{} \textasciitilde{} 1}).  Models GAM1 and GAMLSS1 use smooth functions for both the stand age variable as well as the \ProductivityIndexVariableText{}.  All other models use smooth functions only for the stand age variable while the \ProductivityIndexVariableText{} is included as a linear predictor.  None of the 6 models consider interactions between the predictor terms.
+
+Models GAM1, GAM2, and SCAM1 assume basal area to follow Gamma distribution.  The probability density function and cumulative distribution function of a variable following Gamma distribution are given by
 \begin{equation}
   \label{eq:GammaDistributionPDF}
   P(X = x|k, \theta) = x^{k - 1} \frac{\exp{\left(\frac{-x}{\theta}\right)}}{\theta^k \upGamma(k)} \quad \text{for } x \geq 0, ~ k, \theta > 0
@@ -90,30 +116,6 @@ and
   \end{cases}
 \end{equation}
 respectively, where \(\mu\), \(\sigma\), and \(\nu\) have the same meaning as in \Cref{eq:BoxCoxColeGreenTransformation,eq:BoxCoxColeGreenSDScore}, namely: \(\mu\) is the mean of \(y\), \(\sigma\) is the coefficient of variation of \(y\), and \(\nu\) is the Box-Cox power of \(y\).  The function \texttt{BCCGo} uses the logarithm function as the link function for \(\mu\), which prevents implausible predictions of negative basal area.  The link functions for distribution parameters \(\sigma\) and \(\nu\) are the logarithm function and the identity function, respectively.
-
-\begin{table}[H]
-  {\tabulinesep=2mm
-    \begin{longtabu}{l l L}
-      \caption{Overview of the \texttt{R} distribution functions used for the models presented in this study.  The overview includes
-        the model ID,
-        the name of the \texttt{R} package (and its version number) which provided the distribution function,
-        and the \texttt{R} call of the distribution function used in model fitting.
-        \label{tab:PresentedModelsOverviewDistributions}} \\
-      \toprule
-      Model ID & Package (Version) & Distribution function call \\
-      \midrule
-      \endhead
-      \bottomrule
-      \endlastfoot
-      GAM1 & \texttt{stats} (3.3.3) & \texttt{Gamma(link = "log")} \\
-      GAM2 & As above & As above \\
-      SCAM1 & As above & As above \\
-      GAMLSS1 & \texttt{gamlss.dist} (5.0.3) & \texttt{BCCGo()} \\
-      GAMLSS2 & As above & As above \\
-      GAMLSS3 & As above & As above \\
-      \bottomrule
-    \end{longtabu}}
-\end{table}
 
 %%% Local Variables:
 %%% mode: latex
