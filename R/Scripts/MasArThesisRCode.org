@@ -52,6 +52,19 @@
     kOutputSubdir <- "R/Output/Thesis/"
     ## Set destination directory for graphics.
     kGraphicsSubdir <- "Graphics/Thesis/"
+    ## Set names of dependent and predictor variables.
+    kStandAgeVariableMathName <- quote(italic("h")[100]*"("*italic("x")*")"["I. YC"])
+    kProductivityIndexVariableMathName <- quote(italic("PI")["diff"]*" [m]")
+    kDependentVariableRName <- "gha"
+    kStandAgeVariableRName <- "h100.EKL.I"
+    kProductivityIndexVariableRName <- "SI.h100.diff.EKL.I"
+    ## Set model formulas.
+    kFormulas <- list("GAM1" = as.formula(object = paste0(kDependentVariableRName, " ~ s(", kStandAgeVariableRName, ") + s(", kProductivityIndexVariableRName, ")")),
+		  "GAM2" = as.formula(object = paste0(kDependentVariableRName, " ~ s(", kStandAgeVariableRName, ") + ", kProductivityIndexVariableRName, "")),
+		  "SCAM1" = as.formula(object = paste0(kDependentVariableRName, " ~ s(", kStandAgeVariableRName, ", bs = \"micv\") + ", kProductivityIndexVariableRName, "")),
+		  "GAMLSS1" = as.formula(object = paste0(kDependentVariableRName, " ~ ps(", kStandAgeVariableRName, ") + ps(", kProductivityIndexVariableRName, ")")),
+		  "GAMLSS2" = as.formula(object = paste0(kDependentVariableRName, " ~ ps(", kStandAgeVariableRName, ") + ", kProductivityIndexVariableRName, "")),
+		  "GAMLSS3" = as.formula(object = paste0(kDependentVariableRName, " ~ pbm(h100.EKL.I) + ", kProductivityIndexVariableRName, "")))
     ## If nonexistent, create all required directories.
     system2(command = "mkdir",
 	  args = paste0("-p ", c(kGraphicsSubdir, kOutputSubdir)))
@@ -970,7 +983,9 @@
 			 "gha",
 			 "SI.h100",
 			 "hnn.neu",
-			 "Reineke.slope")
+			 "Reineke.slope",
+			 "h100.EKL.I",
+			 "SI.h100.diff.EKL.I")
     kStatisticFunctionsNames <- c("min",  ## All functions need to accept argument "x" as their input and argument "na.rm = TRUE".
 			    "median",
 			    "mean",
@@ -1408,6 +1423,106 @@
         file = paste0(kOutputSubdir, "CorrelationCoefficients.txt"),
         sep = "\n",
         fill = FALSE)
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* GAM1EffectStandAgeVariable.pdf
+  #+NAME: GAM1EffectStandAgeVariable.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
+    ## Preamble.
+    kModelID <- "GAM1"
+    library(package = "mgcv",
+	  character.only = TRUE)
+    kPredictorVariableRName <- kStandAgeVariableRName
+    kPredictorVariableMathName <- kStandAgeVariableMathName
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kXLim <- c(0, 40)
+    kYLim <- c(-3.5, 1)
+    kRugTicksize <- 0.05
+    kRugLwd <- 0.5
+    kRugCol <- "gray"
+    kRugCol <- "black"
+    kRugLine <- -0.5
+    kConfidenceBandShadeCol <- "gray"
+    ## Get formula for current model.
+    cur.formula <- kFormulas[[kModelID]]
+    ## Create filename.
+    file.name <- paste0(kGraphicsSubdir,
+		    "GAM1EffectStandAgeVariable.pdf")
+    ## Turn off graphics device.
+    graphics.off()
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.90,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get capitalized name for current species.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
+							x = kSpeciesNamesCapitalized,
+							ignore.case = TRUE)]
+        ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+        cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					select = c(kDependentVariableRName,
+						 kStandAgeVariableRName,
+						 kProductivityIndexVariableRName)))
+        ## Fit model.
+        cur.model <- gam(formula = cur.formula,
+		     data = cur.data.frame,
+		     family = Gamma(link = "log"),
+		     na.action = na.omit)
+        ## Extract edf of smooth term.
+        edf.smooth.term <- round(x = pen.edf(x = cur.model)[grepl(x = names(x = pen.edf(x = cur.model)), pattern = kPredictorVariableRName)], digits = 2)
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Plot term effect.
+        plot.gam(x = cur.model,
+	       rug = FALSE,
+	       select = which(x = labels(object = terms(x = cur.model)) == kPredictorVariableRName),
+	       main = cur.species.name.capitalized,
+	       pages = 0,
+	       shade = TRUE,
+	       shade.col = kConfidenceBandShadeCol,
+	       mgp = kPlotMgp,
+	       xlim = kXLim,
+	       ylim = kYLim,
+	       xaxs = "i",
+	       yaxs = "i",
+	       xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
+	       ylab = as.expression(x = bquote(expr = italic("s")*"("*.(kPredictorVariableMathName)*", "*.(edf.smooth.term)*")")),
+	       panel.first = abline(v = seq(from = round(x = kXLim[1]),
+				      to = round(x = kXLim[2]),
+				      by = 5),
+			        h  = seq(from = round(x = kYLim[1]),
+				       to = round(x = kYLim[2]),
+				       by = 1),
+			        lty = kGridLineType,
+			        lwd = kGridLineWidth,
+			        col = kGridLineCol))
+        ## Add rug.
+        rug(x = cur.data.frame[[kPredictorVariableRName]],
+	  ticksize = kRugTicksize,
+	  side = 1,
+	  lwd = kRugLwd,
+	  col = kRugCol,
+	  line = kRugLine)
+        ## Draw box around plot.
+        box(bty = "o")
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * File local variables
   # Local Variables:
