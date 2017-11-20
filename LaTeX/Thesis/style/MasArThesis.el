@@ -3,17 +3,11 @@
  "MasArThesis"
  (lambda ()
    (TeX-add-symbols
-    '("RefEq" TeX-arg-ref)
-    '("RefFig" TeX-arg-ref)
-    '("RefTab" TeX-arg-ref)
     '("SeePage" TeX-arg-ref)
     '("SeeSection" TeX-arg-ref)))
  LaTeX-dialect)
 
 ;; Add certain macros as macros requiring a single mandatory argument to macro class "font-latex-match-reference-keywords" for syntax highlighting. See AUCTeX info Fontification of macros.
-(add-to-list 'font-latex-match-reference-keywords '("RefEq" "{"))
-(add-to-list 'font-latex-match-reference-keywords '("RefFig" "{"))
-(add-to-list 'font-latex-match-reference-keywords '("RefTab" "{"))
 (add-to-list 'font-latex-match-reference-keywords '("SeePage" "{"))
 (add-to-list 'font-latex-match-reference-keywords '("SeeSection" "{"))
 
@@ -22,6 +16,7 @@
  "MasArThesis"
  (lambda ()
    (TeX-add-symbols
+    '("BasalAreaR" nil)
     '("Beech" nil)
     '("logNlogDcurve" nil)
     '("NWFVA" nil)
