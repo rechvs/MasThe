@@ -18,6 +18,7 @@
    (TeX-add-symbols
     '("BasalAreaR" nil)
     '("Beech" nil)
+    '("edf" nil)
     '("logNlogDcurve" nil)
     '("NWFVA" nil)
     '("Ponderosa" nil)
