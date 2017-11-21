@@ -2271,3 +2271,54 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.5.RData" ##
+####################################
+## Based on version 5.4.
+## In this version, "bart.SPECIES.clean.1.[0-9]+" contains an additional column "sample.plot.mean.age", which holds the mean age for a given sample plot.
+kBaseFileVersion <- "5.4"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.5"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Loop over the names of all "bart.SPECIES.clean.1.[0-9]+".
+    for (cur.source.data.frame.name in ls(pattern = paste0("bart.", cur.species.name, ".clean"))) {
+        ## Initiate a vector which will be used as the column to add.
+        sample.plot.mean.age <- vector(mode = "numeric")
+        ## Get current data frame.
+        cur.bart.SPECIES.clean <- get(x = cur.source.data.frame.name)
+        ## Loop over all "edvid".
+        for (cur.edvid in levels(x = cur.bart.SPECIES.clean[["edvid"]])) {
+            ## Create subset of "cur.bart.SPECIES.clean" for the current "edvid".
+            cur.subset <- subset(x = cur.bart.SPECIES.clean,
+                                 subset = cur.bart.SPECIES.clean[["edvid"]] == cur.edvid)
+            ## Calculate the mean of column "alt" and append the result to "sample.plot.mean.age".
+            sample.plot.mean.age <- c(sample.plot.mean.age,
+                                      rep(x = mean(x = cur.subset[["alt"]],
+                                                   na.rm = TRUE),
+                                          times = nrow(x = cur.subset)))
+            }
+            ## Append "sample.plot.mean.age" as a column to "cur.bart.SPECIES.clean".
+            cur.bart.SPECIES.clean <- data.frame(cur.bart.SPECIES.clean,
+                                                 "sample.plot.mean.age" = sample.plot.mean.age)
+            ## Assign new version of "cur.bart.SPECIES.clean".
+            assign(x = cur.source.data.frame.name,
+                   value = cur.bart.SPECIES.clean)
+        }}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
