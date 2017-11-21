@@ -7,7 +7,7 @@
     setwd(dir = "~/laptop02_MasAr")
     kDataDir <- "Data/"
     ## Load data set.
-    kBaseFileVersion <- "5.4"
+    kBaseFileVersion <- "5.5"
     kBaseFileName <- paste0(kDataDir, "gmax_merged_", kBaseFileVersion, ".RData")
     kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
     ## Set dimensions of PDF device.
@@ -47,7 +47,8 @@
     kLegendBg <- "gray"
     ## Set vectors of species names.
     kSpeciesNames <- c("beech", "spruce")
-    kSpeciesNamesCapitalized <- c("Beech", "Spruce")
+    kSpeciesNamesCapitalized <- list("beech" = "Beech",
+			       "spruce" = "Spruce")
     ## Set destination directory for output.
     kOutputSubdir <- "R/Output/Thesis/"
     ## Set destination directory for graphics.
@@ -549,9 +550,7 @@
 	    ylim = kYLim,
 	    xlab = "stand age [a]",
 	    ylab = expression(italic("h")[100]*" [m]"),,
-	    main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-					 x = kSpeciesNamesCapitalized,
-					 ignore.case = TRUE)],
+	    main = kSpeciesNamesCapitalized[[cur.species.name]],
 	    mgp = kPlotMgp,
 	    xaxs = "i",
 	    yaxs = "i",
@@ -616,9 +615,7 @@
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Extract capitalized version of current species name.
-        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-							x = kSpeciesNamesCapitalized,
-							ignore.case = TRUE)]
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Get data frame for current species.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Create a subset with only columns "edvid", "h100.EKL.I", and "SI.h100.diff.EKL.I".
@@ -745,9 +742,7 @@
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
 	   ylab = expression(italic("G")*" [m"^2*" ha"^-1*"]"),
-	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-					x = kSpeciesNamesCapitalized,
-					ignore.case = TRUE)],
+	   main = kSpeciesNamesCapitalized[[cur.species.name]],
 	   mgp = kPlotMgp,
 	   xaxs = "i",
 	   yaxs = "i",
@@ -891,9 +886,7 @@
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
 	   ylab = expression(italic("PI")*" [m]"),
-	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-					x = kSpeciesNamesCapitalized,
-					ignore.case = TRUE)],
+	   main = kSpeciesNamesCapitalized[[cur.species.name]],
 	   mgp = kPlotMgp,
 	   xaxs = "i",
 	   yaxs = "i",
@@ -985,12 +978,14 @@
 			 "hnn.neu",
 			 "Reineke.slope",
 			 "h100.EKL.I",
-			 "SI.h100.diff.EKL.I")
+			 "SI.h100.diff.EKL.I",
+			 "sample.plot.mean.age")
     kStatisticFunctionsNames <- c("min",  ## All functions need to accept argument "x" as their input and argument "na.rm = TRUE".
 			    "median",
 			    "mean",
 			    "max",
-			    "span")
+			    "span",
+			    "mean.uniques")
     kRoundDigits <- c("Reineke.slope" = 3)
     span <- function(x, na.rm = TRUE) {
         var.min <- min(x = x,
@@ -1000,14 +995,17 @@
         res <- var.max - var.min
         return(res)
     }
+    mean.uniques <- function(x, na.rm = TRUE) {
+        x.unique <- unique(x = x)
+        res <- mean(x = x.unique,
+		na.rm = na.rm)
+    }
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Initiate list in which to store results for current species.
         cur.species.results.list <- vector(mode = "list")
         ## Extract capitalized version of current species name.
-        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-							x = kSpeciesNamesCapitalized,
-							ignore.case = TRUE)]
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Loop over the names of all appropriate data frames.
         data.frame.names <- ls(pattern = paste0("bart.", cur.species.name, ".clean.1.[08]"))
         for (cur.data.frame.name in data.frame.names) {
@@ -1069,7 +1067,7 @@
 		      ncol = 1)
     kLegendX <- "bottomright"
     kXLim <- c(0, 160)
-    kYLim <- c(0, 50)
+    kYLim <- c(0, 40)
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values
@@ -1136,9 +1134,7 @@
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
 	   ylab = expression(italic("h")[100]*"("*italic("x")*")"["I. YC"]*" [m]"),
-	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-					x = kSpeciesNamesCapitalized,
-					ignore.case = TRUE)],
+	   main = kSpeciesNamesCapitalized[[cur.species.name]],
 	   mgp = kPlotMgp,
 	   xaxs = "i",
 	   yaxs = "i",
@@ -1208,7 +1204,7 @@
 		      ncol = 1)
     kLegendX <- "topright"
     kXLim <- c(0, 160)
-    kYLim <- c(-20, 20)
+    kYLim <- c(-12.5, 12.5)
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values
@@ -1275,18 +1271,18 @@
 	   ylim = kYLim,
 	   xlab = "stand age [a]",
 	   ylab = expression(italic("PI")["diff"]*" [m]"),
-	   main = kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-					x = kSpeciesNamesCapitalized,
-					ignore.case = TRUE)],
+	   main = kSpeciesNamesCapitalized[[cur.species.name]],
 	   mgp = kPlotMgp,
 	   xaxs = "i",
 	   yaxs = "i",
 	   panel.first = abline(v = seq(from = kXLim[1],
 				  to = kXLim[2],
 				  by = 10),
-			    h  = seq(from = kYLim[1],
-				   to = kYLim[2],
-				   by = 5),
+			    h  = seq(from = round(x = kYLim[1],
+					     digits = -1),
+				   to = round(x = kYLim[2],
+					   digits = -1),
+				   by = 2.5),
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
 			    col = kGridLineCol))
@@ -1353,9 +1349,7 @@
     ## Loop over species names.
     for (cur.species.name in kSpeciesNames) {
         ## Get capitalized species name.
-        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-							x = kSpeciesNamesCapitalized,
-							ignore.case = TRUE)]
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Get data frame for current species.
         cur.data.frame <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Count occurrence of SI.h100.diff.EKL.I >= 0.
@@ -1468,9 +1462,7 @@
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
         ## Get capitalized name for current species.
-        cur.species.name.capitalized <- kSpeciesNamesCapitalized[grep(pattern = cur.species.name,
-							x = kSpeciesNamesCapitalized,
-							ignore.case = TRUE)]
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
         cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
 					select = c(kDependentVariableRName,
@@ -1521,6 +1513,68 @@
     }
     ## Turn off graphics device.
     graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* ConversionStandAgeStandAgeVariable.txt
+  #+NAME: ConversionStandAgeStandAgeVariable.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
+    ## Define functions for calculating the stand age variable and the productivity index variable.
+    CalculateStandAgeVariable <- function(age, piyc1, b0, b1, b2, b3, b4) {
+        y <- b0 + b1 * log(x = age) + b2 * (log(x = age)) ^ 2 + piyc1 * (b3 + b4 * log(x = age))
+        return(y)
+    }
+    CalculateProductivityIndexVariable <- function(h100, age, b0, b1, b2, b3, b4, piyc1) {
+        pi <- (h100 - b0 - b1 * log(x = age) - b2 * (log(x = age)) ^ 2) / (b3 + b4 * log(x = age))
+        y <- pi - piyc1
+        return(y)
+    }
+    ## Set species-specific coefficients for the functions for calculating stand age variable and productivity index variable (values taken from Nagel (1999), tab. 4).
+    beta0 <- list("beech" = -75.659,
+	        "spruce" = -49.872)
+    beta1 <- list("beech" = 23.192,
+	        "spruce" = 7.3309)
+    beta2 <- list("beech" = -1.468,
+	        "spruce" = 0.77338)
+    beta3 <- list("beech" = 0,
+	        "spruce" = 0.52684)
+    beta4 <- list("beech" = 0.2152,
+	        "spruce" = 0.10542)
+    ## Set species-specific absolute producitivity indices of stand of yield class I (values taken from Schober (1995) (moderate thinning)).
+    PI1.YC <- list("beech" = 32.4,
+	         "spruce" = 35.1)
+    ## Create age vector.
+    age <- 1:160
+    ## Initiate data frame in which to store results for all species.
+    results.df <- data.frame(matrix(data = NA,
+			      nrow = length(x = age),
+			      ncol = length(x = kSpeciesNames) + 1))
+    colnames(x = results.df) <- c("age", kSpeciesNames)
+    results.df[["age"]] <- age
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Calculate stand age variable corresponding to "age" for current species.
+        cur.stand.age.var <- CalculateStandAgeVariable(age = age,
+					     piyc1 = PI1.YC[[cur.species.name]],
+					     b0 = beta0[[cur.species.name]],
+					     b1 = beta1[[cur.species.name]],
+					     b2 = beta2[[cur.species.name]],
+					     b3 = beta3[[cur.species.name]],
+					     b4 = beta4[[cur.species.name]])
+        ## Store "cur.stand.age.var" in the appropriate row of "results.df". 
+        results.df[[cur.species.name]] <- cur.stand.age.var
+    }
+    ## Store printing of "results.df" in "output", while left justifying output.
+    output <- capture.output(print(x = format(x = results.df,
+				      justify="left",
+				      scientific = FALSE),
+			     row.names = TRUE))
+    ## Output results to file.
+    cat(output,
+        file = paste0(kOutputSubdir, "ConversionStandAgeStandAgeVariable.txt"),
+        sep = "\n",
+        fill = FALSE)
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
