@@ -1657,7 +1657,7 @@
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 2,
 		      ncol = 1)
-    kXLim <- c(-15, 15)
+    kXLim <- c(-12.5, 12.5)
     kYLim <- c(-5, 1.5)
     kRugTicksize <- 0.05
     kRugLwd <- 0.5
@@ -1719,8 +1719,10 @@
 	       yaxs = "i",
 	       xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
 	       ylab = as.expression(x = bquote(expr = italic("s")*"("*.(kPredictorVariableMathName)*", "*.(edf.smooth.term)*")")),
-	       panel.first = abline(v = seq(from = round(x = kXLim[1]),
-				      to = round(x = kXLim[2]),
+	       panel.first = abline(v = seq(from = round(x = kXLim[1],
+					         digits = -1),
+				      to = round(x = kXLim[2],
+					       digits = -1),
 				      by = 5),
 			        h  = seq(from = round(x = kYLim[1]),
 				       to = round(x = kYLim[2]),
@@ -1752,6 +1754,117 @@
 	     lty = legend.lty,
 	     col = legend.col,
 	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* GAM1QQPlot.pdf
+  #+NAME: GAM1QQPlot.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
+    ## Preamble.
+    kModelID <- "GAM1"
+    library(package = "mgcv",
+	  character.only = TRUE)
+    kPredictorVariableRName <- kProductivityIndexVariableRName
+    kPredictorVariableMathName <- kProductivityIndexVariableMathName
+    kQQRep <- 10 ^ 4  ## 10 ^ 4 seems to be the minimum number of repetitions required to obtain stable estimates.
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kLegendX <- "topleft"
+    kQQPCol <- "black"
+    kQQLty <- "solid"
+    kQQLwd <- 2
+    kQQLCol <- "black"
+    kQQReCol <- "gray"
+    kXLim <- list("beech" = c(-12.5, 17.5),
+	        "spruce" = c(-20, 25))
+    kYLim <- list("beech" = c(-17.5, 17.5),
+	        "spruce" = c(-25, 25))
+    kXLab <- "Theoretical quantiles"
+    kYLab <- "Response residuals"
+    ## Create "my.qq.gam", a custom version of "mgcv::qq.gam" which allows the customization of various graphics parameters.
+    my.qq.gam.string <- deparse(expr = mgcv::qq.gam)
+    my.qq.gam.string[1] <- paste0("my.qq.gam <- ", my.qq.gam.string[1])
+    my.qq.gam.string <- paste0(my.qq.gam.string, collapse = "\n")
+    my.qq.gam.string <- gsub(pattern = "function (object, rep = 0, level = 0.9, s.rep = 10, type = c(\"deviance\", \n    \"pearson\", \"response\"), pch = \".\", rl.col = 2, rep.col = \"gray80\", \n    ...)",
+		         fixed = TRUE,
+		         replacement = "function (object, rep = 0, level = 0.9, s.rep = 10, type = c(\"deviance\", \n    \"pearson\", \"response\"), rl.col = 2, rep.col = \"gray80\", \n xlab = \"theoretical quantiles\", ylab = NULL, pch = 19, ylim = NULL,   ...)",
+		         x = my.qq.gam.string)
+    my.qq.gam.string <- gsub(pattern = "qqplot(Dq, D, ylab = ylab, xlab = \"theoretical quantiles\",",
+		         fixed = TRUE,
+		         replacement = "qqplot(Dq, D, ylab = ylab, xlab = xlab,",
+		         x = my.qq.gam.string)
+    my.qq.gam.string <- gsub(pattern = "type <- match.arg(type)\n    ylab <- paste(type, \"residuals\")",
+		         fixed = TRUE,
+		         replacement = "if (is.null(ylab)) { \n    type <- match.arg(type)\n    ylab <- paste(type, \"residuals\")\n    }",
+		         x = my.qq.gam.string)
+    my.qq.gam.string <- gsub(pattern = "    if (!is.null(Dq)) {\n        qqplot(Dq, D, ylab = ylab, xlab = xlab, \n            ylim = range(c(lim, D)), pch = pch, ...)",
+		         fixed = TRUE,
+		         replacement = "if (is.null(ylim)) {\n    ylim <- range(c(lim, D)) \n    } \n    if (!is.null(Dq)) {\n        qqplot(Dq, D, ylab = ylab, xlab = xlab, \n            ylim = ylim, pch = pch, ...)",
+		         x = my.qq.gam.string)
+    eval(expr = parse(text = my.qq.gam.string))
+    ## Get formula for current model.
+    cur.formula <- kFormulas[[kModelID]]
+    ## Create filename.
+    file.name <- paste0(kGraphicsSubdir,
+		    "GAM1QQPlot.pdf")
+    ## Turn off graphics device.
+    graphics.off()
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.90,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "expression")
+        legend.col <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
+        ## Get capitalized name for current species.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+        ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+        cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					select = c(kDependentVariableRName,
+						 kStandAgeVariableRName,
+						 kProductivityIndexVariableRName)))
+        ## Fit model.
+        cur.model <- gam(formula = cur.formula,
+		     data = cur.data.frame,
+		     family = Gamma(link = "log"),
+		     na.action = na.omit)
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Create Q-Q plot.
+        my.qq.gam(object = cur.model,
+	        rep = kQQRep,
+	        type = "response",
+	        pch = kPointCharacter,
+	        mgp = kPlotMgp,
+	        xlim = kXLim[[cur.species.name]],
+	        ylim = kYLim[[cur.species.name]],
+	        main = cur.species.name.capitalized,
+	        xaxs = "i",
+	        yaxs = "i",
+	        xlab = kXLab,
+	        ylab = kYLab,
+	        rep.col = kQQReCol,
+	        rl.col = kQQLCol)
+        ## Draw box around plot.
+        box(bty = "o")
+        ## Update legend components.
+        ## CONTINUE HERE
     }
     ## Turn off graphics device.
     graphics.off()
