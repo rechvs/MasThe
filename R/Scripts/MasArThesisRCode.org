@@ -55,7 +55,7 @@
     kGraphicsSubdir <- "Graphics/Thesis/"
     ## Set names of dependent and predictor variables.
     kStandAgeVariableMathName <- quote(italic("h")[100]*"("*italic("x")*")"["I. YC"])
-    kProductivityIndexVariableMathName <- quote(italic("PI")["diff"]*" [m]")
+    kProductivityIndexVariableMathName <- quote(italic("PI")["diff"])
     kDependentVariableRName <- "gha"
     kStandAgeVariableRName <- "h100.EKL.I"
     kProductivityIndexVariableRName <- "SI.h100.diff.EKL.I"
@@ -1510,6 +1510,7 @@
     kRugCol <- "black"
     kRugLine <- -0.5
     kConfidenceBandShadeCol <- "gray"
+    kLegendX <- "topleft"
     ## Get formula for current model.
     cur.formula <- kFormulas[[kModelID]]
     ## Create filename.
@@ -1527,6 +1528,11 @@
     layout(mat = kPlotLayout)
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "expression")
+        legend.col <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
         ## Get capitalized name for current species.
         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
@@ -1549,7 +1555,7 @@
 	       select = which(x = labels(object = terms(x = cur.model)) == kPredictorVariableRName),
 	       main = cur.species.name.capitalized,
 	       pages = 0,
-	       shade = TRUE,
+	       shade = FALSE,
 	       shade.col = kConfidenceBandShadeCol,
 	       mgp = kPlotMgp,
 	       xlim = kXLim,
@@ -1567,6 +1573,15 @@
 			        lty = kGridLineType,
 			        lwd = kGridLineWidth,
 			        col = kGridLineCol))
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       expression(""%+-%" standard error"),
+		       "estimated effect")
+        legend.col <- c(legend.col,
+		    "black")
+        legend.lty <- c(legend.lty,
+		    "dashed",
+		    "solid")
         ## Add rug.
         rug(x = cur.data.frame[[kPredictorVariableRName]],
 	  ticksize = kRugTicksize,
@@ -1576,6 +1591,12 @@
 	  line = kRugLine)
         ## Draw box around plot.
         box(bty = "o")
+        ## Add legend.
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     lty = legend.lty,
+	     col = legend.col,
+	     bg = kLegendBg)
     }
     ## Turn off graphics device.
     graphics.off()
@@ -1617,6 +1638,123 @@
         file = paste0(kOutputSubdir, "ConversionStandAgeStandAgeVariable.txt"),
         sep = "\n",
         fill = FALSE)
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* GAM1EffectProductivityIndexVariable.pdf
+  #+NAME: GAM1EffectProductivityIndexVariable.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
+    ## Preamble.
+    kModelID <- "GAM1"
+    library(package = "mgcv",
+	  character.only = TRUE)
+    kPredictorVariableRName <- kProductivityIndexVariableRName
+    kPredictorVariableMathName <- kProductivityIndexVariableMathName
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kXLim <- c(-15, 15)
+    kYLim <- c(-5, 1.5)
+    kRugTicksize <- 0.05
+    kRugLwd <- 0.5
+    kRugCol <- "gray"
+    kRugCol <- "black"
+    kRugLine <- -0.5
+    kConfidenceBandShadeCol <- "gray"
+    kLegendX <- "topleft"
+    ## Get formula for current model.
+    cur.formula <- kFormulas[[kModelID]]
+    ## Create filename.
+    file.name <- paste0(kGraphicsSubdir,
+		    "GAM1EffectProductivityIndexVariable.pdf")
+    ## Turn off graphics device.
+    graphics.off()
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.90,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "expression")
+        legend.col <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
+        ## Get capitalized name for current species.
+        cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+        ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+        cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					select = c(kDependentVariableRName,
+						 kStandAgeVariableRName,
+						 kProductivityIndexVariableRName)))
+        ## Fit model.
+        cur.model <- gam(formula = cur.formula,
+		     data = cur.data.frame,
+		     family = Gamma(link = "log"),
+		     na.action = na.omit)
+        ## Extract edf of smooth term.
+        edf.smooth.term <- round(x = pen.edf(x = cur.model)[grepl(x = names(x = pen.edf(x = cur.model)), pattern = kPredictorVariableRName)], digits = 2)
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Plot term effect.
+        plot.gam(x = cur.model,
+	       rug = FALSE,
+	       select = which(x = labels(object = terms(x = cur.model)) == kPredictorVariableRName),
+	       main = cur.species.name.capitalized,
+	       pages = 0,
+	       shade = FALSE,
+	       shade.col = kConfidenceBandShadeCol,
+	       mgp = kPlotMgp,
+	       xlim = kXLim,
+	       ylim = kYLim,
+	       xaxs = "i",
+	       yaxs = "i",
+	       xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
+	       ylab = as.expression(x = bquote(expr = italic("s")*"("*.(kPredictorVariableMathName)*", "*.(edf.smooth.term)*")")),
+	       panel.first = abline(v = seq(from = round(x = kXLim[1]),
+				      to = round(x = kXLim[2]),
+				      by = 5),
+			        h  = seq(from = round(x = kYLim[1]),
+				       to = round(x = kYLim[2]),
+				       by = 1),
+			        lty = kGridLineType,
+			        lwd = kGridLineWidth,
+			        col = kGridLineCol))
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       expression(""%+-%" standard error"),
+		       "estimated effect")
+        legend.col <- c(legend.col,
+		    "black")
+        legend.lty <- c(legend.lty,
+		    "dashed",
+		    "solid")
+        ## Add rug.
+        rug(x = cur.data.frame[[kPredictorVariableRName]],
+	  ticksize = kRugTicksize,
+	  side = 1,
+	  lwd = kRugLwd,
+	  col = kRugCol,
+	  line = kRugLine)
+        ## Draw box around plot.
+        box(bty = "o")
+        ## Add legend.
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     lty = legend.lty,
+	     col = legend.col,
+	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
