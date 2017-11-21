@@ -1092,6 +1092,8 @@
     kLegendX <- "bottomright"
     kXLim <- c(0, 160)
     kYLim <- c(0, 40)
+    kCurveCol <- "black"
+    kCurveLty <- "solid"
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values
@@ -1111,6 +1113,11 @@
     layout(mat = kPlotLayout)
     ## Loop over all species names.
     for (cur.species.name in kSpeciesNames) {
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "expression")
+        legend.col <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
         ## Get data frame for current species.
         bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
         ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
@@ -1181,7 +1188,18 @@
 				       b4 = beta4[[cur.species.name]]),
 	    from = kXLim[1],
 	    to = kXLim[2],
+	    col = kCurveCol,
+	    lty = kCurveLty,
 	    add = TRUE)
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       "function curve")
+        legend.col <- c(legend.col,
+		    kCurveCol)
+        legend.lty <- c(legend.lty,
+		    kCurveLty)
+        legend.pch <- c(legend.pch,
+		    NA)
         ## Loop over all evdids.
         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
 	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
@@ -1189,9 +1207,9 @@
 			     subset = edvid == cur.edvid)
 	  ## Add lines for observations belonging to current edvid.
 	  ## lines(x =edvid.subset[["alt"]],
-	        ## y = edvid.subset[["h100.EKL.I"]],
-	        ## lwd = kLineWidth,
-	        ## lty = kLineType)
+	  ## y = edvid.subset[["h100.EKL.I"]],
+	  ## lwd = kLineWidth,
+	  ## lty = kLineType)
         }
         ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
@@ -1211,13 +1229,26 @@
         SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
 						      digits = 1),
 					      table = SI.h100.sequence)
-        ## Add legend.
-        legend.legend <- c(paste0("yield class ",
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       paste0("observations yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
-        legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
-        legend.pch <- kPointCharacter
+        legend.col <- c(legend.col,
+		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
+        legend.pch <- c(legend.pch,
+		    rep(x = kPointCharacter,
+		        times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+        legend.lty <- c(legend.lty,
+		    rep(x = NA,
+		        times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+        ## Add legend.
+        ## legend.legend <- c(paste0("observation yield class ",
+			    ## SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        ## legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+        ## legend.pch <- kPointCharacter
         legend(x = kLegendX,
 	     legend = legend.legend,
+	     lty = legend.lty,
 	     col = legend.col,
 	     pch = legend.pch,
 	     bg = kLegendBg)
