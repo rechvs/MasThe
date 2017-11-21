@@ -66,6 +66,30 @@
 		  "GAMLSS1" = as.formula(object = paste0(kDependentVariableRName, " ~ ps(", kStandAgeVariableRName, ") + ps(", kProductivityIndexVariableRName, ")")),
 		  "GAMLSS2" = as.formula(object = paste0(kDependentVariableRName, " ~ ps(", kStandAgeVariableRName, ") + ", kProductivityIndexVariableRName, "")),
 		  "GAMLSS3" = as.formula(object = paste0(kDependentVariableRName, " ~ pbm(h100.EKL.I) + ", kProductivityIndexVariableRName, "")))
+    ## Define functions for calculating the stand age variable and the productivity index variable.
+    CalculateStandAgeVariable <- function(age, piyc1, b0, b1, b2, b3, b4) {
+        y <- b0 + b1 * log(x = age) + b2 * (log(x = age)) ^ 2 + piyc1 * (b3 + b4 * log(x = age))
+        return(y)
+    }
+    CalculateProductivityIndexVariable <- function(h100, age, b0, b1, b2, b3, b4, piyc1) {
+        pi <- (h100 - b0 - b1 * log(x = age) - b2 * (log(x = age)) ^ 2) / (b3 + b4 * log(x = age))
+        y <- pi - piyc1
+        return(y)
+    }
+    ## Set species-specific coefficients for the functions for calculating stand age variable and productivity index variable (values taken from Nagel (1999), tab. 4).
+    beta0 <- list("beech" = -75.659,
+	        "spruce" = -49.872)
+    beta1 <- list("beech" = 23.192,
+	        "spruce" = 7.3309)
+    beta2 <- list("beech" = -1.468,
+	        "spruce" = 0.77338)
+    beta3 <- list("beech" = 0,
+	        "spruce" = 0.52684)
+    beta4 <- list("beech" = 0.2152,
+	        "spruce" = 0.10542)
+    ## Set species-specific absolute producitivity indices of stand of yield class I (values taken from Schober (1995) (moderate thinning)).
+    PI1.YC <- list("beech" = 32.4,
+	         "spruce" = 35.1)
     ## If nonexistent, create all required directories.
     system2(command = "mkdir",
 	  args = paste0("-p ", c(kGraphicsSubdir, kOutputSubdir)))
@@ -1147,6 +1171,17 @@
 			    lty = kGridLineType,
 			    lwd = kGridLineWidth,
 			    col = kGridLineCol))
+        ## Add curve for the function calculating the stand age variable.
+        curve(expr = CalculateStandAgeVariable(age = x,
+				       piyc1= PI1.YC[[cur.species.name]],
+				       b0 = beta0[[cur.species.name]],
+				       b1 = beta1[[cur.species.name]],
+				       b2 = beta2[[cur.species.name]],
+				       b3 = beta3[[cur.species.name]],
+				       b4 = beta4[[cur.species.name]]),
+	    from = kXLim[1],
+	    to = kXLim[2],
+	    add = TRUE)
         ## Loop over all evdids.
         for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
 	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
@@ -1520,30 +1555,6 @@
   #+NAME: ConversionStandAgeStandAgeVariable.txt
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
-    ## Define functions for calculating the stand age variable and the productivity index variable.
-    CalculateStandAgeVariable <- function(age, piyc1, b0, b1, b2, b3, b4) {
-        y <- b0 + b1 * log(x = age) + b2 * (log(x = age)) ^ 2 + piyc1 * (b3 + b4 * log(x = age))
-        return(y)
-    }
-    CalculateProductivityIndexVariable <- function(h100, age, b0, b1, b2, b3, b4, piyc1) {
-        pi <- (h100 - b0 - b1 * log(x = age) - b2 * (log(x = age)) ^ 2) / (b3 + b4 * log(x = age))
-        y <- pi - piyc1
-        return(y)
-    }
-    ## Set species-specific coefficients for the functions for calculating stand age variable and productivity index variable (values taken from Nagel (1999), tab. 4).
-    beta0 <- list("beech" = -75.659,
-	        "spruce" = -49.872)
-    beta1 <- list("beech" = 23.192,
-	        "spruce" = 7.3309)
-    beta2 <- list("beech" = -1.468,
-	        "spruce" = 0.77338)
-    beta3 <- list("beech" = 0,
-	        "spruce" = 0.52684)
-    beta4 <- list("beech" = 0.2152,
-	        "spruce" = 0.10542)
-    ## Set species-specific absolute producitivity indices of stand of yield class I (values taken from Schober (1995) (moderate thinning)).
-    PI1.YC <- list("beech" = 32.4,
-	         "spruce" = 35.1)
     ## Create age vector.
     age <- 1:160
     ## Initiate data frame in which to store results for all species.
