@@ -1779,14 +1779,12 @@
 		      ncol = 1)
     kLegendX <- "topleft"
     kQQPCol <- "black"
-    kQQLty <- "solid"
-    kQQLwd <- 2
     kQQLCol <- "black"
     kQQReCol <- "gray"
-    kXLim <- list("beech" = c(-12.5, 17.5),
+    kXLim <- list("beech" = c(-12.5, 15),
 	        "spruce" = c(-20, 25))
-    kYLim <- list("beech" = c(-17.5, 17.5),
-	        "spruce" = c(-25, 25))
+    kYLim <- list("beech" = c(-17.5, 22.5),
+	        "spruce" = c(-25, 35))
     kXLab <- "Theoretical quantiles"
     kYLab <- "Response residuals"
     ## Create "my.qq.gam", a custom version of "mgcv::qq.gam" which allows the customization of various graphics parameters.
@@ -1832,6 +1830,7 @@
         legend.col <- vector(mode = "character")
         legend.pch <- vector(mode = "numeric")
         legend.lty <- vector(mode = "character")
+        legend.lwd <- vector(mode = "numeric")
         ## Get capitalized name for current species.
         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
@@ -1849,6 +1848,7 @@
         ## Create Q-Q plot.
         my.qq.gam(object = cur.model,
 	        rep = kQQRep,
+	        level = 0.95,
 	        type = "response",
 	        pch = kPointCharacter,
 	        mgp = kPlotMgp,
@@ -1860,11 +1860,34 @@
 	        xlab = kXLab,
 	        ylab = kYLab,
 	        rep.col = kQQReCol,
-	        rl.col = kQQLCol)
+	        rl.col = kQQLCol,
+	        col = kQQPCol)
         ## Draw box around plot.
         box(bty = "o")
         ## Update legend components.
-        ## CONTINUE HERE
+        legend.legend <- c(legend.legend,
+		       "1:1 reference line",
+		       "residuals")
+        legend.col <- c(legend.col,
+		    kQQLCol,
+		    kQQPCol)
+        legend.pch <- c(legend.pch,
+		    NA,
+		    kPointCharacter)
+        legend.lty <- c(legend.lty,
+		    "solid",
+		    NA)
+        legend.lwd <- c(legend.lwd,
+		    1,
+		    NA)
+        ## Add legend.
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     col = legend.col,
+	     pch = legend.pch,
+	     lty = legend.lty,
+	     lwd = legend.lwd,
+	     bg = kLegendBg)
     }
     ## Turn off graphics device.
     graphics.off()
