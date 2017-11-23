@@ -10,8 +10,13 @@ For \Beech{}, the estimated effect reaches its absolute maximum at roughly \(\St
 % In both plots, the confidence band does include non-zero values of the estimate.  This suggests that the stand age variable is related to basal area in both species \parencite{Wood2001}.
 The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableText{}.  Consequently, the confidence bands start to widen further from the edges in the top plot compared to the bottom plot.  In the case of \Beech{}, the estimated effect shows a sharp increase for \(\SI{-12.5}{\meter} \leq \ProductivityIndexVariableMath{} \leq \SI{-2.5}{\meter}\), starting at an estimate of approximately \num{3} before almost completely levelling off at an estimate of zero.  In the case of \Spruce{}, the estimate starts at around zero and never strays very far from it in the interval depicted.  Nevertheless, the confidence band does include non-zero estimates in both plots, suggesting that the \ProductivityIndexVariableText{} is related to basal area in both species \parencite{Wood2001}.
 
+\Cref{fig:GAM1QQPlot} shows the quantile-quantile plot for model GAM1 for both species.  In both species, response residuals follow the 1:1 reference line fairly closely with some residuals lying outside the \SI{90}{\percent} reference band.
 
+\Cref{fig:GAM1LinearPredictorResiduals} shows the response residuals over link the function value for the corresponding prediction of model GAM1 for both species.  In \Beech{}, variability of residuals does increase notably as link function value increases.  In \Spruce{}, the same trend can be observed albeit less pronounced.
 
+\Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification} shows basal area over stand age, both observed values as well as predictions of model GAM1.  General behavior of the model is notably different for each species:  in the case of \Beech{}, predicted basal area starts to decrease between stand ages of \SIrange{70}{90}{\year}, while in \Spruce{} it increases throughout the whole depicted stand age interval, especially between \SIrange{80}{100}{\year}.  In both species, predicted basal area shows stratification depending on yield class.  However, the order of curves does not coincide with yield class order:  in the case of \Beech{}, yield class 1 lies above yield class 0, while in the case of \Spruce{}, yield class 1 lies above yield class -2 and yield class 3 lies above yield class 2.  In \Beech{}, yield class 3 performs much worse than yield class 2.  Other yield classes of \Beech{} and all yield classes of \Spruce{} do not exhibit as large distances between adjacent yield classes. 
+
+\Cref{fig:GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification} shows basal area over top height, both observed values as well as predictions of model GAM1.  General model behavior is the same as in \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}.  Stratification depending on yield class is also visible again.  In the case of \Beech{}, the order of curves (excluding yield class 3) changes during the depicted age interval.  For top heights up to \SI{22}{\meter}, order of curves is almost the exact inverse of yield class order, with yield class 2 showing best performance and yield class -2 showing worst performance.  Between top heights of \SIrange{22}{35}{\meter}, order of curves shifts until eventually stratification follows yield class order.  In contrast, \Spruce{} shows a highly erratic pattern of stratification, the only constant of which is that yield class -2 performs worst of all yield classes throughout.
 
 \begin{figure}[h]
   \centering
@@ -27,6 +32,33 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
   \label{fig:GAM1EffectProductivityIndexVariable}
 \end{figure}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1QQPlot.pdf}
+  \caption{Quantile-quantile plot of observed values minus predicted values (response residuals) over corresponding prediction quantiles (theoretical quantiles) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Black lines are 1:1 reference lines.  Black dots are residuals.  Gray shaded areas mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  Theoretical quantiles and reference bands are based on repeated predictions (\(N = \num{e4}\)) \parencite{Augustin2012}.  Note the different axis scaling in both plots.}
+  \label{fig:GAM1QQPlot}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1LinearPredictorResiduals.pdf}
+  \caption{Observed values minus predicted values (response residuals) over value of the link function applied to the predicted values (linear predictor) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Note the different axis scaling in both plots.}
+  \label{fig:GAM1LinearPredictorResiduals}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \caption{Basal area (\(G\)) over stand age of \Beech{} (top) and \Spruce{} (bottom).  Colored lines represent predictions of model GAM1.  Dots, black lines, and colors have the same meaning as in \Cref{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
+  \label{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \caption{Basal area (\(G\)) over top height (\(\TopHeight{}\)) of \Beech{} (top) and \Spruce{} (bottom).  Colored lines, dots, black lines, and colors have the same meaning as in \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}, namely:  Colored lines represent predictions of model GAM1.  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
+  \label{fig:GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification}
+\end{figure}
 
 
 \clearpage{}
