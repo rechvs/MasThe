@@ -1,3 +1,3 @@
   Species n.SI.h100.diff.EKL.I.geq.0 n.SI.h100.diff.EKL.I.less.0
-1  Beech                          39                          24
+1   Beech                         39                          24
 2  Spruce                         48                          52
