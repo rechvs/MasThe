@@ -106,7 +106,7 @@ In \Cref{fig:StandAgeTopHeightYieldClassClassification,fig:StandAgeProductivityI
   % \ProductivityIndexMath{} = \frac{\TopHeight(x) + 49.872 - 7.3309 \cdot \ln(x) - 0.77338 \cdot \ln(x)^2 }{0.52684 + 0.10542 \cdot \ln(x)}
   \ProductivityIndexMath{} = \frac{\TopHeight(x) - \beta_0 - \beta_1 \cdot \ln(x) - \beta_2 \cdot \ln(x)^2 }{\beta_3 + \beta_4 \cdot \ln(x)},
 \end{equation}
-where \(\ProductivityIndexMath{}\) is top height (\(h_{100}\)) in \si{\meter} at age \SI{100}{\year}, \(x\) is stand age, and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\) and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients \parencite{Nagel1999}.  The coefficients were taken from \textcite{Nagel1999} and are reported in \Cref{tab:NagelFunctionCoefficients}.  Next, a sequence of \(\ProductivityIndexMath{}\)-values was generated, ranging from yield class \num{4} over yield classes \numrange{3}{-1} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} (moderate thinning) and are reported in \Cref{tab:SchoberProductivityIndices}.  Values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2; 1}.   This sequence was then restricted to the range between the best yield class needed to include the lowest observed \(\ProductivityIndexMath{}\) and the worst yield class needed to include the highest observed \(\ProductivityIndexMath{}\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(\ProductivityIndexMath{}\) was then mapped to the color representing the corresponding \(\ProductivityIndexMath{}\)-value.  Considering \Cref{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
+where \(\ProductivityIndexMath{}\) is top height (\(h_{100}\)) in \si{\meter} at age \SI{100}{\year}, \(x\) is stand age, and \(\TopHeight(x)\) is top height in \si{\meter} at age \(x\) and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients \parencite{Nagel1999}.  The coefficients were taken from \textcite{Nagel1999} and are reported in \Cref{tab:NagelFunctionCoefficients}.  Next, a sequence of \(\ProductivityIndexMath{}\)-values was generated, ranging from yield class \num{4} over yield classes \numrange{3}{-1} to yield class \num{-2}, using an increment of \SI{0.1}{\meter}, thus also covering fractional yield classes.  Values of whole yield classes are reported in \Cref{tab:SchoberProductivityIndices}.  Values for yield classes \numrange{4}{1} were taken from \textcite{Schober1995} (moderate thinning), while values for yield classes \numrange{0}{-2} were linearly interpolated from those for yield classes \numlist{2;1}.   The sequence was then restricted to the range between the best yield class needed to include the lowest observed \(\ProductivityIndexMath{}\) and the worst yield class needed to include the highest observed \(\ProductivityIndexMath{}\).  A color palette matching this restricted sequence was then generated, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed).  Each observed \(\ProductivityIndexMath{}\) was then mapped to the color representing the corresponding \(\ProductivityIndexMath{}\)-value.  Considering \Cref{fig:StandAgeTopHeightYieldClassClassification}, the method of yield class classification yielded plausible results in both data sets:  for a given top height, yield class gradually worsens as stand age increases.
 
 \begin{singlespace}
   {\tabulinesep=2mm
@@ -126,18 +126,18 @@ where \(\ProductivityIndexMath{}\) is top height (\(h_{100}\)) in \si{\meter} at
 
 \begin{singlespace}
   {\tabulinesep=2mm
-    \begin{longtabu}{L S S S S}
-      \caption{Absolute productivity index of stand (\(\ProductivityIndexMath{}\)) of different yield classes for \Beech{} and \Spruce{} as reported in \parencite{Schober1995} (moderate thinning).  \label{tab:SchoberProductivityIndices}} \\
+    \begin{longtabu}{L S S S S S S S}
+      \caption{Absolute productivity index of stand (\(\ProductivityIndexMath{}\)) of different yield classes (YC) for \Beech{} and \Spruce{}.  Values for yield classes \numrange{4}{1} were taken from \parencite{Schober1995} (moderate thinning).  Values for yield classes \numrange{0}{-2} were linearly interpolated from those of yield classes \numlist{2;1}.  \label{tab:SchoberProductivityIndices}} \\
       \toprule
-      & \multicolumn{4}{c}{{\(\ProductivityIndexMath{}\) [\si{\meter}]}} \\
-      \cline{2-5}
-      Species & {yield class 4} & {yield class 3} & {yield class 2} & {yield class 1} \\
+      & \multicolumn{7}{c}{{\(\ProductivityIndexMath{}\) [\si{\meter}]}} \\
+      \cline{2-8}
+      Species & {YC 4} & {YC 3} & {YC 2} & {YC 1} & {YC 0} & {YC -1} & {YC -2} \\
       \midrule
       \endhead
       \bottomrule
       \endlastfoot
-      Beech & 20.7 & 24.7 & 28.6 & 32.4 \\
-      Spruce & 23.5 & 27.2 & 31.2 & 35.1 \\
+      Beech & 20.7 & 24.7 & 28.6 & 32.4 & 36.2 & 40 & 43.8 \\
+      Spruce & 23.5 & 27.2 & 31.2 & 35.1 & 39 & 42.9 & 46.8 \\
     \end{longtabu}
   }
 \end{singlespace}
