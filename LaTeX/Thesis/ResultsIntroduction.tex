@@ -1,0 +1,23 @@
+The results of each model are presented via the following plots:
+\begin{itemize}
+\item Estimated effect of the first predictor term over the corresponding variable.
+\item Estimated effect of the second predictor term over the corresponding variable.
+\item Q-Q-plot of sample quantiles over theoretical quantiles.
+\item Link-residuals over link-fitted values. 
+\item Observed and predicted basal area over stand age.
+\item Observed and predicted basal area over top height.
+\end{itemize}
+
+Data on which model predictions are based were generated in 2 steps. First, a sequence of age values was generated, ranging from \SIrange{0}{160}{\year}.  Then, a corresponding sequence of top height values was calculated using equation
+\begin{equation}
+  \label{eq:NagelFunctionSolvedForTopHeight}
+  \TopHeight{}(x) = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + \ProductivityIndexMath{}_i \cdot (\beta_3 + \beta_4 \cdot \ln(x)),
+\end{equation}
+where \(\TopHeight{}(x)\) is top height in \si{\meter} at age \(x\), \(x\) is stand age, \(\ProductivityIndexMath{}_i\) is the absolute productivity index of stand of yield class \(i\) as reported in \Cref{tab:SchoberProductivityIndices}, and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients as reported in \Cref{tab:NagelFunctionCoefficients} \parencite{Nagel1999}.  Subsequently, corresponding sequences of stand age variable and \ProductivityIndexVariableText{} were calcluated using \Cref{eq:StandAgeVariable,eq:ProductivityIndexVariable}, respectively.  These were then used as input for model predictions.
+
+Unless otherwise noted, the confidence bands of the estimated smooth function effects included non-zero values of the estimate for all smooth functions in all models for both species.  This suggests that both the stand age variable as well as the \ProductivityIndexVariableText{} are related to basal area in both species \parencite{Wood2001}.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
