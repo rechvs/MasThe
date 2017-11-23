@@ -1987,8 +1987,8 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* GAM1StandAgePredictions.pdf
-  #+NAME: GAM1StandAgePredictions.pdf
+* GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf
+  #+NAME: GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Presentation/Modelling.tex
     ## Plotting preamble ##
