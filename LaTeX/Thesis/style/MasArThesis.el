@@ -31,7 +31,7 @@
     '("Spruce" nil)
     '("StandAgeVariableMath" nil)
     '("StandAgeVariableR" nil)
-    '("Topheight" nil)))
+    '("TopHeight" nil)))
  LaTeX-dialect)
 
 ;; Make certain macros known to AUCTeX as macros which require a single mandatory argument.
