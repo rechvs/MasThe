@@ -2266,7 +2266,7 @@
     kXValuesColumnNameTestData <- "h100"
     kYValuesColumnNameTrainingData <- "gha"
     kYValuesColumnNameTestData <- "gha.predictions"
-    kXLab <- expression("h"["100"]*" [m]")
+    kXLab <- expression(italic("h")["100"]*" [m]")
     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
     ## Create file name.
     kFilename <-paste0(kGraphicsSubdir,
@@ -2520,7 +2520,7 @@
     kGridIntervalH <- 10
     kXValuesColumnName <- "h100"
     kYValuesColumnName <- "gha"
-    kXLab <- expression("h"["100"]*" [m]")
+    kXLab <- expression(italic("h")["100"]*" [m]")
     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
