@@ -318,10 +318,11 @@
 * NOTES
 ** Layout of Thesis
 *** Introduction
+    + [ ] Explain that the term “observation” is used to distinguish values which were (directly or indirectly) derived from measured values only from those that were (directly or indirectly) derived from estimated values.
 *** Material and Methods [0/0]
-**** Data Selection [1/2]
+**** Data Selection [2/2]
      + [X] Discussion of the data selection mechanism should go into section “Discussion”
-     + [ ] Report min, mean, and max of slopes of observations which were selected by the data selection mechanism.
+     + [X] Report min, mean, and max of slopes of observations which were selected by the data selection mechanism.
 **** Description of data sets [7/7]
      + [X] Total number of observations per sample plot
      + [X] Geographical location of sample plots
@@ -331,19 +332,30 @@
      + [X] Site index over stand age (observations classified into yield classes)
      + [X] Basal area over stand age (observations classified into yield classes)
 **** Description of explanatory variables used in the models
-     + [ ] Computation of age variable
-     + [ ] Computation of site class variable
-     + [ ] Figure: Site class variable over stand age (observations classified into yield classes) [Might be a bit redundant when compared to the figure of site index over stand age.]
-**** Explanation of GAMs [0/1]
-     + [ ] Why did I choose gamma distribution?
-**** Explanation of SCAMs [0/2]
-     + [ ] Explanation of B-splines (cp. de Boor (2001))
-     + [ ] Explanation of P-splines (cp. Eilers & Marx (1996))
-**** Explanation of GAMLSSs [0/1]
-     + [ ] Explanation of shape constrained P-splines (cp. Boaerts et al. (2006))
+     + [X] Computation of age variable
+     + [X] Computation of site class variable
+     + [X] Figure: Site class variable over stand age (observations classified into yield classes) [Might be a bit redundant when compared to the figure of site index over stand age.]
+**** Explanation of GAMs [0/0]
+     + [ ] Explanation of thin plate regression splines
+**** Explanation of SCAMs [2/2]
+     + [X] Explanation of B-splines (cp. de Boor (2001))
+     + [X] Explanation of P-splines (cp. Eilers & Marx (1996))
+**** Explanation of GAMLSSs [1/1]
+     + [X] Explanation of shape constrained P-splines (cp. Boaerts et al. (2006))
+**** Creation of test data [0/1]
+     + [ ] Explanation of equation used for creating test data
+*** Results
+**** AIC of all models
+**** GAM1
+     + [ ] term effect of stand age variable
+     + [ ] term effect of productivity index variable
+     + [ ] predicted basal area over stand age
+     + [ ] predicted basal area over top height
 *** Discussion
     + Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
 **** Show validity of assumed probability distributions via Q-Q-Plots
+     + [ ] Gamma distribution
+     + [ ] BCCG distribution
 **** Compare results to Sterba’s approach
 **** Discuss data selection mechanism
      + Compare mean of observed slope with slopes reported in literature and point out that the data selection mechanism is rather generous in terms of maximum allowed slopes.
@@ -586,3 +598,11 @@
    If you have any further questions please email us.
 
    Robert Rigby
+** Email by Matthias Schmidt from [2017-11-20 Mo] on which plots to include in the “Results” section:
+   Hallo Renke,
+
+   geht es hier um die Funktion gam.check{mgcv} oder plot.gamlss{gamlss}, nur wegen rechts und links. Aber wie auch immer, ich würde link-Residuals über link-fitted values (linear predictor) plotten, um die Varianzhomogenität zu prüfen und dern qqplot für die Prüfung der Verteilungsannahme verwenden.
+
+   Grüße
+
+   Matthias
