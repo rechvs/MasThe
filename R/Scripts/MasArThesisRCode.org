@@ -2026,7 +2026,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = kFilename,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Get formula for current model.
@@ -2284,7 +2284,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = kFilename,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.90,
+        height = kPdfHeightA4Portrait * 0.85,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Get formula for current model.
@@ -2501,6 +2501,149 @@
     ## Turn off graphics device.
     graphics.off()
     ## Clean up workspace.                                   
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
+* TopHeightBasalAreaYieldClassClassification.pdf
+  #+NAME: TopHeightBasalAreaYieldClassClassification.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DataDescription.tex
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kLegendX <- "topleft"
+    kXLim <- c(0, 40)
+    kYLim <- c(0, 85)
+    kGridIntervalV <- 5
+    kGridIntervalH <- 10
+    kXValuesColumnName <- "h100"
+    kYValuesColumnName <- "gha"
+    kXLab <- expression("h"["100"]*" [m]")
+    kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+    ## Define color palette generating function.
+    kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+    ## Set best yield class level for which to interpolate SI.h100 values
+    kBestYieldClassLevel <- -2
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "TopHeightBasalAreaYieldClassClassification.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.85,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over all species names.
+    for (cur.species.name in kSpeciesNames) {
+        ## Get data frame for current species.
+        bart.cur.species.clean.1.8 <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+        ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
+        SI.h100.yield.class.values <- data.frame("yield.class" = seq(from = 4, to = kBestYieldClassLevel, by = -1),
+				         "SI.h100" = NA)
+        ## Set SI.h100 values for yield classes 4, 3, 2, and 1 based on Schober (1995) (moderate thinning).
+        if (cur.species.name == "beech") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 20.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 24.7
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 28.6
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 32.4
+        }
+        if (cur.species.name == "spruce") {
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 23.5
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 27.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
+        }
+        ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+        for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
+	  SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
+	  SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
+	  SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
+        }
+        ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
+        SI.h100.min <- min(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        SI.h100.max <- max(bart.cur.species.clean.1.8[["SI.h100"]],
+		       na.rm = TRUE)
+        index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+        index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+        ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+        SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
+				  to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+				  by = 0.1),
+			    digits = 1)
+        ## Generate a color palette of the same length as "SI.h100.sequence".
+        cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Create empty plot.
+        plot(x = bart.cur.species.clean.1.8[[kXValuesColumnName]],
+	   type = "n",
+	   xlim = kXLim,
+	   ylim = kYLim,
+	   xlab = kXLab,
+	   ylab = kYLab,
+	   main = kSpeciesNamesCapitalized[[cur.species.name]],
+	   mgp = kPlotMgp,
+	   xaxs = "i",
+	   yaxs = "i",
+	   panel.first = abline(v = seq(from = kXLim[1],
+				  to = kXLim[2],
+				  by = kGridIntervalV),
+			    h  = seq(from = kYLim[1],
+				   to = kYLim[2],
+				   by = kGridIntervalH),
+			    lty = kGridLineType,
+			    lwd = kGridLineWidth,
+			    col = kGridLineCol))
+        ## Loop over all evdids.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Add lines for observations belonging to current edvid.
+	  lines(x =edvid.subset[[kXValuesColumnName]],
+	        y = edvid.subset[[kYValuesColumnName]],
+	        lwd = kLineWidth,
+	        lty = kLineType)
+        }
+        ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
+        for (cur.edvid in levels(x = bart.cur.species.clean.1.8[["edvid"]])) {
+	  ## Create subset of "bart.cur.species.clean.1.8", based on current edvid.
+	  edvid.subset <- subset(x = bart.cur.species.clean.1.8,
+			     subset = edvid == cur.edvid)
+	  ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	  SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+				         table = SI.h100.sequence)
+	  ## Add points to plot.
+	  points(x = edvid.subset[[kXValuesColumnName]],
+	         y = edvid.subset[[kYValuesColumnName]],
+	         col = cur.species.color.palette[SI.h100.rounded.color.index],
+	         pch = kPointCharacter)
+        }
+        ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+        SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						      digits = 1),
+					      table = SI.h100.sequence)
+        ## Add legend.
+        legend.legend <- c(paste0("yield class ",
+			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+        legend.pch <- kPointCharacter
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     col = legend.col,
+	     pch = legend.pch,
+	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
 * File local variables
