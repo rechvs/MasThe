@@ -2705,8 +2705,6 @@
 		      data = cur.data.frame,
 		      family = Gamma(link = "log"),
 		      na.action = na.omit)
-         ## Extract edf of smooth term.
-         edf.smooth.term <- round(x = pen.edf(x = cur.model)[grepl(x = names(x = pen.edf(x = cur.model)), pattern = kPredictorVariableRName)], digits = 2)
          ## Set plot margins.
          par("mar" = kPlotMargins)
          ## Plot term effect.
@@ -2721,7 +2719,7 @@
 	        xaxs = "i",
 	        yaxs = "i",
 	        xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
-	        ylab = as.expression(x = bquote(expr = italic("s")*"("*.(kPredictorVariableMathName)*", "*.(edf.smooth.term)*")")),
+	        ylab = as.expression(x = bquote(expr = "Partial for "*.(kPredictorVariableMathName))),
 	        panel.first = abline(v = seq(from = round(x = kXLim[1],
 						digits = kGridDigitsV),
 				       to = round(x = kXLim[2],
