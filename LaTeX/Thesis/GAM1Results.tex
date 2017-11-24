@@ -20,46 +20,45 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1EffectStandAgeVariable.pdf}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1EffectStandAgeVariable.pdf}
   \caption{Estimated effect of the stand age variable smooth function (\(s(\StandAgeVariableMath{}, \ldots)\)) over stand age variable (\(\StandAgeVariableMath{}\)) in model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines mark estimates.  Dashed lines mark confidence bands of 2 standard errors width.  Vertical bars mark observed values.  Numbers in the y-axis titles are the effective degrees of freedom of the smooth function.}
   \label{fig:GAM1EffectStandAgeVariable}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1EffectProductivityIndexVariable.pdf}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1EffectProductivityIndexVariable.pdf}
   \caption{Estimated effect of the \ProductivityIndexVariableText{} smooth function (\(s(\ProductivityIndexVariableMath{}, \ldots)\)) over \ProductivityIndexVariableText{} (\(\ProductivityIndexVariableMath{}\)) in model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines, dashed lines, vertical bars, and numbers in the y-axis titles have the same meaning as in \Cref{fig:GAM1EffectStandAgeVariable}, namely:  Solid lines mark estimates.  Dashed lines mark confidence bands of 2 standard errors width.  Vertical bars mark observed values.  Numbers in the y-axis titles are the effective degrees of freedom of the smooth function.}
   \label{fig:GAM1EffectProductivityIndexVariable}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1QQPlot.pdf}
-  \caption{Quantile-quantile plot of observed values minus predicted values (response residuals) over corresponding prediction quantiles (theoretical quantiles) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Black lines are 1:1 reference lines.  Black dots are residuals.  Gray shaded areas mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  Theoretical quantiles and reference bands are based on repeated predictions (\(N = \num{e4}\)) \parencite{Augustin2012}.  Note the different axis scaling in both plots.}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1QQPlot.pdf}
+  \caption{Quantile-quantile plot of observed values minus predicted values (Response residuals) over corresponding prediction quantiles (Theoretical quantiles) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Black lines are 1:1 reference lines.  Black dots are residuals.  Gray shaded areas mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  Theoretical quantiles and reference bands are based on repeated predictions (\(N = \num{e4}\)) \parencite{Augustin2012}.  Note the different axis scaling in both plots.}
   \label{fig:GAM1QQPlot}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1LinearPredictorResiduals.pdf}
-  \caption{Observed values minus predicted values (response residuals) over value of the link function applied to the predicted values (linear predictor) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Note the different axis scaling in both plots.}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1LinearPredictorResiduals.pdf}
+  \caption{Observed values minus predicted values (Response residuals) over value of the link function applied to the predicted values (Linear predictor) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Note the different axis scaling in both plots.}
   \label{fig:GAM1LinearPredictorResiduals}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf}
   \caption{Basal area (\(G\)) over stand age of \Beech{} (top) and \Spruce{} (bottom).  Colored lines represent predictions of model GAM1.  Dots, black lines, and colors have the same meaning as in \Cref{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
   \label{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf}
   \caption{Basal area (\(G\)) over top height (\(\TopHeight{}\)) of \Beech{} (top) and \Spruce{} (bottom).  Colored lines, dots, black lines, and colors have the same meaning as in \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}, namely:  Colored lines represent predictions of model GAM1.  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
   \label{fig:GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification}
 \end{figure}
-
 
 \clearpage{}
 
