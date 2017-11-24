@@ -1533,10 +1533,14 @@
      kModelID <- "GAM1"
      kDistFamily <- Gamma(link = "log")
      cur.formula <- kFormulas[[kModelID]]
+     kGraphicsSubsubdir <- paste0(kGraphicsSubdir, kModelID, "/")
      objects.at.script.start <- c(objects.at.script.start,
 			    "kModelID",
 			    "kDistFamily",
-			    "cur.formula")
+			    "cur.formula",
+			    "kGraphicsSubsubdir")
+     system2(command = "mkdir",
+	   args = paste0("-p ", kGraphicsSubsubdir))
    #+END_SRC
 ** GAM1EffectStandAgeVariable.pdf
    #+NAME: GAM1EffectStandAgeVariable.pdf
@@ -1566,7 +1570,7 @@
      kConfidenceBandShadeCol <- "gray"
      kLegendX <- "topleft"
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "EffectStandAgeVariable.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -1688,7 +1692,7 @@
      kConfidenceBandShadeCol <- "gray"
      kLegendX <- "topleft"
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "EffectProductivityIndexVariable.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -1826,7 +1830,7 @@
 			x = my.qq.gam.string)
      eval(expr = parse(text = my.qq.gam.string))
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "QQPlot.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -1929,7 +1933,7 @@
      kGridIntervalH <- list("beech" = 5,
 		        "spruce" = 10)
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "LinearPredictorResiduals.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -2022,7 +2026,7 @@
      kXLab <- "Stand age [a]"
      kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
      ## Create file name.
-     kFilename <-paste0(kGraphicsSubdir,
+     kFilename <-paste0(kGraphicsSubsubdir,
 		    paste0(kModelID, "StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
      ## Define color palette generating function.
      kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
@@ -2274,7 +2278,7 @@
      kXLab <- expression(italic("h")["100"]*" [m]")
      kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
      ## Create file name.
-     kFilename <-paste0(kGraphicsSubdir,
+     kFilename <-paste0(kGraphicsSubsubdir,
 		    paste0(kModelID, "TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
      ## Define color palette generating function.
      kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
@@ -2511,10 +2515,14 @@
      kModelID <- "GAM2"
      kDistFamily <- Gamma(link = "log")
      cur.formula <- kFormulas[[kModelID]]
+     kGraphicsSubsubdir <- paste0(kGraphicsSubdir, kModelID, "/")
      objects.at.script.start <- c(objects.at.script.start,
 			    "kModelID",
 			    "kDistFamily",
-			    "cur.formula")
+			    "cur.formula",
+			    "kGraphicsSubsubdir")
+     system2(command = "mkdir",
+	   args = paste0("-p ", kGraphicsSubsubdir))
    #+END_SRC
 ** GAM2EffectStandAgeVariable.pdf
    #+NAME: GAM2EffectStandAgeVariable.pdf
@@ -2544,7 +2552,7 @@
      kConfidenceBandShadeCol <- "gray"
      kLegendX <- "topleft"
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "EffectStandAgeVariable.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -2666,7 +2674,7 @@
      kConfidenceBandShadeCol <- "gray"
      kLegendX <- "topleft"
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "EffectProductivityIndexVariable.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -2827,7 +2835,7 @@
 			x = my.qq.gam.string)
      eval(expr = parse(text = my.qq.gam.string))
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "QQPlot.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -2930,7 +2938,7 @@
      kGridIntervalH <- list("beech" = 5,
 		        "spruce" = 10)
      ## Create filename.
-     file.name <- paste0(kGraphicsSubdir,
+     file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "LinearPredictorResiduals.pdf"))
      ## Turn off graphics device.
      graphics.off()
@@ -3023,7 +3031,7 @@
      kXLab <- "Stand age [a]"
      kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
      ## Create file name.
-     kFilename <-paste0(kGraphicsSubdir,
+     kFilename <-paste0(kGraphicsSubsubdir,
 		    paste0(kModelID, "StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
      ## Define color palette generating function.
      kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
@@ -3275,7 +3283,7 @@
      kXLab <- expression(italic("h")["100"]*" [m]")
      kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
      ## Create file name.
-     kFilename <-paste0(kGraphicsSubdir,
+     kFilename <-paste0(kGraphicsSubsubdir,
 		    paste0(kModelID, "TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
      ## Define color palette generating function.
      kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
