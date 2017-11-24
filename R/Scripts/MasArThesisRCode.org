@@ -1557,7 +1557,7 @@
 		       nrow = 2,
 		       ncol = 1)
      kXLim <- c(0, 40)
-     kYLim <- c(-3, 1)
+     kYLim <- c(-3.5, 1)
      kGridIntervalV <- 2.5
      kGridIntervalH <- 0.5
      kGridDigitsV <- -1
