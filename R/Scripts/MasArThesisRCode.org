@@ -2014,11 +2014,11 @@
 		       ncol = 1)
      kLegendNcol <- 2
      kXLim <- c(0, 160)
-     kYLim <- c(0, 85)
+     kYLim <- c(0, 175)
      kGridIntervalV <- 10
      kGridIntervalH <- 10
      kLegendX <- list("beech" = "topleft",
-		  "spruce" = "bottomright")
+		  "spruce" = "topleft")
      kXValuesColumnNameTrainingData <- "alt"
      kXValuesColumnNameTestData <- "age"
      kYValuesColumnNameTrainingData <- "gha"
@@ -2265,8 +2265,8 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendNcol <- 2
-     kXLim <- c(0, 55)
-     kYLim <- c(0, 85)
+     kXLim <- c(0, 60)
+     kYLim <- c(0, 175)
      kGridIntervalV <- 5
      kGridIntervalH <- 10
      kLegendX <- list("beech" = "topleft",
@@ -2814,7 +2814,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2991,11 +2991,11 @@
 		       ncol = 1)
      kLegendNcol <- 2
      kXLim <- c(0, 160)
-     kYLim <- c(0, 90)
+     kYLim <- c(0, 130)
      kGridIntervalV <- 10
      kGridIntervalH <- 10
      kLegendX <- list("beech" = "topleft",
-		  "spruce" = "bottomright")
+		  "spruce" = "topleft")
      kXValuesColumnNameTrainingData <- "alt"
      kXValuesColumnNameTestData <- "age"
      kYValuesColumnNameTrainingData <- "gha"
@@ -3242,12 +3242,12 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendNcol <- 2
-     kXLim <- c(0, 55)
-     kYLim <- c(0, 85)
+     kXLim <- c(0, 60)
+     kYLim <- c(0, 130)
      kGridIntervalV <- 5
      kGridIntervalH <- 10
      kLegendX <- list("beech" = "topleft",
-		  "spruce" = "bottomright")
+		  "spruce" = "topleft")
      kXValuesColumnNameTrainingData <- "h100"
      kXValuesColumnNameTestData <- "h100"
      kYValuesColumnNameTrainingData <- "gha"
@@ -3791,7 +3791,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4220,7 +4220,7 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendNcol <- 2
-     kXLim <- c(0, 55)
+     kXLim <- c(0, 60)
      kYLim <- c(0, 95)
      kGridIntervalV <- 5
      kGridIntervalH <- 10
