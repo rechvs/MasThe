@@ -2270,7 +2270,7 @@
      kGridIntervalV <- 5
      kGridIntervalH <- 10
      kLegendX <- list("beech" = "topleft",
-		  "spruce" = "bottomright")
+		  "spruce" = "topleft")
      kXValuesColumnNameTrainingData <- "h100"
      kXValuesColumnNameTestData <- "h100"
      kYValuesColumnNameTrainingData <- "gha"
