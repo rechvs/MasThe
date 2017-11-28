@@ -1885,7 +1885,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        "1:1 reference line",
+		        "reference line",
 		        "residuals")
          legend.col <- c(legend.col,
 		     kQQLCol,
@@ -2046,7 +2046,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -2298,7 +2297,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -2862,7 +2860,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        "1:1 reference line",
+		        "reference line",
 		        "residuals")
          legend.col <- c(legend.col,
 		     kQQLCol,
@@ -3023,7 +3021,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -3275,7 +3272,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -3839,7 +3835,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        "1:1 reference line",
+		        "reference line",
 		        "residuals")
          legend.col <- c(legend.col,
 		     kQQLCol,
@@ -4001,7 +3997,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -4253,7 +4248,6 @@
      for (cur.species.name in kSpeciesNames) {
          ## Get capitalized name for current species.
          cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
-         ## Fit model ##
          ## Get input data frame for current species.
          cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
          ## Subset input data frame to the variables mentioned in the model formula.
@@ -4409,6 +4403,1026 @@
          ## Restrict "new.data" to the columns of the independent variables of the current model.
          new.data <- subset(x = new.data,
 		        select = all.vars(cur.formula)[-1])
+         ## Calculate model predictions.
+         new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
+					         newdata = new.data,
+					         what = "mu",
+					         type = "response")
+         ## Reattach columns "age", "h100", and "yield.class" to "new.data".
+         new.data[["age"]] <- test.df[["age"]]
+         new.data[["h100"]] <- test.df[["h100"]]
+         new.data[["yield.class"]] <- test.df[["yield.class"]]
+         ## Add lines to plot per yield class.
+         all.cols <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+         for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
+	   yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
+	   line.col <- all.cols[cur.yield.class.index]
+	   lines(x = new.data[[kXValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	         y = new.data[[kYValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	         col = line.col,
+	         lty = kLineType,
+	         lwd = kLineWidth)
+         }
+         ## Add box around plot.
+         box(bty = "o")
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        paste0("predictions yield class ",
+			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+         legend.col <- c(legend.col,
+		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
+         legend.pch <- c(legend.pch,
+		     rep(x = NA,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         legend.lty <- c(legend.lty,
+		     rep(x = kLineType,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         legend.lwd <- c(legend.lwd,
+		     rep(x = kLineWidth,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         ## Add legend.
+         legend(x = kLegendX[[cur.species.name]],
+	      ncol = kLegendNcol,
+	      legend = legend.legend,
+	      col = legend.col,
+	      pch = legend.pch,
+	      lty = legend.lty,
+	      lwd = legend.lwd,
+	      bg = kLegendBg)
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.                                   
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+* GAMLSS1
+** GAMLSS1Preamble
+   #+NAME: GAMLSS1Preamble
+   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+     ## Modelling preamble ##
+     library(package = "gamlss", character.only = TRUE)
+     library(package = "gamlss.dist", character.only = TRUE)
+     kModelID <- "GAMLSS1"
+     kDistFamily <- BCCGo()
+     cur.mu.formula <- kFormulas[[kModelID]]
+     kSigmaFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ 1"))
+     kNuFormula <- kSigmaFormula
+     kTauFormula <- kSigmaFormula
+     kGraphicsSubsubdir <- paste0(kGraphicsSubdir, kModelID, "/")
+     objects.at.script.start <- c(objects.at.script.start,
+			    "kModelID",
+			    "kDistFamily",
+			    "cur.mu.formula",
+			    "kSigmaFormula",
+			    "kNuFormula",
+			    "kTauFormula",
+			    "kGraphicsSubsubdir")
+     system2(command = "mkdir",
+	   args = paste0("-p ", kGraphicsSubsubdir))
+   #+END_SRC
+** GAMLSS1EffectStandAgeVariable.pdf
+   #+NAME: GAMLSS1EffectStandAgeVariable.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Preamble.
+     kPredictorVariableRName <- kStandAgeVariableRName
+     kPredictorVariableMathName <- kStandAgeVariableMathName
+     kTermNumber <- 1
+     ## Plotting preamble.
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kYLim <- "common"
+     kTermLineCol <- "black"
+     kSeLineCol <- "black"
+     kSeLty <- "dashed"
+     kSeLwd <- 1
+     kGridLimV <- list("beech" = c(10, 40),
+		   "spruce" = c(0, 40))
+     kGridLimH <- list("beech" = c(-0.5, 0.3),
+		   "spruce" = c(-2, 0.5))
+     kGridIntervalV <- list("beech" = 2.5,
+		        "spruce" = 2.5)
+     kGridIntervalH <- list("beech" = 0.1,
+		        "spruce" = 0.25)
+     kGridDigitsV <- list("beech" = 0,
+		      "spruce" = 0)
+     kGridDigitsH <- list("beech" = 1,
+		      "spruce" = 1)
+     kRugTicksize <- 0.05
+     kRugLwd <- 0.5
+     kRugCol <- "black"
+     kRugLine <- -0.5
+     kLegendX <- "topleft"
+     ## Create filename.
+     file.name <- paste0(kGraphicsSubsubdir,
+		     paste0(kModelID, "EffectStandAgeVariable.pdf"))
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = file.name,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.90,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over all species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "expression")
+         legend.col <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+         cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					 select = c(kDependentVariableRName,
+						  kStandAgeVariableRName,
+						  kProductivityIndexVariableRName)))
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.data.frame,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Plot term effect.
+         term.plot(object = cur.model,
+	         what = "mu",
+	         data = cur.data.frame,
+	         ## terms = kPredictorVariableRName,
+	         terms = kTermNumber,
+	         main = cur.species.name.capitalized,
+	         pages = 0,
+	         col.term = kTermLineCol,
+	         lwd.term = kLineWidth,
+	         se = TRUE,
+	         scheme = "lines",
+	         col.se = kSeLineCol,
+	         lty.se = kSeLty,
+	         lwd.se = kSeLwd,
+	         ask = FALSE,
+	         mgp = kPlotMgp,
+	         ylim = kYLim,
+	         xaxs = "i",
+	         yaxs = "i",
+	         xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
+	         ylab = as.expression(x = bquote(expr = italic("ps")*"("*.(kPredictorVariableMathName)*")")),
+	         panel.first = abline(v = seq(from = round(x = kGridLimV[[cur.species.name]][1],
+						 digits = kGridDigitsV[[cur.species.name]]),
+				        to = round(x = kGridLimV[[cur.species.name]][2],
+					         digits = kGridDigitsV[[cur.species.name]]),
+				        by = kGridIntervalV[[cur.species.name]]),
+				h  = seq(from = round(x = kGridLimH[[cur.species.name]][1],
+						  digits = kGridDigitsH[[cur.species.name]]),
+				         to = round(x = kGridLimH[[cur.species.name]][2],
+						digits = kGridDigitsH[[cur.species.name]]),
+				         by = kGridIntervalH[[cur.species.name]]),
+				lty = kGridLineType,
+				lwd = kGridLineWidth,
+				col = kGridLineCol))
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        expression(""%+-%" standard error"),
+		        "estimated effect")
+         legend.col <- c(legend.col,
+		     "black")
+         legend.lty <- c(legend.lty,
+		     "dashed",
+		     "solid")
+         ## Add rug.
+         rug(x = cur.data.frame[[kPredictorVariableRName]],
+	   ticksize = kRugTicksize,
+	   side = 1,
+	   lwd = kRugLwd,
+	   col = kRugCol,
+	   line = kRugLine)
+         ## Draw box around plot.
+         box(bty = "o")
+         ## Add legend.
+         legend(x = kLegendX,
+	      legend = legend.legend,
+	      lty = legend.lty,
+	      col = legend.col,
+	      bg = kLegendBg)
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+** GAMLSS1EffectProductivityIndexVariable.pdf
+   #+NAME: GAMLSS1EffectProductivityIndexVariable.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Preamble.
+     kPredictorVariableRName <- kProductivityIndexVariableRName
+     kPredictorVariableMathName <- kProductivityIndexVariableMathName
+     kTermNumber <- 2
+     ## Plotting preamble.
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kYLim <- "common"
+     kTermLineCol <- "black"
+     kSeLineCol <- "black"
+     kSeLty <- "dashed"
+     kSeLwd <- 1
+     kGridLimV <- list("beech" = c(-10, 10),
+		   "spruce" = c(-10, 10))
+     kGridLimH <- list("beech" = c(-2, 2),
+		   "spruce" = c(-1, 1))
+     kGridIntervalV <- list("beech" = 1,
+		        "spruce" = 2.5)
+     kGridIntervalH <- list("beech" = 0.1,
+		        "spruce" = 0.1)
+     kGridDigitsV <- list("beech" = 0,
+		      "spruce" = 0)
+     kGridDigitsH <- list("beech" = 1,
+		      "spruce" = 1)
+     kRugTicksize <- 0.05
+     kRugLwd <- 0.5
+     kRugCol <- "gray"
+     kRugCol <- "black"
+     kRugLine <- -0.5
+     kConfidenceBandShadeCol <- "gray"
+     kLegendX <- "topleft"
+     ## Create filename.
+     file.name <- paste0(kGraphicsSubsubdir,
+		     paste0(kModelID, "EffectProductivityIndexVariable.pdf"))
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = file.name,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.90,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over all species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "expression")
+         legend.col <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+         cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					 select = c(kDependentVariableRName,
+						  kStandAgeVariableRName,
+						  kProductivityIndexVariableRName)))
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.data.frame,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Plot term effect.
+         term.plot(object = cur.model,
+	         what = "mu",
+	         data = cur.data.frame,
+	         terms = kTermNumber,
+	         main = cur.species.name.capitalized,
+	         pages = 0,
+	         col.term = kTermLineCol,
+	         lwd.term = kLineWidth,
+	         se = TRUE,
+	         scheme = "lines",
+	         col.se = kSeLineCol,
+	         lty.se = kSeLty,
+	         lwd.se = kSeLwd,
+	         ask = FALSE,
+	         mgp = kPlotMgp,
+	         ylim = kYLim,
+	         xaxs = "i",
+	         yaxs = "i",
+	         xlab = as.expression(x = bquote(expr = .(kPredictorVariableMathName)*" [m]")),
+	         ylab = as.expression(x = bquote(expr = italic("ps")*"("*.(kPredictorVariableMathName)*")")),
+	         panel.first = abline(v = seq(from = round(x = kGridLimV[[cur.species.name]][1],
+						 digits = kGridDigitsV[[cur.species.name]]),
+				        to = round(x = kGridLimV[[cur.species.name]][2],
+					         digits = kGridDigitsV[[cur.species.name]]),
+				        by = kGridIntervalV[[cur.species.name]]),
+				h  = seq(from = round(x = kGridLimH[[cur.species.name]][1],
+						  digits = kGridDigitsH[[cur.species.name]]),
+				         to = round(x = kGridLimH[[cur.species.name]][2],
+						digits = kGridDigitsH[[cur.species.name]]),
+				         by = kGridIntervalH[[cur.species.name]]),
+				lty = kGridLineType,
+				lwd = kGridLineWidth,
+				col = kGridLineCol))
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        expression(""%+-%" standard error"),
+		        "estimated effect")
+         legend.col <- c(legend.col,
+		     "black")
+         legend.lty <- c(legend.lty,
+		     "dashed",
+		     "solid")
+         ## Add rug.
+         rug(x = cur.data.frame[[kPredictorVariableRName]],
+	   ticksize = kRugTicksize,
+	   side = 1,
+	   lwd = kRugLwd,
+	   col = kRugCol,
+	   line = kRugLine)
+         ## Draw box around plot.
+         box(bty = "o")
+         ## Add legend.
+         legend(x = kLegendX,
+	      legend = legend.legend,
+	      lty = legend.lty,
+	      col = legend.col,
+	      bg = kLegendBg)
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+** GAMLSS1QQPlot.pdf
+   #+NAME: GAMLSS1QQPlot.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Preamble.
+     kQQRefLevel <- 0.90
+     ## Plotting preamble.
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kLegendX <- "topleft"
+     kQQPointCol <- "black"
+     kQQRefLineCol <- "black"
+     kQQEnvLineCol <- "black"
+     kXLim <- list("beech" = c(-12.5, 15),
+	         "spruce" = c(-20, 25))
+     kYLim <- list("beech" = c(-17.5, 22.5),
+	         "spruce" = c(-25, 35))
+     kXLab <- "Theoretical quantiles"
+     kYLab <- "Sample quantiles"
+     ## Create filename.
+     file.name <- paste0(kGraphicsSubsubdir,
+		     paste0(kModelID, "QQPlot.pdf"))
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = file.name,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.90,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over all species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "expression")
+         legend.col <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         legend.lwd <- vector(mode = "numeric")
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+         cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					 select = c(kDependentVariableRName,
+						  kStandAgeVariableRName,
+						  kProductivityIndexVariableRName)))
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.data.frame,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Set margin lines for the axis title, axis labels, and axis line.
+         par("mgp" = kPlotMgp)
+         ## Create Q-Q plot.
+         car::qqPlot(x = cur.model[["residuals"]],
+		 distribution = "norm",
+		 pch = kPointCharacter,
+		 col = kQQPointCol,
+		 col.lines = kQQEnvLineCol,
+		 lwd = kLineWidth,
+		 line = "none",
+		 main = cur.species.name.capitalized,
+		 xlab = kXLab,
+		 ylab = kYLab,
+		 grid = FALSE,
+		 envelope = kQQRefLevel)
+         ## Add reference line to plot.
+         qqline(y = cur.model[["residuals"]],
+	      col = kQQRefLineCol,
+	      lty = kLineType,
+	      lwd = kLineWidth)
+         ## Draw box around plot.
+         box(bty = "o")
+         ## Update legend components.
+         legend.legend <- c(paste0("reference band (",
+			     kQQRefLevel * 100,
+			     " % level)"),
+		        legend.legend,
+		        "reference line",
+		        "residuals")
+         legend.col <- c(kQQEnvLineCol,
+		     legend.col,
+		     kQQRefLineCol,
+		     kQQPointCol)
+         legend.pch <- c(NA,
+		     legend.pch,
+		     NA,
+		     kPointCharacter)
+         legend.lty <- c("dashed",
+		     legend.lty,
+		     kLineType,
+		     NA)
+         legend.lwd <- c(kLineWidth,
+		     legend.lwd,
+		     kLineWidth,
+		     NA)
+         ## Add legend.
+         legend(x = kLegendX,
+	      legend = legend.legend,
+	      col = legend.col,
+	      pch = legend.pch,
+	      lty = legend.lty,
+	      lwd = legend.lwd,
+	      bg = kLegendBg)
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+** GAMLSS1FittedValuesResiduals.pdf
+   #+NAME: GAMLSS1FittedValuesResiduals.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Plotting preamble.
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kLegendX <- "topleft"
+     kXLab <- "Fitted values"
+     kYLab <- "Quantile residuals"
+     kXLim <- list("beech" = c(10, 50),
+	         "spruce" = c(5, 65))
+     kYLim <- list("beech" = c(-2.5, 2.5),
+	         "spruce" = c(-2.5, 2.5))
+     kGridDigitsH <- list("beech" = 0,
+		      "spruce" = 0)
+     kGridIntervalH <- list("beech" = 1,
+		        "spruce" = 1)
+     ## Create filename.
+     file.name <- paste0(kGraphicsSubsubdir,
+		     paste0(kModelID, "FittedValuesResiduals.pdf"))
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = file.name,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.90,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over all species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "expression")
+         legend.col <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         legend.lwd <- vector(mode = "numeric")
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+         cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					 select = c(kDependentVariableRName,
+						  kStandAgeVariableRName,
+						  kProductivityIndexVariableRName)))
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.data.frame,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Extract residuals from model.
+         resid <- cur.model[["residuals"]]
+         ## Extract fitted values from current model.
+         fitted.vals <- cur.model[["mu.fv"]]
+         ## Create plot.
+         plot(x = fitted.vals,
+	    y = resid,
+	    pch = kPointCharacter,
+	    main = cur.species.name.capitalized,
+	    xlab = kXLab, 
+	    ylab = kYLab,
+	    xlim = kXLim[[cur.species.name]],
+	    ylim = kYLim[[cur.species.name]],
+	    xaxs = "i",
+	    yaxs = "i",
+	    mgp = kPlotMgp,
+	    panel.first = abline(h  = seq(from = round(x = kYLim[[cur.species.name]][1],
+					       digits = kGridDigitsH[[cur.species.name]]),
+				    to = round(x = kYLim[[cur.species.name]][2],
+					     digits = kGridDigitsH[[cur.species.name]]),
+				    by = kGridIntervalH[[cur.species.name]]),
+			     lty = kGridLineType,
+			     lwd = kGridLineWidth,
+			     col = kGridLineCol))
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+** GAMLSS1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf
+   #+NAME: GAMLSS1StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Plotting preamble ##
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kLegendNcol <- 2
+     kXLim <- c(0, 160)
+     kYLim <- c(0, 135)
+     kGridIntervalV <- 10
+     kGridIntervalH <- 10
+     kLegendX <- list("beech" = "topleft",
+		  "spruce" = "topleft")
+     kXValuesColumnNameTrainingData <- "alt"
+     kXValuesColumnNameTestData <- "age"
+     kYValuesColumnNameTrainingData <- "gha"
+     kYValuesColumnNameTestData <- "gha.predictions"
+     kXLab <- "Stand age [a]"
+     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+     ## Create file name.
+     kFilename <-paste0(kGraphicsSubsubdir,
+		    paste0(kModelID, "StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
+     ## Define color palette generating function.
+     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+     ## Set best yield class level for which to interpolate SI.h100 values.
+     kBestYieldClassLevel <- -2
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = kFilename,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.85,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get input data frame for current species.
+         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+         ## Subset input data frame to the variables mentioned in the model formula.
+         cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.mu.formula)]
+         ## Remove missing values from "cur.input.data.col.subset".
+         cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.input.data.col.subset.na.omitted,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Generate test data ##
+         ## The test data should cover the same yield class range as the training data.
+         ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
+         SI.h100.yield.class.values <- data.frame("yield.class" = seq(from = 4, to = kBestYieldClassLevel, by = -1),
+					"SI.h100" = NA)
+         ## Set SI.h100 values for yield classes 4, 3, 2, and 1 based on Schober (1995) (moderate thinning).
+         if (cur.species.name == "beech") {
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 20.7
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 24.7
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 28.6
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 32.4
+         }
+         if (cur.species.name == "spruce") {
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 23.5
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 27.2
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
+         }
+         ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+         for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
+	   SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
+	   SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
+         }
+         ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
+         SI.h100.min <- min(cur.input.data[["SI.h100"]],
+		        na.rm = TRUE)
+         SI.h100.max <- max(cur.input.data[["SI.h100"]],
+		        na.rm = TRUE)
+         index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+         index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+         ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+         SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
+				   to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+				   by = 0.1),
+			     digits = 1)
+         ## Initiate data frame in which to store test data.  The data frame will contain the following columns:
+         ## - age
+         ## - yield.class
+         ## - h100
+         ## - h100.EKL.I
+         ## - SI.h100
+         ## - SI.h100.diff.EKL.I
+         test.df <- data.frame(NULL)
+         ## Create age vector (required by all yield classes, so we make this assignment before starting the loop).
+         age.vec <- seq(from = 2,
+		    to = 160,
+		    by = 1)
+         ## Get SI.h100 value for yield class 1 (required by all yield classes, so we make this assignment before starting the loop).
+         SI.h100.yield.class.1 <- SI.h100.yield.class.values[SI.h100.yield.class.values[["yield.class"]] == 1, "SI.h100"]
+         ## Calculate h100 for yield class 1 using Nagel (1999), eq. (13) (required by all yield classes, so we make this assignment before starting the loop).
+         h100.EKL.I.vec <- SI.h100.yield.class.1 * (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec)) + beta0[[cur.species.name]] + beta1[[cur.species.name]] * log(x = age.vec) + beta2[[cur.species.name]] * (log(x = age.vec)) ^ 2
+         ## Loop over all yield classes required to cover the training data (i.e., the range from worst to best yield class needed).
+         for (cur.yield.class in SI.h100.yield.class.values[index.worst.yield.class.needed:index.best.yield.class.needed, "yield.class"]) {
+	   ## Get SI.h100 value for current yield class from "SI.h100.yield.class.values"
+	   SI.h100.cur.yield.class <- SI.h100.yield.class.values[SI.h100.yield.class.values[["yield.class"]] == cur.yield.class, "SI.h100"]
+	   ## Calculate h100 for the current yield class using Nagel (1999), eq. (13).
+	   h100.vec <- SI.h100.cur.yield.class * (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec)) + beta0[[cur.species.name]] + beta1[[cur.species.name]] * log(x = age.vec) + beta2[[cur.species.name]] * (log(x = age.vec)) ^ 2
+	   ## Calculate SI.h100 for the current yield class using Nagel (1999), eq. (13). [This procedure is a bit redundant, since it simply results in the "SI.h100.cur.yield.class" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block "Create "gmax_merged_1.5.RData"").]
+	   SI.h100.vec <- (h100.vec - beta0[[cur.species.name]] - beta1[[cur.species.name]] * log(x = age.vec) - beta2[[cur.species.name]] * ((log(x = age.vec)) ^ 2)) / (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec))
+	   ## Calculate difference between SI.h100 value of current yield class and SI.h100 value of yield class 1.
+	   SI.h100.diff.EKL.I.vec <- round(x = SI.h100.vec - SI.h100.yield.class.1, digits = 1)
+	   ## Append the vectors for the current yield class to "test.df". 
+	   test.df <- rbind(test.df,
+			data.frame("age" = age.vec,
+				 "yield.class" = as.factor(x = cur.yield.class),
+				 "h100" = h100.vec,
+				 "h100.EKL.I" = h100.EKL.I.vec,
+				 "SI.h100" = SI.h100.vec,
+				 "SI.h100.diff.EKL.I" = SI.h100.diff.EKL.I.vec))
+         }
+         ## Plot observations ##
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         legend.lwd <- vector(mode = "numeric")
+         legend.col <- vector(mode = "character")
+         ## Generate a color palette of the same length as "SI.h100.sequence".
+         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Create empty plot.
+         plot(x = cur.input.data[[kXValuesColumnNameTrainingData]],
+	    type = "n",
+	    xlim = kXLim,
+	    ylim = kYLim,
+	    xlab = kXLab,
+	    ylab = kYLab,
+	    main = cur.species.name.capitalized,
+	    mgp = kPlotMgp,
+	    xaxs = "i",
+	    yaxs = "i",
+	    panel.first = abline(v = seq(from = kXLim[1],
+				   to = kXLim[2],
+				   by = kGridIntervalV),
+			     h  = seq(from = kYLim[1],
+				    to = kYLim[2],
+				    by = kGridIntervalH),
+			     lty = kGridLineType,
+			     lwd = kGridLineWidth,
+			     col = kGridLineCol))
+         ## Loop over all evdids.
+         for (cur.edvid in levels(x = cur.input.data[["edvid"]])) {
+	   ## Create subset of "cur.input.data", based on current edvid.
+	   edvid.subset <- subset(x = cur.input.data,
+			      subset = edvid == cur.edvid)
+	   ## Add lines for observations belonging to current edvid.
+	   lines(x =edvid.subset[[kXValuesColumnNameTrainingData]],
+	         y = edvid.subset[[kYValuesColumnNameTrainingData]],
+	         lwd = kLineWidth,
+	         lty = kLineType)
+         }
+         ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
+         for (cur.edvid in levels(x = cur.input.data[["edvid"]])) {
+	   ## Create subset of "cur.input.data", based on current edvid.
+	   edvid.subset <- subset(x = cur.input.data,
+			      subset = edvid == cur.edvid)
+	   ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	   SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+					table = SI.h100.sequence)
+	   ## Add points to plot.
+	   points(x = edvid.subset[[kXValuesColumnNameTrainingData]],
+		y = edvid.subset[[kYValuesColumnNameTrainingData]],
+		col = cur.species.color.palette[SI.h100.rounded.color.index],
+		pch = kPointCharacter)
+         }
+         ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+         SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						       digits = 1),
+					       table = SI.h100.sequence)
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        paste0("observations yield class ",
+			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
+         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         legend.lty <- c(legend.lty, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         legend.lwd <- c(legend.lwd, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         ## Add model predictions to plot ##
+         ## Get test data for current species.
+         new.data <- test.df
+         ## Restrict "new.data" to the columns of the independent variables of the current model.
+         new.data <- subset(x = new.data,
+		        select = all.vars(cur.mu.formula)[-1])
+         ## Calculate model predictions.
+         new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
+					         newdata = new.data,
+					         what = "mu",
+					         type = "response")
+         ## Reattach columns "age", "h100", and "yield.class" to "new.data".
+         new.data[["age"]] <- test.df[["age"]]
+         new.data[["h100"]] <- test.df[["h100"]]
+         new.data[["yield.class"]] <- test.df[["yield.class"]]
+         ## Add lines to plot per yield class.
+         all.cols <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+         for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
+	   yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
+	   line.col <- all.cols[cur.yield.class.index]
+	   lines(x = new.data[[kXValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	         y = new.data[[kYValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	         col = line.col,
+	         lty = kLineType,
+	         lwd = kLineWidth)
+         }
+         ## Add box around plot.
+         box(bty = "o")
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        paste0("predictions yield class ",
+			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+         legend.col <- c(legend.col,
+		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
+         legend.pch <- c(legend.pch,
+		     rep(x = NA,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         legend.lty <- c(legend.lty,
+		     rep(x = kLineType,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         legend.lwd <- c(legend.lwd,
+		     rep(x = kLineWidth,
+		         times = length(x = SI.h100.yield.class.values[["yield.class"]])))
+         ## Add legend.
+         legend(x = kLegendX[[cur.species.name]],
+	      ncol = kLegendNcol,
+	      legend = legend.legend,
+	      col = legend.col,
+	      pch = legend.pch,
+	      lty = legend.lty,
+	      lwd = legend.lwd,
+	      bg = kLegendBg)
+     }
+     ## Turn off graphics device.
+     graphics.off()
+     ## Clean up workspace.                                   
+     rm(list = setdiff(x = ls(), y = objects.at.script.start))
+   #+END_SRC
+** GAMLSS1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf
+   #+NAME: GAMLSS1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf
+   #+BEGIN_SRC R :results silent :var input=GAMLSS1Preamble :session *MasArThesisRConsole*
+     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAMLSS1Results.tex
+     ## Plotting preamble ##
+     kPlotMargins <- c(3, 3.25, 2, 1)
+     kPlotMgp <- c(2, 1, 0)
+     kPlotLayout <- matrix(data = 1:2,
+		       nrow = 2,
+		       ncol = 1)
+     kLegendNcol <- 2
+     kXLim <- c(0, 60)
+     kYLim <- c(0, 135)
+     kGridIntervalV <- 5
+     kGridIntervalH <- 10
+     kLegendX <- list("beech" = "topleft",
+		  "spruce" = "topleft")
+     kXValuesColumnNameTrainingData <- "h100"
+     kXValuesColumnNameTestData <- "h100"
+     kYValuesColumnNameTrainingData <- "gha"
+     kYValuesColumnNameTestData <- "gha.predictions"
+     kXLab <- expression(italic("h")["100"]*" [m]")
+     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+     ## Create file name.
+     kFilename <-paste0(kGraphicsSubsubdir,
+		    paste0(kModelID, "TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf"))
+     ## Define color palette generating function.
+     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
+     ## Set best yield class level for which to interpolate SI.h100 values.
+     kBestYieldClassLevel <- -2
+     ## Turn off graphics device.
+     graphics.off()
+     ## Start graphics device driver for producing PDF graphics.
+     pdf(file = kFilename,
+         width = kPdfWidthA4Portrait,
+         height = kPdfHeightA4Portrait * 0.85,
+         pointsize = kPdfPointSize,
+         family = kPdfFamily)
+     ## Set plot layout.
+     layout(mat = kPlotLayout)
+     ## Loop over species names.
+     for (cur.species.name in kSpeciesNames) {
+         ## Get capitalized name for current species.
+         cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+         ## Get input data frame for current species.
+         cur.input.data <- get(x = paste0("bart.", cur.species.name, ".clean.1.8"))
+         ## Subset input data frame to the variables mentioned in the model formula.
+         cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.mu.formula)]
+         ## Remove missing values from "cur.input.data.col.subset".
+         cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+         ## Fit model.
+         cur.model <- gamlss(formula = cur.mu.formula,
+		         sigma.formula = kSigmaFormula,
+		         nu.formula = kNuFormula,
+		         tau.formula = kTauFormula,
+		         data = cur.input.data.col.subset.na.omitted,
+		         family = kDistFamily,
+		         method = RS(1000))
+         ## Generate test data ##
+         ## The test data should cover the same yield class range as the training data.
+         ## Initiate data frame in which to store SI.h100 values for all yield classes (1 row per yield class).
+         SI.h100.yield.class.values <- data.frame("yield.class" = seq(from = 4, to = kBestYieldClassLevel, by = -1),
+					"SI.h100" = NA)
+         ## Set SI.h100 values for yield classes 4, 3, 2, and 1 based on Schober (1995) (moderate thinning).
+         if (cur.species.name == "beech") {
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 20.7
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 24.7
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 28.6
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 32.4
+         }
+         if (cur.species.name == "spruce") {
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 4] <- 23.5
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 3] <- 27.2
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2] <- 31.2
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1] <- 35.1
+         }
+         ## Interpolate SI.h100 values for yield classes 0 to "kBestYieldClassLevel" linearly from values for yield classes 2 and 1.
+         for (cur.yield.class in c(seq(from = 0, to = kBestYieldClassLevel, by = -1))) {
+	   SI.h100.yield.class.2 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 2]
+	   SI.h100.yield.class.1 <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == 1]
+	   SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class] <- SI.h100.yield.class.values[["SI.h100"]][SI.h100.yield.class.values[["yield.class"]] == cur.yield.class + 1] + SI.h100.yield.class.1 - SI.h100.yield.class.2
+         }
+         ## Determine the best worst and best yield classes needed to cover the range of SI.h100 values present in the data frame.
+         SI.h100.min <- min(cur.input.data[["SI.h100"]],
+		        na.rm = TRUE)
+         SI.h100.max <- max(cur.input.data[["SI.h100"]],
+		        na.rm = TRUE)
+         index.worst.yield.class.needed <- max(which(x = SI.h100.yield.class.values[["SI.h100"]] < SI.h100.min))
+         index.best.yield.class.needed <- min(which(x = SI.h100.yield.class.values[["SI.h100"]] > SI.h100.max))
+         ## Generate a sequence ranging from SI.h100 of worst to SI.h100 of best yield classes needed, with 0.1 as the distance between sequence elements. The sequence is rounded to allow seamless comparison with other rounded numbers.
+         SI.h100.sequence <- round(x = seq(from = SI.h100.yield.class.values[index.worst.yield.class.needed, "SI.h100"],
+				   to = SI.h100.yield.class.values[index.best.yield.class.needed, "SI.h100"],
+				   by = 0.1),
+			     digits = 1)
+         ## Initiate data frame in which to store test data.  The data frame will contain the following columns:
+         ## - age
+         ## - yield.class
+         ## - h100
+         ## - h100.EKL.I
+         ## - SI.h100
+         ## - SI.h100.diff.EKL.I
+         test.df <- data.frame(NULL)
+         ## Create age vector (required by all yield classes, so we make this assignment before starting the loop).
+         age.vec <- seq(from = 2,
+		    to = 160,
+		    by = 1)
+         ## Get SI.h100 value for yield class 1 (required by all yield classes, so we make this assignment before starting the loop).
+         SI.h100.yield.class.1 <- SI.h100.yield.class.values[SI.h100.yield.class.values[["yield.class"]] == 1, "SI.h100"]
+         ## Calculate h100 for yield class 1 using Nagel (1999), eq. (13) (required by all yield classes, so we make this assignment before starting the loop).
+         h100.EKL.I.vec <- SI.h100.yield.class.1 * (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec)) + beta0[[cur.species.name]] + beta1[[cur.species.name]] * log(x = age.vec) + beta2[[cur.species.name]] * (log(x = age.vec)) ^ 2
+         ## Loop over all yield classes required to cover the training data (i.e., the range from worst to best yield class needed).
+         for (cur.yield.class in SI.h100.yield.class.values[index.worst.yield.class.needed:index.best.yield.class.needed, "yield.class"]) {
+	   ## Get SI.h100 value for current yield class from "SI.h100.yield.class.values"
+	   SI.h100.cur.yield.class <- SI.h100.yield.class.values[SI.h100.yield.class.values[["yield.class"]] == cur.yield.class, "SI.h100"]
+	   ## Calculate h100 for the current yield class using Nagel (1999), eq. (13).
+	   h100.vec <- SI.h100.cur.yield.class * (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec)) + beta0[[cur.species.name]] + beta1[[cur.species.name]] * log(x = age.vec) + beta2[[cur.species.name]] * (log(x = age.vec)) ^ 2
+	   ## Calculate SI.h100 for the current yield class using Nagel (1999), eq. (13). [This procedure is a bit redundant, since it simply results in the "SI.h100.cur.yield.class" value defined above. I nevertheless opt for it, in order to make sure that the test data for sensitivity analysis is created in exactly the same way as the original data for model fitting was (cp. block "Create "gmax_merged_1.5.RData"").]
+	   SI.h100.vec <- (h100.vec - beta0[[cur.species.name]] - beta1[[cur.species.name]] * log(x = age.vec) - beta2[[cur.species.name]] * ((log(x = age.vec)) ^ 2)) / (beta3[[cur.species.name]] + beta4[[cur.species.name]] * log(x = age.vec))
+	   ## Calculate difference between SI.h100 value of current yield class and SI.h100 value of yield class 1.
+	   SI.h100.diff.EKL.I.vec <- round(x = SI.h100.vec - SI.h100.yield.class.1, digits = 1)
+	   ## Append the vectors for the current yield class to "test.df". 
+	   test.df <- rbind(test.df,
+			data.frame("age" = age.vec,
+				 "yield.class" = as.factor(x = cur.yield.class),
+				 "h100" = h100.vec,
+				 "h100.EKL.I" = h100.EKL.I.vec,
+				 "SI.h100" = SI.h100.vec,
+				 "SI.h100.diff.EKL.I" = SI.h100.diff.EKL.I.vec))
+         }
+         ## Plot observations ##
+         ## Initiate legend components.
+         legend.legend <- vector(mode = "character")
+         legend.pch <- vector(mode = "numeric")
+         legend.lty <- vector(mode = "character")
+         legend.lwd <- vector(mode = "numeric")
+         legend.col <- vector(mode = "character")
+         ## Generate a color palette of the same length as "SI.h100.sequence".
+         cur.species.color.palette <- kColorPaletteFunc(n = length(x = SI.h100.sequence))
+         ## Set plot margins.
+         par("mar" = kPlotMargins)
+         ## Create empty plot.
+         plot(x = cur.input.data[[kXValuesColumnNameTrainingData]],
+	    type = "n",
+	    xlim = kXLim,
+	    ylim = kYLim,
+	    xlab = kXLab,
+	    ylab = kYLab,
+	    main = cur.species.name.capitalized,
+	    mgp = kPlotMgp,
+	    xaxs = "i",
+	    yaxs = "i",
+	    panel.first = abline(v = seq(from = kXLim[1],
+				   to = kXLim[2],
+				   by = kGridIntervalV),
+			     h  = seq(from = kYLim[1],
+				    to = kYLim[2],
+				    by = kGridIntervalH),
+			     lty = kGridLineType,
+			     lwd = kGridLineWidth,
+			     col = kGridLineCol))
+         ## Loop over all evdids.
+         for (cur.edvid in levels(x = cur.input.data[["edvid"]])) {
+	   ## Create subset of "cur.input.data", based on current edvid.
+	   edvid.subset <- subset(x = cur.input.data,
+			      subset = edvid == cur.edvid)
+	   ## Add lines for observations belonging to current edvid.
+	   lines(x =edvid.subset[[kXValuesColumnNameTrainingData]],
+	         y = edvid.subset[[kYValuesColumnNameTrainingData]],
+	         lwd = kLineWidth,
+	         lty = kLineType)
+         }
+         ## Loop over all evdids. We use a second loop here in order to make sure that points are drawn after all lines have been drawn.
+         for (cur.edvid in levels(x = cur.input.data[["edvid"]])) {
+	   ## Create subset of "cur.input.data", based on current edvid.
+	   edvid.subset <- subset(x = cur.input.data,
+			      subset = edvid == cur.edvid)
+	   ## Map each element of column "SI.h100" to an index in "SI.h100.sequence". Column "SI.h100" is rounded to 1 decimal digit in order to allow comparison with "SI.h100.sequence".
+	   SI.h100.rounded.color.index <- match(x = round(x = edvid.subset[["SI.h100"]], digits = 1),
+					table = SI.h100.sequence)
+	   ## Add points to plot.
+	   points(x = edvid.subset[[kXValuesColumnNameTrainingData]],
+		y = edvid.subset[[kYValuesColumnNameTrainingData]],
+		col = cur.species.color.palette[SI.h100.rounded.color.index],
+		pch = kPointCharacter)
+         }
+         ## Map the central SI.h100 value of each yield class to an index in "SI.h100.sequence".
+         SI.h100.yield.class.values.color.index <- match(x = round(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "SI.h100"],
+						       digits = 1),
+					       table = SI.h100.sequence)
+         ## Update legend components.
+         legend.legend <- c(legend.legend,
+		        paste0("observations yield class ",
+			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
+         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         legend.lty <- c(legend.lty, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         legend.lwd <- c(legend.lwd, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+         ## Add model predictions to plot ##
+         ## Get test data for current species.
+         new.data <- test.df
+         ## Restrict "new.data" to the columns of the independent variables of the current model.
+         new.data <- subset(x = new.data,
+		        select = all.vars(cur.mu.formula)[-1])
          ## Calculate model predictions.
          new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
 					         newdata = new.data,
