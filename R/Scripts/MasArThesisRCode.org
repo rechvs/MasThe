@@ -4870,14 +4870,10 @@
      kLegendX <- "topleft"
      kXLab <- "Fitted values"
      kYLab <- "Quantile residuals"
-     kXLim <- list("beech" = c(10, 50),
-	         "spruce" = c(5, 65))
-     kYLim <- list("beech" = c(-2.5, 2.5),
-	         "spruce" = c(-2.5, 2.5))
-     kGridDigitsH <- list("beech" = 0,
-		      "spruce" = 0)
-     kGridIntervalH <- list("beech" = 1,
-		        "spruce" = 1)
+     kXLim <- c(0, 70)
+     kYLim <- c(-2.5, 2.5)
+     kGridDigitsH <- 0
+     kGridIntervalH <- 0.5
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "FittedValuesResiduals.pdf"))
@@ -4916,10 +4912,10 @@
 		         method = RS(1000))
          ## Set plot margins.
          par("mar" = kPlotMargins)
-         ## Extract residuals from model.
-         resid <- cur.model[["residuals"]]
          ## Extract fitted values from current model.
          fitted.vals <- cur.model[["mu.fv"]]
+         ## Extract residuals from model.
+         resid <- cur.model[["residuals"]]
          ## Create plot.
          plot(x = fitted.vals,
 	    y = resid,
@@ -4927,16 +4923,16 @@
 	    main = cur.species.name.capitalized,
 	    xlab = kXLab, 
 	    ylab = kYLab,
-	    xlim = kXLim[[cur.species.name]],
-	    ylim = kYLim[[cur.species.name]],
+	    xlim = kXLim,
+	    ylim = kYLim,
 	    xaxs = "i",
 	    yaxs = "i",
 	    mgp = kPlotMgp,
-	    panel.first = abline(h  = seq(from = round(x = kYLim[[cur.species.name]][1],
-					       digits = kGridDigitsH[[cur.species.name]]),
-				    to = round(x = kYLim[[cur.species.name]][2],
-					     digits = kGridDigitsH[[cur.species.name]]),
-				    by = kGridIntervalH[[cur.species.name]]),
+	    panel.first = abline(h  = seq(from = round(x = kYLim[1],
+					       digits = kGridDigitsH),
+				    to = round(x = kYLim[2],
+					     digits = kGridDigitsH),
+				    by = kGridIntervalH),
 			     lty = kGridLineType,
 			     lwd = kGridLineWidth,
 			     col = kGridLineCol))
