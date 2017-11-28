@@ -1913,8 +1913,8 @@
      ## Clean up workspace.
      rm(list = setdiff(x = ls(), y = objects.at.script.start))
    #+END_SRC
-** GAM1LinearPredictorResiduals.pdf
-   #+NAME: GAM1LinearPredictorResiduals.pdf
+** GAM1FittedValuesResiduals.pdf
+   #+NAME: GAM1FittedValuesResiduals.pdf
    #+BEGIN_SRC R :results silent :var input=GAM1Preamble :session *MasArThesisRConsole*
      ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM1Results.tex
      ## Plotting preamble.
@@ -1924,17 +1924,15 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendX <- "topleft"
-     kXLab <- "Linear predictor"
+     kXLab <- "Fitted values"
      kYLab <- "Response residuals"
-     kXLim <- list("beech" = c(2.5, 4),
-	         "spruce" = c(2, 4.5))
-     kYLim <- list("beech" = c(-15, 15),
-	         "spruce" = c(-25, 25))
-     kGridIntervalH <- list("beech" = 5,
-		        "spruce" = 10)
+     kXLim <- c(0, 70)
+     kYLim <- c(-25, 25)
+     kGridIntervalH <- 5
+     kGridDigitsH <- 0
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
-		     paste0(kModelID, "LinearPredictorResiduals.pdf"))
+		     paste0(kModelID, "FittedValuesResiduals.pdf"))
      ## Turn off graphics device.
      graphics.off()
      ## Start graphics device driver for producing PDF graphics.
@@ -1967,32 +1965,28 @@
 		      na.action = na.omit)
          ## Set plot margins.
          par("mar" = kPlotMargins)
-         ## Extract linear predictors from model (cp. function "mgcv::gam.check").
-         if (is.matrix(x = cur.model$linear.predictors) && !is.matrix(resid)) {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors[, 1])
-         } else {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors)
-         }
+         ## Extract fitted values from model.
+         fitted.vals <- fitted(object = cur.model)
          ## Extract residuals from model (cp. function "mgcv::gam.check").
          resid <- residuals(object = cur.model,
 		        type = "response")
          ## Create plot.
-         plot(x = linpred,
+         plot(x = fitted.vals,
 	    y = resid,
 	    pch = kPointCharacter,
 	    main = cur.species.name.capitalized,
 	    xlab = kXLab, 
 	    ylab = kYLab,
-	    xlim = kXLim[[cur.species.name]],
-	    ylim = kYLim[[cur.species.name]],
+	    xlim = kXLim,
+	    ylim = kYLim,
 	    xaxs = "i",
 	    yaxs = "i",
 	    mgp = kPlotMgp,
-	    panel.first = abline(h  = seq(from = round(x = kYLim[[cur.species.name]][1],
-					       digits = -1),
-				    to = round(x = kYLim[[cur.species.name]][2],
-					     digits = -1),
-				    by = kGridIntervalH[[cur.species.name]]),
+	    panel.first = abline(h  = seq(from = round(x = kYLim[1],
+					       digits = kGridDigitsH),
+				    to = round(x = kYLim[2],
+					     digits = kGridDigitsH),
+				    by = kGridIntervalH),
 			     lty = kGridLineType,
 			     lwd = kGridLineWidth,
 			     col = kGridLineCol))
@@ -2888,8 +2882,8 @@
      ## Clean up workspace.
      rm(list = setdiff(x = ls(), y = objects.at.script.start))
    #+END_SRC
-** GAM2LinearPredictorResiduals.pdf
-   #+NAME: GAM2LinearPredictorResiduals.pdf
+** GAM2FittedValuesResiduals.pdf
+   #+NAME: GAM2FittedValuesResiduals.pdf
    #+BEGIN_SRC R :results silent :var input=GAM2Preamble :session *MasArThesisRConsole*
      ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/GAM2Results.tex
      ## Plotting preamble.
@@ -2899,17 +2893,15 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendX <- "topleft"
-     kXLab <- "Linear predictor"
+     kXLab <- "Fitted values"
      kYLab <- "Response residuals"
-     kXLim <- list("beech" = c(3.1, 3.9),
-	         "spruce" = c(2.25, 4.25))
-     kYLim <- list("beech" = c(-17, 17),
-	         "spruce" = c(-30, 30))
-     kGridIntervalH <- list("beech" = 5,
-		        "spruce" = 10)
+     kXLim <- c(0, 70)
+     kYLim <- c(-30, 30)
+     kGridIntervalH <- 5
+     kGridDigitsH <- 0
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
-		     paste0(kModelID, "LinearPredictorResiduals.pdf"))
+		     paste0(kModelID, "FittedValuesResiduals.pdf"))
      ## Turn off graphics device.
      graphics.off()
      ## Start graphics device driver for producing PDF graphics.
@@ -2942,32 +2934,28 @@
 		      na.action = na.omit)
          ## Set plot margins.
          par("mar" = kPlotMargins)
-         ## Extract linear predictors from model (cp. function "mgcv::gam.check").
-         if (is.matrix(x = cur.model$linear.predictors) && !is.matrix(resid)) {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors[, 1])
-         } else {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors)
-         }
+         ## Extract fitted values from model.
+         fitted.vals <- fitted(object = cur.model)
          ## Extract residuals from model (cp. function "mgcv::gam.check").
          resid <- residuals(object = cur.model,
 		        type = "response")
          ## Create plot.
-         plot(x = linpred,
+         plot(x = fitted.vals,
 	    y = resid,
 	    pch = kPointCharacter,
 	    main = cur.species.name.capitalized,
 	    xlab = kXLab, 
 	    ylab = kYLab,
-	    xlim = kXLim[[cur.species.name]],
-	    ylim = kYLim[[cur.species.name]],
+	    xlim = kXLim,
+	    ylim = kYLim,
 	    xaxs = "i",
 	    yaxs = "i",
 	    mgp = kPlotMgp,
-	    panel.first = abline(h  = seq(from = round(x = kYLim[[cur.species.name]][1],
-					       digits = -1),
-				    to = round(x = kYLim[[cur.species.name]][2],
-					     digits = -1),
-				    by = kGridIntervalH[[cur.species.name]]),
+	    panel.first = abline(h  = seq(from = round(x = kYLim[1],
+					       digits = kGridDigitsH),
+				    to = round(x = kYLim[2],
+					     digits = kGridDigitsH),
+				    by = kGridIntervalH),
 			     lty = kGridLineType,
 			     lwd = kGridLineWidth,
 			     col = kGridLineCol))
@@ -3863,8 +3851,8 @@
      ## Clean up workspace.
      rm(list = setdiff(x = ls(), y = objects.at.script.start))
    #+END_SRC
-** SCAM1LinearPredictorResiduals.pdf
-   #+NAME: SCAM1LinearPredictorResiduals.pdf
+** SCAM1FittedValuesResiduals.pdf
+   #+NAME: SCAM1FittedValuesResiduals.pdf
    #+BEGIN_SRC R :results silent :var input=SCAM1Preamble :session *MasArThesisRConsole*
      ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/SCAM1Results.tex
      ## Plotting preamble.
@@ -3874,17 +3862,15 @@
 		       nrow = 2,
 		       ncol = 1)
      kLegendX <- "topleft"
-     kXLab <- "Linear predictor"
+     kXLab <- "Fitted values"
      kYLab <- "Response residuals"
-     kXLim <- list("beech" = c(3.1, 3.9),
-	         "spruce" = c(2.25, 4.25))
-     kYLim <- list("beech" = c(-20, 20),
-	         "spruce" = c(-30, 30))
-     kGridIntervalH <- list("beech" = 5,
-		        "spruce" = 10)
+     kXLim <- c(0, 80)
+     kYLim <- c(-30, 30)
+     kGridIntervalH <- 5
+     kGridDigitsH <- 0
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
-		     paste0(kModelID, "LinearPredictorResiduals.pdf"))
+		     paste0(kModelID, "FittedValuesResiduals.pdf"))
      ## Turn off graphics device.
      graphics.off()
      ## Start graphics device driver for producing PDF graphics.
@@ -3917,33 +3903,28 @@
 		      na.action = na.omit)
          ## Set plot margins.
          par("mar" = kPlotMargins)
-         ## Extract linear predictors from model (cp. function "mgcv::gam.check").
-         if (is.matrix(x = cur.model$linear.predictors) && !is.matrix(resid)) {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors[, 1])
-         } else {
-	   linpred <- napredict(cur.model$na.action, cur.model$linear.predictors)
-         }
+         ## Extract fitted values from model.
+         fitted.vals <- fitted(object = cur.model)
          ## Extract residuals from model (cp. function "mgcv::gam.check").
          resid <- residuals(object = cur.model,
 		        type = "response")
-
          ## Create plot.
-         plot(x = linpred,
+         plot(x = fitted.vals,
 	    y = resid,
 	    pch = kPointCharacter,
 	    main = cur.species.name.capitalized,
 	    xlab = kXLab, 
 	    ylab = kYLab,
-	    xlim = kXLim[[cur.species.name]],
-	    ylim = kYLim[[cur.species.name]],
+	    xlim = kXLim,
+	    ylim = kYLim,
 	    xaxs = "i",
 	    yaxs = "i",
 	    mgp = kPlotMgp,
-	    panel.first = abline(h  = seq(from = round(x = kYLim[[cur.species.name]][1],
-					       digits = -1),
-				    to = round(x = kYLim[[cur.species.name]][2],
-					     digits = -1),
-				    by = kGridIntervalH[[cur.species.name]]),
+	    panel.first = abline(h  = seq(from = round(x = kYLim[1],
+					       digits = kGridDigitsH),
+				    to = round(x = kYLim[2],
+					     digits = kGridDigitsH),
+				    by = kGridIntervalH),
 			     lty = kGridLineType,
 			     lwd = kGridLineWidth,
 			     col = kGridLineCol))
