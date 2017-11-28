@@ -6,7 +6,7 @@
 
 \Cref{fig:SCAM1QQPlot} shows the quantile-quantile plot for model SCAM1 for both species.  In \Beech{}, several residuals of low, intermediate, and high quantiles lie outside the \SI{90}{\percent} reference band.  In \Spruce{}, multiple residuals of low and intermediate quantiles lie outside the reference band.
 
-\Cref{fig:SCAM1LinearPredictorResiduals} shows the response residuals over link the function value for the corresponding prediction of model SCAM1 for both species.  Residual variance appears to be constant over the range of linear predictor values depicted in both species.
+\Cref{fig:SCAM1FittedValuesResiduals} shows response residuals over fitted values of model SCAM1 for both species.  In \Beech{}, residual variance appears to be constant over the range of fitted values depicted, whereas in \Spruce{}, residual variance appears to be higher for fitted values around \num{50} and lower for other values.
 
 \Cref{fig:SCAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification} depicts basal area over stand age, both observed values as well as predictions of model SCAM1.  In both species, the overall shape of prediction curves follows closely that of the stand age variable smooth function as shown in \Cref{fig:SCAM1EffectStandAgeVariable}:  in \Beech{}, predicted basal area increases up to an age of about \SI{67}{\year} at which it levels off;  in \Spruce{}, predicted basal area increases steeply up to an age of about \SI{25}{\year}, after which the increase continues, albeit at a lower rate.  In both species, curves for different yield classes are clearly separated from each other, with curve order being the inverse of yield class order in both species.
 
@@ -35,9 +35,9 @@
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/SCAM1/SCAM1LinearPredictorResiduals.pdf}
-  \caption{Observed values minus predicted values (Response residuals) over value of the link function applied to the predicted values (Linear predictor) of model SCAM1 for \Beech{} (top) and \Spruce{} (bottom).  Note the different axis scaling in both plots.}
-  \label{fig:SCAM1LinearPredictorResiduals}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/SCAM1/SCAM1FittedValuesResiduals.pdf}
+  \caption{Observed values minus fitted values (Response residuals) over fitted values of model SCAM1 for \Beech{} (top) and \Spruce{} (bottom).}
+  \label{fig:SCAM1FittedValuesResiduals}
 \end{figure}
 
 \begin{figure}[h]

@@ -13,7 +13,7 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
 
 \Cref{fig:GAM1QQPlot} shows the quantile-quantile plot for model GAM1 for both species.  In both species, response residuals follow the 1:1 reference line fairly closely with some residuals lying outside the \SI{90}{\percent} reference band.
 
-\Cref{fig:GAM1LinearPredictorResiduals} shows the response residuals over link the function value for the corresponding prediction of model GAM1 for both species.  In \Beech{}, variability of residuals does increase notably as link function value increases.  In \Spruce{}, the same trend can be observed albeit less pronounced.
+\Cref{fig:GAM1FittedValuesResiduals} shows response residuals over fitted values of model GAM1 for both species.  In both species, variability of residuals appears to increase with fitted value.
 
 \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification} shows basal area over stand age, both observed values as well as predictions of model GAM1.  General behavior of the model is notably different for each species:  in the case of \Beech{}, predicted basal area starts to decrease between stand ages of \SIrange{70}{90}{\year}, while in \Spruce{} it increases throughout the whole depicted stand age interval, especially between \SIrange{80}{100}{\year}.  In both species, predicted basal area shows stratification depending on yield class.  However, the order of curves does not coincide with yield class order:  in the case of \Beech{}, yield class 1 lies above yield class 0, while in the case of \Spruce{}, yield class 1 lies above yield class -2 and yield class 3 lies above yield class 2.  In \Beech{}, yield class 3 performs much worse than yield class 2.  Other yield classes of \Beech{} and all yield classes of \Spruce{} do not exhibit as large distances between adjacent yield classes. 
 
@@ -42,9 +42,9 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1LinearPredictorResiduals.pdf}
-  \caption{Observed values minus predicted values (Response residuals) over value of the link function applied to the predicted values (Linear predictor) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Note the different axis scaling in both plots.}
-  \label{fig:GAM1LinearPredictorResiduals}
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1FittedValuesResiduals.pdf}
+  \caption{Observed values minus fitted values (Response residuals) over fitted values of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).}
+  \label{fig:GAM1FittedValuesResiduals}
 \end{figure}
 
 \begin{figure}[h]
