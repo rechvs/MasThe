@@ -4754,10 +4754,6 @@
      kQQPointCol <- "black"
      kQQRefLineCol <- "black"
      kQQEnvLineCol <- "black"
-     kXLim <- list("beech" = c(-12.5, 15),
-	         "spruce" = c(-20, 25))
-     kYLim <- list("beech" = c(-17.5, 22.5),
-	         "spruce" = c(-25, 35))
      kXLab <- "Theoretical quantiles"
      kYLab <- "Sample quantiles"
      ## Create filename.
