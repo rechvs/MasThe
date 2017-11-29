@@ -7681,7 +7681,6 @@
         fill = FALSE)
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
-
   #+END_SRC
 * File local variables
   # Local Variables:
