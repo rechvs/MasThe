@@ -7615,6 +7615,74 @@
     ## Clean up workspace.
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
+* AIC.txt
+  #+NAME: AIC.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/
+    ## Load required packages.
+    for (pckg in c("mgcv", "scam", "gamlss", "gamlss.dist")) {
+        library(package = pckg,
+	      character.only = TRUE)
+    }
+    ## Initiate data frame in which to store results.
+    res.df <- data.frame("Model.ID" = names(x = kFormulas),
+		     "Beech" = NA,
+		     "Spruce" = NA)
+    ## Populate "res.df".
+    for (cur.model.id in res.df[["Model.ID"]]) {
+        for (cur.species.name.capitalized in colnames(x = res.df)[-1]) {
+	  ## Get lowercase species name.
+	  cur.species.name <- names(x = kSpeciesNamesCapitalized[kSpeciesNamesCapitalized == cur.species.name.capitalized])
+	  ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+	  cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					    select = c(kDependentVariableRName,
+						     kStandAgeVariableRName,
+						     kProductivityIndexVariableRName)))
+	  ## Get model formula.
+	  cur.formula <- kFormulas[[cur.model.id]]
+	  ## Fit model using the appropriate function.
+	  if (grepl(pattern = "GAM[0-9]", x = cur.model.id )) {
+	      cur.model <- gam(formula = cur.formula,
+			   data = cur.data.frame,
+			   family = Gamma(link = "log"),
+			   na.action = na.omit)
+	  }
+	  if (cur.model.id == "SCAM1") {
+	      cur.model <- scam(formula = cur.formula,
+			    data = cur.data.frame,
+			    family = Gamma(link = "log"))
+	  }
+	  if (grepl(pattern = "GAMLSS[0-9]", x = cur.model.id)) {
+	      kSigmaFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ 1"))
+	      kNuFormula <- kSigmaFormula
+	      kTauFormula <- kSigmaFormula
+	      cur.model <- gamlss(formula = cur.formula,
+			      sigma.formula = kSigmaFormula,
+			      nu.formula = kNuFormula,
+			      tau.formula = kTauFormula,
+			      data = cur.data.frame,
+			      family = BCCGo(),
+			      method = RS(1000))
+	  }
+	  ## Extract AIC for current model, rounded to 3 decimal digits.
+	  cur.aic <- round(x = AIC(object = cur.model), digits = 3)
+	  ## Store AIC in appropriate cell of "res.df".
+	  res.df[res.df[["Model.ID"]] == cur.model.id, colnames(x = res.df) == cur.species.name.capitalized] <- cur.aic
+        }}
+    ## Store printing of "res.df" in "output", while left justifying output.
+    output <- capture.output(print(x = format(x = res.df,
+				      justify="left",
+				      scientific = FALSE),
+			     row.names = TRUE))
+    ## Output results to file.
+    cat(output,
+        file = paste0(kOutputSubdir, "AIC.txt"),
+        sep = "\n",
+        fill = FALSE)
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+
+  #+END_SRC
 * File local variables
   # Local Variables:
   # End:
