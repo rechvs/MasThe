@@ -1928,8 +1928,8 @@
      kYLab <- "Response residuals"
      kXLim <- c(0, 70)
      kYLim <- c(-25, 25)
-     kGridIntervalH <- 5
-     kGridDigitsH <- 0
+     kGridIntervalH <- 10
+     kGridDigitsH <- -1
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "FittedValuesResiduals.pdf"))
@@ -2897,8 +2897,8 @@
      kYLab <- "Response residuals"
      kXLim <- c(0, 70)
      kYLim <- c(-30, 30)
-     kGridIntervalH <- 5
-     kGridDigitsH <- 0
+     kGridIntervalH <- 10
+     kGridDigitsH <- -1
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "FittedValuesResiduals.pdf"))
@@ -3866,8 +3866,8 @@
      kYLab <- "Response residuals"
      kXLim <- c(0, 80)
      kYLim <- c(-30, 30)
-     kGridIntervalH <- 5
-     kGridDigitsH <- 0
+     kGridIntervalH <- 10
+     kGridDigitsH <- -1
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "FittedValuesResiduals.pdf"))
@@ -4869,7 +4869,7 @@
      kXLim <- c(0, 70)
      kYLim <- c(-2.5, 2.5)
      kGridDigitsH <- 0
-     kGridIntervalH <- 0.5
+     kGridIntervalH <- 1
      ## Create filename.
      file.name <- paste0(kGraphicsSubsubdir,
 		     paste0(kModelID, "FittedValuesResiduals.pdf"))
