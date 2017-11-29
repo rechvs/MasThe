@@ -3,7 +3,7 @@
 % The results of model GAM1 are reported in \Cref{fig:GAM1EffectStandAgeVariable}.
 \Cref{fig:GAM1EffectStandAgeVariable} depicts the estimated effect of the stand age variable smooth function over the stand age variable for both species in model GAM1.
 % In both plots, the confidence band does include non-zero values of the estimate.  This suggests that the stand age variable is related to basal area in both species \parencite{Wood2001}.
-Due to the fact that the \Beech{} data set does not contain any observations for \(\StandAgeVariableMath{} \leq \SI{12}{\meter}\), standard errors of the estimate increase notably below this value in the top plot.  The \Spruce{} plot exhibits a widening of its confidence bands only at the edges of the depicted interval.
+% Due to the fact that the \Beech{} data set does not contain any observations for \(\StandAgeVariableMath{} \leq \SI{12}{\meter}\), standard errors of the estimate increase notably below this value in the top plot.  The \Spruce{} plot exhibits a widening of its confidence bands only at the edges of the depicted interval.
 For \Beech{}, the estimated effect reaches its absolute maximum at roughly \(\StandAgeVariableMath{} = \SI{27.5}{\meter}\), which corresponds to an age of about \SI{76}{\year}.  After that, the effect starts to decrease.  In the case of \Spruce{}, the effect increases throughout all of the interval depicted, leading to the highest estimate being at the end of the interval depicted (\(\StandAgeVariableMath{} = \SI{40}{\meter}\)), which corresponds to an age of about \SI{125}{\year}.  Compared to \Spruce{}, the estimated effect of the stand age variable covers a narrower range in the \Beech{} model.  This is in accordance with differences in the range of the stand age variable between species.  The estimated effect does not show signs of asymptotic behavior in either species.  The \edf{} of the smooth functions were \num{2.66} and \num{6.39} for \Beech{} and \Spruce{}, respectively.
 
 \Cref{fig:GAM1EffectProductivityIndexVariable} depicts the estimated effect of the \ProductivityIndexVariableText{} smooth function over the \ProductivityIndexVariableText{} for both species in model GAM1.
@@ -11,7 +11,7 @@ For \Beech{}, the estimated effect reaches its absolute maximum at roughly \(\St
 The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableText{}.  Consequently, the confidence bands start to widen further from the edges in the top plot compared to the bottom plot.  In the case of \Beech{}, the estimated effect shows a sharp increase for \(\SI{-12.5}{\meter} \leq \ProductivityIndexVariableMath{} \leq \SI{-2.5}{\meter}\), starting at an estimate of approximately \num{3} before almost completely levelling off at an estimate of zero.  In the case of \Spruce{}, the estimate starts at around zero and never strays very far from it in the interval depicted.  The \edf{} of the smooth functions were \num{4.87} and \num{6.48} for \Beech{} and \Spruce{}, respectively.
 % Nevertheless, the confidence band does include non-zero estimates in both plots, suggesting that the \ProductivityIndexVariableText{} is related to basal area in both species \parencite{Wood2001}.
 
-\Cref{fig:GAM1QQPlot} shows the quantile-quantile plot for model GAM1 for both species.  In both species, response residuals follow the 1:1 reference line fairly closely with some residuals lying outside the \SI{90}{\percent} reference band.
+\Cref{fig:GAM1QQPlot} shows the quantile-quantile plot for model GAM1 for both species.  In both species, response residuals follow the reference line fairly closely with some residuals lying outside the \SI{90}{\percent} reference band.
 
 \Cref{fig:GAM1FittedValuesResiduals} shows response residuals over fitted values of model GAM1 for both species.  In both species, variability of residuals appears to increase with fitted value.
 
@@ -36,7 +36,7 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1QQPlot.pdf}
-  \caption{Quantile-quantile plot of observed values minus predicted values (Response residuals) over corresponding prediction quantiles (Theoretical quantiles) of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Black lines are 1:1 reference lines.  Black dots are residuals.  Gray shaded areas mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  Theoretical quantiles and reference bands are based on repeated predictions (\(N = \num{e4}\)) \parencite{Augustin2012}.  Note the different axis scaling in both plots.}
+  \caption{Quantile-quantile plot of residuals of model GAM1 for \Beech{} (top) and \Spruce{} (bottom).  Black lines are reference lines.  Black dots represent residuals.  Gray shaded areas mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  Theoretical quantiles and reference bands are based on repeated predictions (\(N = \num{e4}\)) \parencite{Augustin2012}.  Note the different axis scaling in both plots.}
   \label{fig:GAM1QQPlot}
 \end{figure}
 
@@ -57,7 +57,7 @@ The \Beech{} data set covers a narrower range of the \ProductivityIndexVariableT
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAM1/GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf}
-  \caption{Basal area (\(G\)) over top height (\(\TopHeight{}\)) of \Beech{} (top) and \Spruce{} (bottom).  Colored lines, dots, black lines, and colors have the same meaning as in \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}, namely:  Colored lines represent predictions of model GAM1.  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
+  \caption{Basal area (\(G\)) over top height (\(\TopHeightMath{}\)) of \Beech{} (top) and \Spruce{} (bottom).  Colored lines, dots, black lines, and colors have the same meaning as in \Cref{fig:GAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification}, namely:  Colored lines represent predictions of model GAM1.  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
   \label{fig:GAM1TopHeightBasalAreaObservationsPredictionsYieldClassClassification}
 \end{figure}
 
