@@ -1,0 +1,62 @@
+\subsection{GAMLSS3}
+
+\Cref{fig:GAMLSS3EffectStandAgeVariable} shows the estimated effect of the stand age variable smooth function over stand age variable in model GAMLSS3 of both species.  The smooth function used P-splines constrained to be monotone increasing as its basis.  In \Beech{}, the effect is asymptotic:  it initially increases before levelling off at about \SI{27.5}{\meter}, which corresponds to a stand age of approximately \SI{76}{\year}.  In \Spruce{}, the effect initially shows a steep slope, which gradually decreases between \SIrange{12.5}{17.5}{\meter} (which corresponds to stand ages \SIrange{25}{34}{\year}) but remains positive afterwards.
+
+\Cref{fig:GAMLSS3EffectProductivityIndexVariable} shows the estimated linear effect of the \ProductivityIndexVariableText{} over \ProductivityIndexVariableText{} in model GAMLSS3 for both species.  In both species, the effect is a monotone increasing line with its root at approximately \SI{0}{\meter}.
+
+\Cref{fig:GAMLSS3QQPlot} contains the quantile-quantile plot of model GAMLSS3 for both species.  In \Beech{}, one residual deviates outside the \SI{90}{\percent} reference band, whereas in \Spruce{}, \num{5} residuals do.  In both species, the outliers belong to lower quantiles.
+
+\Cref{fig:GAMLSS3FittedValuesResiduals} depicts the normalized quantile residuals over fitted values of model GAMLSS3 for both species.  In \Beech{}, residual variance appears to increase with fitted value, whereas in \Spruce{}, residual variance appears to be constant over the range of fitted values depicted.
+
+\Cref{fig:GAMLSS3StandAgeBasalAreaObservationsPredictionsYieldClassClassification} shows basal area over stand age, both observations as well as predictions of model GAMLSS3.  In \Beech{}, prediction curves are asymptotic:  they initially increase before levelling off at about \SI{80}{\year}.  In \Spruce{}, predicted basal area increases throughout the range of stand ages depicted, showing a very steep increase up to \SI{30}{\year}, a moderate increase between \SIrange{30}{90}{\year}, and a steep increase for ages above \SI{90}{\year}.  In both species, prediction curves are stratified depending on yield class, with curve order being the same as yield class order, i.e., better yield classes outperforming worse ones.
+
+\Cref{fig:GAMLSS3TopHeightBasalAreaObservationsPredictionsYieldClassClassification} shows basal are over top height, both observations as well as predictions of model GAMLSS3.  In \Beech{}, prediction curves are asymptotic:  they initially increase before levelling off at different top heights, depending on yield class. Prediction curves again exhibit stratification depending on yield class.   For top heights up to \SI{20}{\meter}, curve order is the inverse of yield class order, with yield class \num{3} performing best and yield class \num{-2} performing worst.  Between top heights of \SIrange{20}{34}{\meter}, curve order switches due to worse yield classes levelling off at lower top heights than better yield classes. For top heights above \SI{34}{\meter}, curve order is the same as yield class order, with yield class \num{-2} performing best and yield class \num{3} performing worst.  In \Spruce{}, prediction curves increase throughout the whole range of top heights depicted, while showing stratification based on yield class.  Curve order is generally the inverse of yield class order, with yield class \num{4} always performing better than yield class \num{-2}.  For top heights between \SIrange{10}{40}{\meter}, curves of adjacent yield classes approach each other very closely, leading to almost identical basal area predictions for these yield classes.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3EffectStandAgeVariable.pdf}
+  \caption{Estimated effect of the stand age variable smooth function (\(pbm(\StandAgeVariableMath{})\)) over stand age variable (\(\StandAgeVariableMath{}\)) in model GAMLSS3 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines, dashed lines, and vertical bars have the same meaning as in \Cref{fig:GAM1EffectStandAgeVariable}, namely:  Solid lines mark estimates.  Dashed lines mark confidence bands of 2 standard errors width.  Vertical bars mark observed values.  Note the different axis scaling in both plots.}
+  \label{fig:GAMLSS3EffectStandAgeVariable}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3EffectProductivityIndexVariable.pdf}
+  \caption{Estimated effect of the \ProductivityIndexVariableText{} smooth function (\(ps(\ProductivityIndexVariableMath{})\)) over \ProductivityIndexVariableText{} (\(\ProductivityIndexVariableMath{}\)) in model GAMLSS3 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines, dashed lines, and vertical bars have the same meaning as in \Cref{fig:GAMLSS3EffectStandAgeVariable}, namely:  Solid lines mark estimates.  Dashed lines mark confidence bands of 2 standard errors width.  Vertical bars mark observed values.  Note the different axis scaling in both plots.}
+  \label{fig:GAMLSS3EffectProductivityIndexVariable}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3QQPlot.pdf}
+  \caption{Quantile-quantile plot of the normalized quantile residuals of model GAMLSS3 for \Beech{} (top) and \Spruce{} (bottom). Solid lines, black dots, and dashed lines have the same meaning as in \Cref{fig:GAMLSS1QQPlot}, namely:  Solid lines are reference lines.  Black dots represent residuals.  Dashed lines mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  For a definition of normalized quantile residuals see \textcite{Dunn1996}.  Reference bands are based on the standard errors of the order statistics of an independent random sample from the standard normal distribution \parencite{Fox2016}.  Note the different axis scaling in both plots.}
+  \label{fig:GAMLSS3QQPlot}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3FittedValuesResiduals.pdf}
+  \caption{Normalized quantile residuals (Quantile residuals) over fitted values of model GAMLSS3 for \Beech{} (top) and \Spruce{} (bottom).  For a definition of normalized quantile residuals see \textcite{Dunn1996}.}
+  \label{fig:GAMLSS3FittedValuesResiduals}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3StandAgeBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \caption{Basal area (\(G\)) over stand age of \Beech{} (top) and \Spruce{} (bottom).  Colored lines represent predictions of model GAMLSS3.  Dots, black lines, and colors have the same meaning as in \Cref{fig:StandAgeTopHeightYieldClassClassification}, namely:  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
+  \label{fig:GAMLSS3StandAgeBasalAreaObservationsPredictionsYieldClassClassification}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS3/GAMLSS3TopHeightBasalAreaObservationsPredictionsYieldClassClassification.pdf}
+  \caption{Basal area (\(G\)) over top height (\(\TopHeightMath{}\)) of \Beech{} (top) and \Spruce{} (bottom).  Colored lines, dots, black lines, and colors have the same meaning as in \Cref{fig:GAMLSS3StandAgeBasalAreaObservationsPredictionsYieldClassClassification}, namely:  Colored lines represent predictions of model GAMLSS3.  Each dot represents one observation.  Black lines connect observations belonging to the same sample plot.  Color signifies the (fractional) yield class of the respective observation or prediction, ranging from red (worst yield class observed) over yellow and green to blue (best yield class observed). Yield class classification was based on \textcite{Schober1995} (moderate thinning).  Note the different yield class ranges in both plots.}
+  \label{fig:GAMLSS3TopHeightBasalAreaObservationsPredictionsYieldClassClassification}
+\end{figure}
+
+\clearpage{}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
