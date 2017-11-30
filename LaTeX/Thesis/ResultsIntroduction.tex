@@ -1,21 +1,45 @@
-The results of each model are presented via the following plots:
+The AIC of all \num{6} models for each species is reported in \Cref{tab:AICOverview}.  The lowest AIC for \Beech{} and \Spruce{} was achieved by models GAMLSS1 (\num{380.189}) and GAMLSS3 (\num{705.311}), respectively.
+
+\begin{table}[H]
+  {\tabulinesep=2mm
+    \begin{longtabu}{L r R}
+      \caption{Akaike Information Criterion (AIC) \parencite{Akaike1973} scores of all models for \Beech{} and \Spruce{}.
+        Numbers in parentheses give the model rank, from lowest to highest AIC.
+        \label{tab:AICOverview}} \\
+      \toprule
+      & \multicolumn{2}{c}{{AIC}} \\
+      \cline{2-3}
+      Model ID & {Beech} & {Spruce} \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      GAM1 & 400.109 (3) & 705.998 (2) \\
+      GAM2 & 430.491 (5) & 718.058 (6) \\
+      SCAM1 & 442.729 (6) & 717.144 (5) \\
+      GAMLSS1 & 380.189 (1) & 707.125 (3) \\
+      GAMLSS2 & 399.319 (2) & 710.280 (4) \\
+      GAMLSS3 & 412.600 (4) & 705.311 (1) \\
+      \bottomrule
+    \end{longtabu}}
+\end{table}
+
+In the following sections, the results of each model will be presented via the following plots:
 \begin{itemize}
-\item Estimated effect of the first predictor term over the corresponding variable.
-\item Estimated effect of the second predictor term over the corresponding variable.
-\item Q-Q-plot of sample quantiles over theoretical quantiles.
-\item Link-residuals over link-fitted values. 
+\item Estimated effect of the stand age variable term over stand age variable.
+\item Estimated effect of the \ProductivityIndexVariableText{} predictor term over \ProductivityIndexVariableText{}.
+\item Q-Q-plot of model residuals.
+\item Model residuals over fitted values.
 \item Observed and predicted basal area over stand age.
 \item Observed and predicted basal area over top height.
 \end{itemize}
 
-Data on which model predictions are based were generated in 2 steps. First, a sequence of age values was generated, ranging from \SIrange{0}{160}{\year}.  Then, a corresponding sequence of top height values was calculated using equation
+Data on which model predictions are based were generated in 2 steps. First, a sequence of age values was generated, ranging from \SIrange{2}{160}{\year}.  Then, a corresponding sequence of top height values was calculated using equation
 \begin{equation}
   \label{eq:NagelFunctionSolvedForTopHeight}
   \TopHeightMath{}(x) = \beta_0 + \beta_1 \cdot \ln(x) + \beta_2 \cdot \ln(x)^2 + \ProductivityIndexMath{}_i \cdot (\beta_3 + \beta_4 \cdot \ln(x)),
 \end{equation}
-where \(\TopHeightMath{}(x)\) is top height in \si{\meter} at age \(x\), \(x\) is stand age, \(\ProductivityIndexMath{}_i\) is the absolute productivity index of stand of yield class \(i\) as reported in \Cref{tab:SchoberProductivityIndices}, and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients as reported in \Cref{tab:NagelFunctionCoefficients} \parencite{Nagel1999}.  Subsequently, corresponding sequences of stand age variable and \ProductivityIndexVariableText{} were calcluated using \Cref{eq:StandAgeVariable,eq:ProductivityIndexVariable}, respectively.  These were then used as input for model predictions.
-
-Unless otherwise noted, the confidence bands of the estimated smooth function effects included non-zero values of the estimate for all smooth functions in all models for both species.
+where \(\TopHeightMath{}(x)\) is top height in \si{\meter} at age \(x\), \(x\) is stand age, \(\ProductivityIndexMath{}_i\) is the absolute productivity index of stand of yield class \(i\) as reported in \Cref{tab:SchoberProductivityIndices}, and \(\beta_0, \ldots, \beta_4\) are species-specific coefficients as reported in \Cref{tab:NagelFunctionCoefficients} \parencite{Nagel1999}.  Subsequently, corresponding sequences of stand age variable and \ProductivityIndexVariableText{} were calcluated using \Cref{eq:StandAgeVariable,eq:ProductivityIndexVariable}, respectively.  These were then used as input for model predictions.  Using yield class-specific values for \(\ProductivityIndexMath{}_i\) allowed generation of yield class-specific top height sequences, leading to yield class sensitive predictions of basal area.  Unless otherwise noted, the confidence bands of the estimated smooth function effects include non-zero values of the estimate.
 % This suggests that both the stand age variable as well as the \ProductivityIndexVariableText{} are related to basal area in both species \parencite{Wood2001}.  %% This remark belongs in the Discussion.
 
 %%% Local Variables:
