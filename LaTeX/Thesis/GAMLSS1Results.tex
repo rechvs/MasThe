@@ -1,8 +1,8 @@
 \subsection{GAMLSS1}
 
-\Cref{fig:GAMLSS1EffectStandAgeVariable} depicts the estimated effect of the stand age variable smooth function over the stand age variable for both species in model GAMLSS1.  For \Beech{}, the effect is concave, reaching its maximum at a stand age variable value of circa \SI{30}{\meter}, which corresponds to an age of about \SI{90}{\year}.  In \Spruce{}, the effect increases steeply between stand age variable values of \SIrange{5}{15}{\meter} (corresponding to an stand age range of \SIrange{18}{30}{\year}), after which the curve’s slope decreases but remains positive.  At the right edge of the plot the slope again increases.
+\Cref{fig:GAMLSS1EffectStandAgeVariable} depicts the estimated effect of the stand age variable smooth function over the stand age variable for both species in model GAMLSS1.  The smooth function used unconstrained P-splines as its basis.  For \Beech{}, the effect is concave, reaching its maximum at a stand age variable value of circa \SI{30}{\meter}, which corresponds to an age of about \SI{90}{\year}.  In \Spruce{}, the effect increases steeply between stand age variable values of \SIrange{5}{15}{\meter} (corresponding to an stand age range of \SIrange{18}{30}{\year}), after which the curve’s slope decreases but remains positive.  At the right edge of the plot the slope again increases.
 
-\Cref{fig:GAMLSS1EffectProductivityIndexVariable} shows the estimated effect of the \ProductivityIndexVariableText{} smooth function over the \ProductivityIndexVariableText{} for both species in model GAMLSS1.  In \Beech{}, the curve is rather irregularly formed:  for \ProductivityIndexVariableText{} values between \SIrange{-6}{-3.5}{\meter}, the curve has a steep positive slope;  afterwards, the slope decreases, eventually becoming negative, leading to a local minimum of the curve at a \ProductivityIndexVariableText{} value of roughly \SI{2.5}{\meter}; after this, the slope increases again.  For \Spruce{}, the effect’s curve has an overall convex shape, with its local minimum at the very left edge of the plot and its local maximum at the very right edge of it.
+\Cref{fig:GAMLSS1EffectProductivityIndexVariable} shows the estimated effect of the \ProductivityIndexVariableText{} smooth function over the \ProductivityIndexVariableText{} for both species in model GAMLSS1.  The smooth function used unconstrained P-splines as its basis.  In \Beech{}, the curve is rather irregularly formed:  for \ProductivityIndexVariableText{} values between \SIrange{-6}{-3.5}{\meter}, the curve has a steep positive slope;  afterwards, the slope decreases, eventually becoming negative, leading to a local minimum of the curve at a \ProductivityIndexVariableText{} value of roughly \SI{2.5}{\meter}; after this, the slope increases again.  For \Spruce{}, the effect’s curve has an overall convex shape, with its local minimum at the very left edge of the plot and its local maximum at the very right edge of it.
 
 \Cref{fig:GAMLSS1QQPlot} shows the quantile-quantile plot for model GAMLSS1 for both species.  In both species, several residuals deviate form the reference line.  However, only one to two of these deviations extend outside the \SI{90}{\percent} reference band in either species.
 
@@ -29,14 +29,14 @@
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS1/GAMLSS1QQPlot.pdf}
-  \caption{Quantile-quantile plot of the normalized quantile residuals of model GAMLSS1 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines are reference lines.  Black dots represent residuals.  Dashed lines mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  For a definition of the normalized quantile residuals see \textcite{Dunn1996}.  Reference bands are based on the standard errors of the order statistics of an independent random sample from the standard normal distribution \parencite{Fox2016}.  Note the different axis scaling in both plots.}
+  \caption{Quantile-quantile plot of the normalized quantile residuals of model GAMLSS1 for \Beech{} (top) and \Spruce{} (bottom).  Solid lines are reference lines.  Black dots represent residuals.  Dashed lines mark reference bands between the \num{0.05} and \num{0.95} quantiles of predictions (\SI{90}{\percent} level).  For a definition of normalized quantile residuals see \textcite{Dunn1996}.  Reference bands are based on the standard errors of the order statistics of an independent random sample from the standard normal distribution \parencite{Fox2016}.  Note the different axis scaling in both plots.}
   \label{fig:GAMLSS1QQPlot}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\textwidth]{../../Graphics/Thesis/GAMLSS1/GAMLSS1FittedValuesResiduals.pdf}
-  \caption{Normalized quantile residuals (Quantile residuals) over fitted values of model GAMLSS1 for \Beech{} (top) and \Spruce{} (bottom).  For a definition of the normalized quantile residuals see \textcite{Dunn1996}.}
+  \caption{Normalized quantile residuals (Quantile residuals) over fitted values of model GAMLSS1 for \Beech{} (top) and \Spruce{} (bottom).  For a definition of normalized quantile residuals see \textcite{Dunn1996}.}
   \label{fig:GAMLSS1FittedValuesResiduals}
 \end{figure}
 
