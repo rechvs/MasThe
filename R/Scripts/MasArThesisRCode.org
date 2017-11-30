@@ -5635,9 +5635,9 @@
      kGridLimH <- list("beech" = c(-2, 2),
 		   "spruce" = c(-1, 1))
      kGridIntervalV <- list("beech" = 1,
-		        "spruce" = 2.5)
+		        "spruce" = 1)
      kGridIntervalH <- list("beech" = 0.05,
-		        "spruce" = 0.1)
+		        "spruce" = 0.05)
      kGridDigitsV <- list("beech" = 0,
 		      "spruce" = 0)
      kGridDigitsH <- list("beech" = 1,
@@ -5776,7 +5776,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6788,7 +6788,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
