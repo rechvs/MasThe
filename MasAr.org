@@ -1,4 +1,53 @@
 * TODO [7/14]
+** Papers for Discussion
+*** done Read Yue et al. (2012)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:33] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Castedo-Dorado et al. (2007)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:40] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Eerikäinen & Maltamo (2003)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:47] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Andreassen & Tomter (2003)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:49] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Schröder et al. (2002)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:50] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Chikumbo (2001) 
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:53] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Jogiste (2000)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:37] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Chikumbo et al. (1999)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:54] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Nyström & Kexi (1997
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:56] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Wimberly & Bare (1996)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 17:57] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Monserud & Sterba (1996)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 18:09] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
+*** done Read Matern (1972)
+    - State "done"       from "CURRENT"    [2017-12-01 Fr 18:11] \\
+      Skimmed through abstract, noting only appropriate tags.
+    + found in the 1. set of [[file:Literature/Search_Results/history_05.ua][this WOS search]]
 ** CURRENT Read literature for “Introduction”
 *** CURRENT Acquire Spellmann et al. (1999) [cp. Döbbeler & Spellmann (2002)]
     + Article might be of interest (cp. Döbbeler & Spellmann (2002)) in terms of a model which utilizes maximum basal area as a reference for silvicultural treatment (and which supposedly disregards differences between yield classes).
@@ -531,26 +580,31 @@
      + Subsequent comments should only be tagged if their tag set differs from that of the whole entry. If such a comment is tagged, however, its tag set overwrites that of the whole article. Thus, if the tag set of a comment should only contain an additional tag compared to the tag set of the whole entry, the tag set must contain both the tag set of the whole entry plus the additional tag.
 **** Table of tag meanings
      + Always choose the most special tag which is appropriate.
-    | Tag                | What the tagged comment contains                              |
-    |--------------------+---------------------------------------------------------------|
-    | equation           | description/explanation of any kind of mathematical equation  |
-    | statistics         | explanation of m.o.l. fundamental statistical principles      |
-    | glm                | explanation of GLM                                            |
-    | gam                | explanation of GAM                                            |
-    | gamlss             | explanation of GAMLSS                                         |
-    | basal area         | information regarding basal area                              |
-    | R                  | information regarding R                                       |
-    | R::PACKAGE         | information regarding the R package PACKAGE                   |
-    | Sterba             | information regarding Sterba’s approach                       |
-    | Reineke            | information regarding Reineke’s approach                      |
-    | Yoda               | information regarding Yoda’s rule (i.e., the -3/2 power rule) |
-    | silviculture       | information regarding silviculture                            |
-    | forest mensuration | information regarding forest mensuration                      |
-    | introduction       | information suited for introduction section                   |
-    | beech              | information regarding beech (Fagus sylvatica)                 |
-    | spruce             | information regarding spruce (Picea abies)                    |
-    | density            | information regarding stand density                           |
-    | scam               | explanation of SCAM                                           |
+    | Tag                     | What the tagged comment contains                                  |
+    |-------------------------+-------------------------------------------------------------------|
+    | equation                | description/explanation of any kind of mathematical equation      |
+    | distribution            | information regarding probability distributions                   |
+    | statistics              | explanation of m.o.l. fundamental statistical principles          |
+    | glm                     | explanation of GLM                                                |
+    | gam                     | explanation of GAM                                                |
+    | gamlss                  | explanation of GAMLSS                                             |
+    | basal area              | information regarding basal area                                  |
+    | tree level              | information regarding tree level basal area modeling              |
+    | stand level             | information regarding stand level basal area modeling             |
+    | yield class-sensitive   | information regarding yield class-sensitive basal area modeling   |
+    | yield class-insensitive | information regarding yield class-insensitive basal area modeling |
+    | R                       | information regarding R                                           |
+    | R::PACKAGE              | information regarding the R package PACKAGE                       |
+    | Sterba                  | information regarding Sterba’s approach                           |
+    | Reineke                 | information regarding Reineke’s approach                          |
+    | Yoda                    | information regarding Yoda’s rule (i.e., the -3/2 power rule)     |
+    | silviculture            | information regarding silviculture                                |
+    | forest mensuration      | information regarding forest mensuration                          |
+    | introduction            | information suited for introduction section                       |
+    | beech                   | information regarding beech (Fagus sylvatica)                     |
+    | spruce                  | information regarding spruce (Picea abies)                        |
+    | density                 | information regarding stand density                               |
+    | scam                    | explanation of SCAM                                               |
 ** TEX files
 *** Conventions regarding tables
     + First words in column and row headings are always capitalized.
