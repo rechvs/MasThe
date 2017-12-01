@@ -7687,6 +7687,9 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Discussion.tex
     ## Modelling preamble.
+    library(package = "scam", character.only = TRUE)
+    library(package = "gamlss", character.only = TRUE)
+    library(package = "gamlss.dist", character.only = TRUE)
     kh100TestData <- seq(from = 0,
 		     to = 100,
 		     by = 0.1)
@@ -7704,32 +7707,36 @@
 					        "b0" = 8.3652,
 					        "b1" = -1.7365),
 				   "spruce" = list("a0" = 1.28745E-06,
-					         "a1" = 0.6277,
-					         "b0" = 0.2838,
-					         "b1" = -0.7621)))
+					         "a1" = 0.7148,
+					         "b0" = 1.2842,
+					         "b1" = -1.1914)))
+    kSigmaFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ 1"))
+    kNuFormula <- kSigmaFormula
+    kTauFormula <- kSigmaFormula
     ## Plotting preamble ##
     kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 2,
 		      ncol = 1)
-    kLegendNcol <- 1
-    kXLim <- c(0, 60)
-    kYLim <- c(0, 100)
+    kLegendNcol <- list("beech" = 2,
+		    "spruce" = 2)
+    kXLim <- c(0, 70)
+    kYLim <- c(0, 140)
     kGridIntervalV <- 5
     kGridIntervalH <- 10
     kLegendX <- list("beech" = "topleft",
-		 "spruce" = "bottomright")
+		 "spruce" = "topleft")
     kXValuesColumnNameTrainingData <- "h100"
     kXValuesColumnNameTestData <- "h100"
     kYValuesColumnNameTrainingData <- "gha"
     kYValuesColumnNameTestData <- "gha.predictions"
     kXLab <- expression(italic("h")["100"]*" [m]")
     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
-    kSterbaLineCols <- list("Wördehoff" = "blue",
-		        "Döbbeler" = "blue")
-    kSterbaLineTypes <- list("Wördehoff" = "solid",
-		         "Döbbeler" = "dashed")
+    kSterbaLineCols <- list("Wördehoff" = "black",
+		        "Döbbeler" = "black")
+    kSterbaLineTypes <- list("Wördehoff" = "longdash",
+		         "Döbbeler" = "dotted")
     ## Create file name.
     kFilename <-paste0(kGraphicsSubdir,
 		   "TopHeightBasalAreaObservationsSterbaPredictions.pdf")
@@ -7892,6 +7899,88 @@
         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
         legend.lty <- c(legend.lty, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
         legend.lwd <- c(legend.lwd, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
+        ## Add predictions of the appropriate model (GAMLSS3 for beech, SCAM1 for spruce) to the plot ##
+        ## Get test data for current species.
+        new.data <- test.df
+        ## Depending on which species we are at, use different settings and functions for model fitting.
+        if (cur.species.name == "beech") {
+	  ## Store model ID.
+	  cur.model.id <- "GAMLSS3"
+	  ## Get model formula.
+	  cur.mu.formula <- kFormulas[[cur.model.id]]
+	  ## Subset input data frame to the variables mentioned in the model formula.
+	  cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.mu.formula)]
+	  ## Remove missing values from "cur.input.data.col.subset".
+	  cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+	  ## Fit model.
+	  cur.model <- gamlss(formula = cur.mu.formula,
+			  sigma.formula = kSigmaFormula,
+			  nu.formula = kNuFormula,
+			  tau.formula = kTauFormula,
+			  data = cur.input.data.col.subset.na.omitted,
+			  family = BCCGo(),
+			  method = RS(1000))
+	  ## Restrict "new.data" to the columns of the independent variables of the current model.
+	  new.data <- subset(x = new.data,
+			 select = all.vars(cur.mu.formula)[-1])
+	  ## Calculate model predictions.
+	  new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
+						  newdata = new.data,
+						  what = "mu",
+						  type = "response")
+        }
+        if (cur.species.name == "spruce") {
+	  ## Store model ID.
+	  cur.model.id <- "SCAM1"
+	  ## Get model formula.
+	  cur.formula <- kFormulas[[cur.model.id]]
+	  ## Subset input data frame to the variables mentioned in the model formula.
+	  cur.input.data.col.subset <- cur.input.data[, all.vars(expr = cur.mu.formula)]
+	  ## Remove missing values from "cur.input.data.col.subset".
+	  cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
+	  ## Fit model.
+	  cur.model <- scam(formula = cur.formula,
+			family = Gamma(link = "log"),
+			data = cur.input.data.col.subset.na.omitted)
+	  ## Restrict "new.data" to the columns of the independent variables of the current model.
+	  new.data <- subset(x = new.data,
+			 select = all.vars(cur.mu.formula)[-1])
+	  ## Calculate model predictions.
+	  new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
+						  newdata = new.data,
+						  what = "mu",
+						  type = "response")
+        }
+        ## Reattach columns "age", "h100", and "yield.class" to "new.data".
+        new.data[["age"]] <- test.df[["age"]]
+        new.data[["h100"]] <- test.df[["h100"]]
+        new.data[["yield.class"]] <- test.df[["yield.class"]]
+        ## Add lines to plot per yield class.
+        all.cols <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
+        for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
+	  yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
+	  line.col <- all.cols[cur.yield.class.index]
+	  lines(x = new.data[[kXValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	        y = new.data[[kYValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
+	        col = line.col,
+	        lty = kLineType,
+	        lwd = kLineWidth)
+        }
+        ## Update legend components.
+        legend.legend <- c(legend.legend,
+		       paste0(cur.model.id, " pred. yield class ",
+			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
+        legend.col <- c(legend.col,
+		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
+        legend.pch <- c(legend.pch,
+		    rep(x = NA,
+		        times = length(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"])))
+        legend.lty <- c(legend.lty,
+		    rep(x = kLineType,
+		        times = length(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"])))
+        legend.lwd <- c(legend.lwd,
+		    rep(x = kLineWidth,
+		        times = length(x = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"])))
         ## Add Sterba predictions to plot ##
         ## Loop over sources of function coefficients.
         for (cur.coefs.source.name in names(x = kSterbaCoefs)) {
@@ -7909,7 +7998,7 @@
 	        lwd = kLineWidth)
 	  ## Update legend components.
 	  legend.legend <- c(legend.legend,
-			 cur.coefs.source.name)
+			 paste0(cur.coefs.source.name, " coefficients"))
 	  legend.col <- c(legend.col,
 		        kSterbaLineCols[[cur.coefs.source.name]])
 	  legend.pch <- c(legend.pch,
@@ -7923,7 +8012,7 @@
         box(bty = "o")
         ## Add legend.
         legend(x = kLegendX[[cur.species.name]],
-	     ncol = kLegendNcol,
+	     ncol = kLegendNcol[[cur.species.name]],
 	     legend = legend.legend,
 	     col = legend.col,
 	     pch = legend.pch,
