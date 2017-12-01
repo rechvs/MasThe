@@ -7687,67 +7687,49 @@
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/Discussion.tex
     ## Modelling preamble.
-    library(package = "nls2", character.only = TRUE)
-    library(package = "nlme", character.only = TRUE)
-    kDepVarsColNames <- c("dg", "nha", "gha")
-    kSterbaFormulas <- list(
-        "dg" = as.formula(object = "dg ~ 1 / (coef.a0 * h100 ^ coef.a1 * nha + coef.b0 * h100 ^ coef.b1)"),
-        "nha" = as.formula(object = "nha ~ coef.b0 / coef.a0 * (2 * coef.b0 * dg) ^ ((coef.a1 / coef.b1) - 1)"),
-        "gha" = as.formula(object = "gha ~ pi / (16 * coef.a0 * coef.b0 * h100 ^ (coef.a1 + coef.b1))"))
-    kStartValsVecs <- list("dg" = list(
-			 "beech" = c("coef.a0" = 1.0829 * 10 ^ -7,  ## source: Döbbeler (2004), tab. 4.2
-				   "coef.a1" = 1.5374,
-				   "coef.b0" = 8.3652,
-				   "coef.b1" = -1.7365),
-			 "spruce" = c("coef.a0" = 1.28745 * 10 ^ -6,  ## source: Döbbeler (2004), tab. 4.2
-				    "coef.a1" = 0.7148,
-				    "coef.b0" = 1.2842,
-				    "coef.b1" = -1.1914)),
-		       "nha" = list(
-			 "beech" = c("coef.a0" = 1.0829 * 10 ^ -7,  ## source: Döbbeler (2004), tab. 4.2
-				   "coef.a1" = 1.5374,
-				   "coef.b0" = 8.3652,
-				   "coef.b1" = -1.7365),
-			 "spruce" = c("coef.a0" = 1.28745 * 10 ^ -6,  ## source: Döbbeler (2004), tab. 4.2
-				    "coef.a1" = 0.7148,
-				    "coef.b0" = 1.2842,
-				    "coef.b1" = -1.1914)),
-		       "gha" = list(
-			 "beech" = c("coef.a0" = 2.616551 * 10 ^ -7,  ## source: Wördehoff (2016), tab. 3.6
-				   "coef.a1" = 1.368151,
-				   "coef.b0" = 6.496417,
-				   "coef.b1" = -1.731867),
-			 "spruce" = c("coef.a0" = 4.913256 * 10 ^ -6,  ## source: Wördehoff (2016), tab. 3.6
-				    "coef.a1" = 0.4394706,
-				    "coef.b0" = 0.3716977,
-				    "coef.b1" = -0.9097641)))
-    kSterbaCoefs <- list("beech" = list("a0" = 2.616551e-07,
-				"a1" = 1.368151,
-				"b0" = 6.496417,
-				"b1" = -1.731867),
-		     "spruce" = list("a0" = 4.913256e-06,
-				 "a1" = 0.4394706,
-				 "b0" = 0.3716977,
-				 "b1" = -0.9097641))
+    kh100TestData <- seq(from = 0,
+		     to = 100,
+		     by = 0.1)
+    kSterbaGmaxFunctionString <- "1 / 10000 * pi / (16 * a0 * b0 * kh100TestData ^ (a1 + b1))"
+    kSterbaCoefs <- list("Wördehoff" = list("beech" = list("a0" = 2.616551e-07,
+					         "a1" = 1.368151,
+					         "b0" = 6.496417,
+					         "b1" = -1.731867),
+				    "spruce" = list("a0" = 4.913256e-06,
+						"a1" = 0.4394706,
+						"b0" = 0.3716977,
+						"b1" = -0.9097641)),
+		     "Döbbeler" = list("beech" = list("a0" = 1.0829E-07,
+					        "a1" = 1.5374,
+					        "b0" = 8.3652,
+					        "b1" = -1.7365),
+				   "spruce" = list("a0" = 1.28745E-06,
+					         "a1" = 0.6277,
+					         "b0" = 0.2838,
+					         "b1" = -0.7621)))
     ## Plotting preamble ##
     kPlotMargins <- c(3, 3.25, 2, 1)
     kPlotMgp <- c(2, 1, 0)
     kPlotLayout <- matrix(data = 1:2,
 		      nrow = 2,
 		      ncol = 1)
-    kLegendNcol <- 2
+    kLegendNcol <- 1
     kXLim <- c(0, 60)
-    kYLim <- c(0, 81)
+    kYLim <- c(0, 100)
     kGridIntervalV <- 5
     kGridIntervalH <- 10
     kLegendX <- list("beech" = "topleft",
-		 "spruce" = "topleft")
+		 "spruce" = "bottomright")
     kXValuesColumnNameTrainingData <- "h100"
     kXValuesColumnNameTestData <- "h100"
     kYValuesColumnNameTrainingData <- "gha"
     kYValuesColumnNameTestData <- "gha.predictions"
     kXLab <- expression(italic("h")["100"]*" [m]")
     kYLab <- expression(italic("G")*" ["*m^2*" ha"^-1*"]")
+    kSterbaLineCols <- list("Wördehoff" = "blue",
+		        "Döbbeler" = "blue")
+    kSterbaLineTypes <- list("Wördehoff" = "solid",
+		         "Döbbeler" = "dashed")
     ## Create file name.
     kFilename <-paste0(kGraphicsSubdir,
 		   "TopHeightBasalAreaObservationsSterbaPredictions.pdf")
@@ -7910,114 +7892,35 @@
         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
         legend.lty <- c(legend.lty, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
         legend.lwd <- c(legend.lwd, rep(x = NA, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
-        ## Add model predictions to plot ##
-        ## Loop over all dependent variables.
-        for (cur.depvar.colname in kDepVarsColNames[3]) {
-	  ## Get formula for current dependent variable.
-	  cur.formula <- kSterbaFormulas[[cur.depvar.colname]]
-	  ## Extract actual independent variables (not coefficients) from "cur.formula".
-	  cur.indepvars <- all.vars(expr = cur.formula)
-	  cur.indepvars <- cur.indepvars[-grep(pattern = "coef|pi", x = cur.indepvars)]
-	  ## Assign vector of independent variables.
-	  assign(x = paste0(cur.depvar.colname, ".indepvars"),
-	         value = cur.indepvars)
-	  ## Subset input data frame to the independent variables mentioned in the model formula.
-	  cur.input.data.col.subset <- cur.input.data[, cur.indepvars]
-	  ## Remove missing values from "cur.input.data.col.subset".
-	  cur.input.data.col.subset.na.omitted <- na.omit(object = cur.input.data.col.subset)
-	  ## Try to fit model using nls.
-	  ## nls.res <- try(expr =
-			 ## nls(formula = cur.formula,
-			     ## data = cur.input.data.col.subset.na.omitted,
-			     ## start = kStartValsVecs[[cur.depvar.colname]][[cur.species.name]],
-			     ## na.action = na.omit,
-			     ## control = nls.control(maxiter = 1000)),
-		       ## silent = TRUE)
-	  ## Try to fit model using nls2.
-	  ## nls2.res <- try(expr =
-			  ## nls2(formula = cur.formula,
-			       ## data = cur.input.data.col.subset.na.omitted,
-			       ## start = kStartValsVecs[[cur.depvar.colname]][[cur.species.name]],
-			       ## algorithm = "random-search",
-			       ## control = nls.control(maxiter = 1000,
-					         ## minFactor = 10 ^ -10),
-			       ## na.action = na.omit),
-	  ## silent = TRUE)
-	  ## Try to fit model using nlme.
-	  ## for (cur.coef.name in names(x = kStartValsVecs[[cur.depvar.colname]][[cur.species.name]])) {
-	      ## assign(x = cur.coef.name,
-		   ## value = kStartValsVecs[[cur.depvar.colname]][[cur.species.name]][[cur.coef.name]])
-	  ## }
-	  ## nlme.res <- try(expr =
-			  ## nlme(model = cur.formula,
-			       ## fixed = as.formula("gha ~ 1"),
-			       ## data = cur.input.data.col.subset.na.omitted,
-			       ## start = kStartValsVecs[[cur.depvar.colname]][[cur.species.name]],
-			       ## verbose = TRUE))
-
-        }
-        ## Loop over all Sterba coefficients.
-        for (cur.coef.name in c("a0", "a1", "b0", "b1")) {
-	  ## Assign coefficient for current species.
-	  assign(x = cur.coef.name,
-	         value = kSterbaCoefs[[cur.species.name]][[cur.coef.name]])
-        }
-        ## Create a vector of test top heights.
-        test.h100 <- seq(from = kXLim[1],
-		     to = kXLim[2],
-		     by = 0.1)
-        ## Calculate basal area using Sterba’s Gmax function.
-        Sterba.gha.predictions <- 1 / 10000 * pi / (16 * a0 * b0 * test.h100 ^ (a1 + b1))
-        ## Add curve of Sterba predictions to plot.
-        lines(x = test.h100,
-	    y = Sterba.gha.predictions,
-	    col = "red",
-	    lwd = 1)
-    }
-    ## Turn off graphics device.
-    graphics.off()
-        ## Get test data for current species.
-        new.data <- test.df
-        ## Restrict "new.data" to the columns of the independent variables of the current model.
-        new.data <- subset(x = new.data,
-		       select = all.vars(cur.mu.formula)[-1])
-        ## Calculate model predictions.
-        new.data[[kYValuesColumnNameTestData]] <- predict(object = cur.model,
-					        newdata = new.data,
-					        what = "mu",
-					        type = "response")
-        ## Reattach columns "age", "h100", and "yield.class" to "new.data".
-        new.data[["age"]] <- test.df[["age"]]
-        new.data[["h100"]] <- test.df[["h100"]]
-        new.data[["yield.class"]] <- test.df[["yield.class"]]
-        ## Add lines to plot per yield class.
-        all.cols <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
-        for (cur.yield.class.index in seq_len(length.out = length(x = levels(x = new.data[["yield.class"]])))) {
-	  yield.class.name <- levels(x = new.data[["yield.class"]])[cur.yield.class.index]
-	  line.col <- all.cols[cur.yield.class.index]
-	  lines(x = new.data[[kXValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
-	        y = new.data[[kYValuesColumnNameTestData]][new.data[["yield.class"]] == yield.class.name],
-	        col = line.col,
-	        lty = kLineType,
+        ## Add Sterba predictions to plot ##
+        ## Loop over sources of function coefficients.
+        for (cur.coefs.source.name in names(x = kSterbaCoefs)) {
+	  ## Loop over all Sterba coefficients.
+	  for (cur.coef.name in c("a0", "a1", "b0", "b1")) {
+	      ## Assign coefficient for current species.
+	      assign(x = cur.coef.name,
+		   value = kSterbaCoefs[[cur.coefs.source.name]][[cur.species.name]][[cur.coef.name]])
+	  }
+	  ## Add curve of Sterba predictions to plot.
+	  lines(x = kh100TestData,
+	        y = eval(expr = parse(text = kSterbaGmaxFunctionString)),
+	        col = kSterbaLineCols[[cur.coefs.source.name]],
+	        lty = kSterbaLineTypes[[cur.coefs.source.name]],
 	        lwd = kLineWidth)
+	  ## Update legend components.
+	  legend.legend <- c(legend.legend,
+			 cur.coefs.source.name)
+	  legend.col <- c(legend.col,
+		        kSterbaLineCols[[cur.coefs.source.name]])
+	  legend.pch <- c(legend.pch,
+		        NA)
+	  legend.lty <- c(legend.lty,
+		        kSterbaLineTypes[[cur.coefs.source.name]])
+	  legend.lwd <- c(legend.lwd,
+		        kLineWidth)
         }
         ## Add box around plot.
         box(bty = "o")
-        ## Update legend components.
-        legend.legend <- c(legend.legend,
-		       paste0("predictions yield class ",
-			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
-        legend.col <- c(legend.col,
-		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
-        legend.pch <- c(legend.pch,
-		    rep(x = NA,
-		        times = length(x = SI.h100.yield.class.values[["yield.class"]])))
-        legend.lty <- c(legend.lty,
-		    rep(x = kLineType,
-		        times = length(x = SI.h100.yield.class.values[["yield.class"]])))
-        legend.lwd <- c(legend.lwd,
-		    rep(x = kLineWidth,
-		        times = length(x = SI.h100.yield.class.values[["yield.class"]])))
         ## Add legend.
         legend(x = kLegendX[[cur.species.name]],
 	     ncol = kLegendNcol,
