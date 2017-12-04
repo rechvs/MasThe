@@ -2322,3 +2322,104 @@ save(list = kgmaxObjects,
      precheck = TRUE)
 ## Clean up workspace.
 rm(list = setdiff(x = ls(), y = objects.at.start))
+
+####################################
+## Create "gmax_merged_5.6.RData" ##
+####################################
+## Based on version 5.5.
+## In this version, an additional data frame "bart.SPECIES.clean.1.9" is created which is a subset of "bart.SPECIES.clean.1.0", excluding all observations for which the Reineke-slope lies outside the corridor reported in the literature.  The purpose of this data frame is only to determine how data set size is affected by using the reported slopes as the lower and upper slope thresholds in the data selection mechanism.
+kBaseFileVersion <- "5.5"
+kBaseFileName <- paste0(kDataDir,"gmax_merged_", kBaseFileVersion, ".RData")
+kFileVersion <- "5.6"
+kFileName <- paste0(kDataDir,"gmax_merged_", kFileVersion, ".RData")
+## Load base file.
+kgmaxObjects <- load(file = kBaseFileName, verbose = TRUE)
+## Loop over all species.
+for (cur.species.name in c("beech", "spruce")) {
+    ## Create template for "bart.SPECIES.clean.1.9".
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.9"),
+           value = data.frame(NULL))
+    ## Define slope threshold values for the current species.
+    if (cur.species.name == "beech") {
+        cur.upper.threshold <- -1.723  ## based on literature
+        cur.lower.threshold <- -1.941  ## based on literature
+    }
+    if (cur.species.name == "spruce") {
+        cur.upper.threshold <- -1.497  ## based on literature
+        cur.lower.threshold <- -1.878  ## based on literature
+    }
+    ## Create untampered source version of "bart.SPECIES.clean.1.9".
+    cur.bart.clean.untampered <- get(x = paste0("bart.", cur.species.name, ".clean.1.0"))
+    ## Loop over all "edvid".
+    for (cur.edvid in levels(x = cur.bart.clean.untampered[["edvid"]])) {
+        ## Create subset of "cur.bart.clean.untampered" for the current "edvid".
+        cur.subset <- subset(x = cur.bart.clean.untampered,
+                             subset = cur.bart.clean.untampered[["edvid"]] == cur.edvid)
+        ## Drop unused levels from "cur.subset".
+        cur.subset <- droplevels(x = cur.subset)
+        ## Create dummy version of "rows.kept.cur.subset" (the vector containing the row numbers to keep) to get the following "while" loop going.
+        rows.kept.cur.subset <- rep(x = FALSE, times = nrow(x = cur.subset))
+        ## Keep looping over the current subset, as long as not all rows are marked for keeping.
+        while (!all(rows.kept.cur.subset)) {
+            ## Create template for the vector containing the row numbers to keep.
+            rows.kept.cur.subset <- rep(x = TRUE, times = nrow(x = cur.subset))
+            ## Mark rows for keeping, depending on the log.nha-log.dg-slope between the current and adjacent rows.
+            for (cur.row.number in seq_len(length.out = nrow(x = cur.subset))) {
+                ## Check slope between current row and previous row and/or current row and next row (depending on which row we are at).
+                if (cur.row.number != nrow(x = cur.subset) && cur.row.number != 1) {
+                    ## Check current row only if previous row has been marked for keeping (otherwise we might delete more rows than necessary to obtain an acceptable slope).
+                    if (rows.kept.cur.subset[cur.row.number - 1] == TRUE) {
+                        ## Mark row for keeping if both the slope to the previous row is geq than the lower threshold AND the slope to the following row is leq than the upper threshold.
+                        cur.slope.previous <- (cur.subset[["log.nha"]][cur.row.number] - cur.subset[["log.nha"]][cur.row.number - 1]) / (cur.subset[["log.dg"]][cur.row.number] - cur.subset[["log.dg"]][cur.row.number - 1])
+                        cur.slope.following <- (cur.subset[["log.nha"]][cur.row.number + 1] - cur.subset[["log.nha"]][cur.row.number]) / (cur.subset[["log.dg"]][cur.row.number + 1] - cur.subset[["log.dg"]][cur.row.number])
+                        rows.kept.cur.subset[cur.row.number] <- (cur.slope.previous >= cur.lower.threshold && cur.slope.following <= cur.upper.threshold)
+                    }}
+                if (cur.row.number == 1 && cur.row.number != nrow(x = cur.subset)) {
+                    ## Mark row for keeping if the slope to the following row is leq than the upper threshold (the slope to the previous row cannot be calculated, since this is the first row).
+                    cur.slope.following <- (cur.subset[["log.nha"]][cur.row.number + 1] - cur.subset[["log.nha"]][cur.row.number]) / (cur.subset[["log.dg"]][cur.row.number + 1] - cur.subset[["log.dg"]][cur.row.number])
+                    rows.kept.cur.subset[cur.row.number] <- cur.slope.following <= cur.upper.threshold
+                }
+                if (cur.row.number != 1 && cur.row.number == nrow(x = cur.subset)) {
+                    ## Mark row for keeping if the slope to the previous row is geq than the lower threshold (the slope to the following row cannot be calculated, since this is the last row).
+                    cur.slope.previous <- (cur.subset[["log.nha"]][cur.row.number] - cur.subset[["log.nha"]][cur.row.number - 1]) / (cur.subset[["log.dg"]][cur.row.number] - cur.subset[["log.dg"]][cur.row.number - 1])
+                    rows.kept.cur.subset[cur.row.number] <- cur.slope.previous >= cur.lower.threshold
+                }
+            }
+            ## Create cleaned subset.
+            cur.subset <- cur.subset[rows.kept.cur.subset, ]
+        }
+        ## If the cleaned subset contains more than 1 row, assign it to "bart.SPECIES.clean.1.9".
+        if (nrow(x = cur.subset) > 1) {
+            assign(x = paste0("bart.", cur.species.name, ".clean.1.9"),
+                   value = rbind(get(x = paste0("bart.", cur.species.name, ".clean.1.9")),
+                                 droplevels(x = cur.subset)))
+        }}
+    ## Recalculate columns "age.class", "h100.class", and "SI.h100.class".
+    cur.species.bart.clean.1.9 <- get(x = paste0("bart.", cur.species.name, ".clean.1.9"))
+    cur.species.bart.clean.1.9[["age.class"]] <- cut(x = cur.species.bart.clean.1.9[["alt"]],
+                                                     breaks = 3,
+                                                     ordered_result = TRUE)
+    cur.species.bart.clean.1.9[["h100.class"]] <- cut(x = cur.species.bart.clean.1.9[["h100"]],
+                                                      breaks = 3,
+                                                      ordered_result = TRUE)
+    cur.species.bart.clean.1.9[["SI.h100.class"]] <- cut(x = cur.species.bart.clean.1.9[["SI.h100"]],
+                                                         breaks = 3,
+                                                         ordered_result = TRUE)
+    assign(x = paste0("bart.", cur.species.name, ".clean.1.9"),
+           value = cur.species.bart.clean.1.9)
+    ## Add "bart.SPECIES.clean.1.9" to the vector of names of objects meant to be saved.
+    kgmaxObjects <- c(paste0("bart.", cur.species.name, ".clean.1.9"), kgmaxObjects)
+}
+## Save results.
+kgmaxBeechObjects <- kgmaxObjects[grepl(pattern = ".beech", x = kgmaxObjects)]
+kgmaxBeechObjects <- kgmaxBeechObjects[order(kgmaxBeechObjects)]
+kgmaxSpruceObjects <- kgmaxObjects[grepl(pattern = ".spruce", x = kgmaxObjects)]
+kgmaxSpruceObjects <- kgmaxSpruceObjects[order(kgmaxSpruceObjects)]
+kgmaxUTMObjects <- kgmaxObjects[grepl(pattern = "_utm", x = kgmaxObjects)]
+kgmaxUTMObjects <- kgmaxUTMObjects[order(kgmaxUTMObjects)]
+kgmaxObjects <- c(kgmaxBeechObjects, kgmaxSpruceObjects, kgmaxUTMObjects)
+save(list = kgmaxObjects,
+     file = kFileName,
+     precheck = TRUE)
+## Clean up workspace.
+rm(list = setdiff(x = ls(), y = objects.at.start))
