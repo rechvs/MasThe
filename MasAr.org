@@ -368,6 +368,7 @@
 ** Layout of Thesis
 *** Introduction
     + [ ] Explain that the term “observation” is used to distinguish values which were (directly or indirectly) derived from measured values only from those that were (directly or indirectly) derived from estimated values.
+    + [ ] Mention that the data sets were kindly provided by the \NWFVA{}.
 *** Material and Methods [0/0]
 **** Data Selection [2/2]
      + [X] Discussion of the data selection mechanism should go into section “Discussion”
@@ -401,13 +402,17 @@
      + [ ] predicted basal area over stand age
      + [ ] predicted basal area over top height
 *** Discussion
-    + Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
-**** Show validity of assumed probability distributions via Q-Q-Plots
-     + [ ] Gamma distribution
-     + [ ] BCCG distribution
+**** Data selection [1/1]
+     + [X] Compare mean of observed slope with slopes reported in literature and point out that the data selection mechanism is rather generous in terms of maximum allowed slopes.
+**** Data sets [1/2]
+     + [X] Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
+     + [ ] Mention shortcomings of data sets in terms of low occurrence of young low productivity stands and of old high productivity.
+**** Model overview/Results [0/2]
+     + [ ] Explain model development, from GAM1 over GAM2 to SCAM1 and from GAMLSS1 over GAMLSS2 to GAMLSS3.
+     + [ ] Mention that since the confidence bands for all estimated smooth function effects contained non-zero estimates, the corresponding predictor variable can be considered to be related to the dependent variable.
 **** Compare results to Sterba’s approach
-**** Discuss data selection mechanism
-     + Compare mean of observed slope with slopes reported in literature and point out that the data selection mechanism is rather generous in terms of maximum allowed slopes.
+*** Erklärung (s. meine Kopie des Formulars „Ausgabe einer Masterarbeit“)
+    „Hiermit versichere ich gemäß § 7 Abs. 5 der Master-Prüfungsordnung vom 23.09.2010, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.“ Datum, Unterschrift
 ** R Code Style Guidelines
 *** Where to find Google’s R Style Guide?
     + [[file:~/Privat/Anleitungen_etc/Software/R/Google_s_R_Style_Guide.xml][Google’s R Style Guide]]
