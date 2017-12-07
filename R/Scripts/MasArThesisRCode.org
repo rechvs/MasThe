@@ -8333,8 +8333,8 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* TopHeightBasalAreaTestData.pdf
-  #+NAME: TopHeightBasalAreaTestData.pdf
+* TopHeightStandAgeTestData.pdf
+  #+NAME: TopHeightStandAgeTestData.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DiscussionModelsOverview.tex
     ## Plotting preamble ##
@@ -8355,7 +8355,7 @@
     kXLab <- expression(italic("h")["100"]*" [m]")
     kYLab <- "Stand age [a]"
     ## Create file name.
-    kFilename <-paste0(kGraphicsSubdir, "TopHeightBasalAreaTestData.pdf")
+    kFilename <-paste0(kGraphicsSubdir, "TopHeightStandAgeTestData.pdf")
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values.
