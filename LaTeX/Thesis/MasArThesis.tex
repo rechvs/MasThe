@@ -29,8 +29,11 @@ titlepage]
 \DeclareMathOperator{\diag}{diag}
 \newcommand{\edf}{effective degrees of freedom}
 \DeclareMathOperator{\erf}{erf}
+\newcommand{\gamlssPackageVersion}{5.0.4}
+\newcommand{\gamlssdistPackageVersion}{5.0.3}
 \newcommand{\loglikelihood}{\ell}
 \newcommand{\logNlogDcurve}{log(\(N\))-log(\(D\))-curve}
+\newcommand{\mgcvPackageVersion}{1.8.22}
 \newcommand{\NWFVA}{Northwest German Forest Research Institute}
 \newcommand{\Ponderosa}[0]{Ponderosa pine (\emph{Pinus ponderosa} \textsc{Douglas})}
 \newcommand{\ProductivityIndexMath}{PI}
@@ -39,12 +42,14 @@ titlepage]
 \newcommand{\ProductivityIndexVariableR}{\texttt{PIV}}
 \newcommand{\ProductivityIndexVariableText}{productivity index variable}
 \newcommand{\ProductivityIndexYieldClassIMath}{PI_{\text{I. YC}}}
+\newcommand{\scamPackageVersion}{1.2.2}
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
 \newcommand{\Spruce}{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\StandAgeVariableMath}{h_{100}(x)_{\text{YC 1}}}
 \newcommand{\StandAgeVariableR}{\texttt{SAV}}
+\newcommand{\statsPackageVersion}{3.3.3}
 \newcommand{\TopHeightMath}{h_{100}}
 \DeclareMathOperator{\tr}{tr}
 
@@ -62,16 +67,17 @@ titlepage]
 \pagestyle{standard}
 \pagenumbering{arabic}
 
-\section{Introduction}
+% \section{Introduction}
+\input{IntroductionMaximumBasalArea.tex}
 
-\section{Material and Methods}
-\input{DataSelection.tex}
-\input{DataDescription.tex}
-\input{MethodsIntroduction.tex}
-\input{GAMsExplanation.tex}
-\input{SCAMsExplanation.tex}
-\input{GAMLSSsExplanation.tex}
-\input{ModelsOverview.tex}
+% \section{Material and Methods}
+% \input{DataSelection.tex}
+% \input{DataDescription.tex}
+% \input{MethodsIntroduction.tex}
+% \input{GAMsExplanation.tex}
+% \input{SCAMsExplanation.tex}
+% \input{GAMLSSsExplanation.tex}
+% \input{ModelsOverview.tex}
 
 \section{Results}
 \input{ResultsIntroduction.tex}
@@ -85,6 +91,7 @@ titlepage]
 \section{Discussion}
 \input{DiscussionDataSelection.tex}
 \input{DiscussionDataSets.tex}
+\input{DiscussionModelsOverview.tex}
 
 % \newpage{}
 % \input{Bibliography.tex}
