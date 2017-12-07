@@ -8025,8 +8025,8 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* TopHeightBasalAreaYieldTableValues.pdf
-  #+NAME: TopHeightBasalAreaYieldTableValues.pdf
+* TopHeightBasalAreaSchober.pdf
+  #+NAME: TopHeightBasalAreaSchober.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DiscussionModelsOverview.tex
     ## Plotting preamble.
@@ -8063,43 +8063,43 @@
     kSpruceBasalAreaYieldClass2 <- c(19.5, 23.4, 27.2, 30.1, 32.5, 34.4, 36.1, 37.5, 38.9, 40.2, 41.3, 42.2, 42.8, 43.1, 43.3, 43.4, 43.4, 43.2, 42.8, 42.4, 42.0)
     kSpruceBasalAreaYieldClass3 <- c(9.6, 16.7, 21.6, 25.4, 28.0, 29.8, 31.4, 33.0, 34.6, 36.0, 37.2, 38.1, 38.5, 38.7, 38.8, 38.7, 38.4, 37.9, 37.4, 36.9, 36.3)
     kSpruceBasalAreaYieldClass4 <- c(14.5, 17.8, 20.9, 23.7, 26.2, 28.3, 30.0, 31.3, 32.3, 33.0, 33.5, 33.8, 33.8, 33.7, 33.5, 33.2, 32.7, 32.0, 31.0)
-    kBeechYieldTableValues <- data.frame("yield.class" = c(rep(x = 1,
-						   times = length(x = kBeechTopHeightYieldClass1)),
-					         rep(x = 2,
-						   times = length(x = kBeechTopHeightYieldClass2)),
-					         rep(x = 3,
-						   times = length(x = kBeechTopHeightYieldClass3)),
-					         rep(x = 4,
-						   times = length(x = kBeechTopHeightYieldClass4))),
-				 "top.height" = c(kBeechTopHeightYieldClass1,
-					        kBeechTopHeightYieldClass2,
-					        kBeechTopHeightYieldClass3,
-					        kBeechTopHeightYieldClass4),
-				 "basal.area" = c(kBeechBasalAreaYieldClass1,
-					        kBeechBasalAreaYieldClass2,
-					        kBeechBasalAreaYieldClass3,
-					        kBeechBasalAreaYieldClass4))
-    kSpruceYieldTableValues <- data.frame("yield.class" = c(rep(x = 1,
-						    times = length(x = kSpruceTopHeightYieldClass1)),
-						rep(x = 2,
-						    times = length(x = kSpruceTopHeightYieldClass2)),
-						rep(x = 3,
-						    times = length(x = kSpruceTopHeightYieldClass3)),
-						rep(x = 4,
-						    times = length(x = kSpruceTopHeightYieldClass4))),
-				  "top.height" = c(kSpruceTopHeightYieldClass1,
-					         kSpruceTopHeightYieldClass2,
-					         kSpruceTopHeightYieldClass3,
-					         kSpruceTopHeightYieldClass4),
-				  "basal.area" = c(kSpruceBasalAreaYieldClass1,
-					         kSpruceBasalAreaYieldClass2,
-					         kSpruceBasalAreaYieldClass3,
-					         kSpruceBasalAreaYieldClass4))
+    kBeechSchober <- data.frame("yield.class" = c(rep(x = 1,
+					    times = length(x = kBeechTopHeightYieldClass1)),
+					rep(x = 2,
+					    times = length(x = kBeechTopHeightYieldClass2)),
+					rep(x = 3,
+					    times = length(x = kBeechTopHeightYieldClass3)),
+					rep(x = 4,
+					    times = length(x = kBeechTopHeightYieldClass4))),
+			  "top.height" = c(kBeechTopHeightYieldClass1,
+				         kBeechTopHeightYieldClass2,
+				         kBeechTopHeightYieldClass3,
+				         kBeechTopHeightYieldClass4),
+			  "basal.area" = c(kBeechBasalAreaYieldClass1,
+				         kBeechBasalAreaYieldClass2,
+				         kBeechBasalAreaYieldClass3,
+				         kBeechBasalAreaYieldClass4))
+    kSpruceSchober <- data.frame("yield.class" = c(rep(x = 1,
+					     times = length(x = kSpruceTopHeightYieldClass1)),
+					 rep(x = 2,
+					     times = length(x = kSpruceTopHeightYieldClass2)),
+					 rep(x = 3,
+					     times = length(x = kSpruceTopHeightYieldClass3)),
+					 rep(x = 4,
+					     times = length(x = kSpruceTopHeightYieldClass4))),
+			   "top.height" = c(kSpruceTopHeightYieldClass1,
+					kSpruceTopHeightYieldClass2,
+					kSpruceTopHeightYieldClass3,
+					kSpruceTopHeightYieldClass4),
+			   "basal.area" = c(kSpruceBasalAreaYieldClass1,
+					kSpruceBasalAreaYieldClass2,
+					kSpruceBasalAreaYieldClass3,
+					kSpruceBasalAreaYieldClass4))
     ## Turn off graphics device.
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "TopHeightBasalAreaYieldTableValues.pdf")
+		   "TopHeightBasalAreaSchober.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
@@ -8117,7 +8117,7 @@
         legend.lwd <- vector(mode = "numeric")
         legend.col <- vector(mode = "character")
         ## Get data frame with yield table values for current species.
-        cur.yield.table.df <- get(x = paste0("k", cur.species.name.capitalized, "YieldTableValues"))
+        cur.yield.table.df <- get(x = paste0("k", cur.species.name.capitalized, "Schober"))
         ## Set plot margins.
         par("mar" = kPlotMargins)
         ## Create empty plot.
@@ -8179,8 +8179,8 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* StandAgeBasalAreaYieldTableValues.pdf
-  #+NAME: StandAgeBasalAreaYieldTableValues.pdf
+* StandAgeBasalAreaSchober.pdf
+  #+NAME: StandAgeBasalAreaSchober.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DiscussionModelsOverview.tex
     ## Plotting preamble.
@@ -8217,43 +8217,43 @@
     kSpruceBasalAreaYieldClass2 <- c(19.5, 23.4, 27.2, 30.1, 32.5, 34.4, 36.1, 37.5, 38.9, 40.2, 41.3, 42.2, 42.8, 43.1, 43.3, 43.4, 43.4, 43.2, 42.8, 42.4, 42.0)
     kSpruceBasalAreaYieldClass3 <- c(9.6, 16.7, 21.6, 25.4, 28.0, 29.8, 31.4, 33.0, 34.6, 36.0, 37.2, 38.1, 38.5, 38.7, 38.8, 38.7, 38.4, 37.9, 37.4, 36.9, 36.3)
     kSpruceBasalAreaYieldClass4 <- c(14.5, 17.8, 20.9, 23.7, 26.2, 28.3, 30.0, 31.3, 32.3, 33.0, 33.5, 33.8, 33.8, 33.7, 33.5, 33.2, 32.7, 32.0, 31.0)
-    kBeechYieldTableValues <- data.frame("yield.class" = c(rep(x = 1,
-						   times = length(x = kBeechStandAgeYieldClass1)),
-					         rep(x = 2,
-						   times = length(x = kBeechStandAgeYieldClass2)),
-					         rep(x = 3,
-						   times = length(x = kBeechStandAgeYieldClass3)),
-					         rep(x = 4,
-						   times = length(x = kBeechStandAgeYieldClass4))),
-				 "stand.age" = c(kBeechStandAgeYieldClass1,
-					       kBeechStandAgeYieldClass2,
-					       kBeechStandAgeYieldClass3,
-					       kBeechStandAgeYieldClass4),
-				 "basal.area" = c(kBeechBasalAreaYieldClass1,
-					        kBeechBasalAreaYieldClass2,
-					        kBeechBasalAreaYieldClass3,
-					        kBeechBasalAreaYieldClass4))
-    kSpruceYieldTableValues <- data.frame("yield.class" = c(rep(x = 1,
-						    times = length(x = kSpruceStandAgeYieldClass1)),
-						rep(x = 2,
-						    times = length(x = kSpruceStandAgeYieldClass2)),
-						rep(x = 3,
-						    times = length(x = kSpruceStandAgeYieldClass3)),
-						rep(x = 4,
-						    times = length(x = kSpruceStandAgeYieldClass4))),
-				  "stand.age" = c(kSpruceStandAgeYieldClass1,
-					        kSpruceStandAgeYieldClass2,
-					        kSpruceStandAgeYieldClass3,
-					        kSpruceStandAgeYieldClass4),
-				  "basal.area" = c(kSpruceBasalAreaYieldClass1,
-					         kSpruceBasalAreaYieldClass2,
-					         kSpruceBasalAreaYieldClass3,
-					         kSpruceBasalAreaYieldClass4))
+    kBeechSchober <- data.frame("yield.class" = c(rep(x = 1,
+					    times = length(x = kBeechStandAgeYieldClass1)),
+					rep(x = 2,
+					    times = length(x = kBeechStandAgeYieldClass2)),
+					rep(x = 3,
+					    times = length(x = kBeechStandAgeYieldClass3)),
+					rep(x = 4,
+					    times = length(x = kBeechStandAgeYieldClass4))),
+			  "stand.age" = c(kBeechStandAgeYieldClass1,
+				        kBeechStandAgeYieldClass2,
+				        kBeechStandAgeYieldClass3,
+				        kBeechStandAgeYieldClass4),
+			  "basal.area" = c(kBeechBasalAreaYieldClass1,
+				         kBeechBasalAreaYieldClass2,
+				         kBeechBasalAreaYieldClass3,
+				         kBeechBasalAreaYieldClass4))
+    kSpruceSchober <- data.frame("yield.class" = c(rep(x = 1,
+					     times = length(x = kSpruceStandAgeYieldClass1)),
+					 rep(x = 2,
+					     times = length(x = kSpruceStandAgeYieldClass2)),
+					 rep(x = 3,
+					     times = length(x = kSpruceStandAgeYieldClass3)),
+					 rep(x = 4,
+					     times = length(x = kSpruceStandAgeYieldClass4))),
+			   "stand.age" = c(kSpruceStandAgeYieldClass1,
+				         kSpruceStandAgeYieldClass2,
+				         kSpruceStandAgeYieldClass3,
+				         kSpruceStandAgeYieldClass4),
+			   "basal.area" = c(kSpruceBasalAreaYieldClass1,
+					kSpruceBasalAreaYieldClass2,
+					kSpruceBasalAreaYieldClass3,
+					kSpruceBasalAreaYieldClass4))
     ## Turn off graphics device.
     graphics.off()
     ## Create file name.
     file.name <-paste0(kGraphicsSubdir,
-		   "StandAgeBasalAreaYieldTableValues.pdf")
+		   "StandAgeBasalAreaSchober.pdf")
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
@@ -8271,7 +8271,7 @@
         legend.lwd <- vector(mode = "numeric")
         legend.col <- vector(mode = "character")
         ## Get data frame with yield table values for current species.
-        cur.yield.table.df <- get(x = paste0("k", cur.species.name.capitalized, "YieldTableValues"))
+        cur.yield.table.df <- get(x = paste0("k", cur.species.name.capitalized, "Schober"))
         ## Set plot margins.
         par("mar" = kPlotMargins)
         ## Create empty plot.
