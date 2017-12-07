@@ -16,7 +16,11 @@ The same is true for \Beech{} in model GAMLSS3 (cp. \Cref{fig:GAMLSS3TopHeightBa
 The reason for this becomes apparent when considering \Cref{fig:StandAgeTopHeightTestData}, which depicts the relationship between top height and stand age in the test data sets (on which model predictions were based):  for a given top height, age increases as yield class worsens.  Thus, the asymptotic behavior or the decrease in slope of the prediction curves occurs at lower top heights the worse a stand’s yield class is, but still at approximately the same stand age in all yield classes for each species (cp. \Cref{fig:SCAM1StandAgeBasalAreaObservationsPredictionsYieldClassClassification,fig:GAMLSS3StandAgeBasalAreaObservationsPredictionsYieldClassClassification}).  Similar shifts of curve order can be observed in the predictions of other models as well, owing to the same properties of the test data sets.
 All things considered, the chosen constraints improved plausibility of model predictions.
 
-However, the more constrained models also generally achieved higher (i.e., worse) AIC scores than the less constrained models (cp. \Cref{tab:AICOverview}), with the notable exception of GAMLSS3 for \Spruce{}, which achieved the lowest AIC for that species.  A reason for this discrepancy between plausibility and statistical power of the models may lie in the incompleteness of the training data sets discussed above.
+However, the more constrained models also generally achieved higher (i.e., worse) AIC scores than the less constrained models (cp. \Cref{tab:AICOverview}), with the notable exception of GAMLSS3 for \Spruce{}, which achieved the lowest AIC for that species.  A reason for this discrepancy between plausibility and statistical power of the models may lie in the incompleteness of the training data sets discussed above.  At the same time, the GAMLSSs generally achieved a lower AIC than the correpsonding GAM or SCAM, again with the notable exception of GAMLSS3 in \Spruce{}.  This suggests that the increased uncertainty of GAMLSSs compared to GAMs or SCAMs was outweighed by their increased flexibility.
+
+
+
+
 
 \begin{figure}[h]
   \centering
