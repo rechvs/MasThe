@@ -8333,8 +8333,8 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
-* TopHeightStandAgeTestData.pdf
-  #+NAME: TopHeightStandAgeTestData.pdf
+* StandAgeTopHeightTestData.pdf
+  #+NAME: StandAgeTopHeightTestData.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
     ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DiscussionModelsOverview.tex
     ## Plotting preamble ##
@@ -8344,18 +8344,18 @@
 		      nrow = 2,
 		      ncol = 1)
     kLegendNcol <- 1
-    kXLim <- c(0, 60)
-    kYLim <- c(0, 160)
-    kGridIntervalV <- 5
+    kXLim <- c(0, 160)
+    kYLim <- c(-60, 60)
+    kGridIntervalV <- 10
     kGridIntervalH <- 10
-    kLegendX <- list("beech" = "topleft",
-		 "spruce" = "topleft")
-    kXValuesColumnNameTestData <- "h100"
-    kYValuesColumnNameTestData <- "age"
-    kXLab <- expression(italic("h")["100"]*" [m]")
-    kYLab <- "Stand age [a]"
+    kLegendX <- list("beech" = "bottomright",
+		 "spruce" = "bottomright")
+    kXValuesColumnNameTestData <- "age"
+    kYValuesColumnNameTestData <- "h100"
+    kXLab <- "Stand age [a]"
+    kYLab <- expression(italic("h")["100"]*" [m]")
     ## Create file name.
-    kFilename <-paste0(kGraphicsSubdir, "TopHeightStandAgeTestData.pdf")
+    kFilename <-paste0(kGraphicsSubdir, "StandAgeTopHeightTestData.pdf")
     ## Define color palette generating function.
     kColorPaletteFunc <- colorRampPalette(colors = c("red", "yellow", "springgreen", "royalblue"))
     ## Set best yield class level for which to interpolate SI.h100 values.
