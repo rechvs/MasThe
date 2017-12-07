@@ -8333,6 +8333,160 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
+* StandAgeTopHeightSchober.pdf
+  #+NAME: StandAgeTopHeightSchober.pdf
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file: ~/laptop02_MasAr/LaTeX/Thesis/DiscussionModelsOverview.tex
+    ## Plotting preamble.
+    kPlotMargins <- c(3, 3.25, 2, 1)
+    kPlotMgp <- c(2, 1, 0)
+    kPlotLayout <- matrix(data = 1:2,
+		      nrow = 2,
+		      ncol = 1)
+    kLegendX <- "topleft"
+    kXLim <- c(0, 155)
+    kYLim <- c(0, 40)
+    kGridIntervalV <- 10
+    kGridIntervalH <- 5
+    kXLab <- "Stand age [a]"
+    kYLab <- expression(italic("h")["100"]*" [m]")
+    kLineCols <- list("1" = "royalblue",
+		  "2" = "green",
+		  "3" = "orange",
+		  "4" = "red")
+    ## Preamble.
+    kBeechTopHeightYieldClass1 <- c(10.5, 12.7, 15.0, 17.4, 19.5, 21.5, 23.1, 24.5, 25.8, 27.1, 28.3, 29.4, 30.5, 31.5, 32.4, 33.2, 34.0, 34.7, 35.4, 36.0, 36.5, 37.0, 37.6, 38.0, 38.4)
+    kBeechTopHeightYieldClass2 <- c(8.1, 10.0, 12.1, 14.3, 16.3, 18.1, 19.7, 21.1, 22.4, 23.6, 24.7, 25.8, 26.8, 27.7, 28.6, 29.3, 30.1, 30.8, 31.4, 31.9, 32.5, 32.9, 33.3, 33.8, 34.2)
+    kBeechTopHeightYieldClass3 <- c(5.8, 7.3, 9.3, 11.4, 13.2, 14.8, 16.3, 17.7, 19.0, 20.1, 21.2, 22.1, 23.0, 23.9, 24.7, 25.4, 26.2, 26.8, 27.3, 27.9, 28.3, 28.7, 29.1, 29.4, 29.8)
+    kBeechTopHeightYieldClass4 <- c(NA, 3.9, 5.9, 8.2, 9.9, 11.4, 12.9, 14.3, 15.5, 16.6, 17.6, 18.4, 19.2, 20.0, 20.7, 21.4, 22.1, 22.7, 23.2, 23.6, 24.1, 24.4, 24.8, 25.1, 25.4)
+    kBeechStandAgeYieldClass1 <- seq(from = 30, to = 150, by = 5)
+    kBeechStandAgeYieldClass2 <- seq(from = 30, to = 150, by = 5)
+    kBeechStandAgeYieldClass3 <- seq(from = 30, to = 150, by = 5)
+    kBeechStandAgeYieldClass4 <- seq(from = 30, to = 150, by = 5)
+    kSpruceStandAgeYieldClass1 <- seq(from = 20, to = 120, by = 5)
+    kSpruceStandAgeYieldClass2 <- seq(from = 20, to = 120, by = 5)
+    kSpruceStandAgeYieldClass3 <- seq(from = 20, to = 120, by = 5)
+    kSpruceStandAgeYieldClass4 <- seq(from = 30, to = 120, by = 5)
+    kSpruceTopHeightYieldClass1 <- c(8.5, 11.1, 13.7, 16.4, 19.0, 21.4, 23.7, 25.5, 27.1, 28.4, 29.7, 30.8, 31.8, 32.7, 33.5, 34.4, 35.1, 35.8, 36.4, 36.9, 37.3)
+    kSpruceTopHeightYieldClass2 <- c(5.9, 8.0, 10.4, 12.8, 15.0, 17.3, 19.3, 21.3, 23.0, 24.5, 25.7, 26.9, 27.9, 28.8, 29.7, 30.5, 31.2, 31.9, 32.5, 33.1, 33.6)
+    kSpruceTopHeightYieldClass3 <- c(4.1, 5.9, 7.5, 9.3, 11.3, 13.6, 15.5, 17.2, 18.8, 20.2, 21.5, 22.7, 23.7, 24.7, 25.6, 26.4, 27.2, 28.1, 28.8, 29.5, 30.1)
+    kSpruceTopHeightYieldClass4 <- c(4.7, 6.6, 8.4, 10.1, 11.9, 13.6, 15.1, 16.5, 17.7, 18.9, 19.9, 20.9, 21.7, 22.6, 23.5, 24.2, 25.0, 25.6, 26.3)
+    kBeechSchober <- data.frame("yield.class" = c(rep(x = 1,
+					    times = length(x = kBeechStandAgeYieldClass1)),
+					rep(x = 2,
+					    times = length(x = kBeechStandAgeYieldClass2)),
+					rep(x = 3,
+					    times = length(x = kBeechStandAgeYieldClass3)),
+					rep(x = 4,
+					    times = length(x = kBeechStandAgeYieldClass4))),
+			  "stand.age" = c(kBeechStandAgeYieldClass1,
+				        kBeechStandAgeYieldClass2,
+				        kBeechStandAgeYieldClass3,
+				        kBeechStandAgeYieldClass4),
+			  "top.height" = c(kBeechTopHeightYieldClass1,
+				         kBeechTopHeightYieldClass2,
+				         kBeechTopHeightYieldClass3,
+				         kBeechTopHeightYieldClass4))
+    kSpruceSchober <- data.frame("yield.class" = c(rep(x = 1,
+					     times = length(x = kSpruceStandAgeYieldClass1)),
+					 rep(x = 2,
+					     times = length(x = kSpruceStandAgeYieldClass2)),
+					 rep(x = 3,
+					     times = length(x = kSpruceStandAgeYieldClass3)),
+					 rep(x = 4,
+					     times = length(x = kSpruceStandAgeYieldClass4))),
+			   "stand.age" = c(kSpruceStandAgeYieldClass1,
+				         kSpruceStandAgeYieldClass2,
+				         kSpruceStandAgeYieldClass3,
+				         kSpruceStandAgeYieldClass4),
+			   "top.height" = c(kSpruceTopHeightYieldClass1,
+					kSpruceTopHeightYieldClass2,
+					kSpruceTopHeightYieldClass3,
+					kSpruceTopHeightYieldClass4))
+    ## Turn off graphics device.
+    graphics.off()
+    ## Create file name.
+    file.name <-paste0(kGraphicsSubdir,
+		   "StandAgeTopHeightSchober.pdf")
+    ## Start graphics device driver for producing PDF graphics.
+    pdf(file = file.name,
+        width = kPdfWidthA4Portrait,
+        height = kPdfHeightA4Portrait * 0.85,
+        pointsize = kPdfPointSize,
+        family = kPdfFamily)
+    ## Set plot layout.
+    layout(mat = kPlotLayout)
+    ## Loop over capitalized species names.
+    for (cur.species.name.capitalized in kSpeciesNamesCapitalized) {
+        ## Initiate legend components.
+        legend.legend <- vector(mode = "character")
+        legend.pch <- vector(mode = "numeric")
+        legend.lty <- vector(mode = "character")
+        legend.lwd <- vector(mode = "numeric")
+        legend.col <- vector(mode = "character")
+        ## Get data frame with yield table values for current species.
+        cur.yield.table.df <- get(x = paste0("k", cur.species.name.capitalized, "Schober"))
+        ## Set plot margins.
+        par("mar" = kPlotMargins)
+        ## Create empty plot.
+        plot(x = cur.yield.table.df[["stand.age"]],
+	   type = "n",
+	   xlim = kXLim,
+	   ylim = kYLim,
+	   xlab = kXLab,
+	   ylab = kYLab,
+	   main = cur.species.name.capitalized,
+	   mgp = kPlotMgp,
+	   xaxs = "i",
+	   yaxs = "i",
+	   panel.first = abline(v = seq(from = kXLim[1],
+				  to = kXLim[2],
+				  by = kGridIntervalV),
+			    h  = seq(from = kYLim[1],
+				   to = kYLim[2],
+				   by = kGridIntervalH),
+			    lty = kGridLineType,
+			    lwd = kGridLineWidth,
+			    col = kGridLineCol))
+        ## Loop over all yield class indices.
+        for (cur.yield.class.index in 1:4) {
+	  ## Add lines to plot.
+	  lines(x = cur.yield.table.df[["stand.age"]][cur.yield.table.df[["yield.class"]] == cur.yield.class.index],
+	        y = cur.yield.table.df[["top.height"]][cur.yield.table.df[["yield.class"]] == cur.yield.class.index],
+	        col = kLineCols[[cur.yield.class.index]],
+	        lty = kLineType,
+	        lwd = kLineWidth)
+	  ## Add points to plot.
+	  points(x = cur.yield.table.df[["stand.age"]][cur.yield.table.df[["yield.class"]] == cur.yield.class.index],
+	         y = cur.yield.table.df[["top.height"]][cur.yield.table.df[["yield.class"]] == cur.yield.class.index],
+	         pch = kPointCharacter,
+	         col = kLineCols[[cur.yield.class.index]])
+	  ## Update legend components.
+	  legend.legend <- c(legend.legend,
+			 paste0("yield class ", cur.yield.class.index))
+	  legend.lty <- c(legend.lty,
+		        kLineType)
+	  legend.lwd <- c(legend.lwd,
+		        kLineWidth)
+	  legend.col <- c(legend.col,
+		        kLineCols[[cur.yield.class.index]])
+	  legend.pch <- c(legend.pch,
+		        kPointCharacter)
+        }
+        ## Add legend.
+        legend(x = kLegendX,
+	     legend = legend.legend,
+	     pch = legend.pch,
+	     lty = legend.lty,
+	     lwd = legend.lwd,
+	     col = legend.col,
+	     bg = kLegendBg)
+    }
+    ## Turn off graphics device.
+    graphics.off()
+    ## Clean up workspace.                                   
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
 * StandAgeTopHeightTestData.pdf
   #+NAME: StandAgeTopHeightTestData.pdf
   #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
