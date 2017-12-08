@@ -7694,7 +7694,7 @@
 		     to = 100,
 		     by = 0.1)
     kSterbaGmaxFunctionString <- "1 / 10000 * pi / (16 * a0 * b0 * kh100TestData ^ (a1 + b1))"
-    kSterbaCoefs <- list("Wördehoff" = list("beech" = list("a0" = 2.616551e-07,
+    kSterbaCoefs <- list("Wördehoff" = list("beech" = list("a0" = 2.616551e-07,  ## Source: Wördehoff (2016), tab. 3.6
 					         "a1" = 1.368151,
 					         "b0" = 6.496417,
 					         "b1" = -1.731867),
@@ -7702,7 +7702,7 @@
 						"a1" = 0.4394706,
 						"b0" = 0.3716977,
 						"b1" = -0.9097641)),
-		     "Döbbeler" = list("beech" = list("a0" = 1.0829E-07,
+		     "Döbbeler" = list("beech" = list("a0" = 1.0829E-07,  ## Source: Döbbeler (2004), tab. 4.2, Region Nordwest
 					        "a1" = 1.5374,
 					        "b0" = 8.3652,
 					        "b1" = -1.7365),
@@ -7721,12 +7721,12 @@
 		      ncol = 1)
     kLegendNcol <- list("beech" = 2,
 		    "spruce" = 2)
-    kXLim <- c(0, 70)
-    kYLim <- c(0, 140)
+    kXLim <- c(0, 60)
+    kYLim <- c(0, 95)
     kGridIntervalV <- 5
     kGridIntervalH <- 10
     kLegendX <- list("beech" = "topleft",
-		 "spruce" = "topleft")
+		 "spruce" = "bottomright")
     kXValuesColumnNameTrainingData <- "h100"
     kXValuesColumnNameTestData <- "h100"
     kYValuesColumnNameTrainingData <- "gha"
@@ -7749,7 +7749,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = kFilename,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.8,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -7893,7 +7893,7 @@
 					      table = SI.h100.sequence)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0("observations yield class ",
+		       paste0("obs. YC ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -7968,7 +7968,7 @@
         }
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0(cur.model.id, " pred. yield class ",
+		       paste0(cur.model.id, " pred. YC ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col,
 		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -7998,7 +7998,7 @@
 	        lwd = kLineWidth)
 	  ## Update legend components.
 	  legend.legend <- c(legend.legend,
-			 paste0(cur.coefs.source.name, " coefficients"))
+			 paste0(cur.coefs.source.name, " coeff. ", cur.species.name))
 	  legend.col <- c(legend.col,
 		        kSterbaLineCols[[cur.coefs.source.name]])
 	  legend.pch <- c(legend.pch,
