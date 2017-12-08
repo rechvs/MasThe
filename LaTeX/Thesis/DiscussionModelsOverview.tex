@@ -18,9 +18,69 @@ All things considered, the chosen constraints improved plausibility of model pre
 
 However, the more constrained models also generally achieved higher (i.e., worse) AIC scores than the less constrained models (cp. \Cref{tab:AICOverview}), with the notable exception of GAMLSS3 for \Spruce{}, which achieved the lowest AIC for that species.  A reason for this discrepancy between plausibility and statistical power of the models may lie in the incompleteness of the training data sets discussed above.  At the same time, the GAMLSSs generally achieved a lower AIC than the correpsonding GAM or SCAM, again with the notable exception of GAMLSS3 in \Spruce{}.  This suggests that the increased uncertainty of GAMLSSs compared to GAMs or SCAMs was outweighed by their increased flexibility.
 
+While basal area modeling, both at individual tree level (e.g., \textcite{Andreassen2003,Hein2006,Jogiste2000,Monserud1996,Nystroem1997,Schroeder2002,Wimberly1996}) as well as stand level (e.g., \textcite{Castedo-Dorado2007,Chikumbo2001,Chikumbo1999,Eerikaeinen2003}), has been the subject of several studies, modeling of \emph{maximum} basal area has not gathered as much attention.  To the best knowledge of the author, only two approaches have been made (\textcite{Sterba1975,Sterba1987,Sterba1981} and \textcite{Woerdehoff2016}), none of which take differences in stand productivity into account.   The method presented by Sterba results from applying the “competition-density rule” developed by \textcite{Kira1953,Ando1968,Ando1968a,Tadaki1963} on mean diameter as suggested by \textcite{Goulding1972}, rather than an mean volume.  It consists of 3 equations:
+\begin{equation}
+  \label{eq:SterbaNGmax}
+  \SterbaNGmaxMath{} = \frac{b_0}{a_0} \TopHeightMath{} ^ {b_1 - a_1},
+\end{equation}
+\begin{equation}
+  \label{eq:SterbaGmax}
+  \SterbaGmaxMath{} = \frac{\pi}{16 a_0 b_0} \TopHeightMath{} ^ {-(a_1 + b_1)},
+\end{equation}
+and
+\begin{equation}
+  \label{eq:SterbadgGmax}
+  \SterbadgGmaxMath{} = \frac{1}{2 b_o} \TopHeightMath{} ^ {-b_1},
+\end{equation}
+where \(\SterbaNGmaxMath{}\) is stand density at maximum basal area, \(a_0, a_1, b_0, b_1\) are coefficients to be estimated, \(\TopHeightMath{}\) is top height, \(\SterbaGmaxMath{}\) is maximum basal area, and \(\SterbadgGmaxMath{}\) is the diameter of the mean basal area tree.  To acquire a model for predicting maximum basal area, \Cref{eq:SterbaGmax} needs to be fit to a set of top height observations of maximum basal area stands.  Fitting of \Cref{eq:SterbaGmax} to the data sets used in the present study was not successful.  In order to nevertheless compare results of the present study with Sterba’s approach, estimates of coefficents \(a_0, a_1, b_0, \text{ and } b_1\) reported in \textcite{Doebbeler2004} (Region Nordwest) and \textcite{Woerdehoff2016} were used.  The estimates for \Beech{} and \Spruce{} are given in 
 
+% \newpage{}  %% TESTING
+% \begin{singlespace}
+  % \begin{table}
+    % {\tabulinesep=2mm
+    % \begin{tabu}{L S[table-figures-decimal = 6] S[table-figures-decimal = 6] S[table-figures-decimal = 6] S[table-figures-decimal = 6]}
+      % \toprule
+      % Source & {\(a_0\)} & {\(a_1\)} & {\(b_0\)} & {\(b_1\)} \\
+      % \midrule
+      % \textcite{Doebbeler2004} & 1.0829e-7 & 1.5374 & 8.3652 & -1.7365 \\
+      % \textcite{Woerdehoff2016} & 2.616551e-7 & 1.368151 & 6.496417 & -1.731867 \\
+      % \bottomrule
+    % \end{tabu}
+    % }
+    % \caption{Estimates of the coefficients of \Cref{eq:SterbaGmax} for \Beech{} as reported in \textcite{Doebbeler2004} (Region Nordwest) and \textcite{Woerdehoff2016}.}
+    % \label{tab:SterbaCoefficientsEstimates}
+  % \end{table}
+% \end{singlespace}
 
+\newpage{}  %% TESTING
+\begin{singlespace}
+    {\tabulinesep=2mm
+    \begin{longtabu}{L S[table-figures-decimal = 6] S[table-figures-decimal = 6] S[table-figures-decimal = 6] S[table-figures-decimal = 6]}
+      \caption{Estimates of the coefficients of \Cref{eq:SterbaGmax} for \Beech{} as reported in \textcite{Doebbeler2004} (Region Nordwest) and \textcite{Woerdehoff2016}.
+        \label{tab:SterbaCoefficientsEstimatesTest}} \\
+      \toprule
+      Source & {\(a_0\)} & {\(a_1\)} & {\(b_0\)} & {\(b_1\)} \\
+      \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      \textcite{Doebbeler2004} & \num{1.0829e-7} & 1.5374 & 8.3652 & -1.7365 \\
+      % \textcite{Doebbeler2004} & 1.0829e-7 & 1.5374 & 8.3652 & -1.7365 \\
+      \textcite{Woerdehoff2016} & \num{2.616551e-7} & 1.368151 & 6.496417 & -1.731867 \\
+      % \textcite{Woerdehoff2016} & 2.616551e-7 & 1.368151 & 6.496417 & -1.731867 \\
+      \end{longtabu}
+    }
+\end{singlespace}
 
+% \clearpage{}  %% TESTING
+
+Following \textcite{Baur1881} (cited in \textcite[p. 159]{Assmann1970}), this study rests on the so-called “site index hypothesis” \parencite{Skovsgaard2008}, which may be broken down into 2 assumptions:
+\begin{enumerate}
+\item Yield classes can be sufficiently distinguished based on top height at a given reference age, i.e., their site index.
+\item Stands of different yield classes attain different basal areas at a given age, while stands of the same yield class attain the same basal area at a given age.
+\end{enumerate}
+These assumptions are based on the belief that top height in pure even-aged unthinned stands is largely independent of stem number \parencite{Skovsgaard2008}.  
+They are, however, are not undisputed.  \textcite{Assmann1970} pointed out that stands sharing the same site index still show site-dependent differences in total crop yield as well as basal area.  Nevertheless, site index continues to be a subject of research \parencite{Weiskittel2011,Somarriba2001,Wang2005} and was considered an indicator of site productivity by others \parencite{Monserud1984,Rayner1992,Karlsson1997}.  The goal of this study was not to determine whether or not site index is an appropriate measure for classfying site productivity, but rather to develop tools which allow modeling of maximum basal area while also taking differences of site productivity into account.  Whether these differences are expressed in terms of site index or by other means is of no relevance in this regard.
 
 \begin{figure}[h]
   \centering
@@ -36,13 +96,7 @@ However, the more constrained models also generally achieved higher (i.e., worse
   \label{fig:StandAgeTopHeightTestData}
 \end{figure}
 
-Following \textcite{Baur1881} (cited in \textcite[p. 159]{Assmann1970}), this study rests on the so-called “site index hypothesis” \parencite{Skovsgaard2008}, which may be broken down into 2 assumptions:
-\begin{enumerate}
-\item Yield classes can be sufficiently distinguished based on top height at a given reference age, i.e., their site index.
-\item Stands of different yield classes attain different basal areas at a given age, while stands of the same yield class attain the same basal area at a given age.
-\end{enumerate}
-These assumptions are based on the belief that top height in pure even-aged unthinned stands is largely independent of stem number \parencite{Skovsgaard2008}.  
-They are, however, are not undisputed.  \textcite{Assmann1970} pointed out that stands sharing the same site index still show site-dependent differences in total crop yield as well as basal area.  Nevertheless, site index continues to be a subject of research \parencite{Weiskittel2011,Somarriba2001,Wang2005} and was considered an indicator of site productivity by others \parencite{Monserud1984,Rayner1992,Karlsson1997}.  The goal of this study was not to determine whether or not site index is an appropriate measure for classfying site productivity, but rather to develope tools which allow modeling of maximum basal area while also taking differences of site productivity into account.  Whether these differences are expressed in terms of site index or by other means is of no relevance in this regard.
+% \clearpage{}  %% This is necessary, because otherwise the following "longtabu" environment produces a spurious table, which contains only the head but no cells.
 
 \clearpage{}
 
