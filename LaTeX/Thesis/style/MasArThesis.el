@@ -31,6 +31,9 @@
     '("Spruce" nil)
     '("StandAgeVariableMath" nil)
     '("StandAgeVariableR" nil)
+    '("SterbadgGmaxMath" nil)
+    '("SterbaGmaxMath" nil)
+    '("SterbaNGmaxMath" nil)
     '("TopHeightMath" nil)))
  LaTeX-dialect)
 
