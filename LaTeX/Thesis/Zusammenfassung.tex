@@ -1,0 +1,26 @@
+{
+  \newcommand{\mysectiontitle}{Zusammenfassung} % set section title as a custom macro to ease mutlitple usage (necessary when using a starred sectioning macro)
+  \markboth{\mysectiontitle{}}{} % http://tex.stackexchange.com/questions/89914/chapter-name-in-the-header-with-chapter
+
+  \fancypagestyle{zusammenfassung}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+    \fancyhead{}
+    % \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+    \fancyfoot{}
+    % \renewcommand{\footrulewidth}{0pt}
+    \fancyfoot[C]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+  }
+  \pagestyle{zusammenfassung}
+
+  Die maximale oder natürliche Bestandesgrundfläche ist eine vielseitig einsetzbare Größe und kann beispielsweise als Referenz zur Bestimmung von Durchforstungsstärken dienen.  Sie lässt sich jedoch nur auf Nullgrad-Dauerversuchsflächen zweifelsfrei bestimmen, wobei derartig ermittelte Werte streng genommen nur auf Bestände vergleichbarer Produktivität übertragbar sind.  Da derartige Flächen nur in begrenztem Umfang vorhanden sind, muss auf andere Methoden der Grundflächenermittlung zurückgegriffen werden.  Hierfür bieten sich statistische Modelle an.  Allerdings ist die Auswahl derartiger Modelle eng begrenzt. Insbesondere fehlt es bisher an einer Möglichkeit, die maximale Bestandesgrundfläche unter Berücksichtigung von Unterschieden in der Bestandesproduktivität modellieren.  Diese Arbeit zielt darauf ab, diese Lücke zu schließen.  Zur Anwendung kommen generalisierte additive Modelle (GAMs), formeingeschränkte additive Modelle (SCAMs) sowie generalisierte additive Modelle für Lage, Skalierung und Form (GAMLSSs).  All diese Modelltypen stellen eine Erweiterung generalisierter linearer Modelle (GLMs) dar.  Im Gegensatz zu letzteren bieten sie eine höhere Flexibilität.  Insbesondere sind GAMLSSs nicht auf Wahrscheinlichkeitsverteilungen der Exponentialfamilie beschränkt und gestatten die unmittelbare Schätzung nicht nur des Lageparameters, sondern aller jeweiligen Verteilungsparameter.  Diese erhöhte Flexiblität bringt jedoch eine weniger intuitive Interpretation der Modellergebnisse mit sich.
+  
+  Um sicherzustellen, dass ein Modell \emph{maximale} Bestandesgrundflächen vorhersagt, sollte dieses mithilfe von Daten angepasst werden, die ihrerseits auf Beständen mit wenigstens näherungsweise maximaler Bestandesgrundfläche beruhen.  Eine Möglichkeit zur Gewinnung derartiger Daten besteht darin, sie aus einem größeren Datensatz auszuwählen.  Als Auswahlkriterium wird in der vorliegenden Arbeit die Steigung in der von \textcite{Reineke1933} aufgestellten Gleichung verwendet, die mit einer Spanne artspezifischer Werte von Beständen verglichen wird, in denen Selbstdurchforstung stattfindet.
+  
+  Es werden insgesamt 6 Modelle an je einen Buchen- und einen Fichtendatensatz aus Nordwestdeutschland angepasst.  Es kann gezeigt werden, dass eine Einschränkung der Modellflexibilität einerseits zu plausibleren Ergebnissen, andererseits aber zu einer verringerten Aussagekraft in Gestalt höherer AIC-Werte führt.  Mögliche Schwächen der zugrundeliegenden Datensätze und ihre Auswirkung auf die Anwendbarkeit der Modelle werden diskutiert.  Die erlangten Modelle werden mit bereits vorhandenden Ansätzen zur Modellierung maximaler Bestandesgrundflächen verglichen.
+
+  
+}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "MasArThesis.tex"
+%%% End:
