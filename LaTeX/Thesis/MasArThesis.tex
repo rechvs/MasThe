@@ -25,7 +25,8 @@ titlepage]
 
 %% Define custom commands/math operators (in alphabetical order). Note: command names may not contain non-letters.
 \newcommand{\BasalAreaR}{\texttt{G}}
-\newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
+% \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
+\newcommand{\Beech}[0]{beech}
 \DeclareMathOperator{\diag}{diag}
 \newcommand{\edf}{effective degrees of freedom}
 \DeclareMathOperator{\erf}{erf}
@@ -46,7 +47,8 @@ titlepage]
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
-\newcommand{\Spruce}{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
+% \newcommand{\Spruce}{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
+\newcommand{\Spruce}{spruce}
 \newcommand{\StandAgeVariableMath}{h_{100}(x)_{\text{YC 1}}}
 \newcommand{\StandAgeVariableR}{\texttt{SAV}}
 \newcommand{\statsPackageVersion}{3.3.3}
@@ -71,7 +73,7 @@ titlepage]
 \pagenumbering{arabic}
 
 % \section{Introduction}
-\input{IntroductionMaximumBasalArea.tex}
+% \input{IntroductionMaximumBasalArea.tex}
 
 % \section{Material and Methods}
 % \input{DataSelection.tex}
@@ -80,7 +82,7 @@ titlepage]
 % \input{GAMsExplanation.tex}
 % \input{SCAMsExplanation.tex}
 % \input{GAMLSSsExplanation.tex}
-% \input{ModelsOverview.tex}
+\input{ModelsOverview.tex}
 
 \section{Results}
 \input{ResultsIntroduction.tex}
@@ -94,7 +96,10 @@ titlepage]
 \section{Discussion}
 \input{DiscussionDataSelection.tex}
 \input{DiscussionDataSets.tex}
-\input{DiscussionModelsOverview.tex}
+\input{DiscussionModels.tex}
+\input{DiscussionComparisonToOtherApproaches.tex}
+\input{DiscussionSiteIndex.tex}
+% \input{DiscussionTestData.tex}
 
 % \newpage{}
 % \input{Bibliography.tex}
