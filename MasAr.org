@@ -386,12 +386,12 @@
    + Rewrite block [[file:R/Scripts/DataSetCreation.R::Create%20"gmax_merged_1.9.RData"%20##][Create "gmax_merged_1.9.RData"]] such that it excludes measurements if the slope of the log(density)-log(diameter)-line lies outside the aforementioned range. However, I am currently unsure about how to tell whether to exclude the current or the next measurement if the slope lies outside the range. 
 * NOTES
 ** Layout of Thesis
-*** Abstract/Zusammenfassung
-*** Introduction
+*** [[file:LaTeX/Thesis/Zusammenfassung.tex][Zusammenfassung]]
+*** [[file:LaTeX/Thesis/Introduction.tex][Introduction]] [0/3]
     + [ ] Explain that the term “observation” is used to distinguish values which were (directly or indirectly) derived from measured values only from those that were (directly or indirectly) derived from estimated values.
     + [ ] Mention that the data sets were kindly provided by the \NWFVA{}.
     + [ ] Define “maximum basal area” (see Assmann (1961), p. 224).
-*** Material and Methods [0/0]
+*** Material and Methods
 **** Data Selection [2/2]
      + [X] Discussion of the data selection mechanism should go into section “Discussion”
      + [X] Report min, mean, and max of slopes of observations which were selected by the data selection mechanism.
@@ -424,29 +424,35 @@
      + [ ] predicted basal area over stand age
      + [ ] predicted basal area over top height
 *** Discussion
-**** Data selection [1/1]
+**** [[file:LaTeX/Thesis/DiscussionDataSelection.tex][Data selection]] [1/1]
      + [X] Compare mean of observed slope with slopes reported in literature and point out that the data selection mechanism is rather generous in terms of maximum allowed slopes.
-**** Data sets [2/2]
+**** [[file:LaTeX/Thesis/DiscussionDataSets.tex][Data sets]] [2/2]
      + [X] Despite their comparatively large geographical distribution, the small number of sample plots did not allow using latitude and longitude as explanatory variables.
      + [X] Mention shortcomings of data sets in terms of:
        + [X] absence of very young (beech) and very old (spruce) stands.
        + [X] absence of low top height observations.
        + [X] almost complete absence of extreme sites with respect to absolute productivity index of stand.
        + [X] strong correlation between stand age and absolute productivity index of stand.
-**** Model overview/Results [5/12]
+**** [[file:LaTeX/Thesis/DiscussionModels.tex][Models]] [8/8]
+     + [X] Mention that using the stand age variable instead of stand age as a predictor variable probably reduced comparability of models across species, since the stand age variable was calculated using different function coefficients.
+     + [X] Mention the need for fitting the models to mixed or uneven-aged stands.
+     + [X] Mention the possibility of predicting envelopes using GAMLSSs (“a topic which has been touched upon by Wördehoff et al. (2016) and which warrants further examination”)
      + [X] Explain why the logarithm was used as the link function for mu in all models.
      + [X] Mention that since the confidence bands for all estimated smooth function effects contained non-zero estimates, the corresponding predictor variable can be considered to be related to the dependent variable.
      + [X] Explain model development, from GAM1 over GAM2 to SCAM1 and from GAMLSS1 over GAMLSS2 to GAMLSS3.
-     + [X] Explain that the switch in prediction curve order visibile in certain basal area over top height-plots.
+     + [X] Explain that the switch in prediction curve order visibile in certain basal area over top height-plots is due to different ages at the same top height.
      + [X] Explain why both GAMs + SCAMs and GAMLSSs were modeled (Answer: because, apart from GAMLSS1 in spruce, all GAMLSSs scored lower AICs than their GAM/SCAM counterparts.).
-     + [ ] Discuss the hypothesis that stands of different yield classes attain different basal area values.
-       + [ ] Provide a figure of basal area for given top heights as reported in Schober (1995) (cp. [[file:LaTeX/Presentation/Modelling.tex::\mycaption{Tabelle%201}{Vergleich%20der%20Grundfl%C3%A4che%20(\(G\))%20bei%20gegebener%20Oberh%C3%B6he%20(\(h_{100}\))%20in%20verschiedenen%20Ertragsklassen%20f%C3%BCr%20Buche,%20m%C3%A4%C3%9Fige%20Durchforstung%20(Quelle:%20\Schober{}).}][table 1 from the Presentation]]).
+**** [[file:LaTeX/Thesis/DiscussionComparisonToOtherApproaches.tex][Comparison to other approaches]] [1/1]
+     + [X] Compare results to:
+       + [X] Sterba’s approach.
+       + [X] Wördehoff (2016) GAMLSS.
+**** [[file:LaTeX/Thesis/DiscussionSiteIndex.tex][Site Index]] [1/1]
+     + [X] Discuss the hypothesis that stands of different yield classes attain different basal area values.
+       + Provide a figure of basal area for given top heights as reported in Schober (1995) (cp. [[file:LaTeX/Presentation/Modelling.tex::\mycaption{Tabelle%201}{Vergleich%20der%20Grundfl%C3%A4che%20(\(G\))%20bei%20gegebener%20Oberh%C3%B6he%20(\(h_{100}\))%20in%20verschiedenen%20Ertragsklassen%20f%C3%BCr%20Buche,%20m%C3%A4%C3%9Fige%20Durchforstung%20(Quelle:%20\Schober{}).}][table 1 from the Presentation]]).
+**** [[file:LaTeX/Thesis/DiscussionTestData.tex][Test data]] [0/1]
      + [ ] Mention that test data generation yielded unrealistic top height values for young ages.
-     + [ ] Mention that using the stand age variable instead of stand age as a predictor variable probably reduced comparability of models across species, since the stand age variable was calculated using different function coefficients.
-     + [ ] Compare results to Sterba’s approach
-     + [ ] Mention the need for adopting the models to mixed or uneven-aged stands.
-     + [ ] Mention the possibility of predicting envelopes using GAMLSSs (“a topic which has been touched upon by Wördehoff et al. (2016) and which warrants further examination”)
-     + [ ] Discuss appropriateness of assumed probability distributions.
+*** Conclusion [0/1]
+    + [ ] Conclusion
 *** Appendix
     + As an inspiration see Wördehoff (2016).
 *** Erklärung (s. meine Kopie des Formulars „Ausgabe einer Masterarbeit“)
