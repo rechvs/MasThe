@@ -8699,7 +8699,7 @@
     kYValuesColumnNameTrainingData <- "gha"
     kYValuesColumnNameTestData <- "gha.predictions"
     kWoerdehoffIndependentVariableName <- "h100"
-    kWoerdehoffFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ ",kWoerdehoffIndependentVariableName))
+    kWoerdehoffFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ ", "ps(", kWoerdehoffIndependentVariableName, ")"))
     kWoerdehoffDistFamily <- BCCG()
     kWoerdehoffTestData <- data.frame(seq(from = 0,
 				  to = 100,
