@@ -18,6 +18,7 @@
    (TeX-add-symbols
     '("BasalAreaR" nil)
     '("Beech" nil)
+    '("BeechLong" nil)
     '("edf" nil)
     '("logNlogDcurve" nil)
     '("NWFVA" nil)
@@ -29,6 +30,7 @@
     '("ProductivityIndexVariableText" nil)
     '("ProductivityIndexYieldClassIMath" nil)
     '("Spruce" nil)
+    '("SpruceLong" nil)
     '("StandAgeVariableMath" nil)
     '("StandAgeVariableR" nil)
     '("SterbadgGmaxMath" nil)
