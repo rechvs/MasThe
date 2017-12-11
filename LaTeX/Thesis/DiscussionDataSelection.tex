@@ -1,6 +1,63 @@
 \subsection{Data selection}
 
+In his definition of ``maximum basal area'', \textcite{Assmann1970} points out that maximum basal area is only achieved in stands which have not actively been thinned.  In this context, ``active thinning'' means a reduction of stand density exceeding natural density-dependent mortality, also known as ``natural thinning'' \parencite{SAF1958} or ``self-thinning'' \parencite{Roehrig1992}.  Self-thinning, by definition, is a naturally occurring phenomenon.  However, the cause of thinning, be it natural inter-plant competition or human influence, is of no relevance to the present study since the end result is the same: a reduction of stand density.  What is relevant is the actual extent or rate of thinning, since a thinning rate below or above the self-thinning rate will lead to the stand’s basal area being above or below its natural maximum, respectively.  Thus, data selection was based on the following rationale:  a stand is considered to have maximum basal area, as long as its thinning rate is roughly equal to the self-thinning rate of the respective species.  This, however, requires knowledge of the self-thinning modalities of forest stands in general and the species in question in particular.
+
+According to \textcite{Reineke1933}, the slope \(s\) of \Cref{eq:Reineke} is a species-independent constant of \num{-1.605}.  However, the universal applicability of \Cref{eq:Reineke} has been called into question.  As an alternative approach, \textcite{Charru2012} proposed the use of a quadratic, rather than a linear logarithmic diameter term in the right hand side of \Cref{eq:Reineke}. A similar approach is taken by \textcite{Schuetz2008,Schuetz2010,Zeide1995}, whose results suggested to add a quadratic logarithmic diameter term to the right hand side of \Cref{eq:Reineke}.  \textcite{Meyer1938} found that for \Ponderosa{}, the line reported by \textcite{Reineke1933} had to be changed to a slightly concave curve in order to fit observations.  
+
+Despite the apparent shortcomings of \Cref{eq:Reineke}, its general form has been upheld by other studies.  Building on the findings of \textcite{Drew1979}, \textcite{VanderSchaaf2010,VanderSchaaf2008} argued that \Cref{eq:Reineke} is valid, but only during a specific phase of stand development.  Similarly, \textcite{Zeide1985} suggested that \Cref{eq:Reineke} is only applicable during the stage of full canopy closure.  A different approach encountered in the literature is to use a species-specific slope rather than the constant of \num{-1.605} reported by \textcite{Reineke1933} \parencite{MacKinney1935,Pretzsch2005,Charru2012,Pretzsch2006,Río2001,Sterba1987,Vacchiano2013,Vospernik2015,Zeide1985,Zeide1987,VanderSchaaf2007}.  \Cref{tab:SpeciesSpecificReinekeSlopes} lists several example slopes for \Beech{} and \Spruce{} stands undergoing self-thinning as reported in the literature.  \textcite{Pretzsch2000,Pretzsch2002} showed that the rule of \textcite{Reineke1933} may be considered a special case of the \num{-3 / 2} power rule of \textcite{Yoda1963}, claiming that as long as the \num{-3 / 2} power rule is valid, species-specific deviations from Reineke’s constant of \num{-1.605} are a result of species-specific diameter-biomass relationships.
+
+\newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{L r r}
+      \caption{Species-specific values for the slope \(s\) of \Cref{eq:Reineke} for \Beech{} and \Spruce{} as reported in the literature for stands undergoing self-thinning.  \label{tab:SpeciesSpecificReinekeSlopes}} \\
+      \toprule
+      % Source & Beech & Spruce \\
+      Source & {Beech} & {Spruce} \\
+      \midrule
+      \endfirsthead
+      \caption{(continued)} \\
+      % Source & beech & spruce \\
+      % \midrule
+      \endhead
+      \bottomrule
+      \endlastfoot
+      \textcite{Charru2012} & \num{-1.941} & \num{-1.878} \\
+      \textcite{Pretzsch2006} & \numrange{-1.873}{-1.723} & \numrange{-1.669}{-1.607} \\
+      \textcite{Pretzsch2005} & \num{-1.789} & \num{-1.664} \\
+      \textcite{Sterba1987} & & \num{-1.737} \\
+      \textcite{Vacchiano2013} & & \num{-1.497} \\
+      \textcite{Vospernik2015} & \num{-1.941} & \num{-1.753} \\
+    \end{longtabu}
+  }
+\end{singlespace}
+
 Both the lower and the upper slope thresholds used in the data selection mechanism (cp. \Cref{tab:ReinekeSlopeThresholds}) differ notably from the species-specific slopes of \Cref{eq:Reineke} as reported in the literature (cp. \Cref{tab:SpeciesSpecificReinekeSlopes}).  However, only the maximum of observed slopes was affected by the data selection mechanism, whereas the minimum remained the same before and after its application in both species (cp. \Cref{tab:ObservedReinekeSlopes}).  The minimum was close to, albeit lower than, the slopes reported in the literature.  In contrast, the maximum slope, both before and after application of the mechanism, notably exceeded even the highest slopes reported in the literature in both species.   This suggests that the upper slope threshold may have been too high in order to reliably exclude all observations of stands which were not (yet) subject to self-thinning, which in turn suggests that the predictions reported may underestimate the maximum basal area possible on sites similar to the sample plots.  Lowering the upper thresholds to the highest values reported in the literature would have reduced the data set size for \Beech{} and \Spruce{} to \num{6} observations and \num{26} observations, respectively.  Since using such small data sets would have severely hampered model fitting, lowering the upper slope thresholds was not an option for increasing data set size.
+
+\Cref{tab:ObservedReinekeSlopes} provides an overview of how the minimum, mean, and maximum values of the observed slopes were affected by the data selection mechanism.  In both species, the maximum value of observed slopes was reduced noticeably due to the data selection mechanism: from \num{12.106} to \num{-0.903} in \Beech{} and from \num{1.755} to \num{-0.666} in \Spruce{}.  In contrast, the minimum value of observed slopes remained unaffected by it in both species: for \Beech{} it remained at \num{-2.027} while for \Spruce{} it remained at \num{-1.958}.  Consequently, the mean value of observed slopes was reduced by the data selection mechanism in both species: from \num{-0.568} to \num{-1.327} in \Beech{} and from \num{-0.649} to \num{-1.322} in \Spruce{}.  As can be seen from \Cref{fig:logDlogNPlotsBeforeAfterDataSelection}, the data selection mechanism also led to a noticeable reduction in the number of observations and sample plots in both species: for \Beech{} the number of observations dropped from \num{148} to \num{63}, while the number of sample plots was halved from \num{36} to \num{18}; for \Spruce{} the number of observations was reduced from \num{210} to \num{100}, while the number of sample plots dropped from \num{47} to \num{28}.
+
+
+% \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
+\begin{singlespace}
+  {\tabulinesep=2mm
+    \begin{longtabu}{L S[table-figures-decimal = 3] S[table-figures-decimal = 3] c S[table-figures-decimal = 3] S[table-figures-decimal = 3]}
+      \caption{Observed minimum, mean, and maximum values for the slope \(s\) of \Cref{eq:Reineke} for \Beech{} and \Spruce{} before application of the data selection mechanism (columns A) and after application of the data selection mechanism (columns B).  \label{tab:ObservedReinekeSlopes}} \\
+      \toprule
+      & \multicolumn{2}{c}{Beech} & & \multicolumn{2}{c}{Spruce} \\
+      \cline{2-3} \cline{5-6}
+      & {A} & {B} & & {A} & {B} \\
+      \midrule
+      \endfirsthead
+      \caption{(continued)} \\
+      \endhead
+      \bottomrule
+      \endlastfoot
+      Minimum & -2.027 & -2.027 & & -1.958 & -1.958 \\
+      Mean & -0.568 & -1.327 & & -0.649 & -1.322 \\
+      Maximum & 12.106 & -0.903 & & 1.755 & -0.666 \\
+    \end{longtabu}
+  }
+\end{singlespace}
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,11 +1,11 @@
 \subsection{Explanation of SCAMs}
 
-Shape constrained additive models (SCAMs) \parencite{Pya2010,Pya2015} are an extenstion of GAMs utilizing penalized splines (P-splines) \parencite{Eilers1996}, which in turn build upon basis splines (B-splines) \parencite{Boor2001,Curry1947}.
+SCAMs \parencite{Pya2010,Pya2015} are an extenstion of GAMs.  Instead of thin plate regression splines, they use penalized splines (P-splines) \parencite{Eilers1996} to construct their smooth function basis, which in turn build upon basis splines (B-splines) \parencite{Boor2001,Curry1947}.
 
 \subsubsection{B-splines and P-splines}
 \label{sec:BSplinesPSplines}
 
-A B-spline is a pieceweise polyonmial.  Adjacent polynomial pieces are joined at the so-called knots in a specific manner:  both the ordinates as well as the first derivatives of the polynomials are equal \parencite{Eilers1996}.  This ensures that the resulting B-spline is continuous in its value and first derivative.  To define a B-spline, let the knot vector \(\symbf{T} = \bigl(t_0, t_1, \ldots, t_m\bigr)\) be a nondecreasing sequence with \(t_i \in [0, 1]\) and define the control points \(\symbf{P}_0, \ldots, \symbf{P}_n\).  The degree is defined as \(p \equiv m - n - 1\).  Each control point is associated with a basis function, which is given by
+A B-spline is a pieceweise polyonmial.  Adjacent polynomial pieces are joined at the so-called knots in a specific manner:  both the ordinates as well as the first derivatives of the adjacent polynomials are equal at the knots \parencite{Eilers1996}.  This ensures that the resulting B-spline is continuous in its value and first derivative.  To define a B-spline, let the knot vector \(\symbf{T} = \bigl(t_0, t_1, \ldots, t_m\bigr)\) be a nondecreasing sequence with \(t_i \in [0, 1]\) and define the control points \(\symbf{P}_0, \ldots, \symbf{P}_n\).  The degree is defined as \(p \equiv m - n - 1\).  Each control point is associated with a basis function, which is given by
 \begin{equation}
   \label{eq:BSplineBasisFunctionsDegreeZero}
   N_{i, 0}(x) =
@@ -24,7 +24,7 @@ Then the curve defined by
   \label{eq:BSplineCurveDefinition}
   \symbf{C}(x) = \sum_{i = 0}^n \symbf{P}_i N_{i, p}(x)
 \end{equation}
-is a B-spline \parencite{Weisstein2017a}.  This can then be used for regression by estimating the vector of control points.  Commonly, this is done via the method of ordinary least squares \parencite{Bollaerts2006} by estimating the control points which, for \(q\) observations \((x_j, y_j)\), which minimize the equation
+is a B-spline \parencite{Weisstein2017a}.  This can then be used for regression by estimating the vector of control points.  Commonly, this is done via the method of ordinary least squares \parencite{Bollaerts2006} by estimating the control points which, for \(q\) observations \((x_j, y_j)\), minimize the equation
 \begin{equation}
   \label{eq:BSplineOLS}
   S =
@@ -77,7 +77,7 @@ where \(\symbf{\beta} = \bigl[\beta_1, \beta_2, \ldots, \beta_q\bigr]^{\text{T}}
   \end{cases}
 \end{equation}
 \parencite{Pya2015}.
-Thus, if \(\symbf{m} = [m(x_1), m(x_2), \ldots, m(x_n)]^{\text{T}}\) is the vector of \(m\) values at the observed points \(x_i\), and \(\symbf{X}\) is a matrix such that \(X_{i, j} = B_j(x_i)\), then
+Thus, if \(\symbf{m} = [m(x_1), m(x_2), \ldots, m(x_n)]^{\text{T}}\) is the vector of \(m\) values at the observed points \(x_i\) and \(\symbf{X}\) is a matrix such that \(X_{i, j} = B_j(x_i)\), then
 \begin{equation}
   \label{eq:SCAMConstrainedSmootherVector}
   \symbf{m} = \symbf{X} \symbf{\Sigma} \tilde{\symbf{\beta}}
@@ -94,7 +94,7 @@ whose elements are given by
     0 &\text{otherwise}
   \end{cases}.
 \end{equation}
-This penalty becomes zero when all \(\beta_j\) following \(b_1\) are equal, thus ensuring the \(\gamma_j\) to form a uniformly increasing sequence and \(m(x)\) to form an increasing straight line \parencite{Pya2015}.
+This penalty becomes zero when all \(\beta_j\) following \(\beta_1\) are equal, thus ensuring the \(\gamma_j\) to form a uniformly increasing sequence and \(m(x)\) to form an increasing straight line \parencite{Pya2015}.
 
 Embedding the shape constrained smooth function \(m(x)\) in a larger model requires an additional constraint on \(m(x)\) in order to avoid it being confused with the intercept of the larger model.  This can be achieved by imposing centering constraints on the model matrix columns, i.e., by setting the sum of the values of the smooth to zero: \(\sum_{i = 1}^n m(x_i) = 0\) \parencite{Pya2015}.
 
@@ -106,8 +106,8 @@ The SCAMs presented in this study constrain the smooth function to be increasing
     0 &\text{if } i = 1,~ j \geq 2 \\
     1 &\text{if } i \geq 1,~ j = 1 \\
     i - 1 &\text{if } i \geq 2,~ j = 2, \ldots, q - 1 + 2 \\
-    q - j + 1 &\text{if } i \geq 2,~ j = q - i + 3, \ldots, q\\
-  \end{cases},
+    q - j + 1 &\text{if } i \geq 2,~ j = q - i + 3, \ldots, q,\\
+  \end{cases}
 \end{equation}
 while matrix \(\symbf{D}\) has to be adjusted so that
 \begin{equation}
@@ -163,8 +163,8 @@ Maximization of the penalized log-likelihood is then achieved in the following w
   \(C_{j, j} =
   \begin{cases}
     1 &\text{if } \tilde{\beta}_j = \beta_j \\
-    \exp\bigl(\beta_j\bigr) & \text{otherwise}
-  \end{cases}.
+    \exp\bigl(\beta_j\bigr) & \text{otherwise}.
+  \end{cases}
   \)
 \item Evaluate diagonal matrix \(\symbf{E}\) such that
   % \(E_{j, j} = 0\) if \(\tilde{\beta}_j = \beta_j\), and \\
@@ -172,16 +172,16 @@ Maximization of the penalized log-likelihood is then achieved in the following w
   \\ \(E_{j, j} =
   \begin{cases}
     0 &\text{if } \tilde{\beta}_j = \beta_j \\
-    \left. \sum_i^n w_i g'\bigl(\mu_i\bigr) [\symbf{X} \symbf{C}]_{i, j} \bigl(y_i - \mu_i\bigr) \middle/ \alpha\bigl(\mu_i\bigr) \right. &\text{otherwise}
-  \end{cases}.
+    \left. \sum_i^n w_i g'\bigl(\mu_i\bigr) [\symbf{X} \symbf{C}]_{i, j} \bigl(y_i - \mu_i\bigr) \middle/ \alpha\bigl(\mu_i\bigr) \right. &\text{otherwise}.
+  \end{cases}
 \)
 \item Let \(\symbf{I}^-\) be a diagonal matrix such that
   % \(I_{i, i}^- = 1\) if \(w_i < 0\) and \(I_{i, i}^- = 0\) otherwise.
   \(I_{i, i}^- = 
   \begin{cases}
     1 &\text{if } w_i < 0 \\
-    0 &\text{otherwise}
-  \end{cases}.
+    0 &\text{otherwise}.
+  \end{cases}
 \)
 \item Letting \(\tilde{\symbf{W}}\) denote \(\diag\bigl(\tilde{\symbf{w}}\bigr)\), form the QR decomposition \(
   \begin{bmatrix}
@@ -196,7 +196,7 @@ Maximization of the penalized log-likelihood is then achieved in the following w
 \item Hence define \(\symbf{P} = \symbf{R}^{-1} \symbf{U}(\symbf{I} - \symbf{\Lambda})^{-1/2}\) and \(\symbf{K} = \symbf{Q}_1 \symbf{U} (\symbf{I} - \symbf{\Lambda})^{-1/2}\).
 \item Update the estimate of \(\symbf{\beta}\) as \(\symbf{\beta}^{[k + 1]} = \symbf{\beta}^{[k]} + \symbf{P} \symbf{K}^{\text{T}} \sqrt{\tilde{\symbf{W}}} \tilde{\symbf{z}} - \symbf{P} \symbf{P}^{\text{T}} \symbf{S}_\uplambda \symbf{\beta}^{[k]}\) and increment \(k\).
 \end{enumerate}
-The SCAMs presented in this study optimize the GCV/un-biased risk estimator \parencite{Craven1979,Wahba1990} score for selecting the estimate of the smoothing parameter vector \(\mathbf{\uplambda}\).
+The SCAMs presented in this study optimize the GCV/un-biased risk estimator score \parencite{Craven1979,Wahba1990} for selecting the estimate of the smoothing parameter vector \(\mathbf{\uplambda}\).
 
 
 %%% Local Variables:

@@ -25,8 +25,10 @@ titlepage]
 
 %% Define custom commands/math operators (in alphabetical order). Note: command names may not contain non-letters.
 \newcommand{\BasalAreaR}{\texttt{G}}
-% \newcommand{\Beech}[0]{European beech (\emph{Fagus sylvatica} L.)}
+\newcommand{\BeechLong}[0]{European beech (\emph{Fagus sylvatica} L.)}
 \newcommand{\Beech}[0]{beech}
+\DeclareMathOperator{\Differential}{d}
+\newcommand{\DifferentialCorrectSpacing}{\Differential{}\hspace{-0.15em}}
 \DeclareMathOperator{\diag}{diag}
 \newcommand{\edf}{effective degrees of freedom}
 \DeclareMathOperator{\erf}{erf}
@@ -42,12 +44,12 @@ titlepage]
 \newcommand{\ProductivityIndexVariableMath}{PI_{\text{diff}}}
 \newcommand{\ProductivityIndexVariableR}{\texttt{PIV}}
 \newcommand{\ProductivityIndexVariableText}{productivity index variable}
-\newcommand{\ProductivityIndexYieldClassIMath}{PI_{\text{I. YC}}}
+\newcommand{\ProductivityIndexYieldClassIMath}{PI_{\text{YC 1}}}
 \newcommand{\scamPackageVersion}{1.2.2}
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
 \DeclareMathOperator{\sign}{sign}
-% \newcommand{\Spruce}{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
+\newcommand{\SpruceLong}{Norway spruce (\emph{Picea abies} (L.) H.\textsc{Karst})}
 \newcommand{\Spruce}{spruce}
 \newcommand{\StandAgeVariableMath}{h_{100}(x)_{\text{YC 1}}}
 \newcommand{\StandAgeVariableR}{\texttt{SAV}}
@@ -75,44 +77,46 @@ titlepage]
 \pagestyle{standard}
 \pagenumbering{arabic}
 
-\newpage
-\section{Introduction}
-\input{Introduction.tex}
+% \newpage
+% \section{Introduction}
+% \input{Introduction.tex}
 
-\section{Material and Methods}
-\input{DataSelection.tex}
-\input{DataDescription.tex}
+% \section{Material}
+% \input{DataSelection.tex}
+% \input{DataDescription.tex}
+
+\section{Methods}
 \input{MethodsIntroduction.tex}
 \input{GAMsExplanation.tex}
 \input{SCAMsExplanation.tex}
 \input{GAMLSSsExplanation.tex}
 \input{ModelsOverview.tex}
 
-\section{Results}
-\input{ResultsIntroduction.tex}
-\input{GAM1Results.tex}
-\input{GAM2Results.tex}
-\input{SCAM1Results.tex}
-\input{GAMLSS1Results.tex}
-\input{GAMLSS2Results.tex}
-\input{GAMLSS3Results.tex}
+% \section{Results}
+% \input{ResultsIntroduction.tex}
+% \input{GAM1Results.tex}
+% \input{GAM2Results.tex}
+% \input{SCAM1Results.tex}
+% \input{GAMLSS1Results.tex}
+% \input{GAMLSS2Results.tex}
+% \input{GAMLSS3Results.tex}
 
-\section{Discussion}
-\input{DiscussionDataSelection.tex}
-\input{DiscussionDataSets.tex}
-\input{DiscussionModels.tex}
-\input{DiscussionComparisonToOtherApproaches.tex}
-\input{DiscussionSiteIndex.tex}
-\input{DiscussionTestData.tex}
+% \section{Discussion}
+% \input{DiscussionDataSelection.tex}
+% \input{DiscussionDataSets.tex}
+% \input{DiscussionModels.tex}
+% \input{DiscussionComparisonToOtherApproaches.tex}
+% \input{DiscussionSiteIndex.tex}
+% \input{DiscussionTestData.tex}
 
-\section{Conclusion}
-\input{Conclusion.tex}
+% \section{Conclusion}
+% \input{Conclusion.tex}
 
-\newpage{}
-\input{Bibliography.tex}
+% \newpage{}
+% \input{Bibliography.tex}
 
-\newpage{}
-\input{Erklaerung.tex}
+% \newpage{}
+% \input{Erklaerung.tex}
 
 \end{document}
 
