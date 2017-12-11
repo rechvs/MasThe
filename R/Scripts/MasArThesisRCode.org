@@ -380,7 +380,7 @@
         ## Draw box around plot.
         box(bty = "o")
         ## Update legend components.
-        legend.legend <- c(legend.legend, paste0("sample plots ", cur.species.name))
+        legend.legend <- c(legend.legend, paste0("Sample plots ", cur.species.name))
         legend.pch <- c(legend.pch, kPointCharacter)
         legend.col <- c(legend.col, cur.point.line.col)
         ## Add legend.
@@ -473,7 +473,7 @@
 	     col = cur.point.color,
 	     pch = kPointCharacter)
         ## Update legend components.
-        legend.legend <- c(legend.legend, paste0("sample plots ", cur.species.name))
+        legend.legend <- c(legend.legend, paste0("Sample plots ", cur.species.name))
         legend.col <- c(legend.col, cur.point.color)
         legend.pch <- c(legend.pch, kPointCharacter)
     }
@@ -617,7 +617,7 @@
 						       digits = 1),
 				      table = SI.h100.sequence)
          ## Add legend.
-         legend.legend <- c(paste0("yield class ",
+         legend.legend <- c(paste0("Yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
          legend.pch <- kPointCharacter
@@ -809,7 +809,7 @@
 						      digits = 1),
 					      table = SI.h100.sequence)
         ## Add legend.
-        legend.legend <- c(paste0("yield class ",
+        legend.legend <- c(paste0("Yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
         legend.pch <- kPointCharacter
@@ -933,10 +933,10 @@
 	     lty = kYieldClassSIValuesLineType)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       mapply(FUN = function(expr, numbr1, numbr2) { as.expression(x = bquote(.(expr)*.(numbr1)*" ("*.(numbr2)*" m)")) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
-			    expr = expression(italic("PI")*" yield class "),
-			    numbr1 = SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"],
-			    numbr2 = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed:index.best.yield.class.needed])
+		       mapply(FUN = function(expr1, expr2, expr3) { as.expression(x = bquote(.(expr1)[.(expr2)]*" ("*.(expr3)*" m)")) },  ## See https://stackoverflow.com/questions/27275798/combining-vector-variables-in-r-expression-for-plot-text?noredirect=1.
+			    expr1 = expression(italic("PI")),
+			    expr2 = paste0("YC ", SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]),
+			    expr3 = SI.h100.yield.class.values[["SI.h100"]][index.worst.yield.class.needed:index.best.yield.class.needed])
     )
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = NA,
@@ -969,7 +969,7 @@
 	         pch = kPointCharacter)
         }
         ## Update legend components.
-        legend.legend <- c(legend.legend, paste0("observations yield class ",
+        legend.legend <- c(legend.legend, paste0("Observations yield class ",
 				         SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = kPointCharacter,
@@ -1164,7 +1164,7 @@
 	   xlim = kXLim,
 	   ylim = kYLim,
 	   xlab = "Stand age [a]",
-	   ylab = expression(italic("h")[100]*"("*italic("x")*")"["I. YC"]*" [m]"),
+	   ylab = expression(italic("h")[100]*"("*italic("x")*")"["YC 1"]*" [m]"),
 	   main = kSpeciesNamesCapitalized[[cur.species.name]],
 	   mgp = kPlotMgp,
 	   xaxs = "i",
@@ -1193,7 +1193,7 @@
 	    add = TRUE)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       "function curve")
+		       "Function curve")
         legend.col <- c(legend.col,
 		    kCurveCol)
         legend.lty <- c(legend.lty,
@@ -1231,7 +1231,7 @@
 					      table = SI.h100.sequence)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0("yield class ",
+		       paste0("Observations yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col,
 		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -1382,7 +1382,7 @@
 						      digits = 1),
 					      table = SI.h100.sequence)
         ## Add legend.
-        legend.legend <- c(paste0("yield class ",
+        legend.legend <- c(paste0("Yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
         legend.pch <- kPointCharacter
@@ -7600,7 +7600,7 @@
 						      digits = 1),
 					      table = SI.h100.sequence)
         ## Add legend.
-        legend.legend <- c(paste0("yield class ",
+        legend.legend <- c(paste0("Yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- cur.species.color.palette[SI.h100.yield.class.values.color.index]
         legend.pch <- kPointCharacter
