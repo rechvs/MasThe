@@ -1,8 +1,8 @@
 \subsection{Explanation of GAMLSSs}
 
-Generalized Additive Models for Location, Scale, and Shape (GAMLSSs) \parencite{Rigby2001,Akanztiliotou2002,Rigby2005} are an extension of GAMs and GLMs.  In the case of GAMs and GLMs, only the mean of the response variable (i.e., the location parameter of the assumed probability distribution) is estimated directly from the predictor variables.  Variance, skewness, and kurtosis (i.e., the scale and shape parameters of the assumed probability distribution), on the other hand, are in general functions of both the mean and a constant dispersion parameter and are thus estimated only indirectly through their dependence on the mean of the response variable \parencite{Rigby2001}.  GAMLSSs allow direct estimation of these distribution parameters as well.
+GAMLSSs \parencite{Rigby2001,Akanztiliotou2002,Rigby2005} are an extension of GAMs and GLMs.  In the case of GAMs and GLMs, only the mean of the response variable (i.e., the location parameter of the assumed probability distribution) is estimated directly from the predictor variables.  Variance, skewness, and kurtosis (i.e., the scale and shape parameters of the assumed probability distribution), on the other hand, are in general functions of both the mean and a constant dispersion parameter and are thus estimated only indirectly through their dependence on the mean of the response variable \parencite{Rigby2001}.  GAMLSSs allow direct estimation of these distribution parameters as well.
 
-Let \(\symbf{y}^{\text{T}} = (y_1, y_2, \ldots, y_n)\) be the vector of independent observations \(y_i\) of the response variable.  Further, let the \(y_i\) follow the probability density function \(f(y_i|\symbf{\theta}^i)\) conditional on the vector of distribution parameters \(\symbf{\theta}^{i \text{T}} = (\theta_{i, 1}, \theta_{i, 2}, \ldots, \theta_{i, p})\), where \(p\) is the number of distribution parameters. Let \(J_k\) be the number of explanatory variables related to the \(k\)th distribution parameter \(\symbf{\theta}_k\).  A GAMLSS is then given by a known monotonic link function \(g_k(\cdot)\) relating \(\symbf{\theta}_k\) to explanatory variables and random effects through the additive model 
+In order to explain GAMLSSs, let \(\symbf{y}^{\text{T}} = (y_1, y_2, \ldots, y_n)\) be the vector of independent observations \(y_i\) of the response variable, where \(n\) is the number of observations.  Further, let the \(y_i\) follow the probability density function \(f(y_i|\symbf{\theta}^i)\) conditional on the vector of distribution parameters \(\symbf{\theta}^{i \text{T}} = (\theta_{i, 1}, \theta_{i, 2}, \ldots, \theta_{i, p})\), where \(p\) is the number of distribution parameters. Let \(J_k\) be the number of explanatory variables related to the \(k\)th distribution parameter \(\symbf{\theta}_k\).  A GAMLSS is then given by a known monotonic link function \(g_k(\cdot)\) relating \(\symbf{\theta}_k\) to explanatory variables and random effects through the additive model 
 \begin{equation}
   \label{eq:GAMLSSRigbyStasinopoulos2005}
   \begin{aligned}[t]
@@ -10,7 +10,7 @@ Let \(\symbf{y}^{\text{T}} = (y_1, y_2, \ldots, y_n)\) be the vector of independ
     &= \symbf{X}_k \symbf{\beta}_k \sum_{j = 1}^{J_k} \symbf{Z}_{j, k} \symbf{\gamma}_{j, k},
 \end{aligned}
 \end{equation}
-where \(\symbf{\theta}_k\) and \(\symbf{\eta}_k\) are vectors of length \(n\), \(\symbf{\beta}_k^{\text{T}} = \bigl(\beta_{1, k}, \beta_{2, k}, \ldots, \beta_{J'_k, k}\bigr)\) is a parameter vector, \(\symbf{X}_k\) is a known design matrix of order \(n \times J'_k\), \(\symbf{Z}_{j, k}\) is a fixed known \(n \times q_{j, k}\) design matrix and \(\symbf{\gamma}_{j, k}\) is a \(q_{j, k}\)-dimensional random variable.  The term \(\symbf{X}_k \symbf{\beta}_k\) is the parametric component of \(\symbf{\eta}_k\), whereas the term \(\symbf{Z}_{j, k} \symbf{\gamma}_{j, k}\) is its additive component \parencite{Rigby2005}.
+where \(\symbf{\theta}_k\) and \(\symbf{\eta}_k\) are vectors of length \(n\), \(\symbf{X}_k\) is a known design matrix of order \(n \times J'_k\), \(\symbf{\beta}_k^{\text{T}} = \bigl(\beta_{1, k}, \beta_{2, k}, \ldots, \beta_{J'_k, k}\bigr)\) is a parameter vector, \(\symbf{Z}_{j, k}\) is a fixed known \(n \times q_{j, k}\) design matrix and \(\symbf{\gamma}_{j, k}\) is a \(q_{j, k}\)-dimensional random variable.  The term \(\symbf{X}_k \symbf{\beta}_k\) is the parametric component of \(\symbf{\eta}_k\), whereas the \(\symbf{Z}_{j, k} \symbf{\gamma}_{j, k}\) terms are its additive components \parencite{Rigby2005}.
 
 For the explanation of model estimation, assume in \Cref{eq:GAMLSSRigbyStasinopoulos2005} that the \(\symbf{\gamma}_{j, k}\) have independent (prior) normal distributions with \(\symbf{\gamma}_{j, k} \sim N_{q_{j, k}}\bigl(\symbf{0}, \symbf{G}_{j, k}^-\bigr)\), where \(\symbf{G}_{j, k}^-\) is the (generalized) inverse of a \(q_{j, k} \times q_{j, k}\) symmetric matrix \(\symbf{G}_{j, k} = \symbf{G}_{j, k}\bigl(\symbf{\lambda}_{j, k}\bigr)\), which may depend on a vector of hyperparameters \(\symbf{\lambda}_{j, k}\) and where if \(\symbf{G}_{j, k}\) is singular \(\symbf{\gamma}_{j, k}\) is understood to have an improper prior density function proportional to \(\exp\bigl(-\frac{1}{2} \symbf{\gamma}_{j, k}^{\text{T}} \symbf{G}_{j, k}\bigl(\symbf{\lambda}_{j, k}\bigr) \symbf{\gamma}_{j, k}\bigr)\).  For fixed \(\symbf{\lambda}_{j, k}\)s the \(\symbf{\beta}_k\)s and the \(\symbf{\gamma}_k\)s are estimated by maximizing a penalized likelihood function \(\loglikelihood_p\) given by
 \begin{equation}
@@ -20,7 +20,7 @@ For the explanation of model estimation, assume in \Cref{eq:GAMLSSRigbyStasinopo
 where \(\loglikelihood = \sum_{i = 1}^n \log\bigl(f\bigl(y_i | \symbf{\theta}^i\bigr)\bigr)\) is the log-likelihood function of the data given \(\symbf{\theta}^i\) \parencite{Rigby2005}.  For the GAMLSSs presented in this study, maximization of \(\loglikelihood_p\) was achieved via the algorithm laid out by \textcite{Rigby1996}.  Maximization of \(\loglikelihood_p\) leads to the shrinking matrix \(\symbf{S}_{j, k}\), applied to partial residuals \(\varepsilon_{j, k}\) to update the estimate of the additive predictor \(\symbf{Z}_{j, k} \symbf{\gamma}_{j, k}\) within a backfitting algorithm, given by
 \begin{equation}
   \label{eq:GAMLSSRigbyStasinopoulos2005BackfittingAlgorithm}
-  \symbf{S}_{j, k} = \symbf{Z}_{j, k} \bigl(\symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k} \symbf{Z}_{j, k} + \symbf{G}_{j, k}\bigr)^{-1} \symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k}
+  \symbf{S}_{j, k} = \symbf{Z}_{j, k} \Bigl(\symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k} \symbf{Z}_{j, k} + \symbf{G}_{j, k}\bigl(\symbf{\lambda}_{j, k}\bigr)\Bigr)^{-1} \symbf{Z}_{j, k}^{\text{T}} \symbf{W}_{k, k}
 \end{equation}
 for \(j = 1, 2, \ldots, J_k\) and \(k = 1, 2, \ldots, p\), where \(\symbf{W}_{k, k}\) is a diagonal matrix of iterative weights.  Different types of additive terms in the linear predictor \(\symbf{\eta}_k\) lead to different forms of \(\symbf{Z}_{j, k}\) and \(\symbf{G}_{j, k}\).
 
@@ -44,7 +44,15 @@ with
     1 &\text{otherwise}
   \end{cases},
 \end{equation}
-where \(\kappa\) is a user-defined constraint parameter for fine-tuning the constraint strength and where all other symbols retain the same meaning as in \Cref{eq:PSplineOLS} \parencite{Bollaerts2006}.
+where \(\kappa\) is a user-defined constraint parameter for fine-tuning the constraint strength and where all other symbols retain the same meaning as in \Cref{eq:PSplineOLS}, namely:
+\(q\) is the number of observations,
+\((x_j, y_j)\) are the observations,
+\(n\) is the number of control points,
+\(\symbf{P}_i\) is the \(i\)th control point,
+\(N_{i, p}(x_j)\) is the \(i\)th basis function of degree \(p\) evaluated at \(x_j\),
+\(\symbf{\lambda}\) is a smoothness parameter,
+\(k\) is the order of differences,
+and \(\upDelta^k \symbf{P}_i\) is the \(k\)th-order difference, i.e., \(\upDelta^k\symbf{P}_i = \upDelta^1 \bigl(\upDelta^{k - 1} \symbf{P}_i\bigr)\) with \(\upDelta^1 \symbf{P}_i = \symbf{P}_i - \symbf{P}_{i - 1}\) \parencite{Bollaerts2006}.
 
 %%% Local Variables:
 %%% mode: latex
