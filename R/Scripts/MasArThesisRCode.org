@@ -3580,8 +3580,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -3696,8 +3696,8 @@
 			         col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -3823,8 +3823,8 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        "reference line",
-		        "residuals")
+		        "Reference line",
+		        "Residuals")
          legend.col <- c(legend.col,
 		     kQQLCol,
 		     kQQPCol)
@@ -4121,7 +4121,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -4157,7 +4157,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -4372,7 +4372,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -4408,7 +4408,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -4571,8 +4571,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -4710,8 +4710,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -4817,12 +4817,12 @@
          ## Draw box around plot.
          box(bty = "o")
          ## Update legend components.
-         legend.legend <- c(paste0("reference band (",
+         legend.legend <- c(paste0("Reference band (",
 			     kQQRefLevel * 100,
 			     " % level)"),
 		        legend.legend,
-		        "reference line",
-		        "residuals")
+		        "Reference line",
+		        "Residuals")
          legend.col <- c(kQQEnvLineCol,
 		     legend.col,
 		     kQQRefLineCol,
@@ -5129,7 +5129,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -5165,7 +5165,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -5384,7 +5384,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -5420,7 +5420,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -5583,8 +5583,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -5722,8 +5722,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -5829,12 +5829,12 @@
          ## Draw box around plot.
          box(bty = "o")
          ## Update legend components.
-         legend.legend <- c(paste0("reference band (",
+         legend.legend <- c(paste0("Reference band (",
 			     kQQRefLevel * 100,
 			     " % level)"),
 		        legend.legend,
-		        "reference line",
-		        "residuals")
+		        "Reference line",
+		        "Residuals")
          legend.col <- c(kQQEnvLineCol,
 		     legend.col,
 		     kQQRefLineCol,
@@ -6141,7 +6141,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -6177,7 +6177,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -6396,7 +6396,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -6432,7 +6432,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -6595,8 +6595,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -6734,8 +6734,8 @@
 				col = kGridLineCol))
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        expression(""%+-%" standard error"),
-		        "estimated effect")
+		        expression(""%+-%" Standard error"),
+		        "Estimated effect")
          legend.col <- c(legend.col,
 		     "black")
          legend.lty <- c(legend.lty,
@@ -6841,12 +6841,12 @@
          ## Draw box around plot.
          box(bty = "o")
          ## Update legend components.
-         legend.legend <- c(paste0("reference band (",
+         legend.legend <- c(paste0("Reference band (",
 			     kQQRefLevel * 100,
 			     " % level)"),
 		        legend.legend,
-		        "reference line",
-		        "residuals")
+		        "Reference line",
+		        "Residuals")
          legend.col <- c(kQQEnvLineCol,
 		     legend.col,
 		     kQQRefLineCol,
@@ -7153,7 +7153,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -7189,7 +7189,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -7408,7 +7408,7 @@
 					       table = SI.h100.sequence)
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("observations yield class ",
+		        paste0("Observations yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
          legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -7444,7 +7444,7 @@
          box(bty = "o")
          ## Update legend components.
          legend.legend <- c(legend.legend,
-		        paste0("predictions yield class ",
+		        paste0("Predictions yield class ",
 			     SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
          legend.col <- c(legend.col,
 		     cur.species.color.palette[SI.h100.yield.class.values.color.index])
