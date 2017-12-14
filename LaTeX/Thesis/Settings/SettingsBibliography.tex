@@ -41,10 +41,14 @@ bibencoding=utf8 % s. p. 42 ff. biblatex
   {}} {}%
 \newunit\newblock \iftoggle{bbx:doi} {\printfield{doi}} {}}
 
-\renewbibmacro*{volume+number+eid}{%  Do not print field "number". Source: /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx, l. 759 ff.
+\renewbibmacro*{volume+number+eid}{%  If it is defined, print field "number" enclosed in parentheses. Original: /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx, l. 759 ff.
   \printfield{volume}%
   % \setunit*{\adddot}%
   % \printfield{number}%
+  \iffieldundef{number}{}{%
+  \setunit*{\addspace}%
+  \printtext[parens]{%
+    \printfield{number}}}%
   \setunit{\addcomma\space}%
   \printfield{eid}}
 
