@@ -22,7 +22,7 @@ giveninits=true,
 bibencoding=utf8 % s. p. 42 ff. biblatex
 ]{biblatex} % s. p. 45 ff. biblatex
 
-% \addbibresource[location=local]{../../Literatur/MODULNAME} % s. p. 71 f. biblatex; must be set in a per-file manner
+\addbibresource[location=local]{../../Literature/MasAr_Literature.bib} % s. S. 71 f. biblatex-Dokumentation
 
 \renewcommand*{\nameyeardelim}{\space} % http://tex.stackexchange.com/questions/134063/how-to-add-a-comma-between-author-and-year
 \renewcommand*{\revsdnamepunct}{\space}
@@ -30,6 +30,7 @@ bibencoding=utf8 % s. p. 42 ff. biblatex
 \renewcommand*\finalnamedelim{%
   \ifnumgreater{\value{liststop}}{2}{\addspace\bibstring{and}\addspace}%
   {\addspace\biband\addspace}}% http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+\newcommand{\biband}{\ifcurrentname{labelname}{\addspace \& \addspace}{\addspace \addcomma \addspace}} % http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
 
 \renewbibmacro*{doi+eprint+url}{%  Print field "url" only if field "doi" is undefined. Print field "eprint" only if fields "doi" and "url" are undefined. Source: https://tex.stackexchange.com/questions/154864/biblatex-use-doi-only-if-there-is-no-url
 \iftoggle{bbx:url} {\iffieldundef{doi}{\usebibmacro{url+urldate}}{}} {}%
@@ -96,7 +97,7 @@ bibencoding=utf8 % s. p. 42 ff. biblatex
 \DeclareNoinit{
   \noinit{\regexp{[\x{2bf}\x{2018}]}}} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
 
-\newcommand{\biband}{\ifcurrentname{labelname}{\addspace \& \addspace}{\addspace \addcomma \addspace}} % http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+\setcounter{biburlnumpenalty}{9000}
 
 %%% Local Variables:
 %%% mode: latex
