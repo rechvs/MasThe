@@ -9020,6 +9020,76 @@
     ## Clean up workspace.                                   
     rm(list = setdiff(x = ls(), y = objects.at.script.start))
   #+END_SRC
+* ModelsStatistics.txt
+  #+NAME: ModelsStatistics.txt
+  #+BEGIN_SRC R :results silent :var input=Preamble :session *MasArThesisRConsole*
+    ## TEX file:
+    ## Modelling preamble.
+    for (pckg in c("mgcv", "scam", "gamlss", "gamlss.dist")) {
+        library(package = pckg,
+	      character.only = TRUE)
+    }
+    kSigmaFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ 1"))
+    kNuFormula <- kSigmaFormula
+    kTauFormula <- kSigmaFormula
+    ## Preamble.
+    kDestFilename <- paste0(kOutputSubdir,
+		    "ModelsStatistics.txt")
+    ## Initiate list in which to store results.
+    inner.list <- vector(mode = "list", length = length(x = kSpeciesNames))
+    names(x = inner.list) <- kSpeciesNamesCapitalized
+    res.list <- vector(mode = "list", length = length(x = kFormulas))
+    names(x = res.list) <- names(x = kFormulas)
+    for (cur.index in seq_len(length.out = length(x = res.list))) {
+        res.list[[cur.index]] <- inner.list
+    }
+    ## Loop over all formula names.
+    for (cur.formula.name in names(x = kFormulas)) {
+        ## Get current formula.
+        cur.formula <- kFormulas[[cur.formula.name]]
+        ## Loop over all species names.
+        for (cur.species.name in kSpeciesNames) {
+	  ## Get capitalized name for current species.
+	  cur.species.name.capitalized <- kSpeciesNamesCapitalized[[cur.species.name]]
+	  ## Get data frame for current species, restricted to only the dependent and predictor variables, omitting NAs.
+	  cur.data.frame <- na.omit(object = subset(x = get(x = paste0("bart.", cur.species.name, ".clean.1.8")),
+					    select = c(kDependentVariableRName,
+						     kStandAgeVariableRName,
+						     kProductivityIndexVariableRName)))
+	  ## Fit model, using the appropriate settings and fitting function.
+	  if (grepl(x = cur.formula.name, pattern = "GAM[12]")) {
+	  cur.model <- gam(formula = cur.formula,
+		         data = cur.data.frame,
+		         family = Gamma(link = "log"),
+		         na.action = na.omit)
+	  }
+	  if (cur.formula.name == "SCAM1") {
+	   cur.model <- scam(formula = cur.formula,
+			 data = cur.data.frame,
+			 family = Gamma(link = "log"))
+	  }
+	  if (grepl(x = cur.formula.name, pattern = "GAMLSS[123]")) {
+	      cur.model <- gamlss(formula = cur.formula,
+			      sigma.formula = kSigmaFormula,
+			      nu.formula = kNuFormula,
+			      tau.formula = kTauFormula,
+			      data = cur.data.frame,
+			      family = BCCGo(),
+			      method = RS(1000))
+	  }
+	  ## Store summary of current model at the appropriate location in "res.list".
+	  res.list[[cur.formula.name]][[cur.species.name.capitalized]] <- summary(object = cur.model)
+        }}
+    ## Store printing of "res.list" in "output", while left justifying output.
+    output <- capture.output(print(x = res.list))
+    ## Output results to file.
+    cat(output,
+        file = kDestFilename,
+        sep = "\n",
+        fill = FALSE)
+    ## Clean up workspace.
+    rm(list = setdiff(x = ls(), y = objects.at.script.start))
+  #+END_SRC
 * File local variables
   # Local Variables:
   # End:
