@@ -1,0 +1,207 @@
+$GAM1
+$GAM1$Beech
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.59847    0.01775   202.7   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                        edf Ref.df     F  p-value    
+s(h100.EKL.I)         2.663  3.325  7.68 0.000158 ***
+s(SI.h100.diff.EKL.I) 4.865  5.862 13.14 5.45e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.524   Deviance explained = 67.4%
+GCV = 0.025229  Scale est. = 0.019846  n = 63
+
+$GAM1$Spruce
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I) + s(SI.h100.diff.EKL.I)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.88328    0.01618     240   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                        edf Ref.df      F  p-value    
+s(h100.EKL.I)         6.391  7.539 22.829  < 2e-16 ***
+s(SI.h100.diff.EKL.I) 6.480  7.582  4.675 0.000136 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.463   Deviance explained = 63.5%
+GCV = 0.029451  Scale est. = 0.026177  n = 100
+
+
+$GAM2
+$GAM2$Beech
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I
+
+Parametric coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        3.573394   0.024359  146.70  < 2e-16 ***
+SI.h100.diff.EKL.I 0.029500   0.009307    3.17  0.00245 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                edf Ref.df     F p-value    
+s(h100.EKL.I) 3.702  4.585 11.12 2.3e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.386   Deviance explained = 42.3%
+GCV = 0.040302  Scale est. = 0.030833  n = 63
+
+$GAM2$Spruce
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I) + SI.h100.diff.EKL.I
+
+Parametric coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         3.89044    0.01794 216.816  < 2e-16 ***
+SI.h100.diff.EKL.I  0.02207    0.00575   3.838 0.000227 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                edf Ref.df     F p-value    
+s(h100.EKL.I) 5.318  6.465 20.16  <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.362   Deviance explained = 53.1%
+GCV = 0.032678  Scale est. = 0.032086  n = 100
+
+
+$SCAM1
+$SCAM1$Beech
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I, bs = "micv") + SI.h100.diff.EKL.I
+
+Parametric coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         2.82690    0.26641  10.611 2.65e-15 ***
+SI.h100.diff.EKL.I  0.03577    0.01157   3.091  0.00304 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                edf Ref.df     F  p-value    
+s(h100.EKL.I) 1.857  2.135 8.657 0.000399 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.2451   Deviance explained = 25.4%
+GCV score = 0.048613  Scale est. = 0.045762  n = 63
+
+BFGS termination condition:
+7.007778e-06
+
+
+$SCAM1$Spruce
+
+Family: Gamma 
+Link function: log 
+
+Formula:
+gha ~ s(h100.EKL.I, bs = "micv") + SI.h100.diff.EKL.I
+
+Parametric coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        1.066116   0.429109   2.484   0.0147 *  
+SI.h100.diff.EKL.I 0.022874   0.005441   4.204 5.92e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                edf Ref.df     F p-value    
+s(h100.EKL.I) 3.012  2.979 43.12  <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.3516   Deviance explained = 51.3%
+GCV score = 0.032276  Scale est. = 0.030667  n = 100
+
+
+
+$GAMLSS1
+$GAMLSS1$Beech
+                          Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept)             3.18399112 0.075858297 41.972879 8.733187e-42
+ps(h100.EKL.I)          0.01553977 0.002412037  6.442593 3.826335e-08
+ps(SI.h100.diff.EKL.I)  0.02583156 0.005074946  5.090018 5.022636e-06
+(Intercept)            -2.03742179 0.400343606 -5.089183 5.037397e-06
+(Intercept)             6.81971611 1.725801250  3.951623 2.351630e-04
+
+$GAMLSS1$Spruce
+                          Estimate  Std. Error    t value     Pr(>|t|)
+(Intercept)             2.96336411 0.074718912  39.660161 2.335117e-58
+ps(h100.EKL.I)          0.03720503 0.003084204  12.063092 2.003461e-20
+ps(SI.h100.diff.EKL.I)  0.02587688 0.004038600   6.407388 6.852684e-09
+(Intercept)            -1.92345892 0.083753138 -22.965813 3.607049e-39
+(Intercept)            -2.34254041 0.794897386  -2.946972 4.096469e-03
+
+
+$GAMLSS2
+$GAMLSS2$Beech
+                      Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept)         3.14190153 0.086433909 36.350335 3.830686e-40
+ps(h100.EKL.I)      0.01784155 0.002844072  6.273240 5.803796e-08
+SI.h100.diff.EKL.I  0.02318045 0.005761870  4.023077 1.769104e-04
+(Intercept)        -1.92886231 0.325428360 -5.927149 2.108970e-07
+(Intercept)         5.32543126 1.348124323  3.950252 2.243708e-04
+
+$GAMLSS2$Spruce
+                      Estimate  Std. Error    t value     Pr(>|t|)
+(Intercept)         2.94992436 0.079987669  36.879739 6.530661e-57
+ps(h100.EKL.I)      0.03780157 0.003246622  11.643353 8.618176e-20
+SI.h100.diff.EKL.I  0.02304275 0.004578450   5.032871 2.386608e-06
+(Intercept)        -1.87150855 0.081816573 -22.874443 9.804238e-40
+(Intercept)        -2.03254437 0.673142253  -3.019487 3.276757e-03
+
+
+$GAMLSS3
+$GAMLSS3$Beech
+                      Estimate  Std. Error    t value     Pr(>|t|)
+(Intercept)         3.60925073 0.033309288 108.355685 3.639668e-68
+SI.h100.diff.EKL.I  0.02097131 0.004052918   5.174374 3.031625e-06
+(Intercept)        -1.81603770 0.293080207  -6.196385 6.650035e-08
+(Intercept)         4.27957208 1.175984884   3.639139 5.870832e-04
+
+$GAMLSS3$Spruce
+                      Estimate  Std. Error    t value      Pr(>|t|)
+(Intercept)         3.84737943 0.016426776 234.213908 1.307827e-128
+SI.h100.diff.EKL.I  0.02270638 0.003076847   7.379756  7.137219e-11
+(Intercept)        -1.90983216 0.083585185 -22.848931  1.607009e-39
+(Intercept)        -2.30907594 0.766078634  -3.014150  3.336363e-03
+
+
