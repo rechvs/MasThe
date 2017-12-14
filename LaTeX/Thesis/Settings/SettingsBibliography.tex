@@ -1,8 +1,6 @@
 \usepackage[
 backend=biber,
-% bibstyle=/home/renke/Uni/Formatvorlagen/LaTeX/BibstylePapers,
 bibstyle=authoryear,
-% citestyle=/home/renke/Uni/Formatvorlagen/LaTeX/CitestylePapers,
 citestyle=authoryear-comp,
 natbib=false,
 mcite=false,
@@ -15,6 +13,7 @@ maxitems=2,
 uniquename=false,
 autocite=plain,
 language=autobib,
+isbn=false,
 hyperref=true,
 urldate=long,
 dateabbrev=false,
@@ -32,10 +31,60 @@ bibencoding=utf8 % s. p. 42 ff. biblatex
   \ifnumgreater{\value{liststop}}{2}{\addspace\bibstring{and}\addspace}%
   {\addspace\biband\addspace}}% http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
 
-\renewbibmacro*{doi+eprint+url}{%  https://tex.stackexchange.com/questions/154864/biblatex-use-doi-only-if-there-is-no-url
+\renewbibmacro*{doi+eprint+url}{%  Print field "url" only if field "doi" is undefined. Print field "eprint" only if fields "doi" and "url" are undefined. Source: https://tex.stackexchange.com/questions/154864/biblatex-use-doi-only-if-there-is-no-url
 \iftoggle{bbx:url} {\iffieldundef{doi}{\usebibmacro{url+urldate}}{}} {}%
-\newunit\newblock \iftoggle{bbx:eprint} {\usebibmacro{eprint}} {}%
+\newunit\newblock \iftoggle{bbx:eprint} {\ifthenelse{%
+    \iffieldundef{doi}%
+    \and%
+    \iffieldundef{url}}%
+  {\usebibmacro{eprint}}%
+  {}} {}%
 \newunit\newblock \iftoggle{bbx:doi} {\printfield{doi}} {}}
+
+\renewbibmacro*{volume+number+eid}{%  Do not print field "number". Source: /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx, l. 759 ff.
+  \printfield{volume}%
+  % \setunit*{\adddot}%
+  % \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  % \usebibmacro{in:}%  Do not print the string "In:" in article references.
+  \usebibmacro{journal+issuetitle}%
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
 
 \DeclareNameAlias{sortname}{last-first} % http://tex.stackexchange.com/questions/12806/guidelines-for-customizing-biblatex-styles/13076#13076
 
