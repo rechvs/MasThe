@@ -1,0 +1,84 @@
+% This file contains settings intended for use with documentclass `article´.
+
+%%%%%%%%%%%%%%
+%% chngcntr %%
+%%%%%%%%%%%%%%
+\counterwithout{figure}{section} % counter `figure´ is not reset at the beginning of a new `section´
+
+%%%%%%%%%%%%%%
+%% fancyhdr %%
+%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancypagestyle{toc}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+% \fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[C]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+}
+\fancypagestyle{abbrevs_symbols}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+% \fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[C]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+}
+\fancypagestyle{standard}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+% \fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \firstmark \\}
+% \fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[C]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+}
+\fancypagestyle{bibliography}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+% \fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[C]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+}
+\renewcommand{\sectionmark}[1]{%
+  \markboth{#1}{}} % s. p. 9 f. fancyhdr
+\renewcommand{\subsectionmark}[1]{%
+} % to suppress printing of subsection titles in headers (s. `\firstmark´ above)
+
+%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX: commands %%
+%%%%%%%%%%%%%%%%%%%%%
+\renewcommand\topfraction{1.0} % s. p. 284 ff. Companion
+\renewcommand\bottomfraction{1.0} % s. p. 284 ff. Companion
+\renewcommand\textfraction{0.0} % s. p. 284 ff. Companion 
+\renewcommand\floatpagefraction{0.75} % s. p. 284 ff. Companion 
+\makeatletter
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thetable}{\arabic{table}}
+\makeatother
+\makeatletter
+\renewcommand\section{\@startsection
+  {section}{1}{0 mm}
+  {\myabovetop}
+  {0.25\baselineskip}
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subsection{\@startsection
+  {subsection}{2}{0 mm}
+  {\myabovetop}
+  {0.25\baselineskip}
+  {\normalfont\normalsize\itshape}}
+\renewcommand\subsubsection{\@startsection
+  {subsubsection}{2}{0 mm}
+  {0 pt}
+  {0.05\baselineskip}
+  {\normalfont\normalsize}}
+\makeatother
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../MasArThesis.tex"
+%%% End:

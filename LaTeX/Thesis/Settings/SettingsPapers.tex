@@ -1,0 +1,154 @@
+% This file contains both package specific and LaTeX-internal settings;
+% `package specific´ means every setting related to the respective package, even if the setting is done via LaTeX primitives (e.g., `\setcounter´)
+% `LaTeX-internal´ means only those settings, which cannot be attributed to a specific package;
+% CONVENTIONS:
+% -comments ought to be placed on the line on which the command/option they refer to ends 
+% -when several options are given in one pair of brackets/curly braces, each one should be separated by a newline character, including the first option)
+
+%%%%%%%%%%%%%%
+%% interval %%
+%%%%%%%%%%%%%%
+\intervalconfig{soft open fences}
+
+%%%%%%%%%%%%%%
+%% geometry %%
+%%%%%%%%%%%%%%
+\geometry{
+  % margin=2.5cm % for one-sided documents (this requires `\documentclass[oneside…´)
+  margin=2cm,
+  inner=3cm,
+  % inner=2.5cm, % for two-sided documents (this requires `\documentclass[twoside…´)
+  % outer=3.5cm, % for two-sided documents (this requires `\documentclass[twoside…´)
+  a4paper
+}
+
+%%%%%%%%%%%%%
+%% caption %%
+%%%%%%%%%%%%%
+\captionsetup{
+  font=footnotesize,
+  labelfont=bf,
+  singlelinecheck=false,
+  justification=justified}
+  % justification=centering}
+
+%%%%%%%%%%%%%%
+%% hyperref %%
+%%%%%%%%%%%%%%
+\hypersetup{
+  colorlinks=false,
+  % colorlinks=true,
+  linktoc=all}
+
+%%%%%%%%%%%%%%
+%% listings %%
+%%%%%%%%%%%%%%
+\lstset{
+  basicstyle=\ttfamily,
+  keywordstyle=,
+  showstringspaces=false}
+
+%%%%%%%%%%%%%%
+%% setspace %%
+%%%%%%%%%%%%%%
+% \singlespacing
+\onehalfspacing
+% \doublespacing
+
+%%%%%%%%%%%%%%
+%% enumitem %%
+%%%%%%%%%%%%%%
+\setlist[itemize]{
+  topsep=0cm,
+  partopsep=0cm,
+  itemsep=0cm} % s. p. 9 enumitem
+
+%%%%%%%%%%%%%%
+%% tabularx %%
+%%%%%%%%%%%%%%
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+%%%%%%%%%%%%%%
+%% paralist %%
+%%%%%%%%%%%%%%
+\setdefaultitem{\textendash}{\textbullet}{$\square$}{}
+
+%%%%%%%%%%%%%%
+%% fontspec %%
+%%%%%%%%%%%%%%
+% \setmainfont{TeX Gyre Termes}
+\setmainfont{XITS}
+
+%%%%%%%%%%%%%%%%%%
+%% unicode-math %%
+%%%%%%%%%%%%%%%%%%
+\setmathfont[
+math-style=ISO,
+bold-style=literal,
+% vargreek-shape=TeX  %% Obsolote as of v0.8d (see https://ctan.org/ctan-ann/id/mailman.2585.1485610970.17497.ctan-ann@ctan.org)
+]{XITS Math}
+
+%%%%%%%%%%%%%%
+%% floatrow %%
+%%%%%%%%%%%%%%
+\floatsetup[table]{
+  style={plaintop},
+  font={normalsize}}
+  % font={scriptsize}} %% this setting for some reason affected the longtabu environment, but not the tabu environment
+\floatsetup[figure]{capposition=bottom}
+\newfloatcommand{myffigbox}{figure}[][\myimagewidth]
+\newfloatcommand{mykarte}{figure}[][\textwidth]
+
+%%%%%%%%%%%%%
+%% siunitx %%
+%%%%%%%%%%%%%
+\sisetup{
+  locale = US, % manages the locale specific display of numbers, SI units, etc.
+  % locale = DE,
+  list-final-separator = {, and },
+  exponent-product = \cdot,
+  redefine-symbols = false, % s. p. 62 siunitx
+  group-minimum-digits = 3,
+  group-digits = integer,
+  table-text-alignment = center,
+  table-number-alignment = center
+}
+
+%%%%%%%%%%%%%%%
+%% longtable %%
+%%%%%%%%%%%%%%%
+\setcounter{LTchunksize}{10}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX: lengths, skips, etc %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{0 cm} % indentation of paragraphs
+\setlength{\parskip}{10 pt} % extra vertical space between paragraphs; s. p. 2 “Formatvorlage-Waldökosystemmanagement.doc”: “Nach”
+\newlength{\myabovetop}
+\setlength{\myabovetop}{2\baselineskip}
+\newlength{\myimagewidth}
+\setlength{\myimagewidth}{5.65cm}
+\newlength{\capskip}
+\setlength{\capskip}{-0.35cm}
+\setlength{\abovecaptionskip}{0.5\baselineskip}
+\setlength{\belowcaptionskip}{0.5\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX: environments %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{mytable}[2]{\begin{table}[htb]\scriptsize\caption{#1\vspace{\capskip}}\label{#2}}{\end{table}\par} % \vspace notwendig wegen floatrow
+
+%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX: counters %%
+%%%%%%%%%%%%%%%%%%%%%
+\setcounter{topnumber}{2} % s. p. 284 ff. Companion
+\setcounter{bottomnumber}{1} % s. p. 284 ff. Companion
+\setcounter{totalnumber}{3} % s. p. 284 ff. Companion
+\setcounter{figure}{0}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../MasArThesis.tex"
+%%% End:

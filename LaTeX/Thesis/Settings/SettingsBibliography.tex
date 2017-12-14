@@ -1,0 +1,51 @@
+\usepackage[
+backend=biber,
+% bibstyle=/home/renke/Uni/Formatvorlagen/LaTeX/BibstylePapers,
+bibstyle=authoryear,
+% citestyle=/home/renke/Uni/Formatvorlagen/LaTeX/CitestylePapers,
+citestyle=authoryear-comp,
+natbib=false,
+mcite=false,
+sorting=nyt,
+sortcase=false,
+sortcites=true,
+maxbibnames=99,
+maxcitenames=2,
+maxitems=2,
+uniquename=false,
+autocite=plain,
+language=autobib,
+hyperref=true,
+urldate=long,
+dateabbrev=false,
+date=year,  % cp. https://tex.stackexchange.com/questions/55780/disable-month-in-biblatex-bibliography
+giveninits=true,
+bibencoding=utf8 % s. p. 42 ff. biblatex
+]{biblatex} % s. p. 45 ff. biblatex
+
+% \addbibresource[location=local]{../../Literatur/MODULNAME} % s. p. 71 f. biblatex; must be set in a per-file manner
+
+\renewcommand*{\nameyeardelim}{\space} % http://tex.stackexchange.com/questions/134063/how-to-add-a-comma-between-author-and-year
+\renewcommand*{\revsdnamepunct}{\space}
+\renewcommand*{\finentrypunct}{}
+\renewcommand*\finalnamedelim{%
+  \ifnumgreater{\value{liststop}}{2}{\addspace\bibstring{and}\addspace}%
+  {\addspace\biband\addspace}}% http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+\renewbibmacro*{doi+eprint+url}{%  https://tex.stackexchange.com/questions/154864/biblatex-use-doi-only-if-there-is-no-url
+\iftoggle{bbx:url} {\iffieldundef{doi}{\usebibmacro{url+urldate}}{}} {}%
+\newunit\newblock \iftoggle{bbx:eprint} {\usebibmacro{eprint}} {}%
+\newunit\newblock \iftoggle{bbx:doi} {\printfield{doi}} {}}
+
+\DeclareNameAlias{sortname}{last-first} % http://tex.stackexchange.com/questions/12806/guidelines-for-customizing-biblatex-styles/13076#13076
+
+\DeclareNosort{} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+\DeclareNoinit{
+  \noinit{\regexp{[\x{2bf}\x{2018}]}}} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+
+\newcommand{\biband}{\ifcurrentname{labelname}{\addspace \& \addspace}{\addspace \addcomma \addspace}} % http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../MasArThesis.tex"
+%%% End:
