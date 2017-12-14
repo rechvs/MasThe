@@ -7694,22 +7694,22 @@
 		     to = 100,
 		     by = 0.1)
     kSterbaGmaxFunctionString <- "1 / 10000 * pi / (16 * a0 * b0 * kh100TestData ^ (a1 + b1))"
-    kSterbaCoefs <- list("Wördehoff" = list("beech" = list("a0" = 2.616551e-07,  ## Source: Wördehoff (2016), tab. 3.6
-					         "a1" = 1.368151,
-					         "b0" = 6.496417,
-					         "b1" = -1.731867),
-				    "spruce" = list("a0" = 4.913256e-06,
-						"a1" = 0.4394706,
-						"b0" = 0.3716977,
-						"b1" = -0.9097641)),
-		     "Döbbeler" = list("beech" = list("a0" = 1.0829E-07,  ## Source: Döbbeler (2004), tab. 4.2, Region Nordwest
+    kSterbaCoefs <- list("Döbbeler" = list("beech" = list("a0" = 1.0829E-07,  ## Source: Döbbeler (2004), tab. 4.2, Region Nordwest
 					        "a1" = 1.5374,
 					        "b0" = 8.3652,
 					        "b1" = -1.7365),
 				   "spruce" = list("a0" = 1.28745E-06,
 					         "a1" = 0.7148,
 					         "b0" = 1.2842,
-					         "b1" = -1.1914)))
+					         "b1" = -1.1914)),
+		     "Wördehoff" = list("beech" = list("a0" = 2.616551e-07,  ## Source: Wördehoff (2016), tab. 3.6
+					         "a1" = 1.368151,
+					         "b0" = 6.496417,
+					         "b1" = -1.731867),
+				    "spruce" = list("a0" = 4.913256e-06,
+						"a1" = 0.4394706,
+						"b0" = 0.3716977,
+						"b1" = -0.9097641)))
     kSigmaFormula <- as.formula(object = paste0(kDependentVariableRName, " ~ 1"))
     kNuFormula <- kSigmaFormula
     kTauFormula <- kSigmaFormula
@@ -7893,7 +7893,7 @@
 					      table = SI.h100.sequence)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0("obs. YC ",
+		       paste0("Observations YC ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
@@ -8309,7 +8309,7 @@
 	         col = kLineCols[[cur.yield.class.index]])
 	  ## Update legend components.
 	  legend.legend <- c(legend.legend,
-			 paste0("yield class ", cur.yield.class.index))
+			 paste0("Yield class ", cur.yield.class.index))
 	  legend.lty <- c(legend.lty,
 		        kLineType)
 	  legend.lwd <- c(legend.lwd,
@@ -8652,7 +8652,7 @@
         box(bty = "o")
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0("yield class ",
+		       paste0("Yield class ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col,
 		    cur.species.color.palette[SI.h100.yield.class.values.color.index])
@@ -8881,7 +8881,7 @@
 					      table = SI.h100.sequence)
         ## Update legend components.
         legend.legend <- c(legend.legend,
-		       paste0("obs. YC ",
+		       paste0("Observations YC ",
 			    SI.h100.yield.class.values[index.worst.yield.class.needed : index.best.yield.class.needed, "yield.class"]))
         legend.col <- c(legend.col, cur.species.color.palette[SI.h100.yield.class.values.color.index])
         legend.pch <- c(legend.pch, rep(x = kPointCharacter, times = length(x = cur.species.color.palette[SI.h100.yield.class.values.color.index])))
