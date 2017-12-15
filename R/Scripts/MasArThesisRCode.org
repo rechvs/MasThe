@@ -520,7 +520,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.90,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -712,7 +712,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.90,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -851,7 +851,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.89,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1106,7 +1106,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.89,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1283,7 +1283,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.89,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
@@ -1577,7 +1577,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -1699,7 +1699,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -1837,7 +1837,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -1938,7 +1938,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2031,7 +2031,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2282,7 +2282,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2551,7 +2551,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2673,7 +2673,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2806,7 +2806,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.89,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -2907,7 +2907,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3000,7 +3000,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3251,7 +3251,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3520,7 +3520,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3643,7 +3643,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3775,7 +3775,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.89,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3876,7 +3876,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -3969,7 +3969,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4220,7 +4220,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4505,7 +4505,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4645,7 +4645,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4764,7 +4764,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.92,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4878,7 +4878,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -4973,7 +4973,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5228,7 +5228,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5517,7 +5517,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5657,7 +5657,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5776,7 +5776,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.89,
+         height = kPdfHeightA4Portrait * 0.905,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5890,7 +5890,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -5985,7 +5985,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6240,7 +6240,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6529,7 +6529,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6669,7 +6669,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.94,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6788,7 +6788,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.89,
+         height = kPdfHeightA4Portrait * 0.905,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6902,7 +6902,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = file.name,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.90,
+         height = kPdfHeightA4Portrait * 0.97,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -6997,7 +6997,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -7252,7 +7252,7 @@
      ## Start graphics device driver for producing PDF graphics.
      pdf(file = kFilename,
          width = kPdfWidthA4Portrait,
-         height = kPdfHeightA4Portrait * 0.85,
+         height = kPdfHeightA4Portrait * 0.89,
          pointsize = kPdfPointSize,
          family = kPdfFamily)
      ## Set plot layout.
@@ -7503,7 +7503,7 @@
     ## Start graphics device driver for producing PDF graphics.
     pdf(file = file.name,
         width = kPdfWidthA4Portrait,
-        height = kPdfHeightA4Portrait * 0.85,
+        height = kPdfHeightA4Portrait * 0.89,
         pointsize = kPdfPointSize,
         family = kPdfFamily)
     ## Set plot layout.
