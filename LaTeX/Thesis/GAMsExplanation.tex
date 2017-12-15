@@ -7,7 +7,7 @@ A simple LM assumes a metric random variable \(Y\) to linearly depend upon the m
   \label{eq:LinearModel}
   Y = X \beta + \varepsilon,
 \end{equation}
-where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\) is an independent random variable such that \(\mathbb{E}\bigl(\varepsilon_i\bigr) = 0\) and \(\mathbb{E}\bigl(\varepsilon_i^2\bigr) = \sigma^2\).  To allow testing of hypotheses related to the model described by \Cref{eq:LinearModel}, additional assumptions about the distribution of \(Y\) and \(\varepsilon\) need to be made.  Specifically, 2 assumptions are made: the residual term \(\varepsilon\) is assumed to follow normal distribution with a mean of zero and a variance of \(\sigma^2\): \(\varepsilon \sim N\bigl(0, \sigma^2\bigr)\) and the response variable \(Y\) is assumed to follow normal distribution with a mean equal to the product of independent variable \(X\) and parameter \(\beta\) and a variance of \(\sigma^2\): \(Y \sim N\bigl(X \beta, \sigma^2\bigr) \) \parencite{Wood2006,Burkschat2012}.
+where \(\beta\) is the coefficient of \(X\) to be estimated and \(\varepsilon_i\) is an independent random variable such that \(\mathbb{E}\bigl(\varepsilon_i\bigr) = 0\) and \(\mathbb{E}\bigl(\varepsilon_i^2\bigr) = \sigma^2\).  To allow testing of hypotheses related to the model described by \Cref{eq:LinearModel}, additional assumptions about the distribution of \(Y\) and \(\varepsilon\) need to be made.  Specifically, the residual term \(\varepsilon\) is assumed to follow normal distribution with a mean of zero and a variance of \(\sigma^2\): \(\varepsilon \sim N\bigl(0, \sigma^2\bigr)\), which is equivalent to assuming the response variable \(Y\) to follow normal distribution with a mean equal to the product of independent variable \(X\) and parameter \(\beta\) and a variance of \(\sigma^2\): \(Y \sim N\bigl(X \beta, \sigma^2\bigr) \) \parencite{Wood2006,Burkschat2012}.
 
 A GLM has the structure
 \begin{equation}
@@ -131,7 +131,7 @@ GCV replaces \(S_{i, i}(\uplambda)\) in \Cref{eq:CrossValidationSumOfSquares02} 
   \label{eq:GeneralizedCrossValidation}
   GCV(\uplambda) = \frac{1}{n} \sum_{i = 1}^n\Biggl(\frac{y_i - \hat{f}_\uplambda\bigl(x_i\bigr)}{1 - \tr\bigl(\symbf{S}_\uplambda\bigr) \big/ n}\Biggr)^2,
 \end{equation}
-where \(\tr(\symbf{A})\) is the trace or sum of the diagonal elements of square matrix \(\symbf{A}\) \parencite{Hastie1991}.
+where \(\tr(\symbf{A})\) is the trace, i.e., the sum of the diagonal elements of square matrix \(\symbf{A}\) \parencite{Hastie1991}.
 
 %%% Local Variables:
 %%% mode: latex
