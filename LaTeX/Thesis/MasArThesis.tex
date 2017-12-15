@@ -12,6 +12,7 @@ titlepage]
 \input{Settings/SettingsBibliography.tex}
 \input{Settings/HyphenationEnglish.tex}
 \input{Settings/HyphenationGerman.tex}
+\input{Settings/HyphenationNames.tex}
 
 %% Input settings files specific to this document.
 \input{TikZSettings.tex}
@@ -22,6 +23,7 @@ titlepage]
 \DeclareSIUnit\year{a}
 
 %% Define custom commands/math operators (in alphabetical order). Note: command names may not contain non-letters.
+\providecommand{\abs}[1]{\lvert{#1}\rvert}
 \newcommand{\BasalAreaR}{\texttt{G}}
 \newcommand{\BeechLong}[0]{European beech (\emph{Fagus sylvatica} L.)}
 \newcommand{\Beech}[0]{beech}
@@ -37,12 +39,12 @@ titlepage]
 \newcommand{\mgcvPackageVersion}{1.8.22}
 \newcommand{\NWFVA}{Northwest German Forest Research Institute}
 \newcommand{\Ponderosa}[0]{Ponderosa pine (\emph{Pinus ponderosa} \textsc{Douglas})}
-\newcommand{\ProductivityIndexMath}{PI}
+\newcommand{\ProductivityIndexMath}{\mathit{PI}}
 \newcommand{\ProductivityIndexText}{absolute productivity index of stand}
-\newcommand{\ProductivityIndexVariableMath}{PI_{\text{diff}}}
+\newcommand{\ProductivityIndexVariableMath}{\mathit{PI}_{\text{diff}}}
 \newcommand{\ProductivityIndexVariableR}{\texttt{PIV}}
 \newcommand{\ProductivityIndexVariableText}{productivity index variable}
-\newcommand{\ProductivityIndexYieldClassIMath}{PI_{\text{YC 1}}}
+\newcommand{\ProductivityIndexYieldClassIMath}{\mathit{PI}_{\text{YC 1}}}
 \newcommand{\scamPackageVersion}{1.2.2}
 \newcommand{\SeePage}[1]{(see page \pageref{#1})}
 \newcommand{\SeeSection}[1]{(see section \ref{#1})}
@@ -112,6 +114,12 @@ titlepage]
 
 \newpage{}
 \input{Bibliography.tex}
+
+\newpage{}
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+\section{Appendix}
+\input{AppendixModelStatistics.tex}
 
 \newpage{}
 \input{Erklaerung.tex}
