@@ -1,10 +1,10 @@
 \begin{singlespace}
   \begin{table}[h]
-    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM1 for \Beech{}. \\
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM1 for \Beech{}.  Statistics of smooth terms are approximations. \\
       edf: effective degrees of freedom \\
       \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
       \(\text{Pr}(x)\): probability of event \(x\) \\
-      \texttt{s(...)}: smooth function with thin plate regression splines as function basis \\
+      \texttt{s(x)}: smooth function applied to \texttt{x} with thin plate regression splines as function basis \\
       \texttt{\StandAgeVariableR{}}: stand age variable \\
       SE: standard error}
     \label{tab:StatisticsGAM1Beech}
@@ -32,14 +32,14 @@
 
 \begin{singlespace}
   \begin{table}[h]
-    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM1 for \Spruce{}. \\
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM1 for \Spruce{}.  Statistics of smooth terms are approximations. \\
       edf: effective degrees of freedom \\
       \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
       \(\text{Pr}(x)\): probability of event \(x\) \\
-      \texttt{s(...)}: smooth function with thin plate regression splines as function basis \\
+      \texttt{s(x)}: smooth function applied to \texttt{x} with thin plate regression splines as function basis \\
       \texttt{\StandAgeVariableR{}}: stand age variable \\
       SE: standard error}
-    \label{tab:StatisticsGAM1Beech}
+    \label{tab:StatisticsGAM1Spruce}
     {\tabulinesep=2mm
       \begin{tabu}{L
           S[table-format = 1.5]
@@ -64,14 +64,14 @@
 
 \begin{singlespace}
   \begin{table}[h]
-    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM2 for \Beech{}. \\
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM2 for \Beech{}.  Statistics of smooth terms are approximations. \\
       edf: effective degrees of freedom \\
       \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
       \(\text{Pr}(x)\): probability of event \(x\) \\
-      \texttt{s(...)}: smooth function with thin plate regression splines as function basis \\
+      \texttt{s(x)}: smooth function applied to \texttt{x} with thin plate regression splines as function basis \\
       \texttt{\StandAgeVariableR{}}: stand age variable \\
       SE: standard error}
-    \label{tab:StatisticsGAM1Beech}
+    \label{tab:StatisticsGAM2Beech}
     {\tabulinesep=2mm
       \begin{tabu}{L
           S[table-format = 1.6]
@@ -96,19 +96,19 @@
 
 \begin{singlespace}
   \begin{table}[h]
-    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM2 for \Spruce{}. \\
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model GAM2 for \Spruce{}.  Statistics of smooth terms are approximations. \\
       edf: effective degrees of freedom \\
       \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
       \(\text{Pr}(x)\): probability of event \(x\) \\
-      \texttt{s(...)}: smooth function with thin plate regression splines as function basis \\
+      \texttt{s(x)}: smooth function applied to \texttt{x} with thin plate regression splines as function basis \\
       \texttt{\StandAgeVariableR{}}: stand age variable \\
       SE: standard error}
-    \label{tab:StatisticsGAM1Beech}
+    \label{tab:StatisticsGAM2Spruce}
     {\tabulinesep=2mm
       \begin{tabu}{L
-          S[table-format = 1.6]
-          S[table-format = 1.6]
-          S[table-format = 3.2]
+          S[table-format = 1.5]
+          S[table-format = 1.5]
+          S[table-format = 3.3]
           S[table-format = 1.2e-2, table-comparator = true]
         }
         \toprule
@@ -126,7 +126,273 @@
   \end{table}
 \end{singlespace}
 
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model SCAM1 for \Beech{}.  Statistics of smooth terms are approximations. \\
+      edf: effective degrees of freedom \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{s(x, bs = "micv")}: smooth function applied to \texttt{x} with P-splines constrained to be increasing concave as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsSCAM1Beech}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = 1.5]
+          S[table-format = 1.5]
+          S[table-format = 2.3]
+          S[table-format = 1.2e-2]
+        }
+        \toprule
+        Parametric model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        Intercept & 2.8269 & 0.26641 & 10.611 & 2.65e-15 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.03577 & 0.01157 & 3.091 & 3.04e-3 \\
+        \\
+        Smooth model term &  & {edf} & {\(F\) value} & {\(\text{Pr}(\geq F)\)} \\
+        \midrule
+        \texttt{s(\StandAgeVariableR{}, bs = "micv")} & & 1.857 & 8.657 & 3.99e-4 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
 
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of parametric and smooth terms in model SCAM1 for \Spruce{}.  Statistics of smooth terms are approximations. \\
+      edf: effective degrees of freedom \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{s(x, bs = "micv")}: smooth function applied to \texttt{x} with P-splines constrained to be increasing concave as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsSCAM1Spruce}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = 1.6]
+          S[table-format = 1.6]
+          S[table-format = 2.3]
+          S[table-format = 1.2e-2, table-comparator = true]
+        }
+        \toprule
+        Parametric model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        Intercept & 1.066116 & 0.429109 & 2.484 & 1.47e-2 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.022874 & 0.005441 & 4.204 & 5.92e-5
+        \\
+        Smooth model term &  & {edf} & {\(F\) value} & {\(\text{Pr}(\geq F)\)} \\
+        \midrule
+        \texttt{s(\StandAgeVariableR{}, bs = "micv")} & & 3.012 & 43.12 & <2e-16 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS1 for \Beech{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{ps(x)}: smooth function applied to \texttt{x} with P-splines as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS1Beech}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = 2.6]
+          S[table-format = 1.6e-2]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 3.18399112 & 0.075858297 & 41.972879 & 8.733187e-42 \\
+        \texttt{ps(\StandAgeVariableR{})} & 0.01553977 & 0.002412037 & 6.442593 & 3.826335e-08 \\
+        \texttt{ps(\ProductivityIndexVariableR{})} & 0.02583156 & 0.005074946 & 5.090018 & 5.022636e-06 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -2.03742179 & 0.400343606 & -5.089183 & 5.037397e-06 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & 6.81971611 & 1.725801250 & 3.951623 & 2.351630e-04 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS1 for \Spruce{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{ps(x)}: smooth function applied to \texttt{x} with P-splines as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS1Spruce}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = -2.6]
+          S[table-format = 1.6e-2]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 2.96336411 & 0.074718912 & 39.660161 & 2.335117e-58 \\
+        \texttt{ps(\StandAgeVariableR{})} & 0.03720503 & 0.003084204 & 12.063092 & 2.003461e-20 \\
+        \texttt{ps(\ProductivityIndexVariableR{})} & 0.02587688 & 0.004038600 & 6.407388 & 6.852684e-09 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -1.92345892 & 0.083753138 & -22.965813 & 3.607049e-39 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & -2.34254041 & 0.794897386 & -2.946972 & 4.096469e-03 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS2 for \Beech{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{ps(x)}: smooth function applied to \texttt{x} with P-splines as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS2Beech}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = 2.6]
+          S[table-format = 1.6e-2]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 3.14190153 & 0.086433909 & 36.350335 & 3.830686e-40 \\
+        \texttt{ps(\StandAgeVariableR{})} & 0.01784155 & 0.002844072 & 6.273240 & 5.803796e-08 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.02318045 & 0.005761870 & 4.023077 & 1.769104e-04 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -1.92886231 & 0.325428360 & -5.927149 & 2.108970e-07 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & 5.32543126 & 1.348124323 & 3.950252 & 2.243708e-04 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS2 for \Spruce{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      \texttt{ps(x)}: smooth function applied to \texttt{x} with P-splines as function basis \\
+      \texttt{\StandAgeVariableR{}}: stand age variable \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS2Spruce}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = -2.6]
+          S[table-format = 1.6e-2]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 2.94992436 & 0.079987669 & 36.879739 & 6.530661e-57 \\
+        \texttt{ps(\StandAgeVariableR{})} & 0.03780157 & 0.003246622 & 11.643353 & 8.618176e-20 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.02304275 & 0.004578450 & 5.032871 & 2.386608e-06 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -1.87150855 & 0.081816573 & -22.874443 & 9.804238e-40 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & -2.03254437 & 0.673142253 & -3.019487 & 3.276757e-03 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS3 for \Beech{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS3Beech}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = 3.6]
+          S[table-format = 1.6e-2]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 3.60925073 & 0.033309288 & 108.355685 & 3.639668e-68 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.02097131 & 0.004052918 & 5.174374 & 3.031625e-06 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -1.81603770 & 0.293080207 & -6.196385 & 6.650035e-08 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & 4.27957208 & 1.175984884 & 3.639139 & 5.870832e-04 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
+
+\begin{singlespace}
+  \begin{table}[h]
+    \caption{Coefficient estimates and statistics of model terms for all distribution parameters (\(\mu, \sigma, \nu\)) in model GAMLSS3 for \Spruce{}.  Standard errors for smooth function terms apply only to the linear effect.  Standard errors for linear terms may not be accurate. \\
+      \texttt{\ProductivityIndexVariableR{}}: \ProductivityIndexVariableText{} \\
+      \(\text{Pr}(x)\): probability of event \(x\) \\
+      SE: standard error}
+    \label{tab:StatisticsGAMLSS3Spruce}
+    {\tabulinesep=2mm
+      \begin{tabu}{L
+          S[table-format = -1.8]
+          S[table-format = 1.9]
+          S[table-format = 3.6]
+          S[table-format = 1.6e-3]
+        }
+        \toprule
+        Model term & {Estimate} & {SE} & {\(t\) value} & {\(\text{Pr}(> \abs{t})\)} \\
+        \midrule
+        \multicolumn{5}{l}{{Distribution parameter \(\mu\)}} \\ \hline
+        Intercept & 3.84737943 & 0.016426776 & 234.213908 & 1.307827e-128 \\
+        \texttt{\ProductivityIndexVariableR{}} & 0.02270638 & 0.003076847 & 7.379756 & 7.137219e-11 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\sigma\)}} \\ \hline
+        Intercept & -1.90983216 & 0.083585185 & -22.848931 & 1.607009e-39 \\
+        \\
+        \multicolumn{5}{l}{{Distribution parameter \(\nu\)}} \\ \hline
+        Intercept & -2.30907594 & 0.766078634 & -3.014150 & 3.336363e-03 \\
+        \bottomrule
+      \end{tabu}
+    }
+  \end{table}
+\end{singlespace}
 
 \clearpage{}
 
