@@ -18,12 +18,12 @@ In the case of GAM1 and GAM2, the \texttt{s(\textnormal{\ldots})} formula terms 
 Models GAM1, GAM2, and SCAM1 assume a Gamma distribution.  The probability density function and cumulative distribution function of a variable following Gamma distribution are given by
 \begin{equation}
   \label{eq:GammaDistributionPDF}
-  P(X = x|k, \theta) = x^{k - 1} \frac{\exp{\left(\frac{-x}{\theta}\right)}}{\theta^k \upGamma(k)} \quad \text{for } x \geq 0, ~ k, \theta > 0
+  f_X(x|k, \theta) = x^{k - 1} \frac{\exp{\left(\frac{-x}{\theta}\right)}}{\theta^k \upGamma(k)} \quad \text{for } x \geq 0, ~ k, \theta > 0
 \end{equation}
 and
 \begin{equation}
   \label{eq:GammaDistributionCDF}
-    D(X = x|k, \theta) = 1 - \frac{\upGamma_{\text{i}}\left(k, \frac{x}{\theta}\right)}{\upGamma(k)} \quad \text{for } x \geq 0, ~ k, \theta > 0,
+    P(X \leq x|k, \theta) = 1 - \frac{\upGamma_{\text{i}}\left(k, \frac{x}{\theta}\right)}{\upGamma(k)} \quad \text{for } x \geq 0, ~ k, \theta > 0,
 \end{equation}
 respectively, where \(k\) is the shape parameter, \(\theta\) is the scale parameter, \(\upGamma\) is the complete Gamma function, and \(\upGamma_{\text{i}}\) is the incomplete Gamma function \parencite{Weisstein2017b,Dormann2013,Lindgren1976}.  The models use the natural logarithm as the link function.  \\
 Models GAMLSS1, GAMLSS2, and GAMLSS3 assume a Box-Cox-Cole-Green distribution. This distribution is the Box-Cox transformation model presented by \textcite{Cole1992} \parencite{Stasinopoulos2007}.  Based on the transformations suggested by \textcite{Box1964}, the model first transforms the dependent variable \(y\) such that
@@ -46,13 +46,13 @@ The standard deviation score of \(x\) is given by
 where \(z\) is the standard deviation score of \(x\) and \(\sigma\) is the coefficient of variation of \(y\) .  It is assumed that \(z\) follows a standard normal distribution, i.e., a normal distribution with mean 0 and variance 1. Thus, the probability density function of \(z\) is given by
 \begin{equation}
   \label{eq:StandardNormalDistributionPDF}
-  P(Z = z|0, 1) =
-  \frac{\exp{\left(-\frac{z^2}{2}\right)}}{\sqrt{2 \pi}}
+  f_Z(z) =
+  \frac{\exp{\left(-\frac{z^2}{2}\right)}}{\sqrt{2 \pi}},
 \end{equation}
 while its cumulative distribution function is given by
 \begin{equation}
   \label{eq:StandardNormalDistributionCDF}
-  D(Z = z|0, 1) =
+  P(Z \leq z) =
   \frac{\erf\left(\frac{z}{\sqrt{2}}\right) + 1}{2}
   \end{equation}
 \parencite{Henze2013,Weisstein2017c}.  Substituting \(z\) in \Cref{eq:StandardNormalDistributionPDF,eq:StandardNormalDistributionCDF} using \Cref{eq:BoxCoxColeGreenTransformation,eq:BoxCoxColeGreenSDScore} yields the probabilty density function and the cumulative distribution function of \(y\)
