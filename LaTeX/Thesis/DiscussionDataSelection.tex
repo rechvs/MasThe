@@ -37,7 +37,13 @@ Despite the apparent shortcomings of \Cref{eq:Reineke}, its general form has bee
 % \newpage{}  %% TESTING (this is meant only to prevent "misplaced \cr" errors due to the following longtable stretching across page breaks)
 \begin{singlespace}
   {\tabulinesep=2mm
-    \begin{longtabu}{L S[table-figures-decimal = 3] S[table-figures-decimal = 3] c S[table-figures-decimal = 3] S[table-figures-decimal = 3]}
+    \begin{longtabu}{L
+        S[table-format = 2.3]
+        S[table-format = -1.3]
+        c
+        S[table-format = -1.3]
+        S[table-format = -1.3]
+      }
       \caption{Observed minimum, mean, and maximum values for the slope \(s\) of \Cref{eq:Reineke} for \Beech{} and \Spruce{} before application of the data selection mechanism (columns A) and after application of the data selection mechanism (columns B).  \label{tab:ObservedReinekeSlopes}} \\
       \toprule
       & \multicolumn{2}{c}{Beech} & & \multicolumn{2}{c}{Spruce} \\
