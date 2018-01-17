@@ -1,5 +1,7 @@
 # .pdf files.
 *.pdf
+!LaTeX/Notes/MasAr_Notes.pdf
+!LaTeX/Thesis/MasArThesis.pdf
 
 # .jpg files.
 *.jpg
